@@ -14,25 +14,49 @@
 		 <button id="toggleButton">
 		 	<i class="fa-solid fa-bars"></i>
 		 </button>
+		 <img id = "headerlogo" alt="" src="../assets/images/cvhublogo.png" style="border-radius: 5px; width: 80px; height: 80px; margin-left: 36px;">
+		 <h1>VIỆC LÀM VIỆT NAM</h1>
+		 <div class="header__rightside">
+		 <button>
+		 	<i class="fa-solid fa-bell"></i>
+		 	 <div class="subnav">
+		        <a href="#">Tùy chọn 1</a>
+		        <a href="#">Tùy chọn 2</a>
+		        <a href="#">Tùy chọn 3</a>
+    	  	 </div>
+		 </button>
+		 <button>
+		 	<i class="fa-regular fa-user"></i>
+		 	  <div class="subnav">
+		        <a href="#">Tùy chọn 1</a>
+		        <a href="#">Tùy chọn 2</a>
+		        <a href="#">Tùy chọn 3</a>
+    	  	  </div>	
+		 </button>
+		 </div>
 	</div>
 	<div class = "mainbody">
 		<div class="main_content__slider" id="sidebar">
 			<nav class="nav flex-column">
 			<div class = "customcontainer">
-				       <a class="nav-link" href="#"><i class="fas fa-home"></i></a>
-		        
+				 <a class="nav-link" href="#"><i class="fas fa-home"></i></a>
+		         <h2><a href="#" style="text-decoration: none;">HOME</a></h2>
 			</div>
 			<div class = "customcontainer">
 				 <a class="nav-link" href="#"><i class="fas fa-cog"></i></a>
+				 <h2><a href="#" style="text-decoration: none;">SETTING</a></h2>
 			</div>
 			<div class = "customcontainer">
 				 <a class="nav-link" href="#"><i class="fas fa-user"></i></a>
+				 <h2><a href="#" style="text-decoration: none;">USER</a></h2>
 			</div>
 			<div class = "customcontainer">
 				<a class="nav-link" href="#"><i class="fas fa-envelope"></i></a>
+				<h2><a href="#" style="text-decoration: none;">CONTACT</a></h2>
 			</div>
 			<div class = "customcontainer">
 				<a class="nav-link" href="#"><i class="fas fa-phone"></i></a>	
+				<h2><a href="#" style="text-decoration: none;">PHONE</a></h2>
 			</div>
 		</nav>
 		</div>
@@ -41,7 +65,11 @@
 			<div class="mb16 banner main_content__detail__bannersection">
 				<!-- <h1>Chào mừng đến với công ty của chúng tôi!</h1> -->
 				<img class="logo" src = "../assets/images/logo.jpg" alt="logo">
-				<h1>Công ty trách nhiệm hữu hạn Tấn Đạt</h1>
+				<div>
+					<h1>Công ty trách nhiệm hữu hạn Tấn Đạt</h1>
+					<h3>Dành tất cả cơ hội cho bạn</h3>
+				</div>
+				
 			</div>
 			<section class="mtb24 info-section">
 		        <div class="container">
@@ -167,7 +195,9 @@
             var sidebar = document.getElementById("sidebar");
             sidebar.classList.toggle("expanded");
             var togglebtn = document.getElementById("toggleButton");
+            var headerlogo = document.getElementById("headerlogo");
             togglebtn.classList.toggle("expanded");
+           /*  headerlogo.classList.toggle("expanded"); */
            /*  this.textContent = this.classList.contains("expanded") ? "<<" : ">>"; // Thay đổi văn bản */
         });
     </script>

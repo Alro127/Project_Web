@@ -35,17 +35,71 @@
     z-index: 100;
     margin: 0 4px 0px 0;
 }
-.header > img
+.header #headerlogo
 {
-	width: 100px;
-	height: 100px;
-	margin: 0 16px;
+	transition: margin-left 0.3s ease;
+}
+.header #headerlogo.expanded
+{
+	margin-left: 216px !important;
 }
 .header > h1
 {
-    text-align: justify;
-    line-height: 92px;
+	text-align: justify;
+    line-height: 72px;
     color: var(--second-color);
+    MARGIN-LEFT: 16px;
+}
+.header__rightside
+{
+	align-self: center;
+	margin-left: auto;
+	margin-right: 16px;
+}
+.header__rightside > button
+{
+	 all: unset; /* Xóa tất cả các style mặc định */
+	 position: relative;
+}
+.header__rightside > button:hover
+{
+	 background-color: rgba(255, 255, 255, 0.8); /* Thay đổi màu nền với độ mờ */
+	 border-radius: 5px;
+}
+.subnav {
+    display: none; /* Ẩn subnav theo mặc định */
+    position: absolute; /* Để định vị subnav */
+    top: 100%; /* Đặt subnav ngay dưới header */
+    right: 0; /* Đặt subnav ở bên phải của header */
+    background-color: #ccc; /* Màu nền cho subnav */
+    z-index: 101; /* Đảm bảo subnav ở trên cùng */
+    
+}
+.header__rightside > button:hover .subnav {
+	opacity: 1 !important;
+    display: block; /* Hiển thị subnav khi hover vào header */
+    width: 200px;
+    border-radius: 5px;
+}
+
+.subnav a {
+	font-weight: bold;
+    display: block; /* Hiển thị các tùy chọn trên dòng mới */
+    padding: 8px 12px; /* Thêm khoảng cách cho các liên kết */
+    color: var(--second-color); /* Màu chữ */
+    text-decoration: none; /* Không gạch chân */
+}
+
+.subnav a:hover {
+    background-color: #fff; /* Hiệu ứng hover cho các tùy chọn */
+    color: #000;
+    border-radius: 5px;
+}
+
+.header__rightside  i
+{
+	font-size: 40px;
+	margin: 16px;
 }
 .mainbody
 {
@@ -71,12 +125,58 @@
 	height: 20%;
 	top: 20%;
 	display: flex;
-	justify-content: center;
+    justify-content: left;
+    margin-left: 8px;
 	transition: width 0.3s ease; /* Hiệu ứng chuyển động cho chiều rộng */
     overflow: hidden; /* Ẩn nội dung bên ngoài */
 }
+.main_content__slider .customcontainer h2 {
+    opacity: 0;
+    max-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    /*margin-left: 10px;*/
+    transition: opacity 0.3s ease, max-width 0.3s ease;
+  
+}
+.main_content__slider .customcontainer h2 a
+{
+	  color: var(--second-color);
+}
+.main_content__slider.expanded .customcontainer:hover a,
+.main_content__slider.expanded .customcontainer:hover h2 a
+{
+	color: #0a58ca ;
+}
+.main_content__slider.expanded .customcontainer h2 {
+    opacity: 1;
+    max-width: 200px; /* Giới hạn chiều rộng tối đa cho chữ */
+}
 .main_content__slider.expanded {
-    width: 300px; /* Chiều rộng khi ẩn */
+    width:270px; /* Chiều rộng khi ẩn */
+}
+.main_content__slider.expanded .customcontainer h2 {
+    display: inline-block;
+}
+.customcontainer {
+    display: flex;
+    align-items: center;
+    max-height: 42.4px;
+}
+.customcontainer .nav-link
+{
+	margin-left: -4px;
+	max-width: 60px;
+	max-height: inherit;
+	color: var(--second-color);
+}
+.customcontainer h2
+{
+	color: var(--second-color);
+}
+.customcontainer .nav-link i {
+    font-size: 1.5em;
+    margin-right: 4px; /* Khoảng cách giữa icon và text */
 }
 #toggleButton {
     padding: 0%;
@@ -87,11 +187,13 @@
     border: none;
     outline: none;
     margin-left: 26px;
+    transition: margin-left 0.3s ease;
+    color: var(--second-color);
 }
-#toggleButton.expanded
+/*#toggleButton.expanded
 {
-	 margin-left: 16px;
-}
+	 margin-left: 200px;
+}*/
 .nav-link
 {
 	padding: 0;
@@ -127,13 +229,14 @@
     display: flex;
    /* justify-content: center;*/
 }
-.main_content__detail__bannersection > h1
+.main_content__detail__bannersection > div
 {
 	align-self: flex-end;
     font-weight: bold;
     color: var(--third-color);
-    padding-bottom: 48px;
+    padding-bottom: 24px;
     margin-left: 16px;
+    text-shadow: 2px 2px #000;
 }
 .main_content__detail .main_content__detail__bannersection .logo
 {
