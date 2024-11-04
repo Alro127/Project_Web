@@ -1,0 +1,117 @@
+ .custom-header {
+            background-color: #3D405B; /* Màu nền */
+            color: white; /* Màu chữ */
+            padding: 15px; /* Đệm */
+        }
+ .maxWidth100px
+{
+	 max-height: 100px;
+     max-width: 100px;
+}
+ body {
+     overflow-x: hidden; /* Ngăn chặn cuộn ngang */
+ }
+ .sidebar {
+     height: 100vh; /* Chiều cao 100% viewport */
+     width: 250px; /* Chiều rộng sidebar */
+     background-color: #343a40; /* Màu nền của sidebar */
+     position: fixed; /* Ghi chú sidebar ở vị trí cố định */
+     transition: width 0.3s; /* Hiệu ứng chuyển động khi mở/đóng */
+     padding-top: 20px; /* Đệm trên cho sidebar */
+ }
+ .sidebar.collapsed {
+     width: 60px; /* Chiều rộng khi bị thu gọn */
+ }
+ .sidebar .nav-link {
+     color: white; /* Màu chữ của các liên kết */
+     text-align: center; /* Canh giữa chữ */
+ }
+ .toggle-btn {
+     background-color: #007bff; /* Màu nền của nút */
+     border: none; /* Bỏ đường viền */
+     border-radius: 50%; /* Tạo hình tròn cho nút */
+     color: white; /* Màu chữ */
+     padding: 10px; /* Đệm cho nút */
+     position: absolute; /* Đặt vị trí tương đối */
+     left: 50%; /* Đặt vào giữa */
+     top: 50%; /* Đặt vào giữa */
+     transform: translate(-50%, -50%); /* Căn giữa chính xác */
+     z-index: 1000; /* Đảm bảo nút ở trên cùng */
+ }
+ .main-content {
+     margin-left: 250px; /* Giữ khoảng cách với sidebar */
+     transition: margin-left 0.3s; /* Hiệu ứng chuyển động khi mở/đóng */
+ }
+ .main-content.collapsed {
+     margin-left: 60px; /* Giữ khoảng cách khi sidebar bị thu gọn */
+ }
+ .banner {
+     height: 300px; /* Chiều cao của banner */
+     background: url('https://www.comfortzone.com/-/media/project/oneweb/comfortzone/images/blog/why-is-my-cat-meowing.jpg?h=667&iar=0&w=1000&hash=13068B4EC6D0E44AE8AFB22CF44F5443') no-repeat center center; /* Hình nền banner */
+     background-size: cover; /* Đảm bảo hình nền bao phủ toàn bộ banner */
+     display: flex; /* Sử dụng flexbox để căn giữa nội dung */
+     align-items: center; /* Căn giữa theo chiều dọc */
+     justify-content: center; /* Căn giữa theo chiều ngang */
+     color: white; /* Màu chữ */
+     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Đổ bóng cho chữ */
+ }
+ .info-section {
+     padding: 40px 20px; /* Đệm cho section */
+     background-color: #f8f9fa; /* Màu nền cho section */
+ }
+ .details-section {
+     padding: 40px 20px; /* Đệm cho section chi tiết */
+     background-color: #e9ecef; /* Màu nền cho section chi tiết */
+ }
+ .image-section {
+     padding: 40px 20px; /* Đệm cho section hình ảnh */
+     background-color: #f8f9fa; /* Màu nền cho section hình ảnh */
+ }
+ .image-frame {
+     display: flex; /* Sử dụng flexbox để sắp xếp hình ảnh */
+     gap: 15px; /* Khoảng cách giữa các hình ảnh */
+ }
+ .image-frame img {
+     width: 150px; /* Chiều rộng cố định cho hình ảnh */
+     height: auto; /* Tự động điều chỉnh chiều cao */
+     border: 2px solid #007bff; /* Khung cho hình ảnh */
+     border-radius: 5px; /* Bo góc cho hình ảnh */
+ }
+ .job-cards {
+	    display: flex; /* Sử dụng flexbox để sắp xếp thẻ công việc */
+	    overflow-x: auto; /* Cho phép cuộn ngang */
+	    gap: 15px; /* Khoảng cách giữa các thẻ */
+	    padding-bottom: 10px; /* Đệm dưới cùng */
+	}
+
+	.job-card {
+	    flex: 0 0 30%; /* Mỗi thẻ chiếm 30% chiều rộng */
+	    border: 1px solid #007bff; /* Đường viền cho thẻ */
+	    border-radius: 5px; /* Bo góc cho thẻ */
+	    padding: 20px; /* Đệm cho thẻ */
+	    background-color: white; /* Màu nền cho thẻ */
+	    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Đổ bóng cho thẻ */
+	}
+	.footer {
+	    background-color: #007bff; /* Màu nền cho footer */
+	    color: white; /* Màu chữ */
+	    padding: 20px 0; /* Đệm trên và dưới */
+	}
+
+	.footer a {
+	    color: white; /* Màu chữ cho các liên kết */
+	    text-decoration: none; /* Không gạch chân liên kết */
+	}
+
+	.footer a:hover {
+	    text-decoration: underline; /* Gạch chân khi hover */
+	}
+
+	.social-media {
+	    margin-top: 10px; /* Đệm trên cho các biểu tượng mạng xã hội */
+	}
+
+	.social-media a {
+	    color: white; /* Màu biểu tượng */
+	    font-size: 24px; /* Kích thước biểu tượng */
+	}

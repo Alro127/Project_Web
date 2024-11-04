@@ -1,0 +1,208 @@
+@charset "UTF-8";
+:root {
+	  --first-color: #3d405b;     /* Màu nhiều */
+	  --second-color: #ff8160;   /* Màu vừa */
+	  --third-color: #f4f1de;  /* Màu ít */
+	  --background-color: #f0f0f0;        /* Màu nền */
+}
+.bgprimary
+{
+	background-color: var(--background-color) !important;
+}
+.mtb24
+{
+	margin-bottom: 24px;
+	margin-top: 24px;
+}
+.wi
+{
+	width: inherit;
+}
+.mb16
+{
+	margin-bottom: 16px;
+}
+.header
+{
+	background-color: var(--first-color);
+    width: 100%;
+    height: fit-content;
+    padding: 8px 0px;
+    display: flex;
+    flex-direction: row;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    margin: 0 4px 0px 0;
+}
+.header > img
+{
+	width: 100px;
+	height: 100px;
+	margin: 0 16px;
+}
+.header > h1
+{
+    text-align: justify;
+    line-height: 92px;
+    color: var(--second-color);
+}
+.mainbody
+{
+	display: flex;
+	flex-direction: row;
+	background-color: var(--first-color)
+}
+.main_content
+{
+	width: 100%;
+	height: fit-content;
+	background-color: var(--background-color);
+	display: flex;
+	flex-direction: row;
+	position: relative;
+}
+.main_content__slider
+{
+	background-color: var(--first-color);
+	width: 72px;
+	z-index: 100;
+	position: sticky;
+	height: 20%;
+	top: 20%;
+	display: flex;
+	justify-content: center;
+	transition: width 0.3s ease; /* Hiệu ứng chuyển động cho chiều rộng */
+    overflow: hidden; /* Ẩn nội dung bên ngoài */
+}
+.main_content__slider.expanded {
+    width: 300px; /* Chiều rộng khi ẩn */
+}
+#toggleButton {
+    padding: 0%;
+    cursor: pointer;
+    background-color: inherit;
+    text-decoration: none;
+    color: var(--third-color);
+    border: none;
+    outline: none;
+    margin-left: 26px;
+}
+#toggleButton.expanded
+{
+	 margin-left: 16px;
+}
+.nav-link
+{
+	padding: 0;
+}
+.main_content__detail
+{
+	height: inherit;
+    width: inherit;
+    margin-top: 16px;
+    display: flex;
+    width: 100%;
+    float: right;
+    align-items: center;
+    flex-direction: column;
+}
+.stickypadding
+{
+	height: initial;
+	background-color: black;
+	width: 4%;
+	position: absolute;
+}
+.main_content__detail__bannersection
+{
+    background-image: url(../images/meonhadat.jpg) !important;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 300px;
+    border-radius: 5px;
+    margin: 8px 16px 24px 24px;
+    display: flex;
+   /* justify-content: center;*/
+}
+.main_content__detail__bannersection > h1
+{
+	align-self: flex-end;
+    font-weight: bold;
+    color: var(--third-color);
+    padding-bottom: 48px;
+    margin-left: 16px;
+}
+.main_content__detail .main_content__detail__bannersection .logo
+{
+    height: 150px;
+    width: 150px;
+    position: relative;
+    bottom: 0;
+    align-self: flex-end;
+    margin-bottom: 8px;
+    margin-left: 8px;
+    border-radius: 5px;
+}
+.job-cards
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    border: 1px black solid;
+    padding: 16px;
+    flex-wrap: wrap;
+    max-height: 300px;
+    overflow-y: scroll;
+}
+
+.job-card
+{
+	width: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 8px 4px;
+    border: 1px solid navy;
+    padding: 4px;
+}
+.image-section {
+    padding: 40px 20px; /* Đệm cho section hình ảnh */
+    background-color: #f8f9fa; /* Màu nền cho section hình ảnh */
+}
+.image-frame {
+    display: flex; /* Sử dụng flexbox để sắp xếp hình ảnh */
+    gap: 15px; /* Khoảng cách giữa các hình ảnh */
+}
+.image-frame img {
+    width: 150px; /* Chiều rộng cố định cho hình ảnh */
+    height: auto; /* Tự động điều chỉnh chiều cao */
+    border: 2px solid #007bff; /* Khung cho hình ảnh */
+    border-radius: 5px; /* Bo góc cho hình ảnh */
+}
+.footer {
+    background-color: var(--first-color); /* Màu nền cho footer */
+    color: white; /* Màu chữ */
+    padding: 20px 0; /* Đệm trên và dưới */
+}
+
+.footer a {
+    color: white; /* Màu chữ cho các liên kết */
+    text-decoration: none; /* Không gạch chân liên kết */
+}
+
+.footer a:hover {
+    text-decoration: underline; /* Gạch chân khi hover */
+}
+
+.social-media {
+    margin-top: 10px; /* Đệm trên cho các biểu tượng mạng xã hội */
+}
+
+.social-media a {
+    color: white; /* Màu biểu tượng */
+    font-size: 24px; /* Kích thước biểu tượng */
+}
