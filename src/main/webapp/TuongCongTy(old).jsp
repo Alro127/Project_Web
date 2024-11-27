@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Tường công ty</title>
-<link rel = "stylesheet" href = "../assets/css/TuongCongTy.css">
+<link rel = "stylesheet" href = "assets/css/TuongCongTy.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
@@ -14,7 +14,7 @@
 		 <button id="toggleButton">
 		 	<i class="fa-solid fa-bars"></i>
 		 </button>
-		 <img id = "headerlogo" alt="" src="../assets/images/cvhublogo.png" style="border-radius: 5px; width: 80px; height: 80px; margin-left: 36px;">
+		 <img id = "headerlogo" alt="" src="assets/images/cvhublogo.png" style="border-radius: 5px; width: 80px; height: 80px; margin-left: 36px;">
 		 <h1>VIỆC LÀM VIỆT NAM</h1>
 		 <div class="header__rightside">
 		 <button>
