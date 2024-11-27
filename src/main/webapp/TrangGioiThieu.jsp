@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Giới Thiệu</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -17,6 +17,20 @@
 	crossorigin="anonymous"></script>
 </head>
 <body>
+	<!-- Header Navigation -->
 	<jsp:include page="fragments/topNav.jsp" />
+	
+	<!-- Section tìm kiếm -->
+	<div class="bg-white rounded p-3 shadow-sm mt-4 mb-4 mx-5"
+		style="background-color: rgba(255, 255, 255, 0.5);">
+		<jsp:include page="fragments/frg_TimKiemVaLoc.jsp" />
+		<jsp:include page="fragments/frg_DeXuat.jsp" />
+	</div>
+	
+	<!-- Section các tin tuyển dụng -->
+	<jsp:include page="fragments/frg_CongViec.jsp"/>
+	
+	<!-- Footer -->
+	<jsp:include page="fragments/footer.jsp"/>
 </body>
 </html>

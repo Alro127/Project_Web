@@ -1,4 +1,3 @@
-
 /* Màu #3d405b (Dark Blue) */
 .bg-dark-blue {
 	background-color: #3d405b !important;
@@ -68,3 +67,8 @@
   background-color: #f4f1de !important;
   color: #3d405b !important;
 }
+
+.bg-light-grey {
+  background-color: #f0f0f0 !important;
+}
+
