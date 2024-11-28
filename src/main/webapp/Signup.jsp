@@ -96,6 +96,7 @@ h2 {
 .form-footer a:hover {
 	text-decoration: underline;
 }
+
 .error-message {
 	color: red;
 	margin-bottom: 15px;
@@ -111,7 +112,7 @@ h2 {
 			String errorMessage = (String) request.getAttribute("errorMessage");
 			if (errorMessage != null) {
 		%>
-			<div class="error-message"><%= errorMessage %></div>
+		<div class="error-message"><%= errorMessage %></div>
 		<% } %>
 		<form action="SignupServlet" method="POST">
 			<div class="form-group">
