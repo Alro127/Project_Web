@@ -8,7 +8,6 @@
     <welcome-file>default.html</welcome-file>
     <welcome-file>default.jsp</welcome-file>
     <welcome-file>default.htm</welcome-file>
-    <welcome-file>Login.jsp</welcome-file>
   </welcome-file-list>
   <servlet>
     <description></description>
@@ -29,5 +28,35 @@
   <servlet-mapping>
     <servlet-name>SignupServlet</servlet-name>
     <url-pattern>/SignupServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>LoginGoogleServlet</display-name>
+    <servlet-name>LoginGoogleServlet</servlet-name>
+    <servlet-class>servlets.LoginGoogleServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LoginGoogleServlet</servlet-name>
+    <url-pattern>/LoginGoogleServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>FacebookLoginServlet</display-name>
+    <servlet-name>FacebookLoginServlet</servlet-name>
+    <servlet-class>servlets.FacebookLoginServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FacebookLoginServlet</servlet-name>
+    <url-pattern>/facebook_login</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>GoogleCalendarEventsServlet</display-name>
+    <servlet-name>GoogleCalendarEventsServlet</servlet-name>
+    <servlet-class>servlets.GoogleCalendarEventsServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GoogleCalendarEventsServlet</servlet-name>
+    <url-pattern>/GoogleCalendarEventsServlet</url-pattern>
   </servlet-mapping>
 </web-app>

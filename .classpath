@@ -8,10 +8,6 @@
 	<classpathentry kind="src" path="src/main/java"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry kind="lib" path="D:/Project/Project_Web/src/main/webapp/WEB-INF/lib/servlet-api.jar">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
+	<classpathentry kind="lib" path="D:/jPackages/jar/Jarkata-servlet/jakarta.servlet-api-6.1.0.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

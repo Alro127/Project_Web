@@ -1,28 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-	<div class="container-fluid bg-dark-blue py-3">
-		<div class="d-flex justify-content-between align-items-center">
-			<!-- Logo và Tiêu đề -->
-			<div class="d-flex align-items-center">
-				<h1 class="m-0 text-light">Logo</h1>
-				<h2 class="m-0 text-coral ms-3">Cơ hội việc làm</h2>
-			</div>
-			<!-- Navigation -->
-			<nav>
-				<a href="#candidates"
-					class="btn bg-coral text-light me-2 hover-coral">Ứng
-					viên</a> <a href="#employers"
-					class="btn btn-outline-coral bg-dark-blue text-light hover-coral">Nhà tuyển
-					dụng</a>
-			</nav>
+<nav class="navbar navbar-expand-lg navbar-light bg-dark-blue">
+	<div class="container">
+		<div class="d-flex align-items-center">
+			<h1 class="m-0 text-light">Logo</h1>
+			<h2 class="m-0 text-coral ms-3">Cơ hội việc làm</h2>
+		</div>
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+			data-bs-target="#navbarNav">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div>
+			<a href="#candidates"
+				class="btn bg-coral text-light me-2 hover-coral">Ứng viên</a> <a
+				href="#employers"
+				class="btn btn-outline-coral bg-dark-blue text-light hover-coral">Nhà
+				tuyển dụng</a>
 		</div>
 	</div>
-</body>
-</html>
+</nav>
