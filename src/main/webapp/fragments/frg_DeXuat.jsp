@@ -4,7 +4,7 @@
 <div class="container mt-4">
 	<div class="row">
 		<!-- Công nghệ thông tin -->
-		<div class="col-md-2 mb-4">
+		<div class="col-4 col-md-2 mb-4">
 			<div class="card text-center">
 				<video class="card-img-top img-fluid py-2 px-5" preload="none"
 					autoplay="autoplay" loop="true" muted="muted" playsinline="">
@@ -19,7 +19,7 @@
 			</div>
 		</div>
 		<!-- Kiến trúc -->
-		<div class="col-md-2 mb-4">
+		<div class="col-4 col-md-2 mb-4">
 			<div class="card text-center">
 				<video class="card-img-top img-fluid py-2 px-5" preload="none"
 					autoplay="autoplay" loop="true" muted="muted" playsinline="">
@@ -34,7 +34,7 @@
 			</div>
 		</div>
 		<!-- Logistics -->
-		<div class="col-md-2 mb-4">
+		<div class="col-4 col-md-2 mb-4">
 			<div class="card text-center">
 				<video class="card-img-top img-fluid py-2 px-5" preload="none"
 					autoplay="autoplay" loop="true" muted="muted" playsinline="">
@@ -49,7 +49,7 @@
 			</div>
 		</div>
 		<!-- Kỹ thuật -->
-		<div class="col-md-2 mb-4">
+		<div class="col-4 col-md-2 mb-4">
 			<div class="card text-center">
 				<video class="card-img-top img-fluid py-2 px-5" preload="none"
 					autoplay="autoplay" loop="true" muted="muted" playsinline="">
@@ -64,7 +64,7 @@
 			</div>
 		</div>
 		<!-- Tài chính -->
-		<div class="col-md-2 mb-4">
+		<div class="col-4 col-md-2 mb-4">
 			<div class="card text-center">
 				<video class="card-img-top img-fluid py-2 px-5" preload="none"
 					autoplay="autoplay" loop="true" muted="muted" playsinline="">
@@ -79,7 +79,7 @@
 			</div>
 		</div>
 		<!-- Marketing -->
-		<div class="col-md-2 mb-4">
+		<div class="col-4 col-md-2 mb-4">
 			<div class="card text-center">
 				<video class="card-img-top img-fluid py-2 px-5" preload="none"
 					style="background: transparent url('https://cdn-icons-png.flaticon.com/512/16046/16046406.png') 50% 50%/fit no-repeat;"

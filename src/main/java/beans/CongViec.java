@@ -9,8 +9,7 @@ public class CongViec {
     private String ten; 
     private String diaDiem; 
     private double luong; 
-    private int namKinhNghiemToiThieu; 
-    private int namKinhNghiemToiDa; 
+    private int namKinhNghiem; 
     private String linhVuc; 
     private Timestamp thoiGianDang; 
     private Timestamp thoiGianHetHan; 
@@ -49,18 +48,13 @@ public class CongViec {
 	public void setLuong(double luong) {
 		this.luong = luong;
 	}
-	public int getNamKinhNghiemToiThieu() {
-		return namKinhNghiemToiThieu;
+	public int getNamKinhNghiem() {
+		return namKinhNghiem;
 	}
-	public void setNamKinhNghiemToiThieu(int namKinhNghiemToiThieu) {
-		this.namKinhNghiemToiThieu = namKinhNghiemToiThieu;
+	public void setNamKinhNghiem(int namKinhNghiem) {
+		this.namKinhNghiem= namKinhNghiem;
 	}
-	public int getNamKinhNghiemToiDa() {
-		return namKinhNghiemToiDa;
-	}
-	public void setNamKinhNghiemToiDa(int namKinhNghiemToiDa) {
-		this.namKinhNghiemToiDa = namKinhNghiemToiDa;
-	}
+
 	public String getLinhVuc() {
 		return linhVuc;
 	}
@@ -109,8 +103,7 @@ public class CongViec {
 	public void setLuotNop(int luotNop) {
 		this.luotNop = luotNop;
 	}
-	public CongViec(int idCongViec, String idCT, String ten, String diaDiem, double luong, int namKinhNghiemToiThieu,
-			int namKinhNghiemToiDa, String linhVuc, Timestamp thoiGianDang, Timestamp thoiGianHetHan, String moTa, String yeuCau,
+	public CongViec(int idCongViec, String idCT, String ten, String diaDiem, double luong, int namKinhNghiem, String linhVuc, Timestamp thoiGianDang, Timestamp thoiGianHetHan, String moTa, String yeuCau,
 			String quyenLoi, int luotXem, int luotNop) {
 		super();
 		this.idCongViec = idCongViec;
@@ -118,8 +111,7 @@ public class CongViec {
 		this.ten = ten;
 		this.diaDiem = diaDiem;
 		this.luong = luong;
-		this.namKinhNghiemToiThieu = namKinhNghiemToiThieu;
-		this.namKinhNghiemToiDa = namKinhNghiemToiDa;
+		this.namKinhNghiem = namKinhNghiem;
 		this.linhVuc = linhVuc;
 		this.thoiGianDang = thoiGianDang;
 		this.thoiGianHetHan = thoiGianHetHan;

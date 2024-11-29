@@ -31,8 +31,7 @@ public class CongViecDAO {
 			    congViec.setTen(rs.getString("Ten"));
 			    congViec.setDiaDiem(rs.getString("DiaDiem"));
 			    congViec.setLuong(rs.getDouble("Luong"));
-			    congViec.setNamKinhNghiemToiThieu(rs.getInt("NamKinhNghiemToiThieu"));
-			    congViec.setNamKinhNghiemToiDa(rs.getInt("NamKinhNghiemToiDa"));
+			    congViec.setNamKinhNghiem(rs.getInt("NamKinhNghiem"));
 			    congViec.setLinhVuc(rs.getString("LinhVuc"));
 			    congViec.setThoiGianDang(rs.getTimestamp("ThoiGianDang"));
 			    congViec.setThoiGianHetHan(rs.getTimestamp("ThoiGianHetHan"));
@@ -51,6 +50,34 @@ public class CongViecDAO {
 			e.printStackTrace();
 		}
 		return congViecs;
+	}
+	public static boolean AddCongViecMoi(CongViec congViec) throws SQLException, ClassNotFoundException
+	{
+		String sql = "INSERT INTO CongViec (IdCT, Ten, DiaDiem, Luong, NamKinhNghiem, LinhVuc, ThoiGianHetHan, MoTa, YeuCau, QuyenLoi) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		boolean rs = false;
+		try 
+		{
+			Connection conn = DBConnection.getConnection();
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setString(1, congViec.getIdCT());
+            statement.setString(2, congViec.getTen()); 
+            statement.setString(3, congViec.getDiaDiem());  
+            statement.setDouble(4, congViec.getLuong());  
+            statement.setInt(5, congViec.getNamKinhNghiem());  
+            statement.setString(6, congViec.getLinhVuc());  
+            statement.setTimestamp(7, congViec.getThoiGianHetHan());  
+            statement.setString(8, congViec.getMoTa());  
+            statement.setString(9, congViec.getYeuCau());  
+            statement.setString(10, congViec.getQuyenLoi()); 
+            
+            rs = statement.executeUpdate() > 0;
+            
+		}
+		catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+		return rs;
 	}
 
 }
