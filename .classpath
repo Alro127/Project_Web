@@ -9,5 +9,9 @@
 	<classpathentry exported="true" kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="lib" path="D:/jPackages/jar/Jarkata-servlet/jakarta.servlet-api-6.1.0.jar"/>
+	<classpathentry kind="lib" path="D:/jPackages/jar/GoogleLogin/kotlin-stdlib-2.0.0.jar"/>
+	<classpathentry kind="lib" path="D:/jPackages/jar/GoogleLogin/okio-3.9.0.jar"/>
+	<classpathentry kind="lib" path="D:/jPackages/jar/GoogleLogin/okio-jvm-3.9.0.jar"/>
+	<classpathentry kind="lib" path="D:/jPackages/jar/GoogleLogin/gson-2.8.8.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

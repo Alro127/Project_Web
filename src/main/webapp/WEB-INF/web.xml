@@ -59,4 +59,14 @@
     <servlet-name>GoogleCalendarEventsServlet</servlet-name>
     <url-pattern>/GoogleCalendarEventsServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ChatGPTServlet</display-name>
+    <servlet-name>ChatGPTServlet</servlet-name>
+    <servlet-class>servlets.ChatGPTServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ChatGPTServlet</servlet-name>
+    <url-pattern>/ChatGPTServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
