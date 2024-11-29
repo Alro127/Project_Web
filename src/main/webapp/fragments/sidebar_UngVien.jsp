@@ -6,7 +6,7 @@
 .sidebar {
 	height: 100vh;
 	width: 250px;
-	position: relative;
+	position: fixed;
 	transition: all 0.3s;
 }
 
@@ -31,7 +31,7 @@
 	border: none;
 }
 </style>
-<div id="sidebar" class="sidebar d-flex flex-column bg-dark-blue ">
+<div id="sidebar" class="sidebar d-flex flex-column bg-dark-blue shadow collapsed">
 	<button id="toggleSidebar" class="mt-3 mb-3 btn bg-dark-blue ">
 		<i class="bi bi-list text-light fs-3"><span class="ms-2">CVHub</span></i>
 	</button>

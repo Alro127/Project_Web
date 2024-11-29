@@ -19,7 +19,7 @@
 		<!-- Sidebar -->
 		<jsp:include page="fragments/sidebar_CongTy.jsp" />
 		<!-- Main content -->
-		<div class="flex-grow-1 p-3">
+		<div class=" container mt-5">
 			<h1>Main Content</h1>
 			<p>This is the main content area.</p>
 		</div>

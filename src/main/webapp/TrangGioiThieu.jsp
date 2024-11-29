@@ -32,9 +32,6 @@
 		<jsp:include page="fragments/frg_CongViec.jsp" />
 
 	</div>
-	<!-- Section tìm kiếm -->
-
-
 	<!-- Footer -->
 	<jsp:include page="fragments/footer.jsp" />
 </body>
