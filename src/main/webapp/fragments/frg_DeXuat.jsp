@@ -4,90 +4,93 @@
 <div class="container mt-4">
 	<div class="row">
 		<!-- Công nghệ thông tin -->
-		<div class="col-md-3 mb-4">
+		<div class="col-md-2 mb-4">
 			<div class="card text-center">
-				<img src="https://cdn.pixabay.com/photo/2020/05/18/16/17/social-media-5187243_1280.png" class="card-img-top img-fluid"
-					alt="Công nghệ thông tin" />
+				<video class="card-img-top img-fluid py-2 px-5" preload="none"
+					autoplay="autoplay" loop="true" muted="muted" playsinline="">
+					<source
+						src="https://cdn-icons-mp4.flaticon.com/512/13470/13470976.mp4"
+						type="video/mp4">
+				</video>
 				<div class="card-body">
-					<h5 class="card-title">Công nghệ thông tin</h5>
+					<h6 class="card-title">Công nghệ thông tin</h6>
 					<p class="card-text">Công việc: 120</p>
 				</div>
 			</div>
 		</div>
 		<!-- Kiến trúc -->
-		<div class="col-md-3 mb-4">
+		<div class="col-md-2 mb-4">
 			<div class="card text-center">
-				<img src="logo-design.png" class="card-img-top img-fluid"
-					alt="Kiến trúc" />
+				<video class="card-img-top img-fluid py-2 px-5" preload="none"
+					autoplay="autoplay" loop="true" muted="muted" playsinline="">
+					<source
+						src="https://cdn-icons-mp4.flaticon.com/512/13470/13470919.mp4"
+						type="video/mp4">
+				</video>
 				<div class="card-body">
-					<h5 class="card-title">Kiến trúc</h5>
+					<h6 class="card-title">Kiến trúc</h6>
 					<p class="card-text">Công việc: 80</p>
 				</div>
 			</div>
 		</div>
 		<!-- Logistics -->
-		<div class="col-md-3 mb-4">
+		<div class="col-md-2 mb-4">
 			<div class="card text-center">
-				<img src="logo-manager.png" class="card-img-top img-fluid"
-					alt="Logistics" />
+				<video class="card-img-top img-fluid py-2 px-5" preload="none"
+					autoplay="autoplay" loop="true" muted="muted" playsinline="">
+					<source
+						src="https://cdn-icons-mp4.flaticon.com/512/13471/13471023.mp4"
+						type="video/mp4">
+				</video>
 				<div class="card-body">
-					<h5 class="card-title">Logistics</h5>
+					<h6 class="card-title">Logistics</h6>
 					<p class="card-text">Công việc: 50</p>
 				</div>
 			</div>
 		</div>
-		<!-- Marketing -->
-		<div class="col-md-3 mb-4">
-			<div class="card text-center">
-				<img src="logo-marketing.png" class="card-img-top img-fluid"
-					alt="Marketing" />
-				<div class="card-body">
-					<h5 class="card-title">Marketing</h5>
-					<p class="card-text">Công việc: 30</p>
-				</div>
-			</div>
-		</div>
 		<!-- Kỹ thuật -->
-		<div class="col-md-3 mb-4">
+		<div class="col-md-2 mb-4">
 			<div class="card text-center">
-				<img src="logo-tech.png" class="card-img-top img-fluid"
-					alt="Kỹ thuật" />
+				<video class="card-img-top img-fluid py-2 px-5" preload="none"
+					autoplay="autoplay" loop="true" muted="muted" playsinline="">
+					<source
+						src="https://cdn-icons-mp4.flaticon.com/512/13470/13470972.mp4"
+						type="video/mp4">
+				</video>
 				<div class="card-body">
-					<h5 class="card-title">Kỹ thuật</h5>
+					<h6 class="card-title">Kỹ thuật</h6>
 					<p class="card-text">Công việc: 75</p>
 				</div>
 			</div>
 		</div>
 		<!-- Tài chính -->
-		<div class="col-md-3 mb-4">
+		<div class="col-md-2 mb-4">
 			<div class="card text-center">
-				<img src="logo-finance.png" class="card-img-top img-fluid"
-					alt="Tài chính" />
+				<video class="card-img-top img-fluid py-2 px-5" preload="none"
+					autoplay="autoplay" loop="true" muted="muted" playsinline="">
+					<source
+						src="https://cdn-icons-mp4.flaticon.com/512/13471/13471004.mp4"
+						type="video/mp4">
+				</video>
 				<div class="card-body">
-					<h5 class="card-title">Tài chính</h5>
+					<h6 class="card-title">Tài chính</h6>
 					<p class="card-text">Công việc: 65</p>
 				</div>
 			</div>
 		</div>
-		<!-- Giáo dục -->
-		<div class="col-md-3 mb-4">
+		<!-- Marketing -->
+		<div class="col-md-2 mb-4">
 			<div class="card text-center">
-				<img src="logo-education.png" class="card-img-top img-fluid"
-					alt="Giáo dục" />
+				<video class="card-img-top img-fluid py-2 px-5" preload="none"
+					style="background: transparent url('https://cdn-icons-png.flaticon.com/512/16046/16046406.png') 50% 50%/fit no-repeat;"
+					autoplay="autoplay" loop="true" muted="muted" playsinline="">
+					<source
+						src="https://cdn-icons-mp4.flaticon.com/512/16046/16046406.mp4"
+						type="video/mp4">
+				</video>
 				<div class="card-body">
-					<h5 class="card-title">Giáo dục</h5>
-					<p class="card-text">Công việc: 40</p>
-				</div>
-			</div>
-		</div>
-		<!-- Y tế -->
-		<div class="col-md-3 mb-4">
-			<div class="card text-center">
-				<img src="logo-healthcare.png" class="card-img-top img-fluid"
-					alt="Y tế" />
-				<div class="card-body">
-					<h5 class="card-title">Y tế</h5>
-					<p class="card-text">Công việc: 55</p>
+					<h6 class="card-title">Khác</h6>
+					<p class="card-text">...</p>
 				</div>
 			</div>
 		</div>

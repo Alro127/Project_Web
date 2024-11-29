@@ -16,19 +16,24 @@
 	integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
 	crossorigin="anonymous"></script>
 </head>
-<body class = "bg-light-grey">
+<body class="bg-light-grey">
 	<!-- Header Navigation -->
 	<jsp:include page="fragments/topNav.jsp" />
+	<!-- Main -->
+	<div class="container">
+		<jsp:include page="fragments/frg_Banner.jsp" />
+		<div class="bg-white rounded p-3 shadow-sm mt-4 mb-4"
+			style="background-color: rgba(255, 255, 255, 0.5);">
+			<jsp:include page="fragments/frg_TimKiemVaLoc.jsp" />
+			<jsp:include page="fragments/frg_DeXuat.jsp" />
+		</div>
 
-	<!-- Section tìm kiếm -->
-	<div class="bg-white rounded p-3 shadow-sm mt-4 mb-4 mx-5"
-		style="background-color: rgba(255, 255, 255, 0.5);">
-		<jsp:include page="fragments/frg_TimKiemVaLoc.jsp" />
-		<jsp:include page="fragments/frg_DeXuat.jsp" />
+		<!-- Section các tin tuyển dụng -->
+		<jsp:include page="fragments/frg_CongViec.jsp" />
+
 	</div>
+	<!-- Section tìm kiếm -->
 
-	<!-- Section các tin tuyển dụng -->
-	<jsp:include page="fragments/frg_CongViec.jsp" />
 
 	<!-- Footer -->
 	<jsp:include page="fragments/footer.jsp" />
