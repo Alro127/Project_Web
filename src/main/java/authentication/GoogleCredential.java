@@ -57,16 +57,6 @@ public class GoogleCredential {
         // Tạo AuthorizationCodeInstalledApp và yêu cầu cấp quyền lại
         AuthorizationCodeInstalledApp authorizationCodeInstalledApp = new AuthorizationCodeInstalledApp(flow, receiver);
 
-		/*
-		 * // Yêu cầu cấp quyền lại bằng cách thêm tham số 'prompt=consent' String
-		 * authorizationUrl = flow.newAuthorizationUrl()
-		 * .setRedirectUri(receiver.getRedirectUri()) .set("prompt", "consent") // Buộc
-		 * người dùng cấp quyền lại .build();
-		 * 
-		 * // In URL xác thực để người dùng có thể mở trong trình duyệt và cấp quyền
-		 * System.out.println("Mở URL sau để cấp quyền: " + authorizationUrl);
-		 */
-
         // Sau khi người dùng cấp quyền, nhận mã xác thực
         return authorizationCodeInstalledApp.authorize("user");
     }
