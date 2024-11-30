@@ -23,14 +23,6 @@ public class GoogleCalendarEventsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String APPLICATION_NAME = "Google Calendar API Java Quickstart";
     private static final JacksonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
-	/* private static final String TOKENS_DIRECTORY_PATH = "tokens"; */
-
-	/*
-	 * private static final List<String> SCOPES =
-	 * Collections.singletonList(CalendarScopes.CALENDAR_READONLY); private static
-	 * final String CREDENTIALS_FILE_PATH = "credential/credentials.json";
-	 */
-
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -39,26 +31,6 @@ public class GoogleCalendarEventsServlet extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-	/*
-	 * private Credential getCredentials() throws IOException,
-	 * GeneralSecurityException { InputStream in =
-	 * getServletContext().getResourceAsStream(
-	 * "/WEB-INF/classes/credential/credentials.json");
-	 * 
-	 * GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY,
-	 * new InputStreamReader(in));
-	 * 
-	 * GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
-	 * GoogleNetHttpTransport.newTrustedTransport(), JSON_FACTORY, clientSecrets,
-	 * SCOPES) .setDataStoreFactory(new
-	 * com.google.api.client.util.store.FileDataStoreFactory(new
-	 * java.io.File(TOKENS_DIRECTORY_PATH))) .setAccessType("offline") .build();
-	 * 
-	 * LocalServerReceiver receiver = new
-	 * LocalServerReceiver.Builder().setPort(8888).build(); return new
-	 * AuthorizationCodeInstalledApp(flow, receiver).authorize("user"); }
-	 */
- 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();

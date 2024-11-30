@@ -181,7 +181,7 @@
 	<dependency>
 	    <groupId>com.google.http-client</groupId>
 	    <artifactId>google-http-client-gson</artifactId>
-	    <version>1.41.5</version> <!-- S? d?ng phiên b?n m?i nh?t n?u có -->
+	    <version>1.41.5</version>
 	</dependency>
 	
   </dependencies>
