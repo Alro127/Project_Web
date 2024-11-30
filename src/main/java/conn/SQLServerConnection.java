@@ -9,7 +9,7 @@ public class SQLServerConnection {
     public static Connection initializeConnection() throws SQLException {
         String dbDriver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
         String dbURL = "jdbc:sqlserver://localhost:1433";
-        String dbName = "QLSV";
+        String dbName = "CVHub";
         String dbUsername = "sa";
         String dbPassword = "1";
 

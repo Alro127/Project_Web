@@ -50,7 +50,6 @@
 
 	<!-- Main Content -->
 	<div class="container mt-4">
-
 		<section class="container mb-5">
 			<div class="row position-relative" id="company-info">
 				<!-- Phần tên công ty và logo -->

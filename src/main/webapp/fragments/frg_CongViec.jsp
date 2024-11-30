@@ -1,25 +1,36 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<div class="bg-white rounded p-3 shadow-sm mt-4 mb-4 mx-5">
-	<div class="row">
-		<div class="col-md-4 mb-4">
-			<div class="card">
-				<!-- Icon yêu thích -->
-				<div class="position-absolute top-0 end-0 m-2">
-					<i class="fas fa-heart text-danger"></i>
-				</div>
-				<!-- Ảnh công ty -->
-				<img src="anh.jpg" class="card-img-top img-fluid" alt="Marketing">
-				<!-- Nội dung thẻ -->
-				<div class="card-body">
-					<h5 class="card-title">Tên công việc</h5>
-					<p class="card-text">
-						<strong>Công ty:</strong> Tên công ty <br> <strong>Lương:</strong>
-						10,000,000 VND <br> <strong>Địa điểm:</strong> Hà Nội
-					</p>
-				</div>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<c:choose>
+    <c:when test="${not empty congViecs}">
+        <div class="container">
+            <div class="row">
+				<h4 class="col-12 mb-4">Công việc đang tuyển</h4>
+				<c:forEach var="congViec" items="${congViecs}">
+					<div class="col-12 col-md-4 mb-4 py-0">
+						<div class="d-flex py-3 px-3 bg-light shadow rounded">
+							<img
+								src="https://ibrand.vn/wp-content/uploads/2024/07/mbbank-logo-5.png"
+								class="card-img-top img-fluid" alt="Công việc"
+								style="width: 100px; height: 100px; object-fit: cover;">
+							<div class="card-body ms-3">
+								<h5 class="card-title">${congViec.ten}</h5>
+								<p class="card-text">
+									<strong>Công ty:</strong> ${congViec.idCT} <br> <strong>Lương:</strong>
+									${congViec.luong} VND <br> <strong>Địa điểm:</strong>
+									${congViec.diaDiem}
+								</p>
+							</div>
+						</div>
+					</div>
+				</c:forEach>
 			</div>
-		</div>
-	</div>
-</div>
+        </div>
+    </c:when>
+    <c:otherwise>
+        <p>Không có công việc nào để hiển thị.</p>
+    </c:otherwise>
+</c:choose>
+
+

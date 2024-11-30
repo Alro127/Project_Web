@@ -1,12 +1,91 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
+
+  <!-- Group ID, Artifact ID, and Version -->
   <groupId>Project_Web</groupId>
   <artifactId>Project_Web</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
-  
-  
+
+  <!-- Dependencies -->
   <dependencies>
+    <!-- Jakarta Servlet API Dependency -->
+    <dependency>
+      <groupId>jakarta.servlet</groupId>
+      <artifactId>jakarta.servlet-api</artifactId>
+      <version>5.0.0</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <!-- Jakarta JSP JSTL API -->
+    <dependency>
+      <groupId>jakarta.servlet.jsp.jstl</groupId>
+      <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
+      <version>3.0.2</version>
+    </dependency>
+    
+    <!-- Jakarta Servlet JSTL -->
+    <dependency>
+      <groupId>org.glassfish.web</groupId>
+      <artifactId>jakarta.servlet.jsp.jstl</artifactId>
+      <version>3.0.1</version>
+    </dependency>
+
+    <!-- Hibernate Core -->
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-core</artifactId>
+      <version>6.6.2.Final</version>
+    </dependency>
+
+    <!-- MySQL Connector -->
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>8.0.33</version>
+    </dependency>
+
+    <!-- SQL Server JDBC -->
+    <dependency>
+      <groupId>com.microsoft.sqlserver</groupId>
+      <artifactId>mssql-jdbc</artifactId>
+      <version>12.8.1.jre11</version>
+    </dependency>
+
+    <!-- Jakarta XML Bind API -->
+    <dependency>
+      <groupId>jakarta.xml.bind</groupId>
+      <artifactId>jakarta.xml.bind-api</artifactId>
+      <version>4.0.2</version>
+    </dependency>
+
+    <!-- Jakarta Activation API -->
+    <dependency>
+      <groupId>jakarta.activation</groupId>
+      <artifactId>jakarta.activation-api</artifactId>
+      <version>2.1.3</version>
+    </dependency>
+
+    <!-- JAXB API -->
+    <dependency>
+      <groupId>javax.xml.bind</groupId>
+      <artifactId>jaxb-api</artifactId>
+      <version>2.3.1</version>
+    </dependency>
+
+    <!-- Activation for JAXB -->
+    <dependency>
+      <groupId>javax.activation</groupId>
+      <artifactId>activation</artifactId>
+      <version>1.1.1</version>
+    </dependency>
+
+    <!-- GlassFish JAXB Runtime -->
+    <dependency>
+      <groupId>org.glassfish.jaxb</groupId>
+      <artifactId>jaxb-runtime</artifactId>
+      <version>4.0.2</version>
+    </dependency>
 	  <!-- Google API Client -->
     <dependency>
         <groupId>com.google.api-client</groupId>
@@ -97,23 +176,20 @@
 	    <version>1.34.1</version>
 	 </dependency>
 	 
-	 <dependency>
-	    <groupId>jakarta.servlet</groupId>
-	    <artifactId>jakarta.servlet-api</artifactId>
-	    <version>6.1.0</version> <!-- Hoặc phiên bản phù hợp với Tomcat -->
-	    <scope>provided</scope>
-	</dependency>
+	 
 	
 	<dependency>
 	    <groupId>com.google.http-client</groupId>
 	    <artifactId>google-http-client-gson</artifactId>
-	    <version>1.41.5</version> <!-- Sử dụng phiên bản mới nhất nếu có -->
+	    <version>1.41.5</version> <!-- S? d?ng phi�n b?n m?i nh?t n?u c� -->
 	</dependency>
-
+	
   </dependencies>
 
+  <!-- Build Plugins -->
   <build>
     <plugins>
+      <!-- Maven Compiler Plugin -->
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.8.1</version>
@@ -121,6 +197,8 @@
           <release>11</release>
         </configuration>
       </plugin>
+
+      <!-- Maven WAR Plugin -->
       <plugin>
         <artifactId>maven-war-plugin</artifactId>
         <version>3.2.3</version>
