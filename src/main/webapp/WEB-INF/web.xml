@@ -69,4 +69,24 @@
     <servlet-name>ChatGPTServlet</servlet-name>
     <url-pattern>/ChatGPTServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>GetGoogleCredentialServlet</display-name>
+    <servlet-name>GetGoogleCredentialServlet</servlet-name>
+    <servlet-class>servlets.GetGoogleCredentialServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetGoogleCredentialServlet</servlet-name>
+    <url-pattern>/GetGoogleCredentialServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>GoogleAddEventServlet</display-name>
+    <servlet-name>GoogleAddEventServlet</servlet-name>
+    <servlet-class>servlets.GoogleAddEventServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GoogleAddEventServlet</servlet-name>
+    <url-pattern>/GoogleAddEventServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

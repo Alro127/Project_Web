@@ -1,166 +1,90 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
- <meta charset="UTF-8">
-    <meta http-equiv="Cross-Origin-Opener-Policy" content="same-origin">
-    <meta http-equiv="Cross-Origin-Embedder-Policy" content="require-corp">
-<title>Insert title here</title>
-	 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.2.0/fullcalendar.min.css" rel="stylesheet" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.2.0/fullcalendar.min.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Calendar Events</title>
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
+    <link rel="icon" href="data:,">
+    
 </head>
 <body>
-    <p>Google Calendar API Quickstart</p>
-	<div id="calendar"></div>
-    <!--Add buttons to initiate auth sequence and sign out-->
-    <button id="authorize_button" onclick="handleAuthClick()">Authorize</button>
-    <button id="signout_button" onclick="handleSignoutClick()">Sign Out</button>
 
-    <pre id="content" style="white-space: pre-wrap;"></pre>
+<h1>Google Calendar Events</h1>
+<div id="addEventModal" style="display:none;z-index: 1000; position: relative; top: 0">
+    <h3>Add New Event</h3>
+    <form id="addEventForm" action="GoogleAddEventServlet" method="post" onsubmit="convertDateTime()">
+	    <label for="eventTitle">Event Title:</label>
+	    <input type="text" id="eventTitle" name="eventTitle" required>
+	    
+	    <label for="eventStart">Start Time:</label>
+	    <input type="datetime-local" id="eventStart" name="eventStart" required>
+	    
+	    <label for="eventEnd">End Time:</label>
+	    <input type="datetime-local" id="eventEnd" name="eventEnd" required>
+	    
+	    <button type="submit">Add Event</button>
+	</form>
+</div>
+<button id="addEventBtn">Add Event</button>
+<button id="deleteEventBtn">Delete Event</button>
+<div id="calendar"></div>
 
-    <script type="text/javascript">
-      /* exported gapiLoaded */
-      /* exported gisLoaded */
-      /* exported handleAuthClick */
-      /* exported handleSignoutClick */
 
-      // TODO(developer): Set to client ID and API key from the Developer Console
-      const CLIENT_ID = '503615320731-kcpnsnsjmng7vusmcm110s6m35c7d0iv.apps.googleusercontent.com';
-      const API_KEY = 'AIzaSyBsx0_krE6AxNKGnEOvNIjTSs39TDW_0Tk';
 
-      // Discovery doc URL for APIs used by the quickstart
-      const DISCOVERY_DOC = 'https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest';
 
-      // Authorization scopes required by the API; multiple scopes can be
-      // included, separated by spaces.
-      const SCOPES = 'https://www.googleapis.com/auth/calendar.readonly';
-
-      let tokenClient;
-      let gapiInited = false;
-      let gisInited = false;
-
-      document.getElementById('authorize_button').style.visibility = 'hidden';
-      document.getElementById('signout_button').style.visibility = 'hidden';
-
-      /**
-       * Callback after api.js is loaded.
-       */
-      function gapiLoaded() {
-        gapi.load('client', initializeGapiClient);
-      }
-
-      /**
-       * Callback after the API client is loaded. Loads the
-       * discovery doc to initialize the API.
-       */
-      async function initializeGapiClient() {
-        await gapi.client.init({
-          apiKey: API_KEY,
-          discoveryDocs: [DISCOVERY_DOC],
-        });
-        gapiInited = true;
-        maybeEnableButtons();
-      }
-
-      /**
-       * Callback after Google Identity Services are loaded.
-       */
-      function gisLoaded() {
-        tokenClient = google.accounts.oauth2.initTokenClient({
-          client_id: CLIENT_ID,
-          scope: SCOPES,
-          callback: '', // defined later
-        });
-        gisInited = true;
-        maybeEnableButtons();
-      }
-
-      /**
-       * Enables user interaction after all libraries are loaded.
-       */
-      function maybeEnableButtons() {
-        if (gapiInited && gisInited) {
-          document.getElementById('authorize_button').style.visibility = 'visible';
-        }
-      }
-
-      /**
-       *  Sign in the user upon button click.
-       */
-      function handleAuthClick() {
-        tokenClient.callback = async (resp) => {
-          if (resp.error !== undefined) {
-            throw (resp);
-          }
-          document.getElementById('signout_button').style.visibility = 'visible';
-          document.getElementById('authorize_button').innerText = 'Refresh';
-          await listUpcomingEvents();
-        };
-
-        if (gapi.client.getToken() === null) {
-          // Prompt the user to select a Google Account and ask for consent to share their data
-          // when establishing a new session.
-          tokenClient.requestAccessToken({prompt: 'consent'});
-        } else {
-          // Skip display of account chooser and consent dialog for an existing session.
-          tokenClient.requestAccessToken({prompt: ''});
-        }
-      }
-
-      /**
-       *  Sign out the user upon button click.
-       */
-      function handleSignoutClick() {
-        const token = gapi.client.getToken();
-        if (token !== null) {
-          google.accounts.oauth2.revoke(token.access_token);
-          gapi.client.setToken('');
-          document.getElementById('content').innerText = '';
-          document.getElementById('authorize_button').innerText = 'Authorize';
-          document.getElementById('signout_button').style.visibility = 'hidden';
-        }
-      }
-
-      /**
-       * Print the summary and start datetime/date of the next ten events in
-       * the authorized user's calendar. If no events are found an
-       * appropriate message is printed.
-       */
-      async function listUpcomingEvents() {
-        let response;
-        try {
-          const request = {
-            'calendarId': 'primary',
-            'timeMin': (new Date()).toISOString(),
-            'showDeleted': false,
-            'singleEvents': true,
-            'maxResults': 10,
-            'orderBy': 'startTime',
-          };
-          response = await gapi.client.calendar.events.list(request);
-        } catch (err) {
-          document.getElementById('content').innerText = err.message;
-          return;
-        }
-
-        const events = response.result.items;
-        if (!events || events.length == 0) {
-          document.getElementById('content').innerText = 'No events found.';
-          return;
-        }
-        // Flatten to string to display
-        const output = events.reduce(
-            (str, event) => `${str}${event.summary} (${event.start.dateTime || event.start.date})\n`,
-            'Events:\n');
-        document.getElementById('content').innerText = output;
-      }
-    </script>
-    <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
-    <script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
     
-  </body>
+    // Chuyển các sự kiện từ Servlet sang dạng JSON để FullCalendar có thể hiểu
+    var events = ${events};
+    console.log(events);
+	
+    // Chuyển đổi các sự kiện từ Java (List<Event>) thành JSON cho FullCalendar
+    var eventData = events.map(function(event) {
+	    return {
+	        title: event.summary || "No Title",  // Đặt giá trị mặc định nếu không có summary
+	        start: event.start ? (event.start.dateTime || event.start.date) : null, // Kiểm tra start
+	        end: event.end ? (event.end.dateTime || event.end.date) : null // Kiểm tra end
+	    };
+	});
+
+    console.log(eventData);
+
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+    	timeZone: 'UTC',
+        initialView: 'dayGridMonth',
+        events: eventData,
+        eventOverlap: true,
+        eventDidMount: function(info) {
+            console.log(`Rendered Event: ${info.event.title} from ${info.event.start} to ${info.event.end}`);
+        }
+    });
+
+    calendar.render();
+    
+ 	// Thêm sự kiện mới
+    document.getElementById('addEventBtn').addEventListener('click', function() {
+        document.getElementById('addEventModal').style.display = 'block';
+    });
+    
+    function convertDateTime() {
+        // Lấy giá trị từ input datetime-local
+        var startTime = document.getElementById("eventStart").value;
+        var endTime = document.getElementById("eventEnd").value;
+
+        startTime = startTime + ":00";  // Đảm bảo có giây
+        endTime = endTime + ":00";      // Đảm bảo có giây
+
+        document.getElementById("eventStart").value = startTime;
+        document.getElementById("eventEnd").value = endTime;
+    }
+});
+</script>
+
+</body>
 </html>

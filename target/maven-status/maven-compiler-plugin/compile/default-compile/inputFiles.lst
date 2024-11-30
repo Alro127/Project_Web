@@ -1,12 +1,14 @@
 D:\Projects\Project_Web\Project_Web\src\main\java\conn\DBConnection.java
 D:\Projects\Project_Web\Project_Web\src\main\java\authentication\GoogleLogin.java
+D:\Projects\Project_Web\Project_Web\src\main\java\authentication\GoogleCredential.java
+D:\Projects\Project_Web\Project_Web\src\main\java\servlets\FacebookLoginServlet.java
+D:\Projects\Project_Web\Project_Web\src\main\java\servlets\LoginGoogleServlet.java
+D:\Projects\Project_Web\Project_Web\src\main\java\beans\TaiKhoan.java
 D:\Projects\Project_Web\Project_Web\src\main\java\servlets\ChatGPTServlet.java
 D:\Projects\Project_Web\Project_Web\src\main\java\conn\SQLServerConnection.java
 D:\Projects\Project_Web\Project_Web\src\main\java\servlets\SignupServlet.java
+D:\Projects\Project_Web\Project_Web\src\main\java\servlets\GoogleAddEventServlet.java
 D:\Projects\Project_Web\Project_Web\src\main\java\servlets\GoogleCalendarEventsServlet.java
 D:\Projects\Project_Web\Project_Web\src\main\java\beans\CongViec.java
 D:\Projects\Project_Web\Project_Web\src\main\java\dao\CongViecDAO.java
-D:\Projects\Project_Web\Project_Web\src\main\java\servlets\FacebookLoginServlet.java
 D:\Projects\Project_Web\Project_Web\src\main\java\servlets\LoginServlet.java
-D:\Projects\Project_Web\Project_Web\src\main\java\servlets\LoginGoogleServlet.java
-D:\Projects\Project_Web\Project_Web\src\main\java\beans\TaiKhoan.java

@@ -1,19 +1,14 @@
 package servlets;
 
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-
 import java.io.IOException;
 import java.util.List;
-
-import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
+import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
-import com.google.api.client.util.DateTime;
 import com.google.api.services.calendar.Calendar;
 import com.google.api.services.calendar.model.Events;
 import com.google.api.services.calendar.model.Event;
@@ -26,7 +21,16 @@ import com.google.api.services.calendar.model.Event;
  */
 public class GoogleCalendarEventsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	private static final String APPLICATION_NAME = "Google Calendar API Java Quickstart";
+    private static final JacksonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
+	/* private static final String TOKENS_DIRECTORY_PATH = "tokens"; */
+
+	/*
+	 * private static final List<String> SCOPES =
+	 * Collections.singletonList(CalendarScopes.CALENDAR_READONLY); private static
+	 * final String CREDENTIALS_FILE_PATH = "credential/credentials.json";
+	 */
+
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -35,53 +39,55 @@ public class GoogleCalendarEventsServlet extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	/*
+	 * private Credential getCredentials() throws IOException,
+	 * GeneralSecurityException { InputStream in =
+	 * getServletContext().getResourceAsStream(
+	 * "/WEB-INF/classes/credential/credentials.json");
+	 * 
+	 * GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY,
+	 * new InputStreamReader(in));
+	 * 
+	 * GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
+	 * GoogleNetHttpTransport.newTrustedTransport(), JSON_FACTORY, clientSecrets,
+	 * SCOPES) .setDataStoreFactory(new
+	 * com.google.api.client.util.store.FileDataStoreFactory(new
+	 * java.io.File(TOKENS_DIRECTORY_PATH))) .setAccessType("offline") .build();
+	 * 
+	 * LocalServerReceiver receiver = new
+	 * LocalServerReceiver.Builder().setPort(8888).build(); return new
+	 * AuthorizationCodeInstalledApp(flow, receiver).authorize("user"); }
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// Xác thực và lấy token từ session
-        HttpSession session = request.getSession();
-        String accessToken = (String) session.getAttribute("access_token");
-
-        if (accessToken == null) {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
-            return;
-        }
-
+ 
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            // Tạo dịch vụ Google Calendar
-            GoogleCredential credential = new GoogleCredential().setAccessToken(accessToken);
-            Calendar service = new Calendar.Builder(
-                    GoogleNetHttpTransport.newTrustedTransport(),
-                    JacksonFactory.getDefaultInstance(),
-                    credential)
-                    .setApplicationName("Google Calendar Java Quickstart")
+            final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+            authentication.GoogleCredential googleCredential = new authentication.GoogleCredential(getServletContext());
+            
+            Calendar service = new Calendar.Builder(HTTP_TRANSPORT, JSON_FACTORY, googleCredential.getCredentials())
+                    .setApplicationName(APPLICATION_NAME)
                     .build();
 
-            // Lấy danh sách sự kiện trong tháng
+            
+            // Fetch events
             Events events = service.events().list("primary")
-                    .setTimeMin(new DateTime(System.currentTimeMillis()))
-                    .setMaxResults(10)
+					/* .setMaxResults(10) */
                     .setOrderBy("startTime")
                     .setSingleEvents(true)
                     .execute();
 
-            // Hiển thị các sự kiện
             List<Event> items = events.getItems();
-            for (Event event : items) {
-                System.out.println(event.getSummary());
-            }
-
-            // Đưa sự kiện vào request hoặc session để hiển thị trên trang
-            request.setAttribute("events", items);
-            request.getRequestDispatcher("/showCalendar.jsp").forward(request, response);
-
+            
+            // Truyền danh sách sự kiện vào request
+            req.setAttribute("events", items);
+            
+            // Chuyển tiếp tới trang showCalendar.jsp
+            req.getRequestDispatcher("CalendarTest.jsp").forward(req, resp);
         } catch (Exception e) {
-            e.printStackTrace();
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error fetching calendar events.");
+            throw new ServletException(e);
         }
-	}
-
+    }
+    
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
