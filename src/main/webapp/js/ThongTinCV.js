@@ -184,39 +184,41 @@ function addExperienceItem() {
     newItem.classList.add("experience-item", "border", "rounded", "p-3", "mb-2");
 
     newItem.innerHTML = `
-        <div class="row mb-2">
-            <div class="col-md-6">
-                <label class="form-label">Bắt đầu</label>
-                <input type="date" name="experienceStart[]" class="form-control">
-            </div>
-            <div class="col-md-6">
-                <label class="form-label">Kết thúc</label>
-                <div class="d-flex align-items-center">
-                    <input type="date" name="experienceEnd[]" class="form-control me-2 experience-end-date">
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input experience-current-checkbox" onchange="toggleExperienceEndDate(this)">
-                        <label class="form-check-label">Hiện tại</label>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row mb-2">
-            <div class="col-md-6">
-                <label class="form-label">Tên công ty</label>
-                <input type="text" name="experienceCompany[]" class="form-control" placeholder="Tên công ty">
-            </div>
-            <div class="col-md-6">
-                <label class="form-label">Vị trí công việc</label>
-                <input type="text" name="experiencePosition[]" class="form-control" placeholder="Vị trí công việc">
-            </div>
-        </div>
-        <div class="mb-2">
-            <label class="form-label">Mô tả kinh nghiệm làm việc</label>
-            <textarea name="experienceDescription[]" class="form-control" rows="2" placeholder="Nhập mô tả..."></textarea>
-        </div>
-        <button type="button" class="btn btn-outline-danger btn-sm" onclick="removeExperienceItem(this)">
-            <i class="bi bi-x-circle"></i> Xóa
-        </button>
+	    <div class="row mb-2">
+	    	<div class="col-md-6">
+	            <label class="form-label">Bắt đầu</label>
+	            <input type="date" name="experienceStart[]" class="form-control">
+	        </div>
+	        <div class="col-md-5">
+	            <label class="form-label">Kết thúc</label>
+	            <input type="date" name="experienceEnd[]" class="form-control me-2 experience-end-date">
+	        </div>
+			<div class="col-md-1 d-flex flex-column justify-content-end px-0">
+				<div class="form-check d-flex justify-content-center align-items-center mb-3">
+					<input type="checkbox"
+						class="form-check-input experience-current-checkbox"
+						onchange="toggleExperienceEndDate(this)"> <label
+						class="form-check-label">Hiện tại</label>
+				</div>
+			</div>
+	    </div>
+	    <div class="row mb-2">
+	        <div class="col-md-6">
+	            <label class="form-label">Tên công ty</label>
+	            <input type="text" name="experienceCompany[]" class="form-control" placeholder="Tên công ty">
+	        </div>
+	        <div class="col-md-6">
+	            <label class="form-label">Vị trí công việc</label>
+	            <input type="text" name="experiencePosition[]" class="form-control" placeholder="Vị trí công việc">
+	        </div>
+	    </div>
+	    <div class="mb-2">
+	        <label class="form-label">Mô tả kinh nghiệm làm việc</label>
+	        <textarea name="experienceDescription[]" class="form-control" rows="2" placeholder="Nhập mô tả..."></textarea>
+	    </div>
+	    <button type="button" class="btn btn-outline-danger btn-sm" onclick="removeExperienceItem(this)">
+	        <i class="bi bi-x-circle"></i> Xóa
+	    </button>
     `;
 
     container.appendChild(newItem);

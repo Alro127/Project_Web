@@ -135,8 +135,7 @@
 		
 		                    <!-- Kinh nghiệm làm việc -->
 							<div id="experienceContainer" class="mb-4">
-							    <label class="form-label fw-bold">KINH NGHIỆM</label>
-							    
+							    <label class="form-label fw-bold">KINH NGHIỆM</label>			    
 							    <!-- Mục kinh nghiệm làm việc mặc định -->
 							    <div class="experience-item border rounded p-3 mb-2">
 							        <div class="row mb-2">
