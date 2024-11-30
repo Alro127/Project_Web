@@ -123,19 +123,19 @@ h2 {
 		</form>
 		
 		<!-- Google login -->
-			<div id="g_id_onload"
-			     data-client_id="503615320731-kcpnsnsjmng7vusmcm110s6m35c7d0iv.apps.googleusercontent.com"
-			     data-login_uri="http://localhost:8080/Project_Web/TrangChuCongTy.jsp"
-			     data-auto_prompt="false">
-			</div>
-			<div class="g_id_signin"
-			     data-type="standard"
-			     data-size="large"
-			     data-theme="outline"
-			     data-text="sign_in_with"
-			     data-shape="rectangular"
-			     data-logo_alignment="left">
-			</div>
+		<div id="g_id_onload"
+		     data-client_id="503615320731-kcpnsnsjmng7vusmcm110s6m35c7d0iv.apps.googleusercontent.com"
+		     data-auto_prompt="false"
+		     data-callback="handleCredentialResponse">
+		</div>
+		<div class="g_id_signin"
+		     data-type="standard"
+		     data-size="large"
+		     data-theme="outline"
+		     data-text="sign_in_with"
+		     data-shape="rectangular"
+		     data-logo_alignment="left">
+		</div>
 		
 		<!-- Facebook Login -->
 		<div class="fb-login-button" 
@@ -167,6 +167,29 @@ h2 {
 	        }
 	    });
 	}
+	function handleCredentialResponse(response) {
+	    const idToken = response.credential;
+	    console.log("ID Token: ", idToken);
+
+	    fetch('LoginGoogleServlet', {
+	        method: 'POST',
+	        headers: {
+	            'Content-Type': 'application/x-www-form-urlencoded'
+	        },
+	        body: "id_token=" + encodeURIComponent(response.credential),
+	    })
+	    .then(res => {
+	        console.log("Server response status: ", res.status);
+	        if (res.ok) {
+	            console.log("Successfully logged in.");
+	            window.location.href = "TrangGioiThieu.jsp";
+	        } else {
+	            console.error("Login failed.");
+	        }
+	    })
+	    .catch(error => console.error('Error:', error));
+	}
+
 
 	</script>
 </body>
