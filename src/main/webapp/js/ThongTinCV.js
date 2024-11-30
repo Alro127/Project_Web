@@ -1,3 +1,27 @@
+//Avatar
+// Kích hoạt cửa sổ chọn tệp
+function triggerAvatarUpload() {
+    document.getElementById("avatarUpload").click();
+}
+
+// Hiển thị ảnh được chọn và thay thế Avatar
+function previewAvatar(event) {
+    const file = event.target.files[0];
+
+    if (file) {
+        // Kiểm tra định dạng file (chỉ chấp nhận ảnh)
+        if (file.type.startsWith("image/")) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                document.getElementById("avatarPreview").src = e.target.result; // Thay thế Avatar
+            };
+            reader.readAsDataURL(file);
+        } else {
+            alert("Vui lòng chọn một tệp hình ảnh hợp lệ (JPEG, PNG, hoặc GIF).");
+        }
+    }
+}
+
 //Chứng chỉ
 function addCertificateRow() {
     const container = document.getElementById("certificatesContainer");
@@ -82,39 +106,44 @@ function addEducationItem() {
     newItem.classList.add("education-item", "border", "rounded", "p-3", "mb-2");
 
     newItem.innerHTML = `
-        <div class="row mb-2">
-            <div class="col-md-6">
-                <label class="form-label">Bắt đầu</label>
-                <input type="date" name="educationStart[]" class="form-control">
-            </div>
-            <div class="col-md-6">
-                <label class="form-label">Kết thúc</label>
-                <div class="d-flex align-items-center">
-                    <input type="date" name="educationEnd[]" class="form-control me-2 education-end-date">
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input education-current-checkbox" onchange="toggleEndDate(this)">
-                        <label class="form-check-label" for="educationCurrent">Hiện tại</label>
-                    </div>
-                </div>
-            </div>
+	<!-- Một mục học vấn đầu tiên -->
+        <div class="education-item border rounded p-3 mb-2">
+        	<div class="col-md-6">
+	                <label class="form-label">Bắt đầu</label>
+	                <input type="date" name="educationStart[]" class="form-control">
+	            </div>
+	            <div class="col-md-5">
+	                <label class="form-label">Kết thúc</label>
+	                <input type="date" name="educationEnd[]" class="form-control me-2 education-end-date">
+	            </div>
+				<div class="col-md-1 d-flex flex-column justify-content-end px-0">
+					<div class="form-check d-flex justify-content-center align-items-center mb-3">
+						<input type="checkbox"
+							class="form-check-input education-current-checkbox"
+							onchange="toggleEndDate(this)"> <label
+							class="form-check-label" for="educationCurrent">Hiện
+							tại</label>
+					</div>
+				</div>
+			</div>
+	        <div class="row mb-2">
+	            <div class="col-md-6">
+	                <label class="form-label">Tên trường học</label>
+	                <input type="text" name="educationSchool[]" class="form-control" placeholder="Tên trường học">
+	            </div>
+	            <div class="col-md-6">
+	                <label class="form-label">Ngành học / Môn học</label>
+	                <input type="text" name="educationMajor[]" class="form-control" placeholder="Ngành học / Môn học">
+	            </div>
+	        </div>
+	        <div class="mb-2">
+	            <label class="form-label">Mô tả quá trình học tập hoặc thành tích của bạn</label>
+	            <textarea name="educationDescription[]" class="form-control" rows="2" placeholder="Nhập mô tả..."></textarea>
+	        </div>
+	        <button type="button" class="btn btn-outline-danger btn-sm" onclick="removeEducationItem(this)">
+	            <i class="bi bi-x-circle"></i> Xóa
+	        </button>
         </div>
-        <div class="row mb-2">
-            <div class="col-md-6">
-                <label class="form-label">Tên trường học</label>
-                <input type="text" name="educationSchool[]" class="form-control" placeholder="Tên trường học">
-            </div>
-            <div class="col-md-6">
-                <label class="form-label">Ngành học / Môn học</label>
-                <input type="text" name="educationMajor[]" class="form-control" placeholder="Ngành học / Môn học">
-            </div>
-        </div>
-        <div class="mb-2">
-            <label class="form-label">Mô tả quá trình học tập hoặc thành tích của bạn</label>
-            <textarea name="educationDescription[]" class="form-control" rows="2" placeholder="Nhập mô tả..."></textarea>
-        </div>
-        <button type="button" class="btn btn-outline-danger btn-sm" onclick="removeEducationItem(this)">
-            <i class="bi bi-x-circle"></i> Xóa
-        </button>
     `;
 
     container.appendChild(newItem);
@@ -135,3 +164,69 @@ function toggleEndDate(checkbox) {
         dateInput.disabled = false; // Hiển thị lại trường nhập
     }
 }
+//Kinh nghiệm làm việc
+// Ẩn/hiện trường "Ngày kết thúc"
+function toggleExperienceEndDate(checkbox) {
+    const dateInput = checkbox.closest('.d-flex').querySelector('.experience-end-date');
+    if (checkbox.checked) {
+        dateInput.value = ""; // Xóa giá trị nếu có
+        dateInput.disabled = true; // Ẩn trường nhập
+    } else {
+        dateInput.disabled = false; // Hiển thị lại trường nhập
+    }
+}
+
+// Thêm mới mục kinh nghiệm làm việc
+function addExperienceItem() {
+    const container = document.getElementById("experienceContainer");
+
+    const newItem = document.createElement("div");
+    newItem.classList.add("experience-item", "border", "rounded", "p-3", "mb-2");
+
+    newItem.innerHTML = `
+	    <div class="row mb-2">
+	    	<div class="col-md-6">
+	            <label class="form-label">Bắt đầu</label>
+	            <input type="date" name="experienceStart[]" class="form-control">
+	        </div>
+	        <div class="col-md-5">
+	            <label class="form-label">Kết thúc</label>
+	            <input type="date" name="experienceEnd[]" class="form-control me-2 experience-end-date">
+	        </div>
+			<div class="col-md-1 d-flex flex-column justify-content-end px-0">
+				<div class="form-check d-flex justify-content-center align-items-center mb-3">
+					<input type="checkbox"
+						class="form-check-input experience-current-checkbox"
+						onchange="toggleExperienceEndDate(this)"> <label
+						class="form-check-label">Hiện tại</label>
+				</div>
+			</div>
+	    </div>
+	    <div class="row mb-2">
+	        <div class="col-md-6">
+	            <label class="form-label">Tên công ty</label>
+	            <input type="text" name="experienceCompany[]" class="form-control" placeholder="Tên công ty">
+	        </div>
+	        <div class="col-md-6">
+	            <label class="form-label">Vị trí công việc</label>
+	            <input type="text" name="experiencePosition[]" class="form-control" placeholder="Vị trí công việc">
+	        </div>
+	    </div>
+	    <div class="mb-2">
+	        <label class="form-label">Mô tả kinh nghiệm làm việc</label>
+	        <textarea name="experienceDescription[]" class="form-control" rows="2" placeholder="Nhập mô tả..."></textarea>
+	    </div>
+	    <button type="button" class="btn btn-outline-danger btn-sm" onclick="removeExperienceItem(this)">
+	        <i class="bi bi-x-circle"></i> Xóa
+	    </button>
+    `;
+
+    container.appendChild(newItem);
+}
+
+// Xóa mục kinh nghiệm làm việc
+function removeExperienceItem(button) {
+    const item = button.closest('.experience-item');
+    item.remove();
+}
+
