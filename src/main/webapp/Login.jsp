@@ -98,6 +98,10 @@ h2 {
 	text-decoration: underline;
 }
 </style>
+<!-- Facebook SDK -->
+<script async defer crossorigin="anonymous" 
+    src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v15.0&appId=1536882806992085&autoLogAppEvents=1"></script>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 <title>Đăng Nhập</title>
 </head>
 <body>
@@ -117,6 +121,28 @@ h2 {
 				<button type="submit">Đăng Nhập</button>
 			</div>
 		</form>
+		
+		<!-- Google login -->
+			<div id="g_id_onload"
+			     data-client_id="503615320731-kcpnsnsjmng7vusmcm110s6m35c7d0iv.apps.googleusercontent.com"
+			     data-login_uri="http://localhost:8080/Project_Web/TrangChuCongTy.jsp"
+			     data-auto_prompt="false">
+			</div>
+			<div class="g_id_signin"
+			     data-type="standard"
+			     data-size="large"
+			     data-theme="outline"
+			     data-text="sign_in_with"
+			     data-shape="rectangular"
+			     data-logo_alignment="left">
+			</div>
+		
+		<!-- Facebook Login -->
+		<div class="fb-login-button" 
+		    data-scope="public_profile,email" 
+		    data-onlogin="checkLoginState();">
+		</div>
+		
 		<div class="form-footer">
 			<p>
 				Quên mật khẩu? <a href="#">Khôi phục</a>
@@ -126,5 +152,22 @@ h2 {
 			</p>
 		</div>
 	</div>
+		
+
+	<script type="text/javascript">
+	// Hàm kiểm tra trạng thái đăng nhập của người dùng
+	function checkLoginState() {
+	    FB.getLoginStatus(function(response) {
+	        if (response.status === 'connected') {
+	            // Gửi token ID tới server để xác minh
+	            var accessToken = response.authResponse.accessToken;
+	            window.location.href = "facebook_login?access_token=" + accessToken;
+	        } else {
+	            console.log("User cancelled login or did not fully authorize.");
+	        }
+	    });
+	}
+
+	</script>
 </body>
 </html>
