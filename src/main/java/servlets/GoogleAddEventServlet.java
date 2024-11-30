@@ -65,7 +65,7 @@ public class GoogleAddEventServlet extends HttpServlet {
 
             // Thêm người tham gia vào danh sách
             // Lấy từ CSDL
-            attendeesEmail.add(new EventAttendee().setEmail("22110309@student.hcmute.edu.vn"));
+            attendeesEmail.add(new EventAttendee().setEmail("nhuttan373@gmail.com"));
             // Tạo sự kiện và thêm vào Google Calendar
             Event event = new Event()
                     .setSummary(title)

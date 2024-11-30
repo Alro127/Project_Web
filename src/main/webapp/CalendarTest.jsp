@@ -30,7 +30,16 @@
 	</form>
 </div>
 <button id="addEventBtn">Add Event</button>
-<button id="deleteEventBtn">Delete Event</button>
+<div id="deleteEventModal" style="display:none;z-index: 1000; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: white; padding: 20px; border: 1px solid #ccc;">
+    <h3>Are you sure you want to delete this event?</h3>
+    <button id="confirmDeleteBtn">OK</button>
+    <button id="cancelDeleteBtn">Cancel</button>
+</div>
+
+<!-- <form action="GoogleDeleteEventServlet" method="post">
+	<button id="deleteEventBtn">Delete Event</button>
+</form> -->
+
 <div id="calendar"></div>
 
 
@@ -47,6 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Chuyển đổi các sự kiện từ Java (List<Event>) thành JSON cho FullCalendar
     var eventData = events.map(function(event) {
 	    return {
+	    	id: event.id,
 	        title: event.summary || "No Title",  // Đặt giá trị mặc định nếu không có summary
 	        start: event.start ? (event.start.dateTime || event.start.date) : null, // Kiểm tra start
 	        end: event.end ? (event.end.dateTime || event.end.date) : null // Kiểm tra end
@@ -62,12 +72,17 @@ document.addEventListener('DOMContentLoaded', function() {
         eventOverlap: true,
         eventDidMount: function(info) {
             console.log(`Rendered Event: ${info.event.title} from ${info.event.start} to ${info.event.end}`);
+        },
+        eventClick: function(info) {
+            // Hiển thị modal xác nhận xóa sự kiện
+            var eventId = info.event.id;
+            showDeleteConfirmation(eventId);
         }
     });
 
     calendar.render();
     
- 	// Thêm sự kiện mới
+    // Thêm sự kiện mới
     document.getElementById('addEventBtn').addEventListener('click', function() {
         document.getElementById('addEventModal').style.display = 'block';
     });
@@ -83,7 +98,39 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById("eventStart").value = startTime;
         document.getElementById("eventEnd").value = endTime;
     }
+
+    function showDeleteConfirmation(eventId) {
+        // Hiển thị modal xác nhận xóa
+        var modal = document.getElementById('deleteEventModal');
+        modal.style.display = 'block';
+
+        // Thêm sự kiện click cho nút OK
+        document.getElementById('confirmDeleteBtn').onclick = function() {
+            deleteEvent(eventId);
+            modal.style.display = 'none';  // Đóng modal sau khi xóa
+        };
+
+        // Thêm sự kiện click cho nút Cancel
+        document.getElementById('cancelDeleteBtn').onclick = function() {
+            modal.style.display = 'none';  // Đóng modal mà không xóa sự kiện
+        };
+    }
+
+    function deleteEvent(eventId) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'GoogleDeleteEventServlet', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                // Sau khi xóa thành công, làm mới lại lịch
+                alert('Event deleted successfully');
+                location.reload();  // Tải lại trang để cập nhật danh sách sự kiện
+            }
+        };
+        xhr.send('eventId=' + eventId);  // Gửi ID sự kiện để xóa
+    }
 });
+
 </script>
 
 </body>

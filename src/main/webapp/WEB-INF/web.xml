@@ -84,8 +84,7 @@
     <servlet-name>GoogleAddEventServlet</servlet-name>
     <url-pattern>/GoogleAddEventServlet</url-pattern>
   </servlet-mapping>
-
-	<servlet>
+  <servlet>
     <description></description>
     <display-name>CongViecServlet</display-name>
     <servlet-name>CongViecServlet</servlet-name>
@@ -95,8 +94,7 @@
     <servlet-name>CongViecServlet</servlet-name>
     <url-pattern>/CongViecServlet</url-pattern>
   </servlet-mapping>
-
-	<servlet>
+  <servlet>
     <description></description>
     <display-name>DangCongViecServlet</display-name>
     <servlet-name>DangCongViecServlet</servlet-name>
@@ -105,5 +103,15 @@
   <servlet-mapping>
     <servlet-name>DangCongViecServlet</servlet-name>
     <url-pattern>/DangCongViecServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>GoogleDeleteEventServlet</display-name>
+    <servlet-name>GoogleDeleteEventServlet</servlet-name>
+    <servlet-class>servlets.GoogleDeleteEventServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GoogleDeleteEventServlet</servlet-name>
+    <url-pattern>/GoogleDeleteEventServlet</url-pattern>
   </servlet-mapping>
 </web-app>
