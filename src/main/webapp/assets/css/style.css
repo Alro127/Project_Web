@@ -37,12 +37,12 @@
 }
 
 /* Lớp btn-outline với màu #3d405b (Dark Blue) */
-.btn-outline-darkblue {
+.btn-outline-dark-blue {
 	border: 2px solid #3d405b !important;
 	color: #3d405b !important;
 }
 
-.btn-outline-darkblue:hover {
+.btn-outline-dark-blue:hover {
 	background-color: #3d405b !important;
 	color: #f4f1de !important;
 }

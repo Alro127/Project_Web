@@ -157,8 +157,6 @@
 					    </button>
 					</div>
 
-
-
                     <!-- Sở thích -->
                     <div class="mb-3">
                         <label for="hobbies" class="form-label fw-bold">Sở thích</label>
