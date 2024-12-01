@@ -38,7 +38,7 @@
 	<a href="DangCongViec.jsp" class="nav-link hover-coral"> <i
 		class="ms-4 py-2 fs-4 fw-bold bi bi-clipboard-plus"></i> <span>Đăng
 			tin tuyển dụng</span>
-	</a> <a href="#" class="nav-link hover-coral"> <i
+	</a> <a href="QuanLyTinDangServlet?id=1" class="nav-link hover-coral"> <i
 		class="ms-4 py-2 fs-4 fw-bold bi bi-file-earmark-post"></i> <span>Quản
 			lý tin đã đăng</span>
 	</a> <a href="#" class="nav-link hover-coral"> <i
