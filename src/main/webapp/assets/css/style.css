@@ -74,8 +74,10 @@
 }
 
 .img-logo {
-    width: 150px;
-    height: 150px;
-    object-fit: cover; /* Đảm bảo hình ảnh vừa khít trong khung */
-    border-radius: 50%; /* Làm cho hình ảnh tròn */
+	width: 150px;
+	height: 150px;
+	object-fit: cover;
+	/* Đảm bảo hình ảnh vừa khít trong khung */
+	border-radius: 50%;
+	/* Làm cho hình ảnh tròn */
 }
