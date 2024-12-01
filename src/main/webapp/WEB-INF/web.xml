@@ -126,14 +126,6 @@
     <servlet-class>servlets.QuanLyTinDangServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>SignupServlet</servlet-name>
-    <url-pattern>/SignupServlet</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>CongViecServlet</servlet-name>
-    <url-pattern>/CongViecServlet</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
     <servlet-name>QuanLyTinDangServlet</servlet-name>
     <url-pattern>/QuanLyTinDangServlet</url-pattern>
   </servlet-mapping>

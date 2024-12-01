@@ -51,16 +51,29 @@
 	            	<div class=row>
 	            		<div class="col-md-4">
 	            		<!-- Thông tin cá nhân -->
-	            		     <div class="mb-4 text-center">
-							    <!-- Hiển thị Avatar -->
-							    <div class="avatar-container position-relative">
-							        <img id="avatarPreview" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYDLLaxgOsud5O32KbTu-bnPjbkBNbYXePWQ&s" alt="Avatar" class="rounded-circle border" style="width: 200px; height: 200px; object-fit: cover;">
-							        <input type="file" id="avatarUpload" class="form-control d-none" accept="image/*" onchange="previewAvatar(event)">
-							        <button type="button" class="btn btn-outline-primary btn-sm mt-2 align-bottom " onclick="triggerAvatarUpload()">
-							            <i class="bi bi-upload"></i> Upload Avatar
+							<div class="container text-center mt-4">
+							    <div class="position-relative d-inline-block">
+							        <!-- Avatar -->
+							        <img id="avatarPreview" 
+							            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYDLLaxgOsud5O32KbTu-bnPjbkBNbYXePWQ&s" 
+							            alt="Avatar" 
+							            class="rounded-circle border" 
+							            style="width: 200px; height: 200px; object-fit: cover;">
+							
+							        <!-- Hidden file input -->
+							        <input type="file" id="avatarUpload" class="d-none" accept="image/*" onchange="previewAvatar(event)">
+							
+							        <!-- Upload button -->
+							        <button type="button" 
+							            class="btn btn-outline-primary btn-sm position-absolute" 
+							            style="bottom: 0; right: 0; transform: translate(50%, 50%);" 
+							            onclick="triggerAvatarUpload()">
+							            <i class="bi bi-upload"></i>
 							        </button>
-							        <h2>MINH NHẬT</h2>
 							    </div>
+							
+							    <!-- Tên nằm dưới avatar -->
+							    <h2 class="mt-3">MINH NHẬT</h2>
 							</div>
 							<!-- Vị trí ứng tuyển -->
 	                        <div class="mb-3">
