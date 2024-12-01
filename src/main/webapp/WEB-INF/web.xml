@@ -17,7 +17,6 @@
 		<servlet-name>LoginServlet</servlet-name>
 		<url-pattern>/LoginServlet</url-pattern>
 	</servlet-mapping>
-
 	<servlet>
 		<description></description>
 		<display-name>SignupServlet</display-name>
@@ -27,6 +26,66 @@
 	<servlet-mapping>
 		<servlet-name>SignupServlet</servlet-name>
 		<url-pattern>/SignupServlet</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<description></description>
+		<display-name>LoginGoogleServlet</display-name>
+		<servlet-name>LoginGoogleServlet</servlet-name>
+		<servlet-class>servlets.LoginGoogleServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LoginGoogleServlet</servlet-name>
+		<url-pattern>/LoginGoogleServlet</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<description></description>
+		<display-name>FacebookLoginServlet</display-name>
+		<servlet-name>FacebookLoginServlet</servlet-name>
+		<servlet-class>servlets.FacebookLoginServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>FacebookLoginServlet</servlet-name>
+		<url-pattern>/facebook_login</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<description></description>
+		<display-name>GoogleCalendarEventsServlet</display-name>
+		<servlet-name>GoogleCalendarEventsServlet</servlet-name>
+		<servlet-class>servlets.GoogleCalendarEventsServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GoogleCalendarEventsServlet</servlet-name>
+		<url-pattern>/GoogleCalendarEventsServlet</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<description></description>
+		<display-name>ChatGPTServlet</display-name>
+		<servlet-name>ChatGPTServlet</servlet-name>
+		<servlet-class>servlets.ChatGPTServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ChatGPTServlet</servlet-name>
+		<url-pattern>/ChatGPTServlet</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<description></description>
+		<display-name>GetGoogleCredentialServlet</display-name>
+		<servlet-name>GetGoogleCredentialServlet</servlet-name>
+		<servlet-class>servlets.GetGoogleCredentialServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GetGoogleCredentialServlet</servlet-name>
+		<url-pattern>/GetGoogleCredentialServlet</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<description></description>
+		<display-name>GoogleAddEventServlet</display-name>
+		<servlet-name>GoogleAddEventServlet</servlet-name>
+		<servlet-class>servlets.GoogleAddEventServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GoogleAddEventServlet</servlet-name>
+		<url-pattern>/GoogleAddEventServlet</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
