@@ -8,14 +8,16 @@ public class SQLServerConnection {
 
     public static Connection initializeConnection() throws SQLException {
         String dbDriver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-        String dbURL = "jdbc:sqlserver://localhost:1433";
+        //String dbURL = "jdbc:sqlserver://localhost:1433";
+        String dbURL = "jdbc:sqlserver://MEOWWW\\DAT:1305";
         String dbName = "CVHub";
         String dbUsername = "sa";
-        String dbPassword = "1";
+        String dbPassword = "123";
 
         // Chuỗi kết nối với các tham số cấu hình chính xác
-        String connectionURL = dbURL + ";databaseName=" + dbName + ";encrypt=true;trustServerCertificate=true;";  
-        
+        //String connectionURL = dbURL + ";databaseName=" + dbName + ";encrypt=true;trustServerCertificate=true;";  
+        // Chuỗi của Đạt
+        String connectionURL = dbURL + ";databaseName=" + dbName + ";trustServerCertificate=true;"; 
         Connection conn = null;
 
         try {

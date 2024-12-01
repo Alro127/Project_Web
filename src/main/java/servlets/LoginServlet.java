@@ -5,7 +5,16 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 import java.io.IOException;
+import java.util.Iterator;
+import java.util.List;
+
+import com.mysql.cj.Session;
+
+import beans.TaiKhoan;
+import dao.TaiKhoanDAO;
 
 /**
  * Servlet implementation class LoginServlet
@@ -25,8 +34,27 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		String destination = "Login.jsp?error=1";
+		TaiKhoan tk = new TaiKhoan();
+		tk.setUsername(request.getParameter("username"));
+		tk.setPassword(request.getParameter("password"));
+		boolean isAuthenticated = TaiKhoanDAO.AuthenticationAccount(tk);
+		if (isAuthenticated) {
+			int id = TaiKhoanDAO.getID(tk.getUsername());
+			HttpSession session = request.getSession(true);
+			List<String> information = TaiKhoanDAO.getInformationForSession(id);
+			// Kiểm tra xem list có dữ liệu hay không
+			if (information != null && !information.isEmpty()) {
+			    // Lưu các thông tin từ List vào session
+			    session.setAttribute("id", information.get(0));          // Lưu id
+			    session.setAttribute("id_google", information.get(1));    // Lưu id_google
+			    session.setAttribute("id_facebook", information.get(2));  // Lưu id_facebook
+			    session.setAttribute("access_token", information.get(3)); // Lưu access_token
+			    session.setAttribute("refresh_token", information.get(4)); // Lưu refresh_token				
+			}
+			destination = "TrangGioiThieu.jsp";
+		}
+		response.sendRedirect(destination);
 	}
 
 	/**

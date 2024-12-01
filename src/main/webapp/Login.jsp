@@ -104,7 +104,7 @@ h2 {
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <title>Đăng Nhập</title>
 </head>
-<body>
+<body onload="checkLoginMessage()">
 	<div class="login-container">
 		<h2>Đăng Nhập</h2>
 		<form action="LoginServlet" method="POST">
@@ -155,7 +155,7 @@ h2 {
 		
 
 	<script type="text/javascript">
-	// Hàm kiểm tra trạng thái đăng nhập của người dùng
+	// Hàm kiểm tra trạng thái đăng nhập của người dùng bằng facebook
 	function checkLoginState() {
 	    FB.getLoginStatus(function(response) {
 	        if (response.status === 'connected') {
@@ -189,8 +189,33 @@ h2 {
 	    })
 	    .catch(error => console.error('Error:', error));
 	}
-
-
 	</script>
+	<script>
+        // Hàm kiểm tra tham số lỗi và hiển thị thông báo
+        function checkLoginMessage() {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('error') === '1') {
+                alert("Login failed! Please check your username and password.");
+                // Xóa tham số 'error' khỏi URL
+                removeErrorParam();
+            }
+            if (urlParams.get('success') === '1') {
+    			alert("Succefully sign up! You can log in now!")
+    			removeSuccessParam();
+    		}
+        }
+
+        // Hàm xóa tham số 'error' khỏi URL
+        function removeErrorParam() {
+            const url = new URL(window.location.href);
+            url.searchParams.delete('error'); // Xóa tham số 'error'
+            window.history.replaceState({}, document.title, url); // Cập nhật URL mà không tải lại trang
+        }
+        function removeSuccessParam() {
+            const url = new URL(window.location.href);
+            url.searchParams.delete('success'); // Xóa tham số 'error'
+            window.history.replaceState({}, document.title, url); // Cập nhật URL mà không tải lại trang
+        }
+    </script>
 </body>
 </html>

@@ -1,8 +1,11 @@
 package authentication;
 
+import java.awt.Desktop;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.security.GeneralSecurityException;
 import java.util.Collections;
 import java.util.List;
@@ -47,7 +50,7 @@ public class GoogleCredential {
         GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
                 GoogleNetHttpTransport.newTrustedTransport(),
                 JSON_FACTORY, clientSecrets, SCOPES)
-                .setDataStoreFactory(new FileDataStoreFactory(new java.io.File(TOKENS_DIRECTORY_PATH)))
+                //.setDataStoreFactory(new FileDataStoreFactory(new java.io.File(TOKENS_DIRECTORY_PATH)))
                 .setAccessType("offline") // Cần có refresh token
                 .build();
         
@@ -58,6 +61,6 @@ public class GoogleCredential {
         AuthorizationCodeInstalledApp authorizationCodeInstalledApp = new AuthorizationCodeInstalledApp(flow, receiver);
 
         // Sau khi người dùng cấp quyền, nhận mã xác thực
-        return authorizationCodeInstalledApp.authorize("user");
+        return authorizationCodeInstalledApp.authorize("dat");
     }
 }
