@@ -17,35 +17,33 @@ import beans.CongViec;
 import dao.CongViecDAO;
 
 /**
- * Servlet implementation class CongViecServlet
+ * Servlet implementation class QuanLyTinDangServlet
  */
-public class CongViecServlet extends HttpServlet {
+public class QuanLyTinDangServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public QuanLyTinDangServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
 	/**
-	 * @see HttpServlet#HttpServlet()
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	public CongViecServlet() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-	        throws ServletException, IOException {
-	    // Lấy toàn bộ danh sách công việc từ cơ sở dữ liệu
-	    List<CongViec> congViecs = new ArrayList<>();
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		
+		List<CongViec> congViecs = new ArrayList<>();
 	    try {
-	        congViecs = CongViecDAO.GetListCongViec();
+	    	//int id = Integer.parseInt(request.getParameter("id"));
+	        congViecs = CongViecDAO.GetListCongViecByIdCT(1);
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	    }
-
-	    // Số công việc mỗi trang
-	    int pageSize = 9;
+	    int pageSize = 20;
 	    int page = 1;  // Mặc định là trang đầu tiên
 
 	    // Lấy tham số 'page' từ yêu cầu
@@ -82,17 +80,14 @@ public class CongViecServlet extends HttpServlet {
 
 	    // Nếu không phải AJAX, bạn có thể chuyển hướng sang JSP
 	    if (!"true".equals(request.getParameter("ajax"))) {
-	        request.getRequestDispatcher("/TrangGioiThieu.jsp").forward(request, response);
+	        request.getRequestDispatcher("QuanLyTinDang.jsp").forward(request, response);
 	    }
-
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

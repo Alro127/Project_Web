@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,7 +19,16 @@
 </head>
 <body class="bg-light-grey">
 	<!-- Header Navigation -->
-	<jsp:include page="fragments/topNav.jsp" />
+	<c:choose>
+		<c:when test="${not empty sessionScope.user}">
+			<!-- Đã đăng nhập -->
+			<jsp:include page="fragments/topNavAcc.jsp"></jsp:include>
+		</c:when>
+		<c:otherwise>
+			<!-- Chưa đăng nhập -->
+			<jsp:include page="fragments/topNav.jsp"></jsp:include>
+		</c:otherwise>
+	</c:choose>
 	<!-- Main -->
 	<div class="container">
 		<jsp:include page="fragments/frg_Banner.jsp" />
@@ -29,6 +39,7 @@
 		</div>
 
 		<!-- Section các tin tuyển dụng -->
+		<h4 class="col-12 mb-4">Công việc đang tuyển</h4>
 		<jsp:include page="fragments/frg_CongViec.jsp" />
 
 	</div>

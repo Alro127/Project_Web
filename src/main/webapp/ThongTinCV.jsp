@@ -69,17 +69,20 @@
 						                <label class="form-label">Bắt đầu</label>
 						                <input type="date" name="educationStart[]" class="form-control">
 						            </div>
-						            <div class="col-md-6">
+						            <div class="col-md-5">
 						                <label class="form-label">Kết thúc</label>
-						                <div class="d-flex align-items-center">
-						                    <input type="date" name="educationEnd[]" class="form-control me-2 education-end-date">
-						                    <div class="form-check">
-						                        <input type="checkbox" class="form-check-input education-current-checkbox" onchange="toggleEndDate(this)">
-						                        <label class="form-check-label" for="educationCurrent">Hiện tại</label>
-						                    </div>
-						                </div>
+						                <input type="date" name="educationEnd[]" class="form-control me-2 education-end-date">
 						            </div>
-						        </div>
+									<div class="col-md-1 d-flex flex-column justify-content-end px-0">
+										<div class="form-check d-flex justify-content-center align-items-center mb-3">
+											<input type="checkbox"
+												class="form-check-input education-current-checkbox"
+												onchange="toggleEndDate(this)"> <label
+												class="form-check-label" for="educationCurrent">Hiện
+												tại</label>
+										</div>
+									</div>
+								</div>
 						        <div class="row mb-2">
 						            <div class="col-md-6">
 						                <label class="form-label">Tên trường học</label>

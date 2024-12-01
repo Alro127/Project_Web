@@ -72,7 +72,9 @@
 .bg-light-grey {
 	background-color: #f0f0f0 !important;
 }
-
+.bg-grey {
+	background-color: #808080 !important;
+}
 .img-logo {
     width: 150px;
     height: 150px;

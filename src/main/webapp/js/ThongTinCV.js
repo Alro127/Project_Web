@@ -82,39 +82,42 @@ function addEducationItem() {
     newItem.classList.add("education-item", "border", "rounded", "p-3", "mb-2");
 
     newItem.innerHTML = `
-        <div class="row mb-2">
-            <div class="col-md-6">
-                <label class="form-label">Bắt đầu</label>
-                <input type="date" name="educationStart[]" class="form-control">
-            </div>
-            <div class="col-md-6">
-                <label class="form-label">Kết thúc</label>
-                <div class="d-flex align-items-center">
-                    <input type="date" name="educationEnd[]" class="form-control me-2 education-end-date">
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input education-current-checkbox" onchange="toggleEndDate(this)">
-                        <label class="form-check-label" for="educationCurrent">Hiện tại</label>
-                    </div>
-                </div>
-            </div>
+	<div class="row mb-2">
+        <div class="col-md-6">
+            <label class="form-label">Bắt đầu</label>
+            <input type="date" name="educationStart[]" class="form-control">
         </div>
-        <div class="row mb-2">
-            <div class="col-md-6">
-                <label class="form-label">Tên trường học</label>
-                <input type="text" name="educationSchool[]" class="form-control" placeholder="Tên trường học">
-            </div>
-            <div class="col-md-6">
-                <label class="form-label">Ngành học / Môn học</label>
-                <input type="text" name="educationMajor[]" class="form-control" placeholder="Ngành học / Môn học">
-            </div>
+        <div class="col-md-5">
+            <label class="form-label">Kết thúc</label>
+            <input type="date" name="educationEnd[]" class="form-control me-2 education-end-date">
         </div>
-        <div class="mb-2">
-            <label class="form-label">Mô tả quá trình học tập hoặc thành tích của bạn</label>
-            <textarea name="educationDescription[]" class="form-control" rows="2" placeholder="Nhập mô tả..."></textarea>
+		<div class="col-md-1 d-flex flex-column justify-content-end px-0">
+			<div class="form-check d-flex justify-content-center align-items-center mb-3">
+				<input type="checkbox"
+					class="form-check-input education-current-checkbox"
+					onchange="toggleEndDate(this)"> <label
+					class="form-check-label" for="educationCurrent">Hiện
+					tại</label>
+			</div>
+		</div>
+	</div>
+    <div class="row mb-2">
+        <div class="col-md-6">
+            <label class="form-label">Tên trường học</label>
+            <input type="text" name="educationSchool[]" class="form-control" placeholder="Tên trường học">
         </div>
-        <button type="button" class="btn btn-outline-danger btn-sm" onclick="removeEducationItem(this)">
-            <i class="bi bi-x-circle"></i> Xóa
-        </button>
+        <div class="col-md-6">
+            <label class="form-label">Ngành học / Môn học</label>
+            <input type="text" name="educationMajor[]" class="form-control" placeholder="Ngành học / Môn học">
+        </div>
+    </div>
+    <div class="mb-2">
+        <label class="form-label">Mô tả quá trình học tập hoặc thành tích của bạn</label>
+        <textarea name="educationDescription[]" class="form-control" rows="2" placeholder="Nhập mô tả..."></textarea>
+    </div>
+    <button type="button" class="btn btn-outline-danger btn-sm" onclick="removeEducationItem(this)">
+        <i class="bi bi-x-circle"></i> Xóa
+    </button>
     `;
 
     container.appendChild(newItem);
