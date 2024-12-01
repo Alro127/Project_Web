@@ -123,20 +123,26 @@ h2 {
 		</form>
 		
 		<!-- Google login -->
-		<div id="g_id_onload"
+		<!-- <div id="g_id_onload"
 		     data-client_id="503615320731-kcpnsnsjmng7vusmcm110s6m35c7d0iv.apps.googleusercontent.com"
 		     data-auto_prompt="false"
 		     data-callback="handleCredentialResponse">
-		</div>
-		<div class="g_id_signin"
+		</div> -->
+		<!-- <div class="g_id_signin"
 		     data-type="standard"
 		     data-size="large"
 		     data-theme="outline"
 		     data-text="sign_in_with"
 		     data-shape="rectangular"
 		     data-logo_alignment="left">
-		</div>
-		
+		     
+		     <button onclick="window.location.href='https://accounts.google.com/o/oauth2/auth?client_id=503615320731-kcpnsnsjmng7vusmcm110s6m35c7d0iv.apps.googleusercontent.com&redirect_uri=http://localhost:8888/Callback&response_type=code&scope=https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/userinfo.email&access_type=offline';">
+			    Đăng nhập với Google
+			</button>
+		</div> -->
+		<button onclick="window.location.href='LoginGoogleServlet'">
+	        Đăng nhập với Google
+	    </button>
 		<!-- Facebook Login -->
 		<div class="fb-login-button" 
 		    data-scope="public_profile,email" 
@@ -167,28 +173,6 @@ h2 {
 	        }
 	    });
 	}
-	function handleCredentialResponse(response) {
-	    const idToken = response.credential;
-	    console.log("ID Token: ", idToken);
-
-	    fetch('LoginGoogleServlet', {
-	        method: 'POST',
-	        headers: {
-	            'Content-Type': 'application/x-www-form-urlencoded'
-	        },
-	        body: "id_token=" + encodeURIComponent(response.credential),
-	    })
-	    .then(res => {
-	        console.log("Server response status: ", res.status);
-	        if (res.ok) {
-	            console.log("Successfully logged in.");
-	            window.location.href = "TrangGioiThieu.jsp";
-	        } else {
-	            console.error("Login failed.");
-	        }
-	    })
-	    .catch(error => console.error('Error:', error));
-	}
 	</script>
 	<script>
         // Hàm kiểm tra tham số lỗi và hiển thị thông báo
@@ -204,7 +188,6 @@ h2 {
     			removeSuccessParam();
     		}
         }
-
         // Hàm xóa tham số 'error' khỏi URL
         function removeErrorParam() {
             const url = new URL(window.location.href);

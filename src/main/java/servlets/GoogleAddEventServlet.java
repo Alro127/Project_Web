@@ -5,6 +5,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,19 +41,16 @@ public class GoogleAddEventServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		GoogleCredential googleCredential = new GoogleCredential(getServletContext());
-		
 		try {
             // Lấy thông tin xác thực
-            Credential credential = googleCredential.getCredentials();
+			HttpSession session = request.getSession(true);
+            Credential credential = (Credential) session.getAttribute("Credential");
 
             // Tạo Google Calendar Service với credential đã lấy
             Calendar service = new Calendar.Builder(new NetHttpTransport(), JacksonFactory.getDefaultInstance(), credential)
                     .setApplicationName(APPLICATION_NAME)
                     .build();
-            
-            
-            
+ 
             // Lấy thông tin sự kiện từ request
             String title = request.getParameter("eventTitle");
             String start = request.getParameter("eventStart");
@@ -72,12 +71,10 @@ public class GoogleAddEventServlet extends HttpServlet {
                     .setStart(new EventDateTime().setDateTime(new DateTime(start)).setTimeZone("UTC+7"))
                     .setEnd(new EventDateTime().setDateTime(new DateTime(end)).setTimeZone("Asia/Ho_Chi_Minh"))
                     .setAttendees(attendeesEmail);
-            
-            
+              
             service.events().insert("primary", event).execute();
             response.setStatus(HttpServletResponse.SC_OK);
-            
-	            
+                   
 	        // Chuyển tiếp tới trang trang để fetch event
 	        response.sendRedirect(request.getContextPath() + "/GoogleCalendarEventsServlet");
         } catch (Exception e) {

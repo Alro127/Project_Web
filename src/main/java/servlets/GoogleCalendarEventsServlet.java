@@ -4,8 +4,12 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 import java.io.IOException;
 import java.util.List;
+
+import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
@@ -33,10 +37,17 @@ public class GoogleCalendarEventsServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
-            authentication.GoogleCredential googleCredential = new authentication.GoogleCredential(getServletContext());
-            
-            Calendar service = new Calendar.Builder(HTTP_TRANSPORT, JSON_FACTORY, googleCredential.getCredentials())
+        	final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+        	HttpSession session = req.getSession(true);
+        	Credential credential = (Credential)session.getAttribute("Credential");
+        	if (credential == null) {
+        		
+        		credential = new authentication.GoogleCredential(getServletContext()).getCredentials();
+        		// Nếu mà đăng nhập mà không dùng google ý, thì giờ sẽ đăng nhập để sử dụng lịch
+        		session.setAttribute("Credential", credential);
+			}
+        	
+            Calendar service = new Calendar.Builder(HTTP_TRANSPORT, JSON_FACTORY, credential)
                     .setApplicationName(APPLICATION_NAME)
                     .build();
 

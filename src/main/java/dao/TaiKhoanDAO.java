@@ -65,7 +65,7 @@ public class TaiKhoanDAO {
 			PreparedStatement preparedStatement = conn.prepareStatement(sqlcmd);
 			preparedStatement.setString(1, username);
 			preparedStatement.setString(2, password);
-			ResultSet rs = preparedStatement.executeQuery();
+			preparedStatement.executeQuery();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -108,5 +108,33 @@ public class TaiKhoanDAO {
 			// TODO: handle exception
 		}
 		return -1;
+	}
+	public static boolean isIDExisted(String id, String columnName)
+	{
+	    try {
+	        Connection conn = DBConnection.getConnection();
+	        String sqlcmd = "SELECT * FROM TaiKhoan WHERE " + columnName + " = ?";
+	        PreparedStatement preparedStatement = conn.prepareStatement(sqlcmd);    
+	        preparedStatement.setString(1, id);
+	        ResultSet rs = preparedStatement.executeQuery();
+	        if (rs.next()) {
+	            return true;
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return false;
+	}
+	public static void AddAccountByID(String id, String columnName)
+	{
+		try {
+			Connection conn = DBConnection.getConnection();
+			String sqlcmd = "INSERT INTO TaiKhoan (" + columnName + ") VALUES (?)";
+			PreparedStatement preparedStatement = conn.prepareStatement(sqlcmd);
+			preparedStatement.setString(1, id);
+			preparedStatement.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
