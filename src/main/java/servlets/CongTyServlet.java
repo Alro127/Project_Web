@@ -5,7 +5,11 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 import java.io.IOException;
+
+import com.mysql.cj.Session;
 
 import beans.CongTy;
 import beans.User;
@@ -30,7 +34,8 @@ public class CongTyServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		int id = Integer.parseInt(request.getParameter("id"));
+		HttpSession session = request.getSession(true);
+		int id = Integer.parseInt((String)session.getAttribute("id"));
 		CongTy congTy = new CongTy();
 	    try {
 	        congTy = CongTyDAO.GetCongTyById(id);

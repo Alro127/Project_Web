@@ -5,7 +5,7 @@
 	id="WebApp_ID" version="5.0">
 	<display-name>Project_Web</display-name>
 	<welcome-file-list>
-		<welcome-file>Login.jsp</welcome-file>
+		<welcome-file>CongViecServlet</welcome-file>
 	</welcome-file-list>
 	<servlet>
 		<description></description>

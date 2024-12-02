@@ -37,7 +37,7 @@ public class TaiKhoanCongTyServlet extends HttpServlet {
 		
 		CongTy congTy = new CongTy();
 	    try {
-	        congTy = CongTyDAO.GetCongTyById(User.Id);
+	        congTy = CongTyDAO.GetCongTyById(Integer.parseInt((String)request.getSession(true).getAttribute("id")));
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	    }

@@ -20,7 +20,7 @@
 <body class="bg-light-grey">
 	<!-- Header Navigation -->
 	<c:choose>
-		<c:when test="${not empty sessionScope.user}">
+		<c:when test="${not empty sessionScope.id}">
 			<!-- Đã đăng nhập -->
 			<jsp:include page="fragments/topNavAcc.jsp"></jsp:include>
 		</c:when>

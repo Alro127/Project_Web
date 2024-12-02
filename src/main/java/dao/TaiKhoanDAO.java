@@ -74,7 +74,7 @@ public class TaiKhoanDAO {
 	{
 		try {
 			Connection conn = DBConnection.getConnection();
-			String sqlcmd = "select id, id_google, id_facebook, access_token, refresh_token from TaiKhoan"
+			String sqlcmd = "select id, id_google, id_facebook, access_token, refresh_token, role, email from TaiKhoan"
 					+ " where id = ?";
 			PreparedStatement preparedStatement = conn.prepareStatement(sqlcmd);
 			preparedStatement.setInt(1, id);
@@ -86,6 +86,8 @@ public class TaiKhoanDAO {
 	            information.add(rs.getString("id_facebook"));
 	            information.add(rs.getString("access_token"));
 	            information.add(rs.getString("refresh_token"));
+	            information.add(rs.getString("role"));
+	            information.add(rs.getString("email"));
 			}
 			return information;
 		} catch (Exception e) {
@@ -93,22 +95,26 @@ public class TaiKhoanDAO {
 		}
 		return null;
 	}
-	public static int getID(String username)
-	{
-		try {
-			Connection conn = DBConnection.getConnection();
-			String sqlcmd = "select id from TaiKhoan where username = ?";
-			PreparedStatement preparedStatement = conn.prepareStatement(sqlcmd);
-			preparedStatement.setString(1, username);
-			ResultSet rs = preparedStatement.executeQuery();
-			if (rs.next()) {
-				return rs.getInt(1);
-			}
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		return -1;
+	public static int getID(String columnName, String value) {
+	    try {
+	        Connection conn = DBConnection.getConnection();
+
+	        // Sử dụng columnName trong câu SQL
+	        String sqlcmd = "SELECT id FROM TaiKhoan WHERE " + columnName + " = ?";
+	        
+	        PreparedStatement preparedStatement = conn.prepareStatement(sqlcmd);
+	        preparedStatement.setString(1, value);
+	        
+	        ResultSet rs = preparedStatement.executeQuery();
+	        if (rs.next()) {
+	            return rs.getInt(1);
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace(); // In lỗi ra console để debug
+	    }
+	    return -1; // Trả về -1 nếu không tìm thấy hoặc có lỗi
 	}
+
 	public static boolean isIDExisted(String id, String columnName)
 	{
 	    try {
