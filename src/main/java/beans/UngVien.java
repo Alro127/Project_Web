@@ -1,9 +1,10 @@
 package beans;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class UngVien {
-    private String fullName;     // Họ tên
+	private int idUV;
+	private String fullName;     // Họ tên
     private String gender;       // Giới tính
     private Date dob;            // Ngày sinh
     private String phone;        // Số điện thoại
@@ -11,10 +12,12 @@ public class UngVien {
     private String location;     // Tỉnh thành
     private String address;      // Địa chỉ
     private String introduction; // Giới thiệu bản thân
+    private String avatar;       // Ảnh đại diện dưới dạng BLOB
 
     // Constructor
-    public UngVien(String fullName, String gender, Date dob, String phone, String email, String location, String address, String introduction) {
-        this.fullName = fullName;
+    public UngVien(int idUV, String fullName, String gender, Date dob, String phone, String email, String location, String address, String introduction, String avatar) {
+    	this.idUV = idUV;
+    	this.fullName = fullName;
         this.gender = gender;
         this.dob = dob;
         this.phone = phone;
@@ -22,6 +25,15 @@ public class UngVien {
         this.location = location;
         this.address = address;
         this.introduction = introduction;
+        this.avatar = avatar;
+    }    
+    public int getIdUV() {
+		return idUV;
+	}
+	public void setIdUV(int idUV) {
+		this.idUV = idUV;
+	}
+    public UngVien() {
     }
 
     // Getters and Setters
@@ -87,5 +99,13 @@ public class UngVien {
 
     public void setIntroduction(String introduction) {
         this.introduction = introduction;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 }

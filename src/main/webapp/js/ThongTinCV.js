@@ -21,6 +21,38 @@ function previewAvatar(event) {
 		}
 	}
 }
+// Gửi ảnh đã chọn lên server
+function uploadAvatarToServer() {
+	const fileInput = document.getElementById("avatarUpload");
+	const file = fileInput.files[0];
+
+	if (file) {
+		// Tạo FormData và thêm file
+		const formData = new FormData();
+		formData.append("avatar", file);
+
+		// Gửi file qua AJAX
+		fetch("uploadAvatar", {
+			method: "POST",
+			body: formData,
+		})
+			.then((response) => response.json())
+			.then((data) => {
+				if (data.success) {
+					alert("Ảnh đã được lưu thành công!");
+				} else {
+					alert("Lỗi khi lưu ảnh: " + data.message);
+				}
+			})
+			.catch((error) => {
+				console.error("Lỗi:", error);
+				alert("Đã xảy ra lỗi trong quá trình upload.");
+			});
+	} else {
+		alert("Vui lòng chọn một ảnh trước khi lưu!");
+	}
+}
+
 
 //Chứng chỉ
 function addCertificateRow() {
@@ -32,7 +64,6 @@ function addCertificateRow() {
 
 	newRow.innerHTML = `
         <input type="text" name="certificates[]" class="form-control" placeholder="Nhập tên chứng chỉ">
-        <input type="file" name="certificateFiles[]" class="form-control" accept=".pdf,image/*">
         <button type="button" class="btn btn-outline-danger btn-sm" onclick="removeCertificateRow(this)">
             <i class="bi bi-x-circle"></i>
         </button>
