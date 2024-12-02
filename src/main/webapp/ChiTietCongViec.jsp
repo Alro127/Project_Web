@@ -30,7 +30,7 @@
 	</c:choose>
 	
 	<!-- Main Content -->
-	<div class="container">
+	<div class="container mt-5">
 		<!--  Tìm kiếm -->
 		<div class="bg-white rounded p-3 shadow-sm mt-4 mb-4"
 			style="background-color: rgba(255, 255, 255, 0.5);">
@@ -162,7 +162,7 @@
 								</p>
 							</div>
 						</div>
-						<button class="btn bg-coral text-light form-control mt-3">Xem trang công ty</button>
+						<a href="CongTyServlet?id=${congViec.idCT}" class="btn bg-coral text-light form-control mt-3">Xem trang công ty</a>
 					</div>
 					
 					<!-- Công Việc liên quan -->

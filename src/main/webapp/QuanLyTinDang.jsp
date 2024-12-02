@@ -34,7 +34,10 @@ thead th {
 
 </head>
 <body class="bg-light-grey">
-	<div class="d-flex">
+
+	<jsp:include page="fragments/topNavAcc.jsp"></jsp:include>
+	
+	<div class="d-flex mt-5">
 		<!-- Sidebar -->
 		<jsp:include page="fragments/sidebar_CongTy.jsp" />
 		<!-- Main content -->

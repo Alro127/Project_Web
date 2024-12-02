@@ -30,7 +30,7 @@
 		</c:otherwise>
 	</c:choose>
 	<!-- Main -->
-	<div class="container">
+	<div class="container mt-5">
 		<jsp:include page="fragments/frg_Banner.jsp" />
 		<div class="bg-white rounded p-3 shadow-sm mt-4 mb-4"
 			style="background-color: rgba(255, 255, 255, 0.5);">

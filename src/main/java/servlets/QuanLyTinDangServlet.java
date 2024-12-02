@@ -14,6 +14,7 @@ import java.util.Map;
 import com.google.gson.Gson;
 
 import beans.CongViec;
+import beans.User;
 import dao.CongViecDAO;
 
 /**
@@ -39,7 +40,7 @@ public class QuanLyTinDangServlet extends HttpServlet {
 		List<CongViec> congViecs = new ArrayList<>();
 	    try {
 	    	//int id = Integer.parseInt(request.getParameter("id"));
-	        congViecs = CongViecDAO.GetListCongViecByIdCT(1);
+	        congViecs = CongViecDAO.GetListCongViecByIdCT(User.Id);
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	    }
