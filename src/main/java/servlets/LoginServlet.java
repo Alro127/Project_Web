@@ -21,19 +21,21 @@ import dao.TaiKhoanDAO;
  */
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public LoginServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public LoginServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		String destination = "Login.jsp?error=1";
 		TaiKhoan tk = new TaiKhoan();
 		tk.setUsername(request.getParameter("username"));
@@ -58,12 +60,28 @@ public class LoginServlet extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
-		doGet(request, response);
+
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
+
+		// Giả lập kiểm tra thông tin đăng nhập (ở đây là hardcode, thay bằng DB nếu cần)
+		if ("admin".equals(username) && "12345".equals(password)) {
+			// Nếu thông tin hợp lệ, lưu thông tin vào session
+			HttpSession session = request.getSession();
+			session.setAttribute("user", username); // Lưu username (hoặc đối tượng user thực sự)
+
+			request.getRequestDispatcher("CongViecServlet").forward(request, response);
+		} else {
+			// Nếu thông tin không hợp lệ, trả về trang login với thông báo lỗi
+			request.setAttribute("errorMessage", "Invalid username or password");
+			request.getRequestDispatcher("Login.jsp").forward(request, response);
+		}
 	}
 
 }

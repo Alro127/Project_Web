@@ -20,21 +20,24 @@ public class SQLServerConnection {
         String connectionURL = dbURL + ";databaseName=" + dbName + ";trustServerCertificate=true;"; 
         Connection conn = null;
 
-        try {
-            // Nạp driver
-            Class.forName(dbDriver);
-            conn = DriverManager.getConnection(connectionURL, dbUsername, dbPassword);
-            System.out.println("Connect successfully!");
-        } catch (ClassNotFoundException e) {
-            System.out.println("Lỗi không tìm thấy Driver!");
-            e.printStackTrace();  // In ra chi tiết lỗi để tiện debug
-        } catch (SQLException e) {
-            System.out.println("Lỗi kết nối CSDL!");
-            if (conn == null) System.out.println("conn = null");
-            e.printStackTrace();  // In ra chi tiết lỗi SQL để tiện debug
-        }
-        return conn;
-        
-    }
+		Connection conn = null;
+
+		try {
+			// Nạp driver
+			Class.forName(dbDriver);
+			conn = DriverManager.getConnection(connectionURL, dbUsername, dbPassword);
+			System.out.println("Connect successfully!");
+		} catch (ClassNotFoundException e) {
+			System.out.println("Lỗi không tìm thấy Driver!");
+			e.printStackTrace(); // In ra chi tiết lỗi để tiện debug
+		} catch (SQLException e) {
+			System.out.println("Lỗi kết nối CSDL!");
+			if (conn == null)
+				System.out.println("conn = null");
+			e.printStackTrace(); // In ra chi tiết lỗi SQL để tiện debug
+		}
+		return conn;
+
+	}
 
 }

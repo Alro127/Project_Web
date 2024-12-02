@@ -12,9 +12,9 @@
 			<span class="navbar-toggler-icon"></span>
 		</button>
 		<div>
-			<a href="#candidates"
+			<a href="Login.jsp"
 				class="btn bg-coral text-light me-2 hover-coral">Ứng viên</a> <a
-				href="#employers"
+				href="Login.jsp"
 				class="btn btn-outline-coral bg-dark-blue text-light hover-coral">Nhà
 				tuyển dụng</a>
 		</div>
