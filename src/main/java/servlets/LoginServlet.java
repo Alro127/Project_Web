@@ -16,6 +16,9 @@ import com.mysql.cj.Session;
 import beans.TaiKhoan;
 import dao.TaiKhoanDAO;
 
+import beans.CongTy;
+import beans.User;
+
 /**
  * Servlet implementation class LoginServlet
  */
@@ -72,11 +75,20 @@ public class LoginServlet extends HttpServlet {
 
 		// Giả lập kiểm tra thông tin đăng nhập (ở đây là hardcode, thay bằng DB nếu cần)
 		if ("admin".equals(username) && "12345".equals(password)) {
+			
+			// Lấy id từ username và password
+			
+			// Lấy thực thể từ id, nếu là công ty thì đẫn tới trang quản lý, nếu là ứng viên thì ở trang giới thiệu
+			
 			// Nếu thông tin hợp lệ, lưu thông tin vào session
 			HttpSession session = request.getSession();
-			session.setAttribute("user", username); // Lưu username (hoặc đối tượng user thực sự)
+			session.setAttribute("user", username); 
+			User.Id = 1;
 
+			//Giả sử id đang là công ty
 			request.getRequestDispatcher("CongViecServlet").forward(request, response);
+			
+			//request.getRequestDispatcher("CongViecServlet").forward(request, response);
 		} else {
 			// Nếu thông tin không hợp lệ, trả về trang login với thông báo lỗi
 			request.setAttribute("errorMessage", "Invalid username or password");
