@@ -20,8 +20,6 @@ public class SQLServerConnection {
         String connectionURL = dbURL + ";databaseName=" + dbName + ";trustServerCertificate=true;"; 
         Connection conn = null;
 
-		Connection conn = null;
-
 		try {
 			// Nạp driver
 			Class.forName(dbDriver);
