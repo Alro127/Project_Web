@@ -6,7 +6,7 @@ USE CVHub;
 
 -- Bảng Ứng Viên
 ALTER OR CREATE TABLE UngVien (
-    IdUV INT AUTO_INCREMENT PRIMARY KEY,
+    IdUV INT AUTO_INCREMENT PRIMARY KEY, --Reference qua bên Id tài khoản
     HoTen VARCHAR(100) NOT NULL,
     GioiTinh ENUM('Nam', 'Nữ', 'Khác') NOT NULL,
     NgaySinh DATE NOT NULL,

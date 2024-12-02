@@ -1,82 +1,127 @@
-package servlets;
-
-import beans.CV;
-import dao.CVDAO;
 import java.io.*;
-import java.sql.Date;
-import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
+import java.sql.*;
+import org.json.*;
+
 import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.sql.Timestamp;
-
-import beans.CongViec;
-import dao.CongViecDAO;
-
+import conn.SQLServerConnection;
 public class SaveCVServlet extends HttpServlet {
+
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Chuyển đổi từ String sang Date
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        Date educationStart = null, educationEnd = null, experienceStart = null, experienceEnd = null, dob = null;
+        // Thiết lập kiểu trả về là JSON
+        response.setContentType("application/json");
+        PrintWriter out = response.getWriter();
 
-        try {
-        	dob = new Date(sdf.parse(request.getParameter("dob")).getTime());
-            educationStart = new Date(sdf.parse(request.getParameter("educationStart")).getTime());
-            educationEnd = new Date(sdf.parse(request.getParameter("educationEnd")).getTime());
-            experienceStart = new Date(sdf.parse(request.getParameter("experienceStart")).getTime());
-            experienceEnd = new Date(sdf.parse(request.getParameter("experienceEnd")).getTime());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        // Lấy dữ liệu từ form
-        String fullName = request.getParameter("fullName");
-        String position = request.getParameter("position");
-        String gender = request.getParameter("gender");
-        String phone = request.getParameter("phone");
-        String email = request.getParameter("email");
-        String location = request.getParameter("location");
-        String address = request.getParameter("address");
-        String introduction = request.getParameter("introduction");
+        // Lấy dữ liệu từ request
         String careerGoals = request.getParameter("careerGoals");
-        
-        // Tạo đối tượng CV và gán thông tin vào
-        CV cv = new CV();
-        cv.getUngvien().setFullName(fullName);
-        cv.setPosition(position);
-        cv.getUngvien().setGender(gender);
-        cv.getUngvien().setDob(dob);
-        cv.getUngvien().setPhone(phone);
-        cv.getUngvien().setEmail(email);
-        cv.getUngvien().setLocation(location);
-        cv.getUngvien().setAddress(address);
-        cv.getUngvien().setIntroduction(introduction);
-        cv.setCareerGoals(careerGoals);
-        
-        String educationSchool = request.getParameter("educationSchool");
-        String educationMajor = request.getParameter("educationMajor");
-        String educationDescription = request.getParameter("educationDescription");
+        String educationData = request.getParameter("educationData");
+        String experienceData = request.getParameter("experienceData");
+        String certificateData = request.getParameter("certificateData");
+        String skillData = request.getParameter("skillData");
 
-        String experienceCompany = request.getParameter("experienceCompany");
-        String experiencePosition = request.getParameter("experiencePosition");
-        String experienceDescription = request.getParameter("experienceDescription");
-        
-        String certificates = request.getParameter("certificates");
-        String skills = request.getParameter("skills");
-
-
+        // Parse JSON để lấy thông tin chi tiết
         try {
-            boolean success = CVDAO.addCV(cv);
-            if (success) {
-                response.sendRedirect("cv-list.jsp"); // Redirect after successful save
-            } else {
-                response.getWriter().println("Error while saving CV.");
+            // Kết nối cơ sở dữ liệu
+            Connection conn = SQLServerConnection;
+            conn.setAutoCommit(false); // Tắt chế độ tự động commit
+
+            // Tạo câu lệnh SQL để lưu dữ liệu
+            String insertCVSQL = "INSERT INTO CV (career_goals) VALUES (?)";
+            try (PreparedStatement stmt = conn.prepareStatement(insertCVSQL, Statement.RETURN_GENERATED_KEYS)) {
+                stmt.setString(1, careerGoals);
+                stmt.executeUpdate();
+
+                // Lấy ID của CV vừa được tạo
+                ResultSet rs = stmt.getGeneratedKeys();
+                if (rs.next()) {
+                    int cvId = rs.getInt(1);
+
+                    // Lưu dữ liệu học vấn
+                    if (educationData != null && !educationData.isEmpty()) {
+                        JSONArray educationArray = new JSONArray(educationData);
+                        String insertEducationSQL = "INSERT INTO Education (IdCV, start_date, end_date, school, major, description) VALUES (?, ?, ?, ?, ?, ?)";
+                        try (PreparedStatement eduStmt = conn.prepareStatement(insertEducationSQL)) {
+                            for (int i = 0; i < educationArray.length(); i++) {
+                                JSONObject education = educationArray.getJSONObject(i);
+                                eduStmt.setInt(1, cvId);
+                                eduStmt.setString(2, education.getString("start"));
+                                eduStmt.setString(3, education.getString("end"));
+                                eduStmt.setString(4, education.getString("school"));
+                                eduStmt.setString(5, education.getString("major"));
+                                eduStmt.setString(6, education.getString("description"));
+                                eduStmt.addBatch(); // Thực thi batch để tiết kiệm tài nguyên
+                            }
+                            eduStmt.executeBatch(); // Thực thi tất cả các lệnh insert cho học vấn
+                        }
+                    }
+
+                    // Lưu dữ liệu kinh nghiệm làm việc
+                    if (experienceData != null && !experienceData.isEmpty()) {
+                        JSONArray experienceArray = new JSONArray(experienceData);
+                        String insertExperienceSQL = "INSERT INTO WorkExperience (cv_id, start_date, end_date, company, position, description) VALUES (?, ?, ?, ?, ?, ?)";
+                        try (PreparedStatement expStmt = conn.prepareStatement(insertExperienceSQL)) {
+                            for (int i = 0; i < experienceArray.length(); i++) {
+                                JSONObject experience = experienceArray.getJSONObject(i);
+                                expStmt.setInt(1, cvId);
+                                expStmt.setString(2, experience.getString("start"));
+                                expStmt.setString(3, experience.getString("end"));
+                                expStmt.setString(4, experience.getString("company"));
+                                expStmt.setString(5, experience.getString("position"));
+                                expStmt.setString(6, experience.getString("description"));
+                                expStmt.addBatch(); // Thực thi batch
+                            }
+                            expStmt.executeBatch(); // Thực thi batch cho kinh nghiệm
+                        }
+                    }
+
+                    // Lưu dữ liệu chứng chỉ
+                    if (certificateData != null && !certificateData.isEmpty()) {
+                        JSONArray certificateArray = new JSONArray(certificateData);
+                        String insertCertificateSQL = "INSERT INTO Certificates (cv_id, certificate_name) VALUES (?, ?)";
+                        try (PreparedStatement certStmt = conn.prepareStatement(insertCertificateSQL)) {
+                            for (int i = 0; i < certificateArray.length(); i++) {
+                                certStmt.setInt(1, cvId);
+                                certStmt.setString(2, certificateArray.getString(i));
+                                certStmt.addBatch();
+                            }
+                            certStmt.executeBatch();
+                        }
+                    }
+
+                    // Lưu dữ liệu kỹ năng
+                    if (skillData != null && !skillData.isEmpty()) {
+                        JSONArray skillArray = new JSONArray(skillData);
+                        String insertSkillSQL = "INSERT INTO Skills (cv_id, skill_name, skill_level) VALUES (?, ?, ?)";
+                        try (PreparedStatement skillStmt = conn.prepareStatement(insertSkillSQL)) {
+                            for (int i = 0; i < skillArray.length(); i++) {
+                                JSONObject skill = skillArray.getJSONObject(i);
+                                skillStmt.setInt(1, cvId);
+                                skillStmt.setString(2, skill.getString("name"));
+                                skillStmt.setString(3, skill.getString("level"));
+                                skillStmt.addBatch();
+                            }
+                            skillStmt.executeBatch();
+                        }
+                    }
+
+                    // Commit transaction nếu tất cả thành công
+                    conn.commit();
+                    out.write("{\"status\":\"success\",\"message\":\"CV đã được lưu thành công!\"}");
+                }
+            } catch (SQLException e) {
+                conn.rollback(); // Rollback nếu có lỗi xảy ra
+                e.printStackTrace();
+                out.write("{\"status\":\"error\",\"message\":\"Lỗi khi lưu CV.\"}");
+            } finally {
+                conn.close();
             }
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
+            out.write("{\"status\":\"error\",\"message\":\"Không thể kết nối với cơ sở dữ liệu.\"}");
+        } catch (JSONException e) {
+            e.printStackTrace();
+            out.write("{\"status\":\"error\",\"message\":\"Lỗi xử lý dữ liệu JSON.\"}");
         }
     }
 }

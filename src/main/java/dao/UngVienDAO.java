@@ -23,7 +23,7 @@ public class UngVienDAO {
             ps.setString(6, ungVien.getLocation());
             ps.setString(7, ungVien.getAddress());
             ps.setString(8, ungVien.getIntroduction());
-            ps.setBytes(9, ungVien.getAvatar()); // Avatar dưới dạng BLOB
+            ps.setString(9, ungVien.getAvatar());
 
             return ps.executeUpdate() > 0;
 		} catch (ClassNotFoundException | SQLException e) {
@@ -47,7 +47,7 @@ public class UngVienDAO {
             ps.setString(6, ungVien.getLocation());
             ps.setString(7, ungVien.getAddress());
             ps.setString(8, ungVien.getIntroduction());
-            ps.setBytes(9, ungVien.getAvatar());
+            ps.setString(9, ungVien.getAvatar());
             ps.setInt(10, ungVien.getIdUV());
 
             return ps.executeUpdate() > 0;
@@ -61,7 +61,7 @@ public class UngVienDAO {
         try{
         	Connection connection = DBConnection.getConnection();
         	PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setBytes(1, ungVien.getAvatar());
+            ps.setString(1, ungVien.getAvatar());
             ps.setInt(2, ungVien.getIdUV());
 
             return ps.executeUpdate() > 0;
@@ -91,7 +91,7 @@ public class UngVienDAO {
                 ungVien.setLocation(rs.getString("location"));
                 ungVien.setAddress(rs.getString("address"));
                 ungVien.setIntroduction(rs.getString("introduction"));
-                ungVien.setAvatar(rs.getBytes("avatar")); // Lấy avatar dưới dạng BLOB
+                ungVien.setAvatar(rs.getString("avatar"));
                 ungVienList.add(ungVien);
             }
 		} catch (ClassNotFoundException | SQLException e) {
@@ -119,7 +119,7 @@ public class UngVienDAO {
                     ungVien.setLocation(rs.getString("location"));
                     ungVien.setAddress(rs.getString("address"));
                     ungVien.setIntroduction(rs.getString("introduction"));
-                    ungVien.setAvatar(rs.getBytes("avatar")); // Lấy avatar dưới dạng BLOB
+                    ungVien.setAvatar(rs.getString("avatar")); // Lấy avatar dưới dạng BLOB
                     return ungVien;
                 }
             }
