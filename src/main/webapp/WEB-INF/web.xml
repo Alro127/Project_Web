@@ -134,4 +134,14 @@
     <servlet-name>LoadCVServlet</servlet-name>
     <url-pattern>/LoadCVServlet</url-pattern>
   </servlet-mapping>
+    <servlet>
+    <description></description>
+    <display-name>SaveCVServlet</display-name>
+    <servlet-name>SaveCVServlet</servlet-name>
+    <servlet-class>servlets.SaveCVServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SaveCVServlet</servlet-name>
+    <url-pattern>/SaveCVServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

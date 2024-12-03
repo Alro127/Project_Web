@@ -1,5 +1,67 @@
 package dao;
 
-public class KinhNghiemDAO {
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
+import beans.CV;
+import beans.KinhNghiem;
+import conn.DBConnection;
+
+public class KinhNghiemDAO {
+	public static void saveExperienceList(CV cv, List<KinhNghiem> kinhNghiems) throws SQLException {
+        String sql = "INSERT INTO KinhNghiem (idCV, startDate, endDate, company, position, description) VALUES (?, ?, ?, ?, ?, ?)";
+        try {
+        	Connection conn = DBConnection.getConnection();
+        	PreparedStatement ps = conn.prepareStatement(sql);
+            for (KinhNghiem kinhNghiem : kinhNghiems) {
+                ps.setInt(1, cv.getIdCV());
+                ps.setDate(2, new java.sql.Date(kinhNghiem.getStart().getTime()));
+                ps.setDate(3, kinhNghiem.getEnd() != null ? new java.sql.Date(kinhNghiem.getEnd().getTime()) : null);
+                ps.setString(4, kinhNghiem.getCompany());
+                ps.setString(5, kinhNghiem.getPosition());
+                ps.setString(6, kinhNghiem.getDescription());
+                ps.addBatch();
+            }
+            ps.executeBatch();
+        }
+        catch (Exception e)
+        {
+        	e.printStackTrace();
+        }
+    }
+	
+	public static List<KinhNghiem> getExperienceListByCV(CV cv) throws SQLException {
+        String sql = "SELECT * FROM KinhNghiem WHERE idCV = ?";
+        try {
+        	Connection conn = DBConnection.getConnection();
+        	PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, cv.getIdCV());
+            try (ResultSet rs = ps.executeQuery()) {
+                List<KinhNghiem> kinhNghiems = new ArrayList<>();
+                while (rs.next()) {
+                	int id = rs.getInt("id");
+                	int idCV = rs.getInt("idCV");
+                    Date start = rs.getDate("experienceStart");
+                    Date end = rs.getDate("experienceEnd");
+                    String company = rs.getString("experienceCompany");
+                    String position = rs.getString("experiencePosition");
+                    String description = rs.getString("experienceDescription");
+
+                    KinhNghiem kinhNghiem = new KinhNghiem(id, idCV, start, end, company, position, description);
+                    kinhNghiems.add(kinhNghiem);
+                }
+                return kinhNghiems;
+            }
+        }
+        catch (Exception e)
+        {
+        	e.printStackTrace();
+        }
+        return null;
+    }
 }

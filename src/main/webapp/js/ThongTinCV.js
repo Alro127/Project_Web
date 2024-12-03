@@ -1,6 +1,6 @@
 function saveData() {
     const form = document.getElementById('cvForm');
-    const formData = new FormData(form); // Dữ liệu form sẽ được thu thập qua FormData
+    const formData = new FormData(form);
 
     // Xử lý thông tin cá nhân (Ảnh đại diện)
     const avatar = document.getElementById('avatarPreview').src;
@@ -8,11 +8,10 @@ function saveData() {
         formData.append('avatar', avatar);
     }
 
-    // Mục tiêu nghề nghiệp
+    // Lấy dữ liệu từ form
+	const position = document.getElementById('position').value;
     const careerGoals = document.getElementById('careerGoals').value;
-    formData.append('careerGoals', careerGoals);
 
-    // Thông tin học vấn (Education)
     const educationStartDates = document.getElementsByName('educationStart[]');
     const educationEndDates = document.getElementsByName('educationEnd[]');
     const educationSchools = document.getElementsByName('educationSchool[]');
@@ -29,9 +28,7 @@ function saveData() {
             description: educationDescriptions[i].value
         });
     }
-    formData.append('educationData', JSON.stringify(educationData));
 
-    // Kinh nghiệm làm việc (Work Experience)
     const experienceStartDates = document.getElementsByName('experienceStart[]');
     const experienceEndDates = document.getElementsByName('experienceEnd[]');
     const experienceCompanies = document.getElementsByName('experienceCompany[]');
@@ -48,17 +45,13 @@ function saveData() {
             description: experienceDescriptions[i].value
         });
     }
-    formData.append('experienceData', JSON.stringify(experienceData));
 
-    // Chứng chỉ (Certificates)
     const certificates = document.getElementsByName('certificates[]');
     const certificateData = [];
     for (let i = 0; i < certificates.length; i++) {
-        certificateData.push(certificates[i].value);
+        certificateData.push({ name: certificates[i].value});
     }
-    formData.append('certificateData', JSON.stringify(certificateData));
 
-    // Kỹ năng (Skills)
     const skills = document.getElementsByName('skills[]');
     const skillLevels = document.getElementsByName('skillLevels[]');
     const skillData = [];
@@ -68,19 +61,33 @@ function saveData() {
             level: skillLevels[i].value
         });
     }
-    formData.append('skillData', JSON.stringify(skillData));
 
-    // Gửi dữ liệu đến máy chủ thông qua AJAX
+    // Tạo đối tượng JSON để gửi
+    const dataToSend = {
+		position: position,
+        careerGoals: careerGoals,
+        educationData: educationData,
+        experienceData: experienceData,
+        certificateData: certificateData,
+        skillData: skillData
+    };
+
+    // Chuyển đối tượng JSON thành chuỗi
+    const jsonData = JSON.stringify(dataToSend);
+
+    // Gửi dữ liệu JSON đến máy chủ
     const xhr = new XMLHttpRequest();
     xhr.open('POST', 'SaveCVServlet', true);
+    xhr.setRequestHeader('Content-Type', 'application/json');  // Cần đặt header đúng kiểu
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
-            alert('Lưu CV thành công');
-            // Xử lý kết quả trả về từ server (nếu cần)
+            alert('Gửi CV thành công rồi nhé');
         }
     };
-    xhr.send(formData);
+    xhr.send(jsonData);  // Gửi dữ liệu JSON
 }
+
+
 
 
 //Avatar
