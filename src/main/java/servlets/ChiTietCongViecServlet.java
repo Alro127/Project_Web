@@ -35,6 +35,7 @@ public class ChiTietCongViecServlet extends HttpServlet {
 		try
 		{
 			int id = Integer.parseInt(idStr);
+			CongViecDAO.updateLuotXem(id);
 			CongViec congViec = CongViecDAO.getCongViecById(id);
 			if (congViec == null) {
 	            response.sendError(HttpServletResponse.SC_NOT_FOUND, "Công việc không tồn tại");
