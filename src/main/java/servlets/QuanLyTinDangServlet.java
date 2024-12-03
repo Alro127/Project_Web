@@ -16,7 +16,6 @@ import java.util.stream.Collectors;
 import com.google.gson.Gson;
 
 import beans.CongViec;
-import beans.User;
 import dao.CongViecDAO;
 
 /**

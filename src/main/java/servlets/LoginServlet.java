@@ -18,7 +18,6 @@ import dao.CongTyDAO;
 import dao.TaiKhoanDAO;
 
 import beans.CongTy;
-import beans.User;
 
 /**
  * Servlet implementation class LoginServlet

@@ -14,8 +14,8 @@ import java.util.List;
 import com.mysql.cj.Session;
 
 import beans.CongTy;
+
 import beans.CongViec;
-import beans.User;
 import dao.CongTyDAO;
 import dao.CongViecDAO;
 

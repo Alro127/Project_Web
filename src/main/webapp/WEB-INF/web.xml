@@ -4,6 +4,7 @@
   <welcome-file-list>
     <welcome-file>CongViecServlet</welcome-file>
   </welcome-file-list>
+  <display-name>Project_Web</display-name>
   <servlet>
     <description></description>
     <display-name>LoginServlet</display-name>
@@ -123,6 +124,36 @@
   <servlet-mapping>
     <servlet-name>QuanLyTinDangServlet</servlet-name>
     <url-pattern>/QuanLyTinDangServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>LoadCVServlet</display-name>
+    <servlet-name>LoadCVServlet</servlet-name>
+    <servlet-class>servlets.LoadCVServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LoadCVServlet</servlet-name>
+    <url-pattern>/LoadCVServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>SaveCVServlet</display-name>
+    <servlet-name>SaveCVServlet</servlet-name>
+    <servlet-class>servlets.SaveCVServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SaveCVServlet</servlet-name>
+    <url-pattern>/SaveCVServlet</url-pattern>
+  </servlet-mapping>
+    <servlet>
+    <description></description>
+    <display-name>ChangePasswordServlet</display-name>
+    <servlet-name>ChangePasswordServlet</servlet-name>
+    <servlet-class>servlets.ChangePasswordServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ChangePasswordServlet</servlet-name>
+    <url-pattern>/ChangePasswordServlet</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
