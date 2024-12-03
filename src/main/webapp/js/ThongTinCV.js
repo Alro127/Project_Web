@@ -1,3 +1,95 @@
+function saveData() {
+    const form = document.getElementById('cvForm');
+    const formData = new FormData(form);
+
+    // Xử lý thông tin cá nhân (Ảnh đại diện)
+    const avatar = document.getElementById('avatarPreview').src;
+    if (avatar) {
+        formData.append('avatar', avatar);
+    }
+
+    // Lấy dữ liệu từ form
+	const position = document.getElementById('position').value;
+    const careerGoals = document.getElementById('careerGoals').value;
+
+    const educationStartDates = document.getElementsByName('educationStart[]');
+    const educationEndDates = document.getElementsByName('educationEnd[]');
+    const educationSchools = document.getElementsByName('educationSchool[]');
+    const educationMajors = document.getElementsByName('educationMajor[]');
+    const educationDescriptions = document.getElementsByName('educationDescription[]');
+
+    const educationData = [];
+    for (let i = 0; i < educationStartDates.length; i++) {
+        educationData.push({
+            start: educationStartDates[i].value,
+            end: educationEndDates[i].value,
+            school: educationSchools[i].value,
+            major: educationMajors[i].value,
+            description: educationDescriptions[i].value
+        });
+    }
+
+    const experienceStartDates = document.getElementsByName('experienceStart[]');
+    const experienceEndDates = document.getElementsByName('experienceEnd[]');
+    const experienceCompanies = document.getElementsByName('experienceCompany[]');
+    const experiencePositions = document.getElementsByName('experiencePosition[]');
+    const experienceDescriptions = document.getElementsByName('experienceDescription[]');
+
+    const experienceData = [];
+    for (let i = 0; i < experienceStartDates.length; i++) {
+        experienceData.push({
+            start: experienceStartDates[i].value,
+            end: experienceEndDates[i].value,
+            company: experienceCompanies[i].value,
+            position: experiencePositions[i].value,
+            description: experienceDescriptions[i].value
+        });
+    }
+
+    const certificates = document.getElementsByName('certificates[]');
+    const certificateData = [];
+    for (let i = 0; i < certificates.length; i++) {
+        certificateData.push({ name: certificates[i].value});
+    }
+
+    const skills = document.getElementsByName('skills[]');
+    const skillLevels = document.getElementsByName('skillLevels[]');
+    const skillData = [];
+    for (let i = 0; i < skills.length; i++) {
+        skillData.push({
+            name: skills[i].value,
+            level: skillLevels[i].value
+        });
+    }
+
+    // Tạo đối tượng JSON để gửi
+    const dataToSend = {
+		position: position,
+        careerGoals: careerGoals,
+        educationData: educationData,
+        experienceData: experienceData,
+        certificateData: certificateData,
+        skillData: skillData
+    };
+
+    // Chuyển đối tượng JSON thành chuỗi
+    const jsonData = JSON.stringify(dataToSend);
+
+    // Gửi dữ liệu JSON đến máy chủ
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', 'SaveCVServlet', true);
+    xhr.setRequestHeader('Content-Type', 'application/json');  // Cần đặt header đúng kiểu
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            alert('Gửi CV thành công rồi nhé');
+        }
+    };
+    xhr.send(jsonData);  // Gửi dữ liệu JSON
+}
+
+
+
+
 //Avatar
 // Kích hoạt cửa sổ chọn tệp
 function triggerAvatarUpload() {
@@ -21,6 +113,38 @@ function previewAvatar(event) {
 		}
 	}
 }
+// Gửi ảnh đã chọn lên server
+function uploadAvatarToServer() {
+	const fileInput = document.getElementById("avatarUpload");
+	const file = fileInput.files[0];
+
+	if (file) {
+		// Tạo FormData và thêm file
+		const formData = new FormData();
+		formData.append("avatar", file);
+
+		// Gửi file qua AJAX
+		fetch("uploadAvatar", {
+			method: "POST",
+			body: formData,
+		})
+			.then((response) => response.json())
+			.then((data) => {
+				if (data.success) {
+					alert("Ảnh đã được lưu thành công!");
+				} else {
+					alert("Lỗi khi lưu ảnh: " + data.message);
+				}
+			})
+			.catch((error) => {
+				console.error("Lỗi:", error);
+				alert("Đã xảy ra lỗi trong quá trình upload.");
+			});
+	} else {
+		alert("Vui lòng chọn một ảnh trước khi lưu!");
+	}
+}
+
 
 //Chứng chỉ
 function addCertificateRow() {
@@ -32,7 +156,6 @@ function addCertificateRow() {
 
 	newRow.innerHTML = `
         <input type="text" name="certificates[]" class="form-control" placeholder="Nhập tên chứng chỉ">
-        <input type="file" name="certificateFiles[]" class="form-control" accept=".pdf,image/*">
         <button type="button" class="btn btn-outline-danger btn-sm" onclick="removeCertificateRow(this)">
             <i class="bi bi-x-circle"></i>
         </button>
