@@ -43,7 +43,14 @@ public class CongViecServlet extends HttpServlet {
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	    }
-
+	    
+	    List<String> linhVucs = new ArrayList<>();
+	    try {
+			linhVucs = CongViecDAO.getListLinhVuc();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	    
 	    // Số công việc mỗi trang
 	    int pageSize = 9;
 	    int page = 1;  // Mặc định là trang đầu tiên
@@ -74,6 +81,7 @@ public class CongViecServlet extends HttpServlet {
 	    responseData.put("congViecs", pagedCongViecs);
 	    responseData.put("totalPages", totalPages);
 	    responseData.put("currentPage", page);
+	    responseData.put("listLinhvuc", linhVucs);
 
 	    // Chỉ trả về JSON một lần
 	    String jsonResponse = new Gson().toJson(responseData);

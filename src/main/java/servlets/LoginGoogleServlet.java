@@ -54,6 +54,7 @@ public class LoginGoogleServlet extends HttpServlet {
 		        // Lấy thông tin người dùng
 		        com.google.api.services.oauth2.model.Userinfo userinfo = oauth2.userinfo().get().execute();
 		        String id_google = userinfo.getId();
+		        String email = userinfo.getEmail();
 		        
 		        session.setAttribute("id_google", id_google);
 		        
@@ -62,7 +63,10 @@ public class LoginGoogleServlet extends HttpServlet {
 		        {
 		        	TaiKhoanDAO.AddAccountByID(id_google, "id_google");
 		        }
+		        		        
 		        int id = TaiKhoanDAO.getID("id_google", id_google);
+		        TaiKhoanDAO.StoreTokens(accessToken, refreshToken, id, email);
+		        
 				List<String> information = TaiKhoanDAO.getInformationForSession(id);
 				// Kiểm tra xem list có dữ liệu hay không
 				if (information != null && !information.isEmpty()) {
@@ -73,6 +77,7 @@ public class LoginGoogleServlet extends HttpServlet {
 				    session.setAttribute("access_token", information.get(3)); // Lưu access_token
 				    session.setAttribute("refresh_token", information.get(4)); // Lưu refresh_token	
 				    session.setAttribute("role", information.get(5));
+				    session.setAttribute("email", information.get(6));
 				    if (session.getAttribute("role") == "UngVien") {
 				    	destination = "CongViecServlet";
 					}

@@ -5,6 +5,10 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.security.GeneralSecurityException;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
 import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
@@ -12,6 +16,12 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.services.calendar.Calendar;
+import com.google.api.services.calendar.CalendarScopes;
+import com.google.auth.Credentials;
+import com.google.auth.http.HttpCredentialsAdapter;
+import com.google.auth.oauth2.GoogleCredentials;
+
 import jakarta.servlet.ServletContext;
 
 public class GoogleCredential {
@@ -46,6 +56,7 @@ public class GoogleCredential {
                 		"https://www.googleapis.com/auth/calendar"))
                 //.setDataStoreFactory(new FileDataStoreFactory(new java.io.File(TOKENS_DIRECTORY_PATH)))
                 .setAccessType("offline") // Cần có refresh token
+                //.setApprovalPrompt("force") // Buộc hiển thị màn hình cấp quyền
                 .build();
         
         // Set receiver để nhận mã xác thực từ trình duyệt
@@ -57,5 +68,33 @@ public class GoogleCredential {
         // Sau khi người dùng cấp quyền, nhận mã xác thực
         Credential authorizationCode = authorizationCodeInstalledApp.authorize("user");
         return authorizationCode;
+    }
+    
+    public Calendar getCredentialCalendarService(String email) throws IOException, GeneralSecurityException {
+        // Đọc file JSON Service Account
+        InputStream serviceAccountStream = servletContext.getResourceAsStream("/WEB-INF/classes/credential/service-account-key.json");
+        if (serviceAccountStream == null) {
+            throw new IOException("Không tìm thấy tệp service-account-key.json");
+        }
+        
+        // Tạo GoogleCredentials từ Service Account
+        Set<String> scopes = new HashSet<>();
+        scopes.add(CalendarScopes.CALENDAR); // Thêm scope lịch
+        scopes.add("https://www.googleapis.com/auth/userinfo.email"); // Thêm scope email
+        scopes.add("https://www.googleapis.com/auth/userinfo.profile"); // Thêm scope profile
+        // Tạo GoogleCredentials từ Service Account
+        GoogleCredentials credentials = GoogleCredentials.fromStream(serviceAccountStream)
+                .createScoped(scopes);
+
+        // Gán quyền truy cập thay mặt người dùng (impersonate)
+        credentials = credentials.createDelegated(email);
+        
+        // Tạo Calendar API Service
+        return new Calendar.Builder(
+                GoogleNetHttpTransport.newTrustedTransport(),
+                JSON_FACTORY,
+                new HttpCredentialsAdapter(credentials))
+                .setApplicationName("CV Hub")
+                .build();
     }
 }

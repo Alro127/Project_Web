@@ -78,6 +78,7 @@ public class FacebookLoginServlet extends HttpServlet {
 				    session.setAttribute("access_token", information.get(3)); // Lưu access_token
 				    session.setAttribute("refresh_token", information.get(4)); // Lưu refresh_token	
 				    session.setAttribute("role", information.get(5));
+				    session.setAttribute("email", information.get(6));
 				    if (session.getAttribute("role").equals("UngVien")) {
 				    	destination = "CongViecServlet";
 					}

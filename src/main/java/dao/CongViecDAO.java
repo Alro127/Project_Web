@@ -150,4 +150,20 @@ public class CongViecDAO {
 		return congViecs;
 	}
 
+	public static List<String> getListLinhVuc() {
+	    List<String> linhVucs = new ArrayList<>();
+	    String sqlcmd = "SELECT DISTINCT LinhVuc FROM CongViec";
+
+	    try (Connection conn = DBConnection.getConnection();
+	         PreparedStatement stmt = conn.prepareStatement(sqlcmd);
+	         ResultSet rs = stmt.executeQuery()) {
+
+	        while (rs.next()) {
+	            linhVucs.add(rs.getString("LinhVuc"));
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return linhVucs;
+	}
 }
