@@ -145,7 +145,7 @@
     <servlet-name>SaveCVServlet</servlet-name>
     <url-pattern>/SaveCVServlet</url-pattern>
   </servlet-mapping>
-    <servlet>
+  <servlet>
     <description></description>
     <display-name>ChangePasswordServlet</display-name>
     <servlet-name>ChangePasswordServlet</servlet-name>
@@ -214,5 +214,25 @@
   <servlet-mapping>
     <servlet-name>CongViecByCongTyServlet</servlet-name>
     <url-pattern>/CongViecByCongTyServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>QuanLyCVServlet</display-name>
+    <servlet-name>QuanLyCVServlet</servlet-name>
+    <servlet-class>servlets.QuanLyCVServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>QuanLyCVServlet</servlet-name>
+    <url-pattern>/QuanLyCVServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DeleteCVServlet</display-name>
+    <servlet-name>DeleteCVServlet</servlet-name>
+    <servlet-class>servlets.DeleteCVServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeleteCVServlet</servlet-name>
+    <url-pattern>/DeleteCVServlet</url-pattern>
   </servlet-mapping>
 </web-app>

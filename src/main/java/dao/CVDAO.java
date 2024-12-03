@@ -118,4 +118,32 @@ public class CVDAO {
         }
         return cv;
     }
+    // Xóa CV theo ID
+    public boolean deleteCVbyId(int IdCV) throws SQLException {
+        // Sửa lại câu lệnh SQL cho đúng cú pháp
+        String sql = "DELETE FROM CV WHERE IdCV = ?";
+        
+        // Tạo kết nối, chuẩn bị câu lệnh PreparedStatement
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            // Thiết lập tham số cho câu lệnh
+            ps.setInt(1, IdCV);
+            
+            // Thực thi câu lệnh xóa
+            int affectedRows = ps.executeUpdate();
+            
+            // Kiểm tra xem có dòng nào bị xóa không
+            if (affectedRows > 0) {
+                // Trả về true nếu có ít nhất 1 dòng bị xóa
+                return true;
+            } else {
+                // Trả về false nếu không có dòng nào bị xóa
+                return false;
+            }
+        } catch (SQLException e) {
+            // Xử lý lỗi nếu có
+            e.printStackTrace();
+            throw new SQLException("Error deleting CV with Id: " + IdCV);
+        }
+    }
+
 }
