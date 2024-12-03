@@ -48,12 +48,10 @@
 	</a> <a href="#" class="nav-link hover-coral"> <i
 		class="ms-4 py-2 fs-3 fw-bold bi bi-calendar-check"></i> <span>Lịch
 			hẹn</span>
-	</a> <a href="#" class="nav-link hover-coral"> <i
+	</a> <a href="QuanLyTaiKhoan.jsp" class="nav-link hover-coral"> <i
 		class="ms-4 py-2 fs-3 fw-bold bi bi-person-gear"></i> <span>Quản lý
 			tài khoản</span>
 	</a>
-
-
 </div>
 
 <script

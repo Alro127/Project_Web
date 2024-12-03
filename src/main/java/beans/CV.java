@@ -4,7 +4,7 @@ import java.sql.Date;
 import java.util.List;
 
 public class CV {
-    public int getIdCV() {
+	public int getIdCV() {
 		return idCV;
 	}
 
@@ -113,28 +113,28 @@ public class CV {
 
 
 	private int idCV;
-    private int idUV;
-    private UngVien ungvien;
-    private String position;
-    private String careerGoals;
+	private int idUV;
+	private UngVien ungvien;
+	private String position;
+	private String careerGoals;
 
-    // Học vấn
-    private List<HocVan> hocVan;
+	// Học vấn
+	private List<HocVan> hocVan;
 
-    // Kinh nghiệm
-    private List<KinhNghiem> kinhNghiem;
-    
-    // Chứng chỉ
+	// Kinh nghiệm
+	private List<KinhNghiem> kinhNghiem;
+
+	// Chứng chỉ
 	private List<ChungChi> chungChi; 
 	// Kỹ năng
-    private List<KyNang> kyNang;       
+	private List<KyNang> kyNang;       
 
 
 
-    // Constructor không tham số
-    public CV() {
-        super();
-    }
+	// Constructor không tham số
+	public CV() {
+		super();
+	}
 
 
 
@@ -151,6 +151,6 @@ public class CV {
 		this.chungChi = chungChi;
 		this.kyNang = kyNang;
 	}
-    
+
 
 }
