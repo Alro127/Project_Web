@@ -1,6 +1,6 @@
 function loadJobs(page) {
     $.ajax({
-        url: 'CongViecServlet',  // URL của servlet hoặc API
+        url: 'CongViecByCongTyServlet?id=' + idCT,  // URL của servlet hoặc API
         method: 'GET',
         data: { page: page, ajax: true },  // Truyền tham số page vào backend
         success: function(response) {

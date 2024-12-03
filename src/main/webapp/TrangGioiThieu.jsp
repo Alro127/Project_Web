@@ -45,5 +45,6 @@
 	</div>
 	<!-- Footer -->
 	<jsp:include page="fragments/footer.jsp" />
+	<script src="js/PhanTrangGioiThieu.js"></script>
 </body>
 </html>

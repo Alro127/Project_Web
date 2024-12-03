@@ -21,7 +21,6 @@
 <link href="assets/css/style.css" rel="stylesheet">
 
 <style>
-
 .image-container {
 	height: 300px;
 	background-image: linear-gradient(to top, #3d405b, rgba(61, 64, 91, 0)),
@@ -46,7 +45,16 @@
 </head>
 <body class="bg-light-grey">
 	<!-- Navbar -->
-	<jsp:include page="fragments/topNavAcc.jsp"></jsp:include>
+	<c:choose>
+		<c:when test="${not empty sessionScope.id}">
+			<!-- Đã đăng nhập -->
+			<jsp:include page="fragments/topNavAcc.jsp"></jsp:include>
+		</c:when>
+		<c:otherwise>
+			<!-- Chưa đăng nhập -->
+			<jsp:include page="fragments/topNav.jsp"></jsp:include>
+		</c:otherwise>
+	</c:choose>
 
 	<!-- Main Content -->
 	<div class="container mt-5">
@@ -59,9 +67,9 @@
 							src="https://scontent.fsgn5-9.fna.fbcdn.net/v/t39.30808-6/289805291_1433696720427484_7854231187395419608_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=a5f93a&_nc_ohc=moVhUnxq-3UQ7kNvgGNlVYm&_nc_zt=23&_nc_ht=scontent.fsgn5-9.fna&_nc_gid=ADNSqGRdJEcBiW7TsLx0dLU&oh=00_AYDFrKEzrQ8ZwTPKdmbEVqaCtb8pzTt5xTEpYtindDvxFA&oe=674E3D4F"
 							class="img-fluid rounded-circle img-logo" alt="Logo">
 						<div class="mx-3">
-							<h4>Công ty XYZ</h4>
+							<h4>${congTy.tenCongTy}</h4>
 							<p>
-								Lĩnh vực: Công nghệ thông tin <br> Địa chỉ: 123 Đường ABC
+								Lĩnh vực: ${congTy.linhVuc} <br> Địa chỉ: ${congTy.diaChi}
 							</p>
 						</div>
 					</div>
@@ -70,10 +78,7 @@
 				<!-- Phần thông tin chung của công ty -->
 				<div class="company-info-wrapper p-4 bg-light shadow-sm rounded">
 					<h2 class="text-center mb-4 fw-bold">Thông Tin Chung</h2>
-					<p class="text-justify">Công ty chúng tôi được thành lập vào
-						năm 2024, chuyên cung cấp các dịch vụ công nghệ thông tin và giải
-						pháp doanh nghiệp. Chúng tôi luôn nỗ lực mang lại các sản phẩm và
-						dịch vụ chất lượng nhất để đáp ứng nhu cầu của khách hàng...</p>
+					<p class="text-justify">${congTy.gioiThieu}</p>
 				</div>
 			</div>
 		</section>
@@ -81,11 +86,11 @@
 
 
 		<!-- Sản phẩm và dịch vụ -->
-		<section class="py-5 rounded mb-5 bg-light shadow-sm rounded">
+		<!-- <section class="py-5 rounded mb-5 bg-light shadow-sm rounded">
 			<div class="container">
 				<h2 class="text-center mb-4 fw-bold">Giới Thiệu Về Công Ty</h2>
 				<div class="row gy-4">
-					<!-- Sản phẩm -->
+					Sản phẩm
 					<div class="col-md-4">
 						<div class="text-center p-4 shadow-sm rounded bg-body">
 							<div class="mb-3">
@@ -96,7 +101,7 @@
 								lượng cao, đáp ứng mọi nhu cầu của khách hàng.</p>
 						</div>
 					</div>
-					<!-- Dịch vụ -->
+					Dịch vụ
 					<div class="col-md-4">
 						<div class="text-center p-4 shadow-sm rounded bg-body">
 							<div class="mb-3">
@@ -107,7 +112,7 @@
 								và chuyên nghiệp, mang lại trải nghiệm tuyệt vời.</p>
 						</div>
 					</div>
-					<!-- Đội ngũ -->
+					Đội ngũ
 					<div class="col-md-4">
 						<div class="text-center p-4 shadow-sm rounded bg-body">
 							<div class="mb-3">
@@ -120,11 +125,12 @@
 					</div>
 				</div>
 			</div>
-		</section>
+		</section> -->
 
 		<!-- Hình ảnh hoạt động -->
 		<!--Sau sẽ dùng vòng lặp để load hình lên-->
-		<section class="activity-images-section py-5 my-5 bg-light shadow-sm rounded">
+		<section
+			class="activity-images-section py-5 my-5 bg-light shadow-sm rounded">
 			<div class="container">
 				<h2 class="text-center mb-4 fw-bold">Hình Ảnh Hoạt Động</h2>
 				<div id="activityCarousel" class="carousel slide"
@@ -145,15 +151,18 @@
 						<div class="carousel-item active">
 							<div class="row justify-content-center">
 								<div class="col-4">
-									<img src="https://scontent.fsgn5-8.fna.fbcdn.net/v/t1.6435-9/107864545_951346755329152_4992326549014438745_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=86c6b0&_nc_ohc=9J82IA9zdMcQ7kNvgGVUpme&_nc_zt=23&_nc_ht=scontent.fsgn5-8.fna&_nc_gid=AdjLYJwMuYSM6fnZTb6lDoj&oh=00_AYCY4qeH3JZtuiEtzQs5JmDNf6qMKcF5Gddt2UA5iWgZhA&oe=676FE70D"
+									<img
+										src="https://scontent.fsgn5-8.fna.fbcdn.net/v/t1.6435-9/107864545_951346755329152_4992326549014438745_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=86c6b0&_nc_ohc=9J82IA9zdMcQ7kNvgGVUpme&_nc_zt=23&_nc_ht=scontent.fsgn5-8.fna&_nc_gid=AdjLYJwMuYSM6fnZTb6lDoj&oh=00_AYCY4qeH3JZtuiEtzQs5JmDNf6qMKcF5Gddt2UA5iWgZhA&oe=676FE70D"
 										class="d-block w-100 rounded" alt="Hình ảnh 1">
 								</div>
 								<div class="col-4">
-									<img src="https://scontent.fsgn5-8.fna.fbcdn.net/v/t1.6435-9/107864545_951346755329152_4992326549014438745_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=86c6b0&_nc_ohc=9J82IA9zdMcQ7kNvgGVUpme&_nc_zt=23&_nc_ht=scontent.fsgn5-8.fna&_nc_gid=AdjLYJwMuYSM6fnZTb6lDoj&oh=00_AYCY4qeH3JZtuiEtzQs5JmDNf6qMKcF5Gddt2UA5iWgZhA&oe=676FE70D"
+									<img
+										src="https://scontent.fsgn5-8.fna.fbcdn.net/v/t1.6435-9/107864545_951346755329152_4992326549014438745_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=86c6b0&_nc_ohc=9J82IA9zdMcQ7kNvgGVUpme&_nc_zt=23&_nc_ht=scontent.fsgn5-8.fna&_nc_gid=AdjLYJwMuYSM6fnZTb6lDoj&oh=00_AYCY4qeH3JZtuiEtzQs5JmDNf6qMKcF5Gddt2UA5iWgZhA&oe=676FE70D"
 										class="d-block w-100 rounded" alt="Hình ảnh 2">
 								</div>
 								<div class="col-4">
-									<img src="https://scontent.fsgn5-8.fna.fbcdn.net/v/t1.6435-9/107864545_951346755329152_4992326549014438745_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=86c6b0&_nc_ohc=9J82IA9zdMcQ7kNvgGVUpme&_nc_zt=23&_nc_ht=scontent.fsgn5-8.fna&_nc_gid=AdjLYJwMuYSM6fnZTb6lDoj&oh=00_AYCY4qeH3JZtuiEtzQs5JmDNf6qMKcF5Gddt2UA5iWgZhA&oe=676FE70D"
+									<img
+										src="https://scontent.fsgn5-8.fna.fbcdn.net/v/t1.6435-9/107864545_951346755329152_4992326549014438745_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=86c6b0&_nc_ohc=9J82IA9zdMcQ7kNvgGVUpme&_nc_zt=23&_nc_ht=scontent.fsgn5-8.fna&_nc_gid=AdjLYJwMuYSM6fnZTb6lDoj&oh=00_AYCY4qeH3JZtuiEtzQs5JmDNf6qMKcF5Gddt2UA5iWgZhA&oe=676FE70D"
 										class="d-block w-100 rounded" alt="Hình ảnh 3">
 								</div>
 							</div>
@@ -161,15 +170,18 @@
 						<div class="carousel-item active">
 							<div class="row justify-content-center">
 								<div class="col-4">
-									<img src="https://scontent.fsgn5-8.fna.fbcdn.net/v/t1.6435-9/107864545_951346755329152_4992326549014438745_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=86c6b0&_nc_ohc=9J82IA9zdMcQ7kNvgGVUpme&_nc_zt=23&_nc_ht=scontent.fsgn5-8.fna&_nc_gid=AdjLYJwMuYSM6fnZTb6lDoj&oh=00_AYCY4qeH3JZtuiEtzQs5JmDNf6qMKcF5Gddt2UA5iWgZhA&oe=676FE70D"
+									<img
+										src="https://scontent.fsgn5-8.fna.fbcdn.net/v/t1.6435-9/107864545_951346755329152_4992326549014438745_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=86c6b0&_nc_ohc=9J82IA9zdMcQ7kNvgGVUpme&_nc_zt=23&_nc_ht=scontent.fsgn5-8.fna&_nc_gid=AdjLYJwMuYSM6fnZTb6lDoj&oh=00_AYCY4qeH3JZtuiEtzQs5JmDNf6qMKcF5Gddt2UA5iWgZhA&oe=676FE70D"
 										class="d-block w-100 rounded" alt="Hình ảnh 1">
 								</div>
 								<div class="col-4">
-									<img src="https://scontent.fsgn5-8.fna.fbcdn.net/v/t1.6435-9/107864545_951346755329152_4992326549014438745_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=86c6b0&_nc_ohc=9J82IA9zdMcQ7kNvgGVUpme&_nc_zt=23&_nc_ht=scontent.fsgn5-8.fna&_nc_gid=AdjLYJwMuYSM6fnZTb6lDoj&oh=00_AYCY4qeH3JZtuiEtzQs5JmDNf6qMKcF5Gddt2UA5iWgZhA&oe=676FE70D"
+									<img
+										src="https://scontent.fsgn5-8.fna.fbcdn.net/v/t1.6435-9/107864545_951346755329152_4992326549014438745_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=86c6b0&_nc_ohc=9J82IA9zdMcQ7kNvgGVUpme&_nc_zt=23&_nc_ht=scontent.fsgn5-8.fna&_nc_gid=AdjLYJwMuYSM6fnZTb6lDoj&oh=00_AYCY4qeH3JZtuiEtzQs5JmDNf6qMKcF5Gddt2UA5iWgZhA&oe=676FE70D"
 										class="d-block w-100 rounded" alt="Hình ảnh 2">
 								</div>
 								<div class="col-4">
-									<img src="https://scontent.fsgn5-8.fna.fbcdn.net/v/t1.6435-9/107864545_951346755329152_4992326549014438745_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=86c6b0&_nc_ohc=9J82IA9zdMcQ7kNvgGVUpme&_nc_zt=23&_nc_ht=scontent.fsgn5-8.fna&_nc_gid=AdjLYJwMuYSM6fnZTb6lDoj&oh=00_AYCY4qeH3JZtuiEtzQs5JmDNf6qMKcF5Gddt2UA5iWgZhA&oe=676FE70D"
+									<img
+										src="https://scontent.fsgn5-8.fna.fbcdn.net/v/t1.6435-9/107864545_951346755329152_4992326549014438745_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=86c6b0&_nc_ohc=9J82IA9zdMcQ7kNvgGVUpme&_nc_zt=23&_nc_ht=scontent.fsgn5-8.fna&_nc_gid=AdjLYJwMuYSM6fnZTb6lDoj&oh=00_AYCY4qeH3JZtuiEtzQs5JmDNf6qMKcF5Gddt2UA5iWgZhA&oe=676FE70D"
 										class="d-block w-100 rounded" alt="Hình ảnh 3">
 								</div>
 							</div>
@@ -177,15 +189,18 @@
 						<div class="carousel-item active">
 							<div class="row justify-content-center">
 								<div class="col-4">
-									<img src="https://scontent.fsgn5-8.fna.fbcdn.net/v/t1.6435-9/107864545_951346755329152_4992326549014438745_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=86c6b0&_nc_ohc=9J82IA9zdMcQ7kNvgGVUpme&_nc_zt=23&_nc_ht=scontent.fsgn5-8.fna&_nc_gid=AdjLYJwMuYSM6fnZTb6lDoj&oh=00_AYCY4qeH3JZtuiEtzQs5JmDNf6qMKcF5Gddt2UA5iWgZhA&oe=676FE70D"
+									<img
+										src="https://scontent.fsgn5-8.fna.fbcdn.net/v/t1.6435-9/107864545_951346755329152_4992326549014438745_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=86c6b0&_nc_ohc=9J82IA9zdMcQ7kNvgGVUpme&_nc_zt=23&_nc_ht=scontent.fsgn5-8.fna&_nc_gid=AdjLYJwMuYSM6fnZTb6lDoj&oh=00_AYCY4qeH3JZtuiEtzQs5JmDNf6qMKcF5Gddt2UA5iWgZhA&oe=676FE70D"
 										class="d-block w-100 rounded" alt="Hình ảnh 1">
 								</div>
 								<div class="col-4">
-									<img src="https://scontent.fsgn5-8.fna.fbcdn.net/v/t1.6435-9/107864545_951346755329152_4992326549014438745_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=86c6b0&_nc_ohc=9J82IA9zdMcQ7kNvgGVUpme&_nc_zt=23&_nc_ht=scontent.fsgn5-8.fna&_nc_gid=AdjLYJwMuYSM6fnZTb6lDoj&oh=00_AYCY4qeH3JZtuiEtzQs5JmDNf6qMKcF5Gddt2UA5iWgZhA&oe=676FE70D"
+									<img
+										src="https://scontent.fsgn5-8.fna.fbcdn.net/v/t1.6435-9/107864545_951346755329152_4992326549014438745_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=86c6b0&_nc_ohc=9J82IA9zdMcQ7kNvgGVUpme&_nc_zt=23&_nc_ht=scontent.fsgn5-8.fna&_nc_gid=AdjLYJwMuYSM6fnZTb6lDoj&oh=00_AYCY4qeH3JZtuiEtzQs5JmDNf6qMKcF5Gddt2UA5iWgZhA&oe=676FE70D"
 										class="d-block w-100 rounded" alt="Hình ảnh 2">
 								</div>
 								<div class="col-4">
-									<img src="https://scontent.fsgn5-8.fna.fbcdn.net/v/t1.6435-9/107864545_951346755329152_4992326549014438745_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=86c6b0&_nc_ohc=9J82IA9zdMcQ7kNvgGVUpme&_nc_zt=23&_nc_ht=scontent.fsgn5-8.fna&_nc_gid=AdjLYJwMuYSM6fnZTb6lDoj&oh=00_AYCY4qeH3JZtuiEtzQs5JmDNf6qMKcF5Gddt2UA5iWgZhA&oe=676FE70D"
+									<img
+										src="https://scontent.fsgn5-8.fna.fbcdn.net/v/t1.6435-9/107864545_951346755329152_4992326549014438745_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=86c6b0&_nc_ohc=9J82IA9zdMcQ7kNvgGVUpme&_nc_zt=23&_nc_ht=scontent.fsgn5-8.fna&_nc_gid=AdjLYJwMuYSM6fnZTb6lDoj&oh=00_AYCY4qeH3JZtuiEtzQs5JmDNf6qMKcF5Gddt2UA5iWgZhA&oe=676FE70D"
 										class="d-block w-100 rounded" alt="Hình ảnh 3">
 								</div>
 							</div>
@@ -225,32 +240,7 @@
 					</div>
 				</div>
 				<div class="container">
-					<div class="row g-3">
-						<!-- Gán khoảng cách giữa các thẻ -->
-						<div class="col-12 col-sm-6 col-md-4">
-							<!-- 3 thẻ trên mỗi dòng với màn hình lớn -->
-							<div class="job-card p-3 border rounded">
-								<h5>Công Việc 1</h5>
-								<p>Mô tả công việc 1</p>
-								<button class="btn btn-primary">Xem chi tiết</button>
-							</div>
-						</div>
-						<div class="col-12 col-sm-6 col-md-4">
-							<div class="job-card p-3 border rounded">
-								<h5>Công Việc 2</h5>
-								<p>Mô tả công việc 2</p>
-								<button class="btn btn-primary">Xem chi tiết</button>
-							</div>
-						</div>
-						<div class="col-12 col-sm-6 col-md-4">
-							<div class="job-card p-3 border rounded">
-								<h5>Công Việc 3</h5>
-								<p>Mô tả công việc 3</p>
-								<button class="btn btn-primary">Xem chi tiết</button>
-							</div>
-						</div>
-						<!-- Thêm các thẻ khác -->
-					</div>
+					<jsp:include page="fragments/frg_CongViec.jsp" />
 				</div>
 			</section>
 		</section>
@@ -262,6 +252,12 @@
 	<!-- Bootstrap JS -->
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+	<script type="text/javascript">
+		var idCT = "${congTy.idCT}"; 
+		console.log(idCT);// Lưu idCT từ servlet vào một biến JavaScript
+	</script>
+
+	<script src="js/PhanTrangCongViecByCongTy.js"></script>
 </body>
 
 </html>

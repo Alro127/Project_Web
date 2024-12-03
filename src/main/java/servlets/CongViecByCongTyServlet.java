@@ -17,51 +17,31 @@ import beans.CongViec;
 import dao.CongViecDAO;
 
 /**
- * Servlet implementation class CongViecServlet
+ * Servlet implementation class CongViecByCongTyServlet
  */
-public class CongViecServlet extends HttpServlet {
+public class CongViecByCongTyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public CongViecByCongTyServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
 	/**
-	 * @see HttpServlet#HttpServlet()
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	public CongViecServlet() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	
-	private Map<String, Integer> countJobsByField(List<CongViec> congViecs) {
-	    // Sử dụng Map để lưu lĩnh vực và số lượng công việc
-	    Map<String, Integer> fieldCountMap = new HashMap<>();
-
-	    // Điền dữ liệu vào Map
-	    for (CongViec congViec : congViecs) {
-	        String field = congViec.getLinhVuc(); // Lấy lĩnh vực từ đối tượng CongViec
-	        fieldCountMap.put(field, fieldCountMap.getOrDefault(field, 0) + 1);
-	    }
-
-	    return fieldCountMap;
-	}
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-	        throws ServletException, IOException {
-	    // Lấy toàn bộ danh sách công việc từ cơ sở dữ liệu
-	    List<CongViec> congViecs = new ArrayList<>();
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		List<CongViec> congViecs = new ArrayList<>();
 	    try {
-	        congViecs = CongViecDAO.GetListCongViec();
+	    	int id = Integer.parseInt(request.getParameter("id"));
+	        congViecs = CongViecDAO.GetListCongViecByIdCT(id);
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	    }
-	    
-	    Map<String, Integer> jobCountsByField = countJobsByField(congViecs);
-	    request.setAttribute("jobCountsByField", jobCountsByField);
-	    
-	    // Số công việc mỗi trang
 	    int pageSize = 9;
 	    int page = 1;  // Mặc định là trang đầu tiên
 
@@ -94,22 +74,18 @@ public class CongViecServlet extends HttpServlet {
 
 	    // Chỉ trả về JSON một lần
 	    String jsonResponse = new Gson().toJson(responseData);
-	    System.out.println(jsonResponse); // Kiểm tra dữ liệu JSON trước khi trả về
 	    response.getWriter().write(jsonResponse);
-	    
+
 	    // Nếu không phải AJAX, bạn có thể chuyển hướng sang JSP
 	    if (!"true".equals(request.getParameter("ajax"))) {
-	        request.getRequestDispatcher("/TrangGioiThieu.jsp").forward(request, response);
+	        request.getRequestDispatcher("TrangChuCongTy.jsp").forward(request, response);
 	    }
-
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

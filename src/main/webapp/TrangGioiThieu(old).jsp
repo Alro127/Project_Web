@@ -285,5 +285,7 @@ footer {
 	<footer>
 		<p>&copy; 2024 Trang Web Mẫu. Tất cả các quyền được bảo lưu.</p>
 	</footer>
+	
+	<script src="js/PhanTrangGioiThieu.js"></script>
 </body>
 </html>
