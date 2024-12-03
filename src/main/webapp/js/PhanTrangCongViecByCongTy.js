@@ -31,7 +31,7 @@ function loadJobs(page) {
                                 <div class="card-body ms-3">
                                     <h5 class="card-title">${jobTitle}</h5>
                                     <p class="card-text">
-                                        <strong>Công ty:</strong> ${congViec.idCT} <br> <strong>Lương:</strong>
+                                        <strong>Công ty:</strong> ${congViec.tenCongTy} <br> <strong>Lương:</strong>
                                         ${congViec.luong} VND <br> <strong>Địa điểm:</strong>
                                         ${congViec.diaDiem}
                                     </p>

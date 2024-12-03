@@ -21,6 +21,16 @@ public class CongViec {
 	private String quyenLoi;
 	private int luotXem;
 	private int luotNop;
+	
+	private String tenCongTy;
+
+	public String getTenCongTy() {
+		return tenCongTy;
+	}
+
+	public void setTenCongTy(String tenCongTy) {
+		this.tenCongTy = tenCongTy;
+	}
 
 	public int getIdCongViec() {
 		return idCongViec;

@@ -19,7 +19,7 @@
 <body class="bg-light-grey">
 	<!-- Navigation -->
 	<c:choose>
-		<c:when test="${not empty sessionScope.user}">
+		<c:when test="${not empty sessionScope.id}">
 			<!-- Đã đăng nhập -->
 			<jsp:include page="fragments/topNavAcc.jsp"></jsp:include>
 		</c:when>
@@ -148,7 +148,7 @@
 					<!-- Công ty -->
 					<div class="bg-white rounded shadow-sm p-3 mb-4"
 						style="background-color: rgba(255, 255, 255, 0.5);">
-						<h5><strong>Tên công ty</strong></h5>
+						<h5><strong>${congViec.tenCongTy}</strong></h5>
 						<div class="d-flex">
 							<img
 								src="https://ibrand.vn/wp-content/uploads/2024/07/mbbank-logo-5.png"
