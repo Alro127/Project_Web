@@ -46,11 +46,11 @@ public class KinhNghiemDAO {
                 while (rs.next()) {
                 	int id = rs.getInt("id");
                 	int idCV = rs.getInt("idCV");
-                    Date start = rs.getDate("experienceStart");
-                    Date end = rs.getDate("experienceEnd");
-                    String company = rs.getString("experienceCompany");
-                    String position = rs.getString("experiencePosition");
-                    String description = rs.getString("experienceDescription");
+                    Date start = rs.getDate("startDate");
+                    Date end = rs.getDate("endDate");
+                    String company = rs.getString("company");
+                    String position = rs.getString("position");
+                    String description = rs.getString("description");
 
                     KinhNghiem kinhNghiem = new KinhNghiem(id, idCV, start, end, company, position, description);
                     kinhNghiems.add(kinhNghiem);

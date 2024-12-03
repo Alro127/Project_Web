@@ -46,11 +46,11 @@ public class HocVanDAO {
                 while (rs.next()) {
                 	int id = rs.getInt("id");
                 	int idCV = rs.getInt("idCV");
-                    Date start = rs.getDate("educationStart");
-                    Date end = rs.getDate("educationEnd");
-                    String school = rs.getString("educationSchool");
-                    String major = rs.getString("educationMajor");
-                    String description = rs.getString("educationDescription");
+                    Date start = rs.getDate("startDate");
+                    Date end = rs.getDate("endDate");
+                    String school = rs.getString("school");
+                    String major = rs.getString("major");
+                    String description = rs.getString("description");
 
                     HocVan hocVan = new HocVan(id, idCV, start, end, school, major, description);
                     hocVans.add(hocVan);

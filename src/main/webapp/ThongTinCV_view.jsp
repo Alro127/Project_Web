@@ -53,7 +53,6 @@
                 <h1 class="card-title">CV XIN VIỆC</h1>
             </div>
             <div class="card-body">
-	            <form id="cvForm" action="SaveCVServlet" method=post>
 	            <% CV cv = (CV) request.getAttribute("cv"); %>
 	            	<div class=row>
 	            		<div class="col-md-4">
@@ -66,27 +65,6 @@
 							        alt="Avatar" 
 							        class="rounded-circle border" 
 							        style="width: 200px; height: 200px; object-fit: cover;">
-							
-							    <!-- Hidden file input -->
-							    <input type="file" id="avatarUpload" class="d-none ${mode == 'view' ? 'hide-button' : ''}" accept="image/*" onchange="previewAvatar(event)">
-							
-							    <!-- Button container -->
-							    <div class="position-absolute d-flex align-items-center" 
-							         style="bottom: 0; right: 0; transform: translate(50%, 50%);">
-							        <!-- Upload button -->
-							        <button type="button" 
-							            class="btn btn-outline-primary btn-sm me-1 ${mode == 'view' ? 'hide-button' : ''}"
-							            onclick="triggerAvatarUpload()">
-							            <i class="bi bi-upload"></i> 
-							        </button>
-							
-							        <!-- Save button -->
-							        <button type="button" 
-							            class="btn btn-outline-primary btn-sm ${mode == 'view' ? 'hide-button' : ''}" 
-							            onclick="uploadAvatarToServer()">
-							            Lưu
-							        </button>
-							    </div>
 							</div>
 							
 							    <!-- Tên nằm dưới avatar -->
@@ -144,7 +122,7 @@
 						    <!-- Giới thiệu bản thân -->
 						    <div class="mb-3">
 						        <label for="introduction" class="form-label">Giới thiệu bản thân</label>
-						        <textarea id="introduction" name="introduction" class="form-control" rows="4" readonly><%=cv.getUngvien().getIntroduction()%></textarea>
+						        <textarea id="introduction" name="introduction" class="form-control" rows="4" readonly><%=cv.getUngvien().getIntroduction()%> </textarea>
 						    </div>
 						
 						    <!-- Nút Chỉnh sửa -->
@@ -160,7 +138,7 @@
 		                    <!-- Mục tiêu nghề nghiệp -->
 		                    <div class="mb-3">
 		                        <label for="careerGoals" class="form-label fw-bold">MỤC TIÊU</label>
-		                        <textarea id="careerGoals" name="careerGoals" class="form-control" rows="3" placeholder="Nhập mục tiêu nghề nghiệp">${cv.getUngVien().getCareerGoals()}</textarea>
+		                        <textarea id="careerGoals" name="careerGoals" class="form-control" rows="3" readonly placeholder="Nhập mục tiêu nghề nghiệp">${cv.getCareerGoals()}</textarea>
 		                    </div>
 		
 		                    <!-- Học vấn -->
@@ -174,52 +152,38 @@
 								        <div class="row mb-2">
 								            <div class="col-md-6">
 								                <label class="form-label">Bắt đầu</label>
-								                <input type="date" name="educationStart[]" class="form-control" value="<%= cv.getHocVan().get(i).getStart() %>">
+								                <input type="date" name="educationStart[]" class="form-control" value="<%= cv.getHocVan().get(i).getStart() %>" readonly>
 								            </div>
 								            <div class="col-md-5">
 								                <label class="form-label">Kết thúc</label>
-								                <input type="date" name="educationEnd[]" class="form-control me-2 education-end-date" value="<%= cv.getHocVan().get(i).getEnd() %>">
-								            </div>
-								            <div class="col-md-1 d-flex flex-column justify-content-end px-0">
-								                <div class="form-check d-flex justify-content-center align-items-center mb-3">
-								                    <input type="checkbox" class="form-check-input education-current-checkbox" 
-								                           <% if (cv.getHocVan().get(i).getEnd() == null) { %> checked <% } %> 
-								                           onchange="toggleEndDate(this)">
-								                    <label class="form-check-label" for="educationCurrent">Hiện tại</label>
-								                </div>
+								                <input type="date" name="educationEnd[]" class="form-control me-2 education-end-date" value="<%= cv.getHocVan().get(i).getEnd() %>" readonly>
 								            </div>
 								        </div>
 								        <div class="row mb-2">
 								            <div class="col-md-6">
 								                <label class="form-label">Tên trường học</label>
 								                <input type="text" name="educationSchool[]" class="form-control" 
-								                       value="<%= cv.getHocVan().get(i).getSchool()%>" placeholder="Tên trường học">
+								                       value="<%= cv.getHocVan().get(i).getSchool()%>" placeholder="Tên trường học" readonly>
 								            </div>
 								            <div class="col-md-6">
 								                <label class="form-label">Ngành học / Môn học</label>
 								                <input type="text" name="educationMajor[]" class="form-control" 
-								                       value="<%= cv.getHocVan().get(i).getMajor()%>" placeholder="Ngành học / Môn học">
+								                       value="<%= cv.getHocVan().get(i).getMajor()%>" placeholder="Ngành học / Môn học" readonly>
 								            </div>
 								        </div>
 								        <div class="mb-2">
 								            <label class="form-label">Mô tả quá trình học tập hoặc thành tích của bạn</label>
-								            <textarea name="educationDescription[]" class="form-control" rows="2" placeholder="Nhập mô tả..."><%= cv.getHocVan().get(i).getDescription() %></textarea>
+								            <textarea name="educationDescription[]" class="form-control" readonly rows="2" placeholder="Nhập mô tả..."><%= cv.getHocVan().get(i).getDescription() %></textarea>
 								        </div>
-								        <button type="button" class="btn btn-outline-danger btn-sm ${mode == 'view' ? 'hide-button' : ''}" onclick="removeEducationItem(this)">
-								            <i class="bi bi-x-circle"></i> Xóa
-								        </button>
 								    </div>
 								
 								<% } %>
 							    </div>
-							    <!-- Nút thêm mới -->
-							    <button type="button" class="btn btn-outline-success btn-sm ${mode == 'view' ? 'hide-button' : ''}" onclick="addEducationItem()">
-							        <i class="bi bi-plus-circle"></i> Thêm mới
-							    </button>
 							</div>
 		
 		
 		                    <!-- Kinh nghiệm làm việc -->
+		                    <label class="form-label fw-bold">KINH NGHIỆM</label>
 							<div id="experienceContainer" class="mb-4">
 							<% for (int i = 0; i < cv.getKinhNghiem().size(); i++) { 
 							%>
@@ -228,48 +192,31 @@
 							        <div class="row mb-2">
 							            <div class="col-md-6">
 							                <label class="form-label">Bắt đầu</label>
-							                <input type="date" name="experienceStart[]" class="form-control" value="<%=  cv.getKinhNghiem().get(i).getStart() %>">
+							                <input type="date" name="experienceStart[]" class="form-control" value="<%=  cv.getKinhNghiem().get(i).getStart() %>" readonly>
 							            </div>
 							            <div class="col-md-5">
 							                <label class="form-label">Kết thúc</label>
-							                <input type="date" name="experienceEnd[]" class="form-control me-2 experience-end-date" value="<%= cv.getKinhNghiem().get(i).getEnd() %>">
-							            </div>
-							            <div class="col-md-1 d-flex flex-column justify-content-end px-0">
-							                <div class="form-check d-flex justify-content-center align-items-center mb-3">
-							                    <input type="checkbox" class="form-check-input experience-current-checkbox"
-							                           <% if (cv.getKinhNghiem().get(i).getEnd()  == null) { %> checked <% } %> 
-							                           onchange="toggleExperienceEndDate(this)">
-							                    <label class="form-check-label" for="educationCurrent">Hiện tại</label>
-							                </div>
+							                <input type="date" name="experienceEnd[]" class="form-control me-2 experience-end-date" value="<%= cv.getKinhNghiem().get(i).getEnd() %>" readonly>
 							            </div>
 							        </div>
 							        <div class="row mb-2">
 							            <div class="col-md-6">
 							                <label class="form-label">Tên công ty</label>
-							                <input type="text" name="experienceCompany[]" class="form-control" value="<%= cv.getKinhNghiem().get(i).getCompany() %>" placeholder="Tên công ty">
+							                <input type="text" name="experienceCompany[]" class="form-control" value="<%= cv.getKinhNghiem().get(i).getCompany() %>" placeholder="Tên công ty" readonly>
 							            </div>
 							            <div class="col-md-6">
 							                <label class="form-label">Vị trí công việc</label>
-							                <input type="text" name="experiencePosition[]" class="form-control" value="<%= cv.getKinhNghiem().get(i).getPosition()  %>" placeholder="Vị trí công việc">
+							                <input type="text" name="experiencePosition[]" class="form-control" value="<%= cv.getKinhNghiem().get(i).getPosition()  %>" placeholder="Vị trí công việc" readonly>
 							            </div>
 							        </div>
 							        <div class="mb-2">
 							            <label class="form-label">Mô tả kinh nghiệm làm việc</label>
-							            <textarea name="experienceDescription[]" class="form-control" rows="2" placeholder="Nhập mô tả..."><%= cv.getKinhNghiem().get(i).getDescription()  %></textarea>
+							            <textarea name="experienceDescription[]" class="form-control" readonly rows="2" placeholder="Nhập mô tả..."><%= cv.getKinhNghiem().get(i).getDescription()  %></textarea>
 							        </div>
-							        <button type="button" class="btn btn-outline-danger btn-sm ${mode == 'view' ? 'hide-button' : ''}" onclick="removeExperienceItem(this)">
-							            <i class="bi bi-x-circle"></i> Xóa
-							        </button>
 							    </div>
 							
 							<% } %>
 							</div>
-							
-							<!-- Nút thêm mới -->
-							<button type="button" class="btn btn-outline-success btn-sm  ${mode == 'view' ? 'hide-button' : ''}" onclick="addExperienceItem()">
-							    <i class="bi bi-plus-circle"></i> Thêm kinh nghiệm
-							</button>
-		
 		
 		                    <!-- Chứng chỉ -->
 							<div class="mb-3">
@@ -279,17 +226,10 @@
 							        <% for (int i = 0; i < cv.getChungChi().size(); i++) { 
 									%>
 							        <div class="input-group mb-2">
-								        <input type="text" name="certificates[]" class="form-control" placeholder="Nhập tên chứng chỉ" value="<%= cv.getChungChi().get(i).getName()  %>">
-								        <button type="button" class="btn btn-outline-danger btn-sm ${mode == 'view' ? 'hide-button' : ''}" onclick="removeCertificateRow(this)">
-								            <i class="bi bi-x-circle"></i>
-								        </button>
+								        <input type="text" name="certificates[]" class="form-control" placeholder="Nhập tên chứng chỉ" value="<%= cv.getChungChi().get(i).getName()  %>" readonly>
 							        </div>   
 							        <%} %>    
 							    </div>
-							    <!-- Nút thêm chứng chỉ -->
-							    <button type="button" class="btn btn-outline-success btn-sm  ${mode == 'view' ? 'hide-button' : ''}" onclick="addCertificateRow()">
-							        <i class="bi bi-plus-circle"></i> Thêm chứng chỉ
-							    </button>
 							</div>
 							
 		                    <!-- Kỹ năng -->
@@ -302,38 +242,26 @@
 				                    	 for (int i = 0; i < cv.getKyNang().size(); i++) {
 				                %>
 				                    <div class="skill-row d-flex align-items-center mb-2">
-				                        <input type="text" name="skills[]" class="form-control me-3" placeholder="Tên kỹ năng" value="<%= cv.getKyNang().get(i).getName() %>">
+				                        <input type="text" name="skills[]" class="form-control me-3" placeholder="Tên kỹ năng" value="<%= cv.getKyNang().get(i).getName() %>" readonly>
 				                        <div class="circle-rating d-flex">
 				                            <% 
 				                                // Hiển thị các vòng tròn tương ứng với mức độ kỹ năng
-				                                for (int j = 1; i <= 5; i++) {
+				                                for (int j = 1; j <= 5; j++) {
 				                                    String activeClass = (j <= Integer.parseInt(cv.getKyNang().get(i).getLevel())) ? "active" : "";
 				                            %>
 				                                <span data-value="<%= j %>" onclick="setCircleRating(this)" class="circle <%= activeClass %>"></span>
 				                            <% } %>
 				                        </div>
 				                        <input type="hidden" name="skillLevels[]" value="<%= cv.getKyNang().get(i).getLevel() %>">
-				                        <button type="button" class="btn btn-outline-danger btn-sm ms-3  ${mode == 'view' ? 'hide-button' : ''}" onclick="removeSkillRow(this)">
-				                            <i class="bi bi-x-circle"></i>
-				                        </button>
 				                    </div>
 				                <%      
 				                        }
 				                    }
 				                %>
 							    </div>
-							    <!-- Nút thêm kỹ năng -->
-							    <button type="button" class="btn btn-outline-success btn-sm  ${mode == 'view' ? 'hide-button' : ''}" onclick="addSkillRow()">
-							        <i class="bi bi-plus-circle"></i> Thêm kỹ năng
-							    </button>
 							</div>
 	            		</div>
 	            	</div>
-	            	<!-- Lưu CV-->
-                    <div class="text-center">
-                        <button type="button" class="btn btn-success  ${mode == 'view' ? 'hide-button' : ''}" onclick="submitForm()">Lưu CV</button>
-                    </div>
-            	</form>
             </div>
         </div>
     </div>

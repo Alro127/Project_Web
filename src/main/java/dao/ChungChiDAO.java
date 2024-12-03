@@ -41,7 +41,7 @@ public class ChungChiDAO {
                 while (rs.next()) {
                 	int id = rs.getInt("id");
                 	int idCV = rs.getInt("idCV");
-                    String name = rs.getString("certificateName");
+                    String name = rs.getString("name");
                     ChungChi chungChi = new ChungChi(id, idCV, name);
                     chungChis.add(chungChi);
                 }

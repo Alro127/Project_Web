@@ -24,12 +24,12 @@ public class LoadCVServlet extends HttpServlet {
         // Gọi phương thức từ CVDAO để lấy danh sách CV
         try {
         	CVDAO cvdao = new CVDAO();
-            CV cv= cvdao.getCVbyId(0);
+            CV cv= cvdao.getCVbyId(1);
             // Đưa CV vào thuộc tính của request để truy cập trong JSP
             request.setAttribute("cv", cv);
             
             // Chuyển hướng tới trang JSP để hiển thị
-            RequestDispatcher dispatcher = request.getRequestDispatcher("ThongTinCV.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("ThongTinCV_view.jsp");
             dispatcher.forward(request, response);
         } catch (SQLException e) {
             e.printStackTrace();

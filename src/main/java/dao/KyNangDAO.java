@@ -42,8 +42,8 @@ public class KyNangDAO {
                 while (rs.next()) {
                 	int id = rs.getInt("id");
                 	int idCV = rs.getInt("idCV");
-                    String name = rs.getString("skillName");
-                    String level = rs.getString("skillLevel");
+                    String name = rs.getString("name");
+                    String level = rs.getString("level");
                     KyNang kyNang = new KyNang(id, idCV, name, level);
                     kyNangs.add(kyNang);
                 }
