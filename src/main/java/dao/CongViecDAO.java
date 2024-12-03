@@ -184,4 +184,17 @@ public class CongViecDAO {
 	    }
 	    return tinhThanhs;
 	}
+	
+	public static void updateLuotXem(int id)
+	{
+		String sqlcmd = "update CongViec set LuotXem = LuotXem + 1 where IdCongViec = ?";
+		try {
+			Connection conn = DBConnection.getConnection();
+			PreparedStatement preparedStatement = conn.prepareStatement(sqlcmd);
+			preparedStatement.setInt(1, id);
+			preparedStatement.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
