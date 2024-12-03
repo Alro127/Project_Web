@@ -1,8 +1,23 @@
 function loadJobs(page) {
+	let linhVuc = $('#linhVucFilter').val();  // Lấy giá trị lĩnh vực
+	let thoiGian = $('#thoiGianFilter').val();  // Lấy giá trị thời gian
+	let luotXem = $('#luotXemFilter').val();  // Lấy giá trị lượt xem
+	let luotNop = $('#luotNopFilter').val();  // Lấy giá trị lượt nộp
+	let searchText = $('#search-input').val();
     $.ajax({
         url: 'QuanLyTinDangServlet',  // URL của servlet hoặc API
         method: 'GET',
-        data: { page: page, ajax: true },  // Truyền tham số page vào backend
+        data: 
+		{ 
+			page: page,  // Truyền tham số page
+			linhVuc: linhVuc,  // Truyền tham số lọc lĩnh vực
+			thoiGian: thoiGian,  // Truyền tham số lọc thời gian
+			luotXem: luotXem,  // Truyền tham số lọc lượt xem
+			luotNop: luotNop,  // Truyền tham số lọc lượt nộp
+			searchText: searchText,
+			ajax: true  // Để xác định là AJAX request
+		},  
+		// Truyền tham số page vào backend
         success: function(response) {
             // Kiểm tra dữ liệu trả về
             console.log("Dữ liệu trả về từ server: ", response);
@@ -61,5 +76,14 @@ function loadJobs(page) {
 
 // Tải trang đầu tiên khi trang được load
 $(document).ready(function() {
+	$('#linhVucFilter, #thoiGianFilter, #luotXemFilter, #luotNopFilter').change(function() {
+	   loadJobs(1);  // Tải lại các công việc với các filter mới
+	});
+
+	// Lắng nghe sự kiện thay đổi của input tìm kiếm
+	$('#search-input').keyup(function() {
+	       loadJobs(1);  // Tải lại các công việc với từ khóa tìm kiếm mới
+	});
+	
     loadJobs(1); // Tải dữ liệu cho trang đầu tiên
 });

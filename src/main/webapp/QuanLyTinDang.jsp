@@ -46,39 +46,38 @@ thead th {
 			<!-- Bộ lọc -->
 			<div class="row mb-3">
 				<div class="col-12 col-md-2">
-					<select class="form-select text-muted" aria-label="Lĩnh vực">
-						<option selected>Tất cả lĩnh vực</option>
-						<option value="1">Công nghệ thông tin</option>
-						<option value="2">Kinh doanh</option>
-						<option value="3">Marketing</option>
-						<option value="4">Thiết kế đồ họa</option>
+					<select id = "linhVucFilter" class="form-select text-muted" aria-label="Lĩnh vực">
+						<option value = "">Tất cả lĩnh vực</option>
+						 <c:forEach var="linhVuc" items="${linhVucs}">
+				            <option value="${linhVuc}">${linhVuc}</option>
+				        </c:forEach>
 					</select>
 				</div>
 				<div class="col-12 col-md-2">
-					<select class="form-select text-muted" aria-label="Thời gian">
-						<option selected>Sắp xếp theo thời gian</option>
+					<select id ="thoiGianFilter" class="form-select text-muted" aria-label="Thời gian">
+						<option value = "">Sắp xếp theo thời gian</option>
 						<option value="1">Mới nhất</option>
 						<option value="2">Cũ nhất</option>
 					</select>
 				</div>
 
 				<div class="col-12 col-md-2">
-					<select class="form-select text-muted" aria-label="Lượt xem">
-						<option selected>Sắp xếp theo lượt xem</option>
+					<select id = "luotXemFilter" class="form-select text-muted" aria-label="Lượt xem">
+						<option value = "">Sắp xếp theo lượt xem</option>
 						<option value="1">Cao nhất</option>
 						<option value="2">Thấp nhất</option>
 					</select>
 				</div>
 				
 				<div class="col-12 col-md-2">
-					<select class="form-select text-muted" aria-label="Lượt nộp">
-						<option selected>Sắp xếp theo lượt nộp</option>
+					<select id = "luotNopFilter" class="form-select text-muted" aria-label="Lượt nộp">
+						<option value = "">Sắp xếp theo lượt nộp</option>
 						<option value="1">Cao nhất</option>
 						<option value="2">Thấp nhất</option>
 					</select>
 				</div>
 				<div class="col-md-4 mb-3">
-					<input type="text" class="form-control" placeholder="Tìm kiếm..." />
+					<input id = "search-input" type="text" class="form-control" placeholder="Tìm kiếm..." />
 				</div>
 			</div>
 

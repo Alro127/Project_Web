@@ -150,4 +150,51 @@ public class CongViecDAO {
 		return congViecs;
 	}
 
+	public static List<String> getListLinhVuc() {
+	    List<String> linhVucs = new ArrayList<>();
+	    String sqlcmd = "SELECT DISTINCT LinhVuc FROM CongViec";
+
+	    try (Connection conn = DBConnection.getConnection();
+	         PreparedStatement stmt = conn.prepareStatement(sqlcmd);
+	         ResultSet rs = stmt.executeQuery()) {
+
+	        while (rs.next()) {
+	            linhVucs.add(rs.getString("LinhVuc"));
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return linhVucs;
+	}
+	
+	public static List<String> getListTinhThanh()
+	{
+		List<String> tinhThanhs = new ArrayList<>();
+	    String sqlcmd = "SELECT DISTINCT DiaDiem FROM CongViec";
+
+	    try (Connection conn = DBConnection.getConnection();
+	         PreparedStatement stmt = conn.prepareStatement(sqlcmd);
+	         ResultSet rs = stmt.executeQuery()) {
+
+	        while (rs.next()) {
+	        	tinhThanhs.add(rs.getString("DiaDiem"));
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return tinhThanhs;
+	}
+	
+	public static void updateLuotXem(int id)
+	{
+		String sqlcmd = "update CongViec set LuotXem = LuotXem + 1 where IdCongViec = ?";
+		try {
+			Connection conn = DBConnection.getConnection();
+			PreparedStatement preparedStatement = conn.prepareStatement(sqlcmd);
+			preparedStatement.setInt(1, id);
+			preparedStatement.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

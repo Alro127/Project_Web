@@ -6,94 +6,107 @@
 	<div class="row">
 		<!-- Công nghệ thông tin -->
 		<div class="col-4 col-md-2 mb-4">
-			<div class="card text-center">
-				<video class="card-img-top img-fluid py-2 px-5" preload="none"
-					autoplay="autoplay" loop="true" muted="muted" playsinline="">
-					<source
-						src="https://cdn-icons-mp4.flaticon.com/512/13470/13470976.mp4"
-						type="video/mp4">
-				</video>
-				<div class="card-body">
-					<h6 class="card-title">Công nghệ thông tin</h6>
-					<p class="card-text">Công việc: 120</p>
+			<a href="JobFilterServlet?field=Công%20nghệ%20thông%20tin" class="text-decoration-none text-dark">
+				<div class="card text-center">
+					<video class="card-img-top img-fluid py-2 px-5" preload="none"
+						autoplay="autoplay" loop="true" muted="muted" playsinline="">
+						<source
+							src="https://cdn-icons-mp4.flaticon.com/512/13470/13470976.mp4"
+							type="video/mp4">
+					</video>
+					<div class="card-body">
+						<h6 class="card-title">Công nghệ thông tin</h6>
+						<p class="card-text">Công việc: ${jobCountsByField["Công nghệ thông tin"]}</p>
+					</div>
 				</div>
-			</div>
+			</a>
 		</div>
-		<!-- Kiến trúc -->
+		<!-- Xây dựng -->
 		<div class="col-4 col-md-2 mb-4">
-			<div class="card text-center">
-				<video class="card-img-top img-fluid py-2 px-5" preload="none"
-					autoplay="autoplay" loop="true" muted="muted" playsinline="">
-					<source
-						src="https://cdn-icons-mp4.flaticon.com/512/13470/13470919.mp4"
-						type="video/mp4">
-				</video>
-				<div class="card-body">
-					<h6 class="card-title">Kiến trúc</h6>
-					<p class="card-text">Công việc: 80</p>
+			<a href="JobFilterServlet?field=Xây%20dựng" class="text-decoration-none text-dark">
+				<div class="card text-center">
+					<video class="card-img-top img-fluid py-2 px-5" preload="none"
+						autoplay="autoplay" loop="true" muted="muted" playsinline="">
+						<source
+							src="https://cdn-icons-mp4.flaticon.com/512/13470/13470919.mp4"
+							type="video/mp4">
+					</video>
+					<div class="card-body">
+						<h6 class="card-title">Xây dựng</h6>
+						<p class="card-text">Công việc: ${jobCountsByField["Xây dựng"]}</p>
+					</div>
 				</div>
-			</div>
+			</a>
 		</div>
 		<!-- Logistics -->
 		<div class="col-4 col-md-2 mb-4">
-			<div class="card text-center">
-				<video class="card-img-top img-fluid py-2 px-5" preload="none"
-					autoplay="autoplay" loop="true" muted="muted" playsinline="">
-					<source
-						src="https://cdn-icons-mp4.flaticon.com/512/13471/13471023.mp4"
-						type="video/mp4">
-				</video>
-				<div class="card-body">
-					<h6 class="card-title">Logistics</h6>
-					<p class="card-text">Công việc: 50</p>
+			<a href="JobFilterServlet?field=Logistics" class="text-decoration-none text-dark">
+				<div class="card text-center">
+					<video class="card-img-top img-fluid py-2 px-5" preload="none"
+						autoplay="autoplay" loop="true" muted="muted" playsinline="">
+						<source
+							src="https://cdn-icons-mp4.flaticon.com/512/13471/13471023.mp4"
+							type="video/mp4">
+					</video>
+					<div class="card-body">
+						<h6 class="card-title">Logistics</h6>
+						<p class="card-text">Công việc:
+							${jobCountsByField["Logistic"]}</p>
+					</div>
 				</div>
-			</div>
+			</a>
 		</div>
 		<!-- Kỹ thuật -->
 		<div class="col-4 col-md-2 mb-4">
-			<div class="card text-center">
-				<video class="card-img-top img-fluid py-2 px-5" preload="none"
-					autoplay="autoplay" loop="true" muted="muted" playsinline="">
-					<source
-						src="https://cdn-icons-mp4.flaticon.com/512/13470/13470972.mp4"
-						type="video/mp4">
-				</video>
-				<div class="card-body">
-					<h6 class="card-title">Kỹ thuật</h6>
-					<p class="card-text">Công việc: 75</p>
+			<a href="JobFilterServlet?field=Kỹ%20thuật" class="text-decoration-none text-dark">
+				<div class="card text-center">
+					<video class="card-img-top img-fluid py-2 px-5" preload="none"
+						autoplay="autoplay" loop="true" muted="muted" playsinline="">
+						<source
+							src="https://cdn-icons-mp4.flaticon.com/512/13470/13470972.mp4"
+							type="video/mp4">
+					</video>
+					<div class="card-body">
+						<h6 class="card-title">Kỹ thuật</h6>
+						<p class="card-text">Công việc: ${jobCountsByField["Kỹ thuật"]}</p>
+					</div>
 				</div>
-			</div>
+			</a>
 		</div>
 		<!-- Tài chính -->
 		<div class="col-4 col-md-2 mb-4">
-			<div class="card text-center">
-				<video class="card-img-top img-fluid py-2 px-5" preload="none"
-					autoplay="autoplay" loop="true" muted="muted" playsinline="">
-					<source
-						src="https://cdn-icons-mp4.flaticon.com/512/13471/13471004.mp4"
-						type="video/mp4">
-				</video>
-				<div class="card-body">
-					<h6 class="card-title">Tài chính</h6>
-					<p class="card-text">Công việc: 65</p>
+			<a href="JobFilterServlet?field=Tài%20chính" class="text-decoration-none text-dark"> 
+				<div class="card text-center">
+					<video class="card-img-top img-fluid py-2 px-5" preload="none"
+						autoplay="autoplay" loop="true" muted="muted" playsinline="">
+						<source
+							src="https://cdn-icons-mp4.flaticon.com/512/13471/13471004.mp4"
+							type="video/mp4">
+					</video>
+					<div class="card-body">
+						<h6 class="card-title">Tài chính</h6>
+						<p class="card-text">Công việc: ${jobCountsByField["Tài chính"]}</p>
+					</div>
 				</div>
-			</div>
+			</a>
 		</div>
-		<!-- Marketing -->
+		<!-- Khác -->
 		<div class="col-4 col-md-2 mb-4">
-			<div class="card text-center">
-				<video class="card-img-top img-fluid py-2 px-5" preload="none"
-					style="background: transparent url('https://cdn-icons-png.flaticon.com/512/16046/16046406.png') 50% 50%/fit no-repeat;"
-					autoplay="autoplay" loop="true" muted="muted" playsinline="">
-					<source
-						src="https://cdn-icons-mp4.flaticon.com/512/16046/16046406.mp4"
-						type="video/mp4">
-				</video>
-				<div class="card-body">
-					<h6 class="card-title">Khác</h6>
-					<p class="card-text">...</p>
+			<a href="#" class="text-decoration-none text-dark">
+				<div class="card text-center">
+					<video class="card-img-top img-fluid py-2 px-5" preload="none"
+						style="background: transparent url('https://cdn-icons-png.flaticon.com/512/16046/16046406.png') 50% 50%/fit no-repeat;"
+						autoplay="autoplay" loop="true" muted="muted" playsinline="">
+						<source
+							src="https://cdn-icons-mp4.flaticon.com/512/16046/16046406.mp4"
+							type="video/mp4">
+					</video>
+					<div class="card-body">
+						<h6 class="card-title">Khác</h6>
+						<p class="card-text">...</p>
+					</div>
 				</div>
-			</div>
+			</a>
 		</div>
 	</div>
 </div>
