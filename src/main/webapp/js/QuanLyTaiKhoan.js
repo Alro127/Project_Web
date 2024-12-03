@@ -56,7 +56,7 @@ function changePassword() {
             return;
         }
 		// Gửi yêu cầu AJAX tới Servlet để thay đổi mật khẩu
-		fetch('/ChangePasswordServlet', {
+		fetch('ChangePasswordServlet', {
 		    method: 'POST',
 		    headers: {
 		        'Content-Type': 'application/x-www-form-urlencoded'

@@ -161,7 +161,7 @@ public class TaiKhoanDAO {
     private String getPasswordByUsername(String username) {
         // Giả sử bạn truy vấn cơ sở dữ liệu và lấy mật khẩu hiện tại
         // Đây chỉ là ví dụ, bạn cần thay thế bằng truy vấn thực tế
-        return "oldPasswordFromDB"; // Ví dụ, trả về mật khẩu cũ từ DB
+        return "dat123"; // Ví dụ, trả về mật khẩu cũ từ DB
     }
 
     private boolean updatePassword(String username, String newPassword) {
