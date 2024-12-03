@@ -7,62 +7,88 @@
 	height: 100vh;
 	width: 250px;
 	position: fixed;
-	transition: all 0.3s;
+	top: 0;
+	left: -250px; /* Ẩn sidebar ngoài màn hình */
+	background-color: #343a40; /* Màu nền */
+	transition: all 0.3s ease-in-out;
+	z-index: 1050; /* Đảm bảo hiển thị trên các thành phần khác */
 }
 
-.sidebar.collapsed {
-	width: 80px;
+.sidebar.active {
+	left: 0; /* Hiển thị sidebar */
 }
 
 .sidebar .nav-link {
-	color: #fff;
+	color: #343a40;
 	display: flex;
 	align-items: center;
 	gap: 20px;
 	font-size: 16px; /* Cỡ chữ cho từng liên kết */
 	font-weight: bold;
+	text-decoration: none;
+	padding: 10px 20px;
 }
 
-.sidebar.collapsed .nav-link span, .sidebar.collapsed .bi span {
-	display: none;
+.sidebar .nav-link:hover {
+	background-color: #495057; /* Hiệu ứng hover */
 }
 
-.btn {
+/* Nút toggle nằm bên trong sidebar */
+.btn-toggle {
+	position: absolute;
+	top: 70px;
+	right: -40px; /* Dịch ra khỏi sidebar để nằm sát mép phải */
+	background-color: #343a40;
+	color: #fff;
 	border: none;
+	border-radius: 50%;
+	width: 35px;
+	height: 35px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 1100; /* Hiển thị trên sidebar */
+	cursor: pointer;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.btn-toggle:hover {
+	background-color: #495057;
 }
 </style>
-<div id="sidebar" class="sidebar d-flex flex-column bg-dark-blue shadow collapsed">
-	<button id="toggleSidebar" class="mt-3 mb-3 btn bg-dark-blue ">
-		<i class="bi bi-list text-light fs-3"><span class="ms-2">CVHub</span></i>
-	</button>
+
+<div id="sidebar" class="sidebar d-flex flex-column bg-white shadow">
+	<button id="btnToggle" class="btn-toggle">☰</button>
+	
 	<a href="#" class="nav-link hover-coral"> <i
-		class="ms-4 py-2 fs-3 fw-bold bi bi-upload"></i> <span>Đăng CV</span>
+		class="fs-4 fw-bold bi bi-clipboard-plus"></i> <span>Đăng
+			tin tuyển dụng</span>
+	</a> <a href="QuanLyTinDangServlet" class="nav-link hover-coral">
+		<i class="fs-4 fw-bold bi bi-file-earmark-post"></i> <span>Quản
+			lý tin đã đăng</span>
 	</a> <a href="#" class="nav-link hover-coral"> <i
-		class="ms-4 py-2 fs-3 fw-bold bi bi-file-earmark-text"></i> <span>Quản
-			lý CV</span>
+		class="fs-4 fw-bold bi bi-search"></i> <span>Tìm CV</span>
 	</a> <a href="#" class="nav-link hover-coral"> <i
-		class="ms-4 py-2 fs-3 fw-bold bi bi-search"></i> <span>Tìm việc</span>
-	</a> <a href="#" class="nav-link hover-coral"> <i
-		class="ms-4 py-2 fs-3 fw-bold bi bi-building"></i> <span>Công ty đã
+		class="fs-4 fw-bold bi bi-briefcase"></i> <span>CV
 			ứng tuyển</span>
-	</a> <a href="#" class="nav-link hover-coral"> <i
-		class="ms-4 py-2 fs-3 fw-bold bi bi-calendar-check"></i> <span>Lịch
+	</a> <a href="GoogleCalendarEventsServlet" class="nav-link hover-coral"> <i
+		class="fs-4 fw-bold bi bi-calendar-check"></i> <span>Lịch
 			hẹn</span>
 	</a> <a href="QuanLyTaiKhoan.jsp" class="nav-link hover-coral"> <i
-		class="ms-4 py-2 fs-3 fw-bold bi bi-person-gear"></i> <span>Quản lý
-			tài khoản</span>
+		class=" fs-4 fw-bold bi bi-person-gear"></i> <span>Quản
+			lý tài khoản</span>
 	</a>
+
 </div>
 
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-        // Toggle sidebar
-        const sidebar = document.getElementById('sidebar');
-        const toggleButton = document.getElementById('toggleSidebar');
-
-        toggleButton.addEventListener('click', () => {
-            sidebar.classList.toggle('collapsed');
-            const icon = toggleButton.querySelector('i');
-        });
-    </script>
+	const sidebar = document.getElementById('sidebar');
+	const toggleButton = document.getElementById('toggleSidebar');
+	
+	document.getElementById('btnToggle').addEventListener('click', function() {
+	        const sidebar = document.getElementById('sidebar');
+	        sidebar.classList.toggle('active');
+	    });
+</script>

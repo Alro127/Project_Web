@@ -49,17 +49,50 @@ function changePassword() {
         const oldPassword = document.getElementById("oldPassword").value;
         const newPassword = document.getElementById("newPassword").value;
         const confirmPassword = document.getElementById("confirmPassword").value;
-
+		const username = document.getElementById("username").value; 
         // Kiểm tra mật khẩu xác nhận
         if (newPassword !== confirmPassword) {
             alert("Mật khẩu mới và mật khẩu xác nhận không khớp.");
             return;
         }
+		// Gửi yêu cầu AJAX tới Servlet để thay đổi mật khẩu
+		fetch('/ChangePasswordServlet', {
+		    method: 'POST',
+		    headers: {
+		        'Content-Type': 'application/x-www-form-urlencoded'
+		    },
+		    body: `oldPassword=${encodeURIComponent(oldPassword)}&newPassword=${encodeURIComponent(newPassword)}&username=${encodeURIComponent(username)}`
+		})
+		.then(response => {
+		    // Kiểm tra nếu response trả về HTML thay vì JSON
+		    if (response.ok) {
+		        return response.json();  // Chỉ parse JSON nếu phản hồi hợp lệ
+		    } else {
+		        return response.text();  // Nếu không phải JSON, trả về text (HTML)
+		    }
+		})
+		.then(data => {
+		    if (typeof data === 'string') {
+		        console.error("Phản hồi từ server là HTML, không phải JSON:", data);
+		        alert("Có lỗi xảy ra khi thay đổi mật khẩu.");
+		    } else {
+		        if (data.status === "success") {
+		            alert(data.message);
+		        } else {
+		            alert(data.message);
+		        }
+		    }
+		})
+		.catch(error => {
+		    console.error('Error:', error);
+		    alert("Đã có lỗi xảy ra trong quá trình thay đổi mật khẩu.");
+		});
 
         // Nếu mật khẩu cũ hợp lệ và các mật khẩu khớp, thực hiện thay đổi mật khẩu
         // Thực hiện thay đổi mật khẩu ở đây (thông qua API hoặc xử lý trên server)
         alert("Mật khẩu đã được thay đổi thành công!");
     });
+	
 }
 
 // Lắng nghe sự kiện click vào nút Toggle

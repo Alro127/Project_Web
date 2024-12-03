@@ -7,10 +7,13 @@ USE CVHub;
 GO
 
 -- Tạo Bảng tài khoản
-CREATE TABLE TaiKhoan (
+CREATE TABLE tai_khoan (
     id INT PRIMARY KEY IDENTITY(1,1),
     username VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
+    id_google VARCHAR(255),
+    id_facebook VARCHAR(255),
+    email VARCHAR(255),
     role VARCHAR(50)
 );
 GO
@@ -104,3 +107,4 @@ CREATE TABLE CongViec (
     --FOREIGN KEY (idCT) REFERENCES CongTy(idCT)  -- Giả sử bảng CongTy có trường idCT làm khóa chính
 );
 GO
+

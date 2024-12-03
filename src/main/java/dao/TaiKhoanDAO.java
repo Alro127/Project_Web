@@ -143,4 +143,39 @@ public class TaiKhoanDAO {
 			e.printStackTrace();
 		}
 	}
+    public boolean updateTaiKhoan(String username, String oldPassword, String newPassword) {
+        // Kiểm tra mật khẩu cũ có đúng không (có thể cần gọi database)
+        // Giả sử bạn có một phương thức `getPasswordByUsername` để lấy mật khẩu hiện tại
+        String currentPassword = getPasswordByUsername(username);
+
+        // Kiểm tra mật khẩu cũ
+        if (currentPassword == null || !currentPassword.equals(oldPassword)) {
+            return false;  // Mật khẩu cũ không đúng
+        }
+
+        // Tiến hành cập nhật mật khẩu mới vào cơ sở dữ liệu
+        // Giả sử bạn có phương thức `updatePassword`
+        return updatePassword(username, newPassword);
+    }
+
+    private String getPasswordByUsername(String username) {
+        // Giả sử bạn truy vấn cơ sở dữ liệu và lấy mật khẩu hiện tại
+        // Đây chỉ là ví dụ, bạn cần thay thế bằng truy vấn thực tế
+        return "oldPasswordFromDB"; // Ví dụ, trả về mật khẩu cũ từ DB
+    }
+
+    private boolean updatePassword(String username, String newPassword) {
+        // Cập nhật mật khẩu mới vào cơ sở dữ liệu
+		try {
+			Connection conn = DBConnection.getConnection();
+			String sqlcmd = "UPDATE TaiKhoan SET password = ? WHERE username = ?;";
+			PreparedStatement preparedStatement = conn.prepareStatement(sqlcmd);
+			preparedStatement.setString(1, newPassword);
+			preparedStatement.setString(2, username);
+			preparedStatement.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+        return true;  // Giả sử cập nhật thành công
+    }
 }

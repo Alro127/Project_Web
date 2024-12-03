@@ -14,7 +14,7 @@
 	rel="stylesheet">
 <link href="assets/css/style.css" rel="stylesheet">
 </head>
-<body>
+<body class="bg-light-grey">
 	<div class="d-flex">
 		<!-- Sidebar -->
 		<jsp:include page="fragments/sidebar_UngVien.jsp" />
