@@ -1,89 +1,199 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Google Calendar Events</title>
-    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css" rel="stylesheet" />
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
-    <link rel="icon" href="data:,">
-    
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Google Calendar Events</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css"
+	rel="stylesheet" />
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+	rel="stylesheet">
+<script
+	src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<link href="assets/css/style.css" rel="stylesheet">
+
+<style>
+/* Đổi màu các ngày (ô lịch) */
+.fc-daygrid-day-number {
+	color: #3d405b;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+.fc-col-header-cell-cushion {
+	color: white;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+/* Đổi màu header (thứ trong tuần) */
+.fc-col-header-cell {
+	background-color: #3d405b;
+	font-weight: bold;
+}
+
+/* Bỏ underline khi hover sự kiện */
+.fc-event {
+	text-decoration: none !important;
+	color: #fff !important; /* Đảm bảo sự kiện dễ đọc */
+	background-color: #28a745 !important; /* Đổi màu sự kiện */
+	border: none !important; /* Loại bỏ viền */
+}
+
+/* Highlight ngày hôm nay */
+.fc-day-today {
+	background-color: #e9f7ef; /* Màu xanh nhạt */
+}
+</style>
+
 </head>
-<body>
+<body class="bg-light-grey">
+	<jsp:include page="fragments/topNavAcc.jsp"></jsp:include>
+	<div class="d-flex mt-5">
+		
+		<jsp:include page="fragments/sidebar_CongTy.jsp" />
+		
+		<div class="container my-5">
+			<div class="d-flex justify-content-end mb-3">
+				<button id="addEventBtn" class="btn bg-dark-blue text-light me-2">Add
+					Event</button>
+				<button id="deleteEventBtn" class="btn bg-coral text-light">Delete
+					Event</button>
+			</div>
+			<div id="calendar" class="border rounded bg-white shadow-sm p-3"></div>
+		</div>
 
-<h1>Google Calendar Events</h1>
-<div id="addEventModal" style="display:none;z-index: 1000; position: relative; top: 0">
-    <h3>Add New Event</h3>
-    <form id="addEventForm" action="GoogleAddEventServlet" method="post" onsubmit="convertDateTime()">
-	    <label for="eventTitle">Event Title:</label>
-	    <input type="text" id="eventTitle" name="eventTitle" required>
-	    
-	    <label for="eventStart">Start Time:</label>
-	    <input type="datetime-local" id="eventStart" name="eventStart" required>
-	    
-	    <label for="eventEnd">End Time:</label>
-	    <input type="datetime-local" id="eventEnd" name="eventEnd" required>
-	    
-	    <button type="submit">Add Event</button>
-	</form>
-</div>
-<button id="addEventBtn">Add Event</button>
-<button id="deleteEventBtn">Delete Event</button>
-<div id="calendar"></div>
+		<!-- Modal for Adding Event -->
+		<div class="modal fade" id="addEventModal" tabindex="-1"
+			aria-labelledby="addEventModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<form id="addEventForm" action="GoogleAddEventServlet"
+						method="post" onsubmit="convertDateTime()">
+						<div class="modal-header">
+							<h5 class="modal-title" id="addEventModalLabel">Add New
+								Event</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal"
+								aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+							<div class="mb-3">
+								<label for="eventTitle" class="form-label">Event Title:</label>
+								<input type="text" id="eventTitle" name="eventTitle"
+									class="form-control" required>
+							</div>
+							<div class="mb-3">
+								<label for="eventStart" class="form-label">Start Time:</label> <input
+									type="datetime-local" id="eventStart" name="eventStart"
+									class="form-control" required>
+							</div>
+							<div class="mb-3">
+								<label for="eventEnd" class="form-label">End Time:</label> <input
+									type="datetime-local" id="eventEnd" name="eventEnd"
+									class="form-control" required>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="submit" class="btn btn-success">Add Event</button>
+							<button type="button" class="btn btn-secondary"
+								data-bs-dismiss="modal">Close</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 
-
-
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    var calendarEl = document.getElementById('calendar');
-    
-    // Chuyển các sự kiện từ Servlet sang dạng JSON để FullCalendar có thể hiểu
-    var events = ${events};
-    console.log(events);
+	<script>
+		document.addEventListener('DOMContentLoaded', function() {
+	    var calendarEl = document.getElementById('calendar');
 	
-    // Chuyển đổi các sự kiện từ Java (List<Event>) thành JSON cho FullCalendar
-    var eventData = events.map(function(event) {
-	    return {
-	        title: event.summary || "No Title",  // Đặt giá trị mặc định nếu không có summary
-	        start: event.start ? (event.start.dateTime || event.start.date) : null, // Kiểm tra start
-	        end: event.end ? (event.end.dateTime || event.end.date) : null // Kiểm tra end
-	    };
-	});
+	    // Chuyển các sự kiện từ Servlet sang dạng JSON để FullCalendar có thể hiểu
+	    var events = ${events};
+	    var eventData = events.map(function(event) {
+		    return {
+		    	id: event.id,
+		        title: event.summary || "No Title",  // Đặt giá trị mặc định nếu không có summary
+		        start: event.start ? (event.start.dateTime || event.start.date) : null, // Kiểm tra start
+		        end: event.end ? (event.end.dateTime || event.end.date) : null // Kiểm tra end
+		    };
+		});
+	
+	    var calendar = new FullCalendar.Calendar(calendarEl, {
+	        timeZone: 'UTC',
+	        initialView: 'dayGridMonth',
+	        events: eventData,
+	        eventOverlap: true,
+	        eventDidMount: function(info) {
+	            console.log(`Rendered Event: ${info.event.title} from ${info.event.start} to ${info.event.end}`);
+	        },
+	        eventClick: function(info) {
+	            // Hiển thị modal xác nhận xóa sự kiện
+	            var eventId = info.event.id;
+	            showDeleteConfirmation(eventId);
+	        }
+	    });
+	
+	    calendar.render();
+	
+	    // Show modal for adding events
+	    document.getElementById('addEventBtn').addEventListener('click', function() {
+	        var modal = new bootstrap.Modal(document.getElementById('addEventModal'));
+	        modal.show();
+	    });
+		});
 
-    console.log(eventData);
+		function convertDateTime() {
+	    // Convert datetime-local values to include seconds
+	    var startTime = document.getElementById("eventStart").value;
+	    var endTime = document.getElementById("eventEnd").value;
+	
+	        document.getElementById("eventStart").value = startTime;
+	        document.getElementById("eventEnd").value = endTime;
+	    }
+	
+	    function showDeleteConfirmation(eventId) {
+	        // Hiển thị modal xác nhận xóa
+	        var modal = document.getElementById('deleteEventModal');
+	        modal.style.display = 'block';
+	
+	        // Thêm sự kiện click cho nút OK
+	        document.getElementById('confirmDeleteBtn').onclick = function() {
+	            deleteEvent(eventId);
+	            modal.style.display = 'none';  // Đóng modal sau khi xóa
+	        };
+	
+	        // Thêm sự kiện click cho nút Cancel
+	        document.getElementById('cancelDeleteBtn').onclick = function() {
+	            modal.style.display = 'none';  // Đóng modal mà không xóa sự kiện
+	        };
+	    }
+	
+	    function deleteEvent(eventId) {
+	        var xhr = new XMLHttpRequest();
+	        xhr.open('POST', 'GoogleDeleteEventServlet', true);
+	        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	        xhr.onreadystatechange = function() {
+	            if (xhr.readyState == 4 && xhr.status == 200) {
+	                // Sau khi xóa thành công, làm mới lại lịch
+	                alert('Event deleted successfully');
+	                location.reload();  // Tải lại trang để cập nhật danh sách sự kiện
+	            }
+	        };
+	        xhr.send('eventId=' + eventId);  // Gửi ID sự kiện để xóa
+	    }
+	
 
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-    	timeZone: 'UTC',
-        initialView: 'dayGridMonth',
-        events: eventData,
-        eventOverlap: true,
-        eventDidMount: function(info) {
-            console.log(`Rendered Event: ${info.event.title} from ${info.event.start} to ${info.event.end}`);
-        }
-    });
-
-    calendar.render();
-    
- 	// Thêm sự kiện mới
-    document.getElementById('addEventBtn').addEventListener('click', function() {
-        document.getElementById('addEventModal').style.display = 'block';
-    });
-    
-    function convertDateTime() {
-        // Lấy giá trị từ input datetime-local
-        var startTime = document.getElementById("eventStart").value;
-        var endTime = document.getElementById("eventEnd").value;
-
-        startTime = startTime + ":00";  // Đảm bảo có giây
-        endTime = endTime + ":00";      // Đảm bảo có giây
-
-        document.getElementById("eventStart").value = startTime;
-        document.getElementById("eventEnd").value = endTime;
-    }
-});
 </script>
 
 </body>

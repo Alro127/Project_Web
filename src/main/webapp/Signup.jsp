@@ -105,7 +105,7 @@ h2 {
 </style>
 <title>Đăng ký</title>
 </head>
-<body>
+<body onload="checkMessage()">
 	<div class="registration-container">
 		<h2>Đăng Ký</h2>
 		<% 
@@ -113,7 +113,10 @@ h2 {
 			if (errorMessage != null) {
 		%>
 		<div class="error-message"><%= errorMessage %></div>
-		<% } %>
+		<% }
+			request.removeAttribute("errorMessage");
+			
+			%>
 		<form action="SignupServlet" method="POST">
 			<div class="form-group">
 				<label for="username">Tên đăng nhập:</label> <input type="text"
@@ -139,5 +142,21 @@ h2 {
 			</p>
 		</div>
 	</div>
+	
+	<script type="text/javascript">
+	function checkMessage() {
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('error') === '1') {
+            alert("Account alreadly existed or invalid username or password! Please try again!");
+            removeErrorParam();
+        }
+	}     
+	function removeErrorParam() {
+        const url = new URL(window.location.href);
+        url.searchParams.delete('error'); // Xóa tham số 'error'
+        window.history.replaceState({}, document.title, url); // Cập nhật URL mà không tải lại trang
+    }
+	
+	</script>
 </body>
 </html>

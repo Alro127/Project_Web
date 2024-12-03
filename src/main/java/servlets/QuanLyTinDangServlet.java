@@ -39,7 +39,7 @@ public class QuanLyTinDangServlet extends HttpServlet {
 		List<CongViec> congViecs = new ArrayList<>();
 	    try {
 	    	//int id = Integer.parseInt(request.getParameter("id"));
-	        congViecs = CongViecDAO.GetListCongViecByIdCT(1);
+	        congViecs = CongViecDAO.GetListCongViecByIdCT(Integer.parseInt((String)request.getSession(true).getAttribute("id")));
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	    }

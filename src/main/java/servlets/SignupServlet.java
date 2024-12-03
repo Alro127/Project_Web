@@ -7,6 +7,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import dao.TaiKhoanDAO;
+
 /**
  * Servlet implementation class SignupServlet
  */
@@ -43,33 +45,30 @@ public class SignupServlet extends HttpServlet {
 		String confirmPassword = request.getParameter("confirm-password");
 		String role = "Company";
 
-		if (username == null || username.isEmpty() || password == null || password.isEmpty()) {
-			// Trả về lỗi nếu thiếu username hoặc password
-			request.setAttribute("errorMessage", "Tên đăng nhập và mật khẩu không được để trống.");
-			request.getRequestDispatcher("Signup.jsp").forward(request, response);
-			return;
-		}
-
-		if (!password.equals(confirmPassword)) {
-			// Trả về lỗi nếu mật khẩu không khớp
-			request.setAttribute("errorMessage", "Mật khẩu không khớp.");
-			request.getRequestDispatcher("Signup.jsp").forward(request, response);
-			return;
-		}
-
+		String destination = "Signup.jsp?error=1";
+		
+		if (!TaiKhoanDAO.isValidUserNamePassword(username, password, confirmPassword)) {
+            // Trả về lỗi nếu thiếu username hoặc password
+            request.setAttribute("errorMessage", "Tên đăng nhập và mật khẩu không hợp lệ");
+            request.getRequestDispatcher("Signup.jsp").forward(request, response);
+            return;
+        }
 		// Check tồn tại
 		// boolean isRegistered = registerUser(username, password, role);
 		boolean isRegistered = true;
-		if (isRegistered) {
-			if (role == "Employee")
-				response.sendRedirect("ThongTinUngVien.jsp");
-			else
-				response.sendRedirect("ThongTinCongTy.jsp");
-		} else {
+		if (TaiKhoanDAO.isExistedAccount(username, password)) {
 			// Nếu đăng ký thất bại, hiển thị thông báo lỗi
-			request.setAttribute("errorMessage", "Tên đăng nhập đã tồn tại hoặc có lỗi xảy ra.");
-			request.getRequestDispatcher("Signup.jsp").forward(request, response);
-		}
+            //request.setAttribute("errorMessage", "Tên đăng nhập đã tồn tại hoặc có lỗi xảy ra.");
+            
+        } else {
+			/*
+			 * if (role == "Employee") response.sendRedirect("ThongTinUngVien.jsp"); else
+			 * response.sendRedirect("ThongTinCongTy.jsp");
+			 */
+        	TaiKhoanDAO.AddAccount(username, password);
+        	destination = "Login.jsp?success=1";
+        }
+		request.getRequestDispatcher(destination).forward(request, response);
 		doGet(request, response);
 	}
 

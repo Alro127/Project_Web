@@ -104,7 +104,7 @@ h2 {
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <title>Đăng Nhập</title>
 </head>
-<body>
+<body onload="checkLoginMessage()">
 	<div class="login-container">
 		<h2>Đăng Nhập</h2>
 		<form action="LoginServlet" method="POST">
@@ -123,20 +123,26 @@ h2 {
 		</form>
 		
 		<!-- Google login -->
-			<div id="g_id_onload"
-			     data-client_id="503615320731-kcpnsnsjmng7vusmcm110s6m35c7d0iv.apps.googleusercontent.com"
-			     data-login_uri="http://localhost:8080/Project_Web/TrangChuCongTy.jsp"
-			     data-auto_prompt="false">
-			</div>
-			<div class="g_id_signin"
-			     data-type="standard"
-			     data-size="large"
-			     data-theme="outline"
-			     data-text="sign_in_with"
-			     data-shape="rectangular"
-			     data-logo_alignment="left">
-			</div>
-		
+		<!-- <div id="g_id_onload"
+		     data-client_id="503615320731-kcpnsnsjmng7vusmcm110s6m35c7d0iv.apps.googleusercontent.com"
+		     data-auto_prompt="false"
+		     data-callback="handleCredentialResponse">
+		</div> -->
+		<!-- <div class="g_id_signin"
+		     data-type="standard"
+		     data-size="large"
+		     data-theme="outline"
+		     data-text="sign_in_with"
+		     data-shape="rectangular"
+		     data-logo_alignment="left">
+		     
+		     <button onclick="window.location.href='https://accounts.google.com/o/oauth2/auth?client_id=503615320731-kcpnsnsjmng7vusmcm110s6m35c7d0iv.apps.googleusercontent.com&redirect_uri=http://localhost:8888/Callback&response_type=code&scope=https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/userinfo.email&access_type=offline';">
+			    Đăng nhập với Google
+			</button>
+		</div> -->
+		<button onclick="window.location.href='LoginGoogleServlet'">
+	        Đăng nhập với Google
+	    </button>
 		<!-- Facebook Login -->
 		<div class="fb-login-button" 
 		    data-scope="public_profile,email" 
@@ -155,7 +161,7 @@ h2 {
 		
 
 	<script type="text/javascript">
-	// Hàm kiểm tra trạng thái đăng nhập của người dùng
+	// Hàm kiểm tra trạng thái đăng nhập của người dùng bằng facebook
 	function checkLoginState() {
 	    FB.getLoginStatus(function(response) {
 	        if (response.status === 'connected') {
@@ -167,7 +173,32 @@ h2 {
 	        }
 	    });
 	}
-
 	</script>
+	<script>
+        // Hàm kiểm tra tham số lỗi và hiển thị thông báo
+        function checkLoginMessage() {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('error') === '1') {
+                alert("Login failed! Please check your username and password.");
+                // Xóa tham số 'error' khỏi URL
+                removeErrorParam();
+            }
+            if (urlParams.get('success') === '1') {
+    			alert("Succefully sign up! You can log in now!")
+    			removeSuccessParam();
+    		}
+        }
+        // Hàm xóa tham số 'error' khỏi URL
+        function removeErrorParam() {
+            const url = new URL(window.location.href);
+            url.searchParams.delete('error'); // Xóa tham số 'error'
+            window.history.replaceState({}, document.title, url); // Cập nhật URL mà không tải lại trang
+        }
+        function removeSuccessParam() {
+            const url = new URL(window.location.href);
+            url.searchParams.delete('success'); // Xóa tham số 'error'
+            window.history.replaceState({}, document.title, url); // Cập nhật URL mà không tải lại trang
+        }
+    </script>
 </body>
 </html>

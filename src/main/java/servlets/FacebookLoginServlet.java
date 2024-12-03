@@ -1,27 +1,28 @@
 package servlets;
 
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 
 import org.json.JSONObject;
+
+import beans.CongTy;
+import dao.CongTyDAO;
+import dao.TaiKhoanDAO;
 
 /**
  * Servlet implementation class FacebookLoginServlet
  */
 public class FacebookLoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final String APP_ID = "1536882806992085";
-    private static final String APP_SECRET = "be79ccfa46dcebc21ac5c2529475504b";   
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -43,8 +44,10 @@ public class FacebookLoginServlet extends HttpServlet {
                 String url = "https://graph.facebook.com/me?access_token=" + accessToken + "&fields=id,name,email";
                 URL obj = new URL(url);
                 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+                String destination = "";
+                
+                
                 con.setRequestMethod("GET");
-
                 BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
                 String inputLine;
                 StringBuffer responseBuffer = new StringBuffer();
@@ -55,18 +58,37 @@ public class FacebookLoginServlet extends HttpServlet {
 
                 // Xử lý dữ liệu trả về từ Facebook Graph API
                 JSONObject myResponse = new JSONObject(responseBuffer.toString());
-                String userId = myResponse.getString("id");
-                String userName = myResponse.getString("name");
-                String userEmail = myResponse.getString("email");
+                String id_facebook = myResponse.getString("id");
 
                 // Lưu thông tin vào session
                 HttpSession session = request.getSession();
-                session.setAttribute("userId", userId);
-                session.setAttribute("userName", userName);
-                session.setAttribute("userEmail", userEmail);
-
-                // Redirect đến trang home
-                response.sendRedirect("TrangGioiThieu.jsp");
+                session.setAttribute("id_facebook", id_facebook);
+                
+                if (!TaiKhoanDAO.isIDExisted(id_facebook, "id_facebook")) {
+					TaiKhoanDAO.AddAccountByID(id_facebook, "id_facebook");
+				}
+                int id = TaiKhoanDAO.getID("id_facebook", id_facebook);
+				List<String> information = TaiKhoanDAO.getInformationForSession(id);
+				// Kiểm tra xem list có dữ liệu hay không
+				if (information != null && !information.isEmpty()) {
+				    // Lưu các thông tin từ List vào session
+				    session.setAttribute("id", information.get(0));          // Lưu id
+				    session.setAttribute("id_google", information.get(1));    // Lưu id_google
+				    session.setAttribute("id_facebook", information.get(2));  // Lưu id_facebook
+				    session.setAttribute("access_token", information.get(3)); // Lưu access_token
+				    session.setAttribute("refresh_token", information.get(4)); // Lưu refresh_token	
+				    session.setAttribute("role", information.get(5));
+				    if (session.getAttribute("role").equals("UngVien")) {
+				    	destination = "CongViecServlet";
+					}
+				    else {
+						destination = "TaiKhoanCongTyServlet";
+						CongTy ct = CongTyDAO.GetCongTyById(Integer.parseInt((String)session.getAttribute("id")));
+						session.setAttribute("name", ct.getTenCongTy());
+					}
+				}
+		        // Chuyển hướng người dùng đến trang tiếp theo sau khi đăng nhập thành công
+		        response.sendRedirect(destination);
 
             } catch (Exception e) {
                 e.printStackTrace();

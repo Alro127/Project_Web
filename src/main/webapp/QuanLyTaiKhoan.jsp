@@ -34,7 +34,7 @@
 						TaiKhoan taiKhoan = (TaiKhoan) request.getAttribute("taiKhoan");
 						%>
 						<%
-						taiKhoan = new TaiKhoan(0, "nhat", "nhat", "UngVien");
+						taiKhoan = new TaiKhoan(0, "nhat", "nhat","google", "fb" ,"email","UngVien");
 						%>
 
 						<div class="row mb-3">
