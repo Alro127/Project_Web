@@ -50,7 +50,6 @@ public class ChiTietCongViecServlet extends HttpServlet {
 			congViecLienQuans = CongViec.sortBySimilarity(congViec, congViecs);
 			
 			request.setAttribute("congViecLienQuans", congViecLienQuans);
-			System.out.println(congViecLienQuans.size());
 		}
 		catch (Exception e)
 		{

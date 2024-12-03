@@ -166,4 +166,22 @@ public class CongViecDAO {
 	    }
 	    return linhVucs;
 	}
+	
+	public static List<String> getListTinhThanh()
+	{
+		List<String> tinhThanhs = new ArrayList<>();
+	    String sqlcmd = "SELECT DISTINCT DiaDiem FROM CongViec";
+
+	    try (Connection conn = DBConnection.getConnection();
+	         PreparedStatement stmt = conn.prepareStatement(sqlcmd);
+	         ResultSet rs = stmt.executeQuery()) {
+
+	        while (rs.next()) {
+	        	tinhThanhs.add(rs.getString("DiaDiem"));
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return tinhThanhs;
+	}
 }
