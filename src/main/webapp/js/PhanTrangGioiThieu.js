@@ -18,8 +18,8 @@ function loadJobs(page) {
         success: function(response) {
             console.log("Dữ liệu trả về từ server: ", response);
             if (!response || !response.congViecs || !response.totalPages) {
-                alert('Dữ liệu không hợp lệ!');
-                return;
+                /*alert('Dữ liệu không hợp lệ!');
+                return;*/
             }
 
             let jobListHtml = '';

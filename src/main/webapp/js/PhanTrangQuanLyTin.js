@@ -22,8 +22,8 @@ function loadJobs(page) {
             // Kiểm tra dữ liệu trả về
             console.log("Dữ liệu trả về từ server: ", response);
             if (!response || !response.congViecs || !response.totalPages) {
-                alert('Dữ liệu không hợp lệ!');
-                return;
+                /*alert('Dữ liệu không hợp lệ!');
+                return;*/
             }
 
             // In ra thông tin phản hồi để kiểm tra
