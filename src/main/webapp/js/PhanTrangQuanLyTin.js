@@ -1,6 +1,6 @@
 function loadJobs(page) {
     $.ajax({
-        url: 'QuanLyTinDangServlet?id=' + idCT,  // URL của servlet hoặc API
+        url: 'QuanLyTinDangServlet',  // URL của servlet hoặc API
         method: 'GET',
         data: { page: page, ajax: true },  // Truyền tham số page vào backend
         success: function(response) {
