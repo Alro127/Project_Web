@@ -8,15 +8,17 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.List;
 
 import com.mysql.cj.Session;
 
 import beans.TaiKhoan;
+import beans.UngVien;
 import dao.CongTyDAO;
 import dao.TaiKhoanDAO;
-
+import dao.UngVienDAO;
 import beans.CongTy;
 
 /**
@@ -40,7 +42,7 @@ public class LoginServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String destination = "Login.jsp?error=1";
-		String role = request.getParameter("role");
+		//String role = request.getParameter("role");
 		TaiKhoan tk = new TaiKhoan();
 		tk.setUsername(request.getParameter("username"));
 		tk.setPassword(request.getParameter("password"));
@@ -59,8 +61,19 @@ public class LoginServlet extends HttpServlet {
 			    session.setAttribute("refresh_token", information.get(4)); // Lưu refresh_token	
 			    session.setAttribute("role", information.get(5));
 			    session.setAttribute("email", information.get(6));
-			    if (session.getAttribute(role) == "UngVien") {
+			    System.out.println(id);
+			    String role = (String) session.getAttribute("role");
+			    if (role.equals("UngVien")) {
 			    	destination = "CongViecServlet";
+			    	UngVien uv;
+					try {
+						uv = UngVienDAO.getUngVienById(id);
+						session.setAttribute("name", uv.getFullName());
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+			    	
 				}
 			    else {
 					destination = "TaiKhoanCongTyServlet";
@@ -72,7 +85,6 @@ public class LoginServlet extends HttpServlet {
 		}
 		response.sendRedirect(destination);
 	}
-
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)

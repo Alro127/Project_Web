@@ -114,6 +114,28 @@ public class TaiKhoanDAO {
 	    }
 	    return -1; // Trả về -1 nếu không tìm thấy hoặc có lỗi
 	}
+	public static TaiKhoan getTaiKhoanById(int id) {
+		TaiKhoan tk = new TaiKhoan();
+	    try {
+	        Connection conn = DBConnection.getConnection();
+
+	        // Sử dụng columnName trong câu SQL
+	        String sqlcmd = "SELECT username, password  FROM TaiKhoan WHERE id = ?";
+	        
+	        PreparedStatement preparedStatement = conn.prepareStatement(sqlcmd);
+	        preparedStatement.setInt(1, id);
+	        
+	        ResultSet rs = preparedStatement.executeQuery();
+	        if (rs.next()) {
+	            tk.setId(rs.getInt("id"));
+	            tk.setUsername(rs.getString("username"));
+	            tk.setPassword(rs.getString("password"));
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace(); // In lỗi ra console để debug
+	    }
+	    return tk; // Trả về -1 nếu không tìm thấy hoặc có lỗi
+	}
 
 	public static boolean isIDExisted(String id, String columnName)
 	{
@@ -203,4 +225,5 @@ public class TaiKhoanDAO {
 			// TODO: handle exception
 		}
 	}
+
 }
