@@ -62,4 +62,17 @@ public class CongTyDAO {
 		}
 		return null;
 	}
+	public static void addHinhAnhHoatDong(int id, String duongDan)
+	{
+		String sqlcmd = "insert into HinhAnhHoatDong (idCongTy, duongDan) values (?, ?)";
+		try {
+			Connection connection = DBConnection.getConnection();
+			PreparedStatement preparedStatement = connection.prepareStatement(sqlcmd);
+			preparedStatement.setInt(1, id);
+			preparedStatement.setString(2, duongDan);
+			preparedStatement.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

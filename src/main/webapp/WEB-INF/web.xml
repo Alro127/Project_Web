@@ -4,6 +4,7 @@
   <welcome-file-list>
     <welcome-file>CongViecServlet</welcome-file>
   </welcome-file-list>
+  <display-name>Project_Web</display-name>
   <servlet>
     <description></description>
     <display-name>LoginServlet</display-name>
@@ -126,6 +127,36 @@
   </servlet-mapping>
   <servlet>
     <description></description>
+    <display-name>LoadCVServlet</display-name>
+    <servlet-name>LoadCVServlet</servlet-name>
+    <servlet-class>servlets.LoadCVServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LoadCVServlet</servlet-name>
+    <url-pattern>/LoadCVServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>SaveCVServlet</display-name>
+    <servlet-name>SaveCVServlet</servlet-name>
+    <servlet-class>servlets.SaveCVServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SaveCVServlet</servlet-name>
+    <url-pattern>/SaveCVServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ChangePasswordServlet</display-name>
+    <servlet-name>ChangePasswordServlet</servlet-name>
+    <servlet-class>servlets.ChangePasswordServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ChangePasswordServlet</servlet-name>
+    <url-pattern>/ChangePasswordServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
     <display-name>TaiKhoanCongTyServlet</display-name>
     <servlet-name>TaiKhoanCongTyServlet</servlet-name>
     <servlet-class>servlets.TaiKhoanCongTyServlet</servlet-class>
@@ -183,5 +214,35 @@
   <servlet-mapping>
     <servlet-name>CongViecByCongTyServlet</servlet-name>
     <url-pattern>/CongViecByCongTyServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>QuanLyCVServlet</display-name>
+    <servlet-name>QuanLyCVServlet</servlet-name>
+    <servlet-class>servlets.QuanLyCVServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>QuanLyCVServlet</servlet-name>
+    <url-pattern>/QuanLyCVServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DeleteCVServlet</display-name>
+    <servlet-name>DeleteCVServlet</servlet-name>
+    <servlet-class>servlets.DeleteCVServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeleteCVServlet</servlet-name>
+    <url-pattern>/DeleteCVServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DieuHuongServlet</display-name>
+    <servlet-name>DieuHuongServlet</servlet-name>
+    <servlet-class>servlets.DieuHuongServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DieuHuongServlet</servlet-name>
+    <url-pattern>/DieuHuongServlet</url-pattern>
   </servlet-mapping>
 </web-app>

@@ -21,6 +21,17 @@ public class CongViec {
 	private String quyenLoi;
 	private int luotXem;
 	private int luotNop;
+	
+	private String tenCongTy;
+	private String logo;
+	
+	public String getTenCongTy() {
+		return tenCongTy;
+	}
+
+	public void setTenCongTy(String tenCongTy) {
+		this.tenCongTy = tenCongTy;
+	}
 
 	public int getIdCongViec() {
 		return idCongViec;
@@ -211,7 +222,17 @@ public class CongViec {
 				", quyenLoi='" + quyenLoi + '\'' +
 				", luotXem=" + luotXem +
 				", luotNop=" + luotNop +
+				", tenCongTy=" + tenCongTy +
+				", logo=" + logo +
 				'}';
+	}
+
+	public String getLogo() {
+		return logo;
+	}
+
+	public void setLogo(String logo) {
+		this.logo = logo;
 	}
 
 }

@@ -39,6 +39,15 @@ public class CongViecDAO {
 				congViec.setQuyenLoi(rs.getString("QuyenLoi"));
 				congViec.setLuotXem(rs.getInt("LuotXem"));
 				congViec.setLuotNop(rs.getInt("LuotNop"));
+				
+				CongTy congTy = CongTyDAO.GetCongTyById(congViec.getIdCT());
+				if (congTy != null) {
+				    congViec.setTenCongTy(congTy.getTenCongTy());
+				    congViec.setLogo(congTy.getLogo());
+				} else {
+				    congViec.setTenCongTy("Chưa cập nhật");
+				    congViec.setLogo("Chưa cập nhật");
+				}
 
 				// Thêm đối tượng vào danh sách
 				congViecs.add(congViec);
@@ -104,6 +113,15 @@ public class CongViecDAO {
 				congViec.setLuotXem(rs.getInt("LuotXem"));
 				congViec.setLuotNop(rs.getInt("LuotNop"));
 				
+				CongTy congTy = CongTyDAO.GetCongTyById(congViec.getIdCT());
+				if (congTy != null) {
+				    congViec.setTenCongTy(congTy.getTenCongTy());
+				    congViec.setLogo(congTy.getLogo());
+				} else {
+				    congViec.setTenCongTy("Chưa cập nhật");
+				    congViec.setLogo("Chưa cập nhật");
+				}
+				
 				return congViec;
 			}
 		}
@@ -140,7 +158,15 @@ public class CongViecDAO {
 				congViec.setQuyenLoi(rs.getString("QuyenLoi"));
 				congViec.setLuotXem(rs.getInt("LuotXem"));
 				congViec.setLuotNop(rs.getInt("LuotNop"));
-
+				
+				CongTy congTy = CongTyDAO.GetCongTyById(congViec.getIdCT());
+				if (congTy != null) {
+				    congViec.setTenCongTy(congTy.getTenCongTy());
+				    congViec.setLogo(congTy.getLogo());
+				} else {
+				    congViec.setTenCongTy("Chưa cập nhật");
+				    congViec.setLogo("Chưa cập nhật");
+				}
 				// Thêm đối tượng vào danh sách
 				congViecs.add(congViec);
 			}

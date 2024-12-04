@@ -135,6 +135,7 @@ public class CongViecServlet extends HttpServlet {
 	    String jsonResponse = new Gson().toJson(responseData);
 	    System.out.println(jsonResponse); // Kiểm tra dữ liệu JSON trước khi trả về
 	    response.getWriter().write(jsonResponse);
+		System.out.println(congViecs);
 	    
 	    // Nếu không phải AJAX, bạn có thể chuyển hướng sang JSP
 	    if (!"true".equals(request.getParameter("ajax"))) {
