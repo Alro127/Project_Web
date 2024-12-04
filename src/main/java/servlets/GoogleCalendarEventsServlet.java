@@ -81,8 +81,9 @@ public class GoogleCalendarEventsServlet extends HttpServlet {
     		        }
     		        credential = new Credential(BearerToken.authorizationHeaderAccessMethod())
             		        .setAccessToken(accessToken);
-    		        // Cập nhật token mới vào session
+    		        // Cập nhật token và credential mới vào session
     		        session.setAttribute("access_token", accessToken);
+    		        session.setAttribute("Credential", credential);
     		        accessToken = (String) session.getAttribute("access_token");
     		    } catch (IOException e) {
     		        throw new ServletException("Error refreshing access token.", e);
