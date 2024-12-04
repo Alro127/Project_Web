@@ -237,6 +237,16 @@
   </servlet-mapping>
   <servlet>
     <description></description>
+    <display-name>QuanLyTaiKhoanServlet</display-name>
+    <servlet-name>QuanLyTaiKhoanServlet</servlet-name>
+    <servlet-class>servlets.QuanLyTaiKhoanServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>QuanLyTaiKhoanServlet</servlet-name>
+    <url-pattern>/QuanLyTaiKhoanServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
     <display-name>DieuHuongServlet</display-name>
     <servlet-name>DieuHuongServlet</servlet-name>
     <servlet-class>servlets.DieuHuongServlet</servlet-class>

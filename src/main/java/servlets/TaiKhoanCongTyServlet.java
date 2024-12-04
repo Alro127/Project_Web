@@ -11,8 +11,10 @@ import java.util.List;
 
 import beans.CongTy;
 import beans.CongViec;
+import beans.TaiKhoan;
 import dao.CongTyDAO;
 import dao.CongViecDAO;
+import dao.TaiKhoanDAO;
 
 /**
  * Servlet implementation class TaiKhoanCongTy
@@ -33,7 +35,7 @@ public class TaiKhoanCongTyServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
+		TaiKhoan tk = TaiKhoanDAO.getTaiKhoanById(Integer.parseInt((String)request.getSession(true).getAttribute("id")));
 		CongTy congTy = new CongTy();
 	    try {
 	        congTy = CongTyDAO.GetCongTyById(Integer.parseInt((String)request.getSession(true).getAttribute("id")));
@@ -42,6 +44,7 @@ public class TaiKhoanCongTyServlet extends HttpServlet {
 	    }
 	    
 	    request.setAttribute("congTy", congTy);
+	    request.setAttribute("tk", tk);
 	    request.getRequestDispatcher("/TaiKhoanCongTy.jsp").forward(request, response);
 	}
 

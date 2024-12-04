@@ -34,7 +34,7 @@ public class DieuHuongServlet extends HttpServlet {
 		if ("CongTy".equals(role)) {
 			response.sendRedirect("TaiKhoanCongTyServlet");
 		} else if ("UngVien".equals(role)) {
-			response.sendRedirect("QuanLyTaiKhoan.jsp");
+			response.sendRedirect("QuanLyTaiKhoanServlet");
 		} else {
 			response.sendRedirect("Login.jsp");
 		}
