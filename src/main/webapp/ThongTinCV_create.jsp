@@ -71,7 +71,7 @@
 							<!-- Vị trí ứng tuyển -->
 							<div class="mb-3">
 								<label class="form-label fw-bold">VỊ TRÍ ỨNG TUYỂN</label> <input
-									type="text" class="form-control"
+									type="text" class="form-control" id="position"
 									placeholder="Nhập vị trí ứng tuyển"
 									>
 							</div>
@@ -326,11 +326,10 @@
 						</div>
 					</div>
 					<!-- Lưu CV-->
-					<%
-					    String mode = "create";
-					%>
+					<textarea type="hidden" id="mode" style="display:none;">create</textarea>
 					<div class="text-center">
-						<button type="submit" class="btn btn-success" onClick="saveData()">Lưu CV</button>
+						<button type="button" class="btn btn-success" onClick="saveData()">Lưu CV</button>
+						<button type="button" class="btn" onclick="submitAndGoToQuanLyCV()">Quay Lại</button>
 					</div>
 				</form>
 			</div>
@@ -341,5 +340,14 @@
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="js/ThongTinCV.js"></script>
+	<script>
+    function submitAndGoToQuanLyCV() {
+        // Gửi form đến SaveCVServlet trước
+        document.getElementById("cvForm").submit();
+        
+        // Sau khi gửi xong, điều hướng sang QuanLyCVServlet
+        window.location.href = "QuanLyCVServlet";
+    }
+</script>
 </body>
 </html>

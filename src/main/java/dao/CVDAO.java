@@ -186,7 +186,7 @@ public class CVDAO {
             throw new SQLException("Error deleting CV with Id: " + IdCV);
         }
     }
-    // Lấy tất cả CV bằng IdUV
+    // Kiểm tra CV tồn tại
     public static boolean isCVExisted(CV cv) throws SQLException {
         String sql = "SELECT COUNT(*) FROM CV WHERE IdUV = ? and IdCV = ?";
         boolean isExisted = false;

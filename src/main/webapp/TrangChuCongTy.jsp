@@ -22,6 +22,10 @@
 	rel="stylesheet">
 <!-- Custom CSS -->
 <link href="assets/css/style.css" rel="stylesheet">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+	crossorigin="anonymous"></script>
 
 <style>
 .image-container {
@@ -265,9 +269,6 @@
 	<!-- Footer -->
 	<jsp:include page="fragments/footer.jsp" />
 
-	<!-- Bootstrap JS -->
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 	<script type="text/javascript">
 		var idCT = "${congTy.idCT}"; 
 		console.log(idCT);// Lưu idCT từ servlet vào một biến JavaScript
