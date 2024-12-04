@@ -1,39 +1,6 @@
 // Hàm tạo form Đổi Mật Khẩu
 function createChangePasswordForm() {
     const container = document.getElementById('changePasswordForm');
-    
-    // Kiểm tra nếu phần Đổi Mật Khẩu đã tồn tại và hiển thị
-    if (container.innerHTML === "") {
-        // Tạo và thêm form Đổi Mật Khẩu nếu chưa có
-        const newItem = document.createElement("div");
-
-        newItem.innerHTML = `
-        <div class="card">
-            <div class="card-header">
-                Thay đổi mật khẩu
-            </div>
-            <div class="card-body">
-                <form id="changePasswordFormId">
-                    <div class="mb-3">
-                        <label for="oldPassword" class="form-label">Mật khẩu cũ</label>
-                        <input type="password" id="oldPassword" name="oldPassword" class="form-control" placeholder="Nhập mật khẩu cũ" required />
-                    </div>
-                    <div class="mb-3">
-                        <label for="newPassword" class="form-label">Mật khẩu mới</label>
-                        <input type="password" id="newPassword" name="newPassword" class="form-control" placeholder="Nhập mật khẩu mới" required />
-                    </div>
-                    <div class="mb-3">
-                        <label for="confirmPassword" class="form-label">Xác nhận mật khẩu mới</label>
-                        <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" placeholder="Nhập lại mật khẩu mới" required />
-                    </div>
-                    <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
-                </form>
-            </div>
-        </div>
-        `;
-        
-        container.appendChild(newItem);
-    }
 
     // Toggle hiển thị phần Đổi Mật Khẩu
     if (container.style.display === "none" || container.style.display === "") {
@@ -95,4 +62,10 @@ document.getElementById('toggleChangePassword').addEventListener('click', functi
     event.preventDefault();  
     createChangePasswordForm();
 });
-document.getElementById("changePasswordFormId")?.addEventListener("submit", handleChangePasswordSubmit);
+// Lắng nghe sự kiện submit của form thay đổi mật khẩu
+const changePasswordForm = document.getElementById("changePasswordForm");
+if (changePasswordForm) {
+    changePasswordForm.addEventListener("submit", function(event) {
+        handleChangePasswordSubmit(event);
+    });
+}

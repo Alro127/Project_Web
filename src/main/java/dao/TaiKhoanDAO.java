@@ -134,7 +134,7 @@ public class TaiKhoanDAO {
 	    } catch (Exception e) {
 	        e.printStackTrace(); // In lỗi ra console để debug
 	    }
-	    return tk; // Trả về -1 nếu không tìm thấy hoặc có lỗi
+	    return tk;
 	}
 
 	public static boolean isIDExisted(String id, String columnName)
@@ -181,9 +181,24 @@ public class TaiKhoanDAO {
     }
 
     private String getPasswordByUsername(String username) {
-        // Giả sử bạn truy vấn cơ sở dữ liệu và lấy mật khẩu hiện tại
-        // Đây chỉ là ví dụ, bạn cần thay thế bằng truy vấn thực tế
-        return "dat123"; // Ví dụ, trả về mật khẩu cũ từ DB
+		String password = "";
+	    try {
+	        Connection conn = DBConnection.getConnection();
+
+	        // Sử dụng columnName trong câu SQL
+	        String sqlcmd = "SELECT password  FROM TaiKhoan WHERE username = ?";
+	        
+	        PreparedStatement preparedStatement = conn.prepareStatement(sqlcmd);
+	        preparedStatement.setString(1, username);
+	        
+	        ResultSet rs = preparedStatement.executeQuery();
+	        if (rs.next()) {
+	        	password = rs.getString("password");
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace(); // In lỗi ra console để debug
+	    }
+        return password; // Ví dụ, trả về mật khẩu cũ từ DB
     }
 
     private boolean updatePassword(String username, String newPassword) {

@@ -56,7 +56,30 @@
 									mật khẩu</button>
 
 								<!-- Phần giao diện Đổi Mật Khẩu sẽ được thêm vào tại đây -->
-								<div id="changePasswordForm" class="mt-3" style="display: none;"></div>
+								<div id="changePasswordForm" class="mt-3" style="display: none;">
+							        <div class="card">
+								        <div class="card-header">
+								            Thay đổi mật khẩu
+								        </div>
+								        <div class="card-body">
+								            <form id="changePasswordFormId">
+								                <div class="mb-3">
+								                    <label for="oldPassword" class="form-label">Mật khẩu cũ</label>
+								                    <input type="password" id="oldPassword" name="oldPassword" class="form-control" placeholder="Nhập mật khẩu cũ" required />
+								                </div>
+								                <div class="mb-3">
+								                    <label for="newPassword" class="form-label">Mật khẩu mới</label>
+								                    <input type="password" id="newPassword" name="newPassword" class="form-control" placeholder="Nhập mật khẩu mới" required />
+								                </div>
+								                <div class="mb-3">
+								                    <label for="confirmPassword" class="form-label">Xác nhận mật khẩu mới</label>
+								                    <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" placeholder="Nhập lại mật khẩu mới" required />
+								                </div>
+								                <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+								            </form>
+								        </div>
+								    </div>
+								</div>
 
 							</div>
 						</div>
