@@ -109,13 +109,30 @@
 								<!-- Ứng tuyển và thêm vào yêu thích  -->
 								<div class="container mt-3 px-0">
 									<div class="row">
+
 										<div class="col-md-9 mb-3">
-											<button class="btn bg-dark-blue text-light form-control">Ứng
-												tuyển</button>
+											<form action="">
+												<button type="submit"
+													class="btn bg-dark-blue text-light form-control">Ứng
+													tuyển</button>
+											</form>
 										</div>
+
 										<div class="col-md-3 mb-3">
-											<button class="btn btn-outline-coral form-control">Lưu
-												tin</button>
+											<form action="CongViecYeuThichServlet" method="POST">
+												<input type="hidden" name="idCongViec" value="${congViec.idCongViec}" />
+												<button type="submit"
+													class="btn btn-outline-coral form-control">
+													<c:choose>
+														<c:when test="${trangThai}">
+										                    Đã thích
+										                </c:when>
+														<c:otherwise>
+										                    Lưu tin
+										                </c:otherwise>
+													</c:choose>
+												</button>
+											</form>
 										</div>
 
 									</div>
