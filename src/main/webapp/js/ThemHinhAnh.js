@@ -1,18 +1,25 @@
+var imageSources = []; // Mảng lưu trữ dữ liệu Base64
+var fileNames = []; // Mảng lưu trữ tên tệp ảnh
+var avatarSource;
+var avatarFileName;
 document.getElementById("saveImage").addEventListener("click", function () {
-    var fileInput = document.getElementById("imageUpload");
-    var file = fileInput.files[0];
+	// Đây là cái modal ở đầu trang khi hiện lên
+	var fileInput = document.getElementById("imageUpload");
+    var file = fileInput.files[0]; // Lấy thằng đầu tiên
     
     console.log("file input" + fileInput);
     console.log("file" + file);
     
-    if (file) {
+    if (file) { // Nếu có file
         var reader = new FileReader();
         
-        reader.onload = function (e) {
+        reader.onload = function (e) { // Sau khi đọc xong
             var srcData = e.target.result; // URL ảnh (Base64)
             var fileName = file.name; // Lấy tên file
+			imageSources.push(srcData);
+			fileNames.push(fileName);
 
-            // Gửi dữ liệu qua AJAX
+            /*// Gửi dữ liệu qua AJAX
             fetch("TaiKhoanCongTyServlet", {
                 method: "POST",
                 headers: {
@@ -31,7 +38,7 @@ document.getElementById("saveImage").addEventListener("click", function () {
                 }
             })
             .then(data => {
-                console.log("Phản hồi từ server:", data);
+                console.log("Phản hồi từ server:", data);*/
                 
                 // Hiển thị ảnh trên giao diện
                 var imageContainer = document.getElementById("image-container");
@@ -51,13 +58,37 @@ document.getElementById("saveImage").addEventListener("click", function () {
                 // Đóng modal
                 var modal = new bootstrap.Modal(document.getElementById('addImageModal'));
                 modal.hide();
-            })
+           /* })
             .catch(error => {
                 console.error("Lỗi:", error);
                 alert("Không thể lưu hình ảnh!");
             });
-        };
-
-        reader.readAsDataURL(file);
+        };*/
+	}
+        reader.readAsDataURL(file); // Đọc file để kích hoạt hàm
     }
+});
+document.getElementById("saveAvatarImage").addEventListener("click", function()
+{
+		var fileInput = document.getElementById("imageAvatarUpload");
+	    var file = fileInput.files[0]; // Lấy thằng đầu tiên
+		console.log("file input" + fileInput);
+		console.log("file" + file);
+		if (file) {
+			var reader = new FileReader();
+			reader.onload = function(e)
+			{
+				var srcData = e.target.result; // URL ảnh (Base64)
+				var fileName = file.name; // Lấy tên file
+				avatarSource = srcData;
+				avatarFileName = fileName;
+				var avtImage = document.getElementById("avatarPreview");
+				avtImage.src = srcData;
+				// Đóng modal
+				 var modal = new bootstrap.Modal(document.getElementById('addAvatarImageModal'));
+				 modal.hide();
+			}
+			reader.readAsDataURL(file);
+		}
+			
 });
