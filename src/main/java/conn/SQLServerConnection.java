@@ -12,6 +12,7 @@ public class SQLServerConnection {
         //String dbURL = "jdbc:sqlserver://MEOWWW\\DAT:1305";
         String dbName = "CVHub";
         String dbUsername = "sa";
+        //String dbPassword = "123";
         String dbPassword = "1";
 
         // Chuỗi kết nối với các tham số cấu hình chính xác

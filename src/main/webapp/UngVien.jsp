@@ -15,6 +15,7 @@
 <link href="assets/css/style.css" rel="stylesheet">
 </head>
 <body class="bg-light-grey">
+	<jsp:include page="fragments/topNavAcc.jsp"></jsp:include>
 	<div class="d-flex">
 		<!-- Sidebar -->
 		<jsp:include page="fragments/sidebar_UngVien.jsp" />

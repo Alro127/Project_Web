@@ -28,6 +28,7 @@ thead th {
 	border-bottom: 2px solid #dee2e6;
 	/* Đường viền dưới dày hơn cho tiêu đề */
 }
+
 </style>
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
@@ -98,6 +99,7 @@ thead th {
 						<th>Lượt nộp</th>
 						<th>Lượt xem</th>
 						<th>Chi tiết</th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody id="job-list">

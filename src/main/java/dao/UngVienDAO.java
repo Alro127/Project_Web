@@ -101,7 +101,7 @@ public class UngVienDAO {
     }
 
     // Lấy ứng viên theo ID
-    public UngVien getUngVienById(int idUV) throws SQLException {
+    public static UngVien getUngVienById(int idUV) {
         String sql = "SELECT idUV, fullName, gender, dob, phone, email, location, address, introduction, avatar FROM UngVien WHERE idUV = ?";
         try{
         	Connection connection = DBConnection.getConnection();

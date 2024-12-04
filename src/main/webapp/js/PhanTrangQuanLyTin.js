@@ -48,7 +48,12 @@ function loadJobs(page) {
                         <td class="text-muted">${thoiGianHetHan}</td>
                         <td class="text-muted">${congViec.luotNop}</td>
                         <td class="text-muted">${congViec.luotXem}</td>
-                        <td><button type="button" class="btn btn-outline-coral btn-sm" onclick="showJobDetail(${congViec.idCongViec})">Chi tiết</button></td>
+						<td>
+				            <button type="button" class="btn btn-outline-coral btn-sm" onclick="showJobDetail(${congViec.idCongViec})">Chi tiết</button>
+				        </td>
+						<td>
+							<i class="bi bi-trash text-danger " style="cursor: pointer;" onclick="deleteJob(${congViec.idCongViec})"></i>
+						</td>
                     </tr>
                 `;
             });

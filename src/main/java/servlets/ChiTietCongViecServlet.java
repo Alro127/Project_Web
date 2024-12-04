@@ -54,7 +54,7 @@ public class ChiTietCongViecServlet extends HttpServlet {
             List<CongViec> congViecLienQuans = CongViec.sortBySimilarity(congViec, congViecs);
 
             // Cập nhật lượt xem nếu cần thiết
-            if (session.getAttribute("id") != null &&
+            if (session.getAttribute("id") == null ||
                 congViec.getIdCT() != Integer.parseInt((String) session.getAttribute("id"))) {
                 CongViecDAO.updateLuotXem(id);
             }
