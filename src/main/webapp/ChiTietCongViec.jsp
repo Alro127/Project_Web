@@ -13,9 +13,12 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
 	rel="stylesheet">
 <link href="assets/css/style.css" rel="stylesheet">
+
 <script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</head>
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+	crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <body class="bg-light-grey">
 	<!-- Navigation -->
 	<c:choose>
@@ -111,16 +114,17 @@
 									<div class="row">
 
 										<div class="col-md-9 mb-3">
-											<form action="">
-												<button type="submit"
-													class="btn bg-dark-blue text-light form-control">Ứng
-													tuyển</button>
-											</form>
+											<button type="button"
+												class="btn bg-dark-blue text-light form-control"
+												data-bs-toggle="modal" data-bs-target="#cvModal"
+												onclick="openCVModal()">Ứng tuyển</button>
 										</div>
+
 
 										<div class="col-md-3 mb-3">
 											<form action="CongViecYeuThichServlet" method="POST">
-												<input type="hidden" name="idCongViec" value="${congViec.idCongViec}" />
+												<input type="hidden" name="idCongViec"
+													value="${congViec.idCongViec}" />
 												<button type="submit"
 													class="btn btn-outline-coral form-control">
 													<c:choose>
@@ -187,13 +191,22 @@
 							<strong>Công việc liên quan</strong>
 						</h5>
 						<jsp:include page="fragments/frg_CongViecLienQuan.jsp" />
-						<a href="CongViecLienQuanServlet?id=${congViec.idCongViec}" >Xem thêm</a>
+						<a href="CongViecLienQuanServlet?id=${congViec.idCongViec}">Xem
+							thêm</a>
 					</div>
 
 				</div>
 			</div>
 		</div>
 	</div>
+	<script type="text/javascript">
+		// Chuyển giá trị từ Java (JSP) sang JavaScript
+		let idCongViec = ${congViec.idCongViec}; 
+		console.log(idCongViec); // In ra để kiểm tra
+		
+	</script>
+	<jsp:include page="modals/UngTuyenModal.jsp" />
+	<script src="js/UngTuyen.js"></script>
 
 	<!-- Footer -->
 	<jsp:include page="fragments/footer.jsp" />

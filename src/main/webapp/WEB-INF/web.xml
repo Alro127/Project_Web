@@ -295,4 +295,14 @@
     <servlet-name>CongViecLienQuanServlet</servlet-name>
     <url-pattern>/CongViecLienQuanServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UngTuyenServlet</display-name>
+    <servlet-name>UngTuyenServlet</servlet-name>
+    <servlet-class>servlets.UngTuyenServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UngTuyenServlet</servlet-name>
+    <url-pattern>/UngTuyenServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
