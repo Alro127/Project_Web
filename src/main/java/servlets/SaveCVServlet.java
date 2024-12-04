@@ -19,6 +19,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import conn.SQLServerConnection;
 import dao.CVDAO;
 
@@ -167,7 +168,21 @@ public class SaveCVServlet extends HttpServlet {
 	            skillList.add(skillEntity);
 	        }
 	        
-	        CV cv = new CV(1, position, careerGoals);
+	        HttpSession session = request.getSession(false);  
+			if (session == null) {
+				response.sendRedirect("Login.jsp"); 
+				return;
+			}
+
+			// Kiểm tra xem session có chứa id người dùng không
+			String idUVStr = (String) session.getAttribute("id");
+			if (idUVStr == null) {
+				response.sendRedirect("Login.jsp"); 
+				return;
+			}
+			int idUV = Integer.parseInt(idUVStr);
+			
+	        CV cv = new CV(idUV, position, careerGoals);
 	        // Tiến hành lưu các đối tượng này vào cơ sở dữ liệu hoặc xử lý theo yêu cầu
 	        if (!CVDAO.isCVExisted(cv) || mode.equals("create")) {
 	        	CVDAO.addCV(cv, educationList, experienceList, certificateList, skillList);
@@ -179,7 +194,7 @@ public class SaveCVServlet extends HttpServlet {
 	        
 	        // Trả về phản hồi thành công
 	        out.write("{\"status\":\"success\"}");
-	        response.sendRedirect("QuanLyCVServlet");
+	        request.getRequestDispatcher("QuanLyCVServlet").forward(request, response);
 	    } catch (Exception e) {
 	        // Nếu có lỗi trong việc phân tích cú pháp JSON
 	        out.write("{\"status\":\"error\",\"message\":\"Invalid JSON data\"}");

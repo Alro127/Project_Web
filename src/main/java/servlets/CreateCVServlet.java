@@ -39,10 +39,7 @@ public class CreateCVServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String mode = "create";
-		request.setAttribute("mode", mode);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("SaveCVServlet");
-		dispatcher.forward(request, response);
+		
 	}
 
 }

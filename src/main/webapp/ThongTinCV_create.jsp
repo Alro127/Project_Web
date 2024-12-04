@@ -71,7 +71,7 @@
 							<!-- Vị trí ứng tuyển -->
 							<div class="mb-3">
 								<label class="form-label fw-bold">VỊ TRÍ ỨNG TUYỂN</label> <input
-									type="text" class="form-control"
+									type="text" class="form-control" id="position"
 									placeholder="Nhập vị trí ứng tuyển"
 									>
 							</div>
