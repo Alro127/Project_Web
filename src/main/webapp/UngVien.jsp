@@ -20,12 +20,13 @@
 		<!-- Sidebar -->
 		<jsp:include page="fragments/sidebar_UngVien.jsp" />
 		<!-- Main content -->
-        <div class=" container mt-5">
-            <h1>Main Content</h1>
-            <!-- Phần nội dung sidebar chọn sẽ được tải vào đây -->
-        </div>
+		<div class=" container mt-5">
+			<h1>Main Content</h1>
+			<!-- Phần nội dung sidebar chọn sẽ được tải vào đây -->
+		</div>
 	</div>
 
 </body>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </html>

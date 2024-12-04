@@ -59,24 +59,23 @@
 
 <div id="sidebar" class="sidebar d-flex flex-column bg-white shadow">
 	<button id="btnToggle" class="btn-toggle">☰</button>
-	
+
 	<a href="DangCongViec.jsp" class="nav-link hover-coral"> <i
-		class="fs-4 fw-bold bi bi-clipboard-plus"></i> <span>Đăng
-			tin tuyển dụng</span>
-	</a> <a href="QuanLyTinDangServlet" class="nav-link hover-coral">
-		<i class="fs-4 fw-bold bi bi-file-earmark-post"></i> <span>Quản
-			lý tin đã đăng</span>
+		class="fs-4 fw-bold bi bi-clipboard-plus"></i> <span>Đăng tin
+			tuyển dụng</span>
+	</a> <a href="QuanLyTinDangServlet" class="nav-link hover-coral"> <i
+		class="fs-4 fw-bold bi bi-file-earmark-post"></i> <span>Quản lý
+			tin đã đăng</span>
 	</a> <a href="#" class="nav-link hover-coral"> <i
 		class="fs-4 fw-bold bi bi-search"></i> <span>Tìm CV</span>
 	</a> <a href="#" class="nav-link hover-coral"> <i
-		class="fs-4 fw-bold bi bi-briefcase"></i> <span>CV
-			ứng tuyển</span>
-	</a> <a href="GoogleCalendarEventsServlet" class="nav-link hover-coral"> <i
-		class="fs-4 fw-bold bi bi-calendar-check"></i> <span>Lịch
+		class="fs-4 fw-bold bi bi-briefcase"></i> <span>CV ứng tuyển</span>
+	</a> <a href="GoogleCalendarEventsServlet" class="nav-link hover-coral">
+		<i class="fs-4 fw-bold bi bi-calendar-check"></i> <span>Lịch
 			hẹn</span>
 	</a> <a href="TaiKhoanCongTyServlet" class="nav-link hover-coral"> <i
-		class=" fs-4 fw-bold bi bi-person-gear"></i> <span>Quản
-			lý tài khoản</span>
+		class=" fs-4 fw-bold bi bi-person-gear"></i> <span>Quản lý tài
+			khoản</span>
 	</a>
 
 </div>

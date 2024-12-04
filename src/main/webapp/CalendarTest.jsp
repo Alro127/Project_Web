@@ -60,9 +60,9 @@
 <body class="bg-light-grey">
 	<jsp:include page="fragments/topNavAcc.jsp"></jsp:include>
 	<div class="d-flex mt-5">
-		
+
 		<jsp:include page="fragments/sidebar_CongTy.jsp" />
-		
+
 		<div class="container my-5">
 			<div class="d-flex justify-content-end mb-3">
 				<button id="addEventBtn" class="btn bg-dark-blue text-light me-2">Add

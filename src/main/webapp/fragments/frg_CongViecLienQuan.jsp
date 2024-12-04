@@ -5,8 +5,8 @@
 
 <div class="container">
 	<div class="row">
-		<c:forEach var="congViecLienQuan" items="${congViecLienQuans}" begin="0"
-			end="4">
+		<c:forEach var="congViecLienQuan" items="${congViecLienQuans}"
+			begin="0" end="4">
 			<div class="col-12 mb-4 py-0">
 				<div class="d-flex py-3 px-3 bg-light shadow rounded">
 					<img
@@ -17,8 +17,8 @@
 						<h5 class="card-title">${congViecLienQuan.ten}</h5>
 						<p class="card-text">
 							<strong>Công ty:</strong> ${congViecLienQuan.idCT} <br> <strong>Lương:</strong>
-							${congViecLienQuan.luong} VND <br> <strong>Địa điểm:</strong>
-							${congViecLienQuan.diaDiem}
+							${congViecLienQuan.luong} VND <br> <strong>Địa
+								điểm:</strong> ${congViecLienQuan.diaDiem}
 						</p>
 					</div>
 				</div>

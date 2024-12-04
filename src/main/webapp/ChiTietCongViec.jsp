@@ -19,7 +19,7 @@
 <body class="bg-light-grey">
 	<!-- Navigation -->
 	<c:choose>
-		<c:when test="${not empty sessionScope.user}">
+		<c:when test="${not empty sessionScope.id}">
 			<!-- Đã đăng nhập -->
 			<jsp:include page="fragments/topNavAcc.jsp"></jsp:include>
 		</c:when>
@@ -28,7 +28,7 @@
 			<jsp:include page="fragments/topNav.jsp"></jsp:include>
 		</c:otherwise>
 	</c:choose>
-	
+
 	<!-- Main Content -->
 	<div class="container mt-5">
 		<!--  Tìm kiếm -->
@@ -142,13 +142,15 @@
 						</div>
 					</div>
 				</div>
-				
+
 				<!-- Khác-->
 				<div class="ps-4 md-4 pe-0 mb-4 col-md-4">
 					<!-- Công ty -->
 					<div class="bg-white rounded shadow-sm p-3 mb-4"
 						style="background-color: rgba(255, 255, 255, 0.5);">
-						<h5><strong>Tên công ty</strong></h5>
+						<h5>
+							<strong>${congViec.tenCongTy}</strong>
+						</h5>
 						<div class="d-flex">
 							<img
 								src="https://ibrand.vn/wp-content/uploads/2024/07/mbbank-logo-5.png"
@@ -156,28 +158,32 @@
 								style="width: 100px; height: 100px; object-fit: cover;">
 							<div class="card-body ms-3">
 								<p class="card-text">
-									<strong>Quy mô:</strong> ${congViec.idCT} <br> <strong>Lĩnh vực:</strong>
-									${congViec.diaDiem} VND <br> <strong>Địa điểm:</strong>
-									${congViec.diaDiem}
+									<strong>Quy mô:</strong> ${congViec.idCT} <br> <strong>Lĩnh
+										vực:</strong> ${congViec.diaDiem} VND <br> <strong>Địa
+										điểm:</strong> ${congViec.diaDiem}
 								</p>
 							</div>
 						</div>
-						<a href="CongTyServlet?id=${congViec.idCT}" class="btn bg-coral text-light form-control mt-3">Xem trang công ty</a>
+						<a href="CongTyServlet?id=${congViec.idCT}"
+							class="btn bg-coral text-light form-control mt-3">Xem trang
+							công ty</a>
 					</div>
-					
+
 					<!-- Công Việc liên quan -->
 					<div class="bg-white rounded shadow-sm p-3"
 						style="background-color: rgba(255, 255, 255, 0.5);">
-						<h5><strong>Công việc liên quan</strong></h5>
-						<jsp:include page="fragments/frg_CongViecLienQuan.jsp"/>
+						<h5>
+							<strong>Công việc liên quan</strong>
+						</h5>
+						<jsp:include page="fragments/frg_CongViecLienQuan.jsp" />
 						<a>Xem thêm</a>
 					</div>
-					
+
 				</div>
 			</div>
 		</div>
 	</div>
-	
+
 	<!-- Footer -->
 	<jsp:include page="fragments/footer.jsp" />
 </body>

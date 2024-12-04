@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	
+
 <!DOCTYPE html>
 <div class="container mt-4">
 	<div class="row">
 		<!-- Công nghệ thông tin -->
 		<div class="col-4 col-md-2 mb-4">
-			<a href="JobFilterServlet?field=Công%20nghệ%20thông%20tin" class="text-decoration-none text-dark">
+			<a href="JobFilterServlet?field=Công%20nghệ%20thông%20tin"
+				class="text-decoration-none text-dark">
 				<div class="card text-center">
 					<video class="card-img-top img-fluid py-2 px-5" preload="none"
 						autoplay="autoplay" loop="true" muted="muted" playsinline="">
@@ -23,7 +24,8 @@
 		</div>
 		<!-- Xây dựng -->
 		<div class="col-4 col-md-2 mb-4">
-			<a href="JobFilterServlet?field=Xây%20dựng" class="text-decoration-none text-dark">
+			<a href="JobFilterServlet?field=Xây%20dựng"
+				class="text-decoration-none text-dark">
 				<div class="card text-center">
 					<video class="card-img-top img-fluid py-2 px-5" preload="none"
 						autoplay="autoplay" loop="true" muted="muted" playsinline="">
@@ -40,7 +42,8 @@
 		</div>
 		<!-- Logistics -->
 		<div class="col-4 col-md-2 mb-4">
-			<a href="JobFilterServlet?field=Logistics" class="text-decoration-none text-dark">
+			<a href="JobFilterServlet?field=Logistics"
+				class="text-decoration-none text-dark">
 				<div class="card text-center">
 					<video class="card-img-top img-fluid py-2 px-5" preload="none"
 						autoplay="autoplay" loop="true" muted="muted" playsinline="">
@@ -58,7 +61,8 @@
 		</div>
 		<!-- Kỹ thuật -->
 		<div class="col-4 col-md-2 mb-4">
-			<a href="JobFilterServlet?field=Kỹ%20thuật" class="text-decoration-none text-dark">
+			<a href="JobFilterServlet?field=Kỹ%20thuật"
+				class="text-decoration-none text-dark">
 				<div class="card text-center">
 					<video class="card-img-top img-fluid py-2 px-5" preload="none"
 						autoplay="autoplay" loop="true" muted="muted" playsinline="">
@@ -75,7 +79,8 @@
 		</div>
 		<!-- Tài chính -->
 		<div class="col-4 col-md-2 mb-4">
-			<a href="JobFilterServlet?field=Tài%20chính" class="text-decoration-none text-dark"> 
+			<a href="JobFilterServlet?field=Tài%20chính"
+				class="text-decoration-none text-dark">
 				<div class="card text-center">
 					<video class="card-img-top img-fluid py-2 px-5" preload="none"
 						autoplay="autoplay" loop="true" muted="muted" playsinline="">

@@ -18,8 +18,8 @@ function loadJobs(page) {
         success: function(response) {
             console.log("Dữ liệu trả về từ server: ", response);
             if (!response || !response.congViecs || !response.totalPages) {
-                alert('Dữ liệu không hợp lệ!');
-                return;
+                /*alert('Dữ liệu không hợp lệ!');
+                return;*/
             }
 
             let jobListHtml = '';
@@ -38,7 +38,7 @@ function loadJobs(page) {
                                 <div class="card-body ms-3">
                                     <h5 class="card-title">${jobTitle}</h5>
                                     <p class="card-text">
-                                        <strong>Công ty:</strong> ${congViec.idCT} <br> <strong>Lương:</strong>
+                                        <strong>Công ty:</strong> ${congViec.tenCongTy} <br> <strong>Lương:</strong>
                                         ${congViec.luong} VND <br> <strong>Địa điểm:</strong>
                                         ${congViec.diaDiem}
                                     </p>

@@ -61,19 +61,11 @@ public class LoginServlet extends HttpServlet {
 			    session.setAttribute("refresh_token", information.get(4)); // Lưu refresh_token	
 			    session.setAttribute("role", information.get(5));
 			    session.setAttribute("email", information.get(6));
-			    System.out.println(id);
 			    String role = (String) session.getAttribute("role");
 			    if (role.equals("UngVien")) {
 			    	destination = "CongViecServlet";
-			    	UngVien uv;
-					try {
-						uv = UngVienDAO.getUngVienById(id);
-						session.setAttribute("name", uv.getFullName());
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-			    	
+			    	UngVien uv = UngVienDAO.getUngVienById(id);
+			    	session.setAttribute("name", uv.getFullName());
 				}
 			    else {
 					destination = "TaiKhoanCongTyServlet";
@@ -81,7 +73,6 @@ public class LoginServlet extends HttpServlet {
 					session.setAttribute("name", ct.getTenCongTy());
 				}
 			}
-			
 		}
 		response.sendRedirect(destination);
 	}

@@ -127,7 +127,7 @@ public class TaiKhoanDAO {
 	        
 	        ResultSet rs = preparedStatement.executeQuery();
 	        if (rs.next()) {
-	            tk.setId(rs.getInt("id"));
+	            tk.setId(id);
 	            tk.setUsername(rs.getString("username"));
 	            tk.setPassword(rs.getString("password"));
 	        }

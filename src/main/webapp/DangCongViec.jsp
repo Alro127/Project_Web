@@ -22,9 +22,9 @@
 			alert(message); 
 		}
 	</script>
-	
+
 	<jsp:include page="fragments/topNavAcc.jsp"></jsp:include>
-	
+
 	<div class="d-flex mt-5">
 		<!-- Sidebar -->
 		<jsp:include page="fragments/sidebar_CongTy.jsp" />
@@ -95,6 +95,7 @@
 
 
 	<!-- Thêm Bootstrap JS từ CDN -->
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

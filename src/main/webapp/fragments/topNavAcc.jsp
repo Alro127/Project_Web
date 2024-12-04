@@ -42,11 +42,10 @@
 					</ul></li>
 				<li class="nav-item dropdown "><a
 					class="nav-link dropdown-toggle text-light" href="#"
-					data-bs-toggle="dropdown"> <i class="fa-regular fa-user"></i>
-						<%= session.getAttribute("name") %>
+					data-bs-toggle="dropdown"> <i class="fa-regular fa-user"></i> <%= session.getAttribute("name") %>
 				</a>
 					<ul class="dropdown-menu dropdown-menu-end">
-						<li><a class="dropdown-item" href="CongTy.jsp">Quản lý</a></li>
+						<li><a class="dropdown-item" href="DieuHuongServlet">Quản lý</a></li>
 						<li><a class="dropdown-item" href="#">Đăng xuất</a></li>
 					</ul></li>
 			</ul>

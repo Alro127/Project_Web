@@ -34,11 +34,10 @@
 				<div class="card-body">
 					<form>
 						<%
-						int idTaiKhoan = (int) request.getAttribute("idTaiKhoan");
-						TaiKhoan taiKhoan = TaiKhoanDAO.getTaiKhoanById(idTaiKhoan);
-						UngVien uv = UngVienDAO.getUngVienById(taiKhoan.getId());
+						TaiKhoan taiKhoan = (TaiKhoan) request.getAttribute("taiKhoan");
+						UngVien uv = (UngVien) request.getAttribute("uv");
 						%>
-						<intput type="hidden" id ="id" value="<%=idTaiKhoan%>" />
+						<intput type="hidden" id ="id" value="<%=taiKhoan.getId()%>" />
 						<div class="row mb-3">
 							<!-- Username -->
 							<div class="col-6">
@@ -68,10 +67,11 @@
 				<div class="card-header">Thông tin cá nhân</div>
 				<div class="card-body">
 					<form action="QuanLyTaiKhoanServlet" method="POST">
-					    <div class="mb-3 row">
-					        <!-- Avatar -->
-					        <div class="col-md-6">
-								<div class="position-relative d-flex justify-content-center align-items-center">
+						<div class="mb-3 row">
+							<!-- Avatar -->
+							<div class="col-md-6">
+								<div
+									class="position-relative d-flex justify-content-center align-items-center">
 									<!-- Avatar -->
 									<img id="avatarPreview"
 										src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYDLLaxgOsud5O32KbTu-bnPjbkBNbYXePWQ&s"
@@ -105,9 +105,9 @@
 							    <label for="gender" class="form-label">Giới tính:</label>
 							    <select id="gender" name="gender" class="form-control" required>
 							        <option value="" <%= uv.getGender() == null ? "selected" : "" %>>Chọn giới tính</option>
-							        <option value="male" <%= "male".equals(uv.getGender()) ? "selected" : "" %>>Nam</option>
-							        <option value="female" <%= "female".equals(uv.getGender()) ? "selected" : "" %>>Nữ</option>
-							        <option value="other" <%= "other".equals(uv.getGender()) ? "selected" : "" %>>Khác</option>
+							        <option value="Nam" <%= "Nam".equals(uv.getGender()) ? "selected" : "" %>>Nam</option>
+							        <option value="Nữ" <%= "Nữ".equals(uv.getGender()) ? "selected" : "" %>>Nữ</option>
+							        <option value="Khác" <%= "Khác".equals(uv.getGender()) ? "selected" : "" %>>Khác</option>
 							    </select>
 							</div>
 

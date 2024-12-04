@@ -18,6 +18,7 @@ import beans.CV;
 import beans.TaiKhoan;
 import beans.UngVien;
 import dao.CVDAO;
+import dao.TaiKhoanDAO;
 import dao.UngVienDAO;
 
 public class QuanLyTaiKhoanServlet extends HttpServlet {
@@ -31,8 +32,12 @@ public class QuanLyTaiKhoanServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Gọi phương thức từ CVDAO để lấy danh sách CV
 		HttpSession session = request.getSession();
-		int idTaiKhoan= (int) session.getAttribute("idTaiKhoan");
-		request.setAttribute("idTaiKhoan", idTaiKhoan); // Đưa vào request để hiển thị trong JSP
+		String idTaiKhoan= (String) session.getAttribute("id");
+		int id = Integer.parseInt(idTaiKhoan);
+		TaiKhoan taiKhoan = TaiKhoanDAO.getTaiKhoanById(id);
+		UngVien uv = UngVienDAO.getUngVienById(taiKhoan.getId());
+		request.setAttribute("taiKhoan", taiKhoan); // Đưa vào request để hiển thị trong JSP
+		request.setAttribute("uv", uv);
 		request.getRequestDispatcher("QuanLyTaiKhoan.jsp").forward(request, response);
 	}
 

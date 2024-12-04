@@ -60,8 +60,8 @@
 <div id="sidebar" class="sidebar d-flex flex-column bg-white shadow">
 	<button id="btnToggle" class="btn-toggle">☰</button>
 	<a href="QuanLyTinDangServlet" class="nav-link hover-coral">
-		<i class="fs-4 fw-bold bi bi-file-earmark-post"></i> <span>Quản
-			lý công việc đã ứng tuyển</span>
+		<i class="fs-4 fw-bold bi bi-file-earmark-post"></i> <span>Công việc đã ứng tuyển</span>
+	</a>
 	<a href="CongViecServlet" class="nav-link hover-coral">
 		<i class="fs-4 fw-bold bi bi-search"></i> 
 		<span>Tìm việc</span>
@@ -74,6 +74,7 @@
 		<i class="fs-4 fw-bold bi bi-calendar-check"></i> 
 		<span>Lịch hẹn phỏng vấn</span>
 	</a> 
+
 	<a href="QuanLyTaiKhoanServlet" class="nav-link hover-coral"> 
 		<i class="fs-4 fw-bold bi bi-person-gear"></i> 
 		<span>Quản lý tài khoản</span>
