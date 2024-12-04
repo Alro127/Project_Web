@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import beans.CV;
+import beans.HocVan;
 import beans.KinhNghiem;
 import conn.DBConnection;
 
@@ -64,4 +65,30 @@ public class KinhNghiemDAO {
         }
         return null;
     }
+
+	public static void updateExperienceList(CV cv, List<KinhNghiem> kinhNghiems) throws ClassNotFoundException, SQLException {
+		deleteExperienceByCV(cv.getIdCV());
+		saveExperienceList(cv, kinhNghiems);
+	}
+	public static void deleteExperienceByCV(int idCV) throws ClassNotFoundException {
+	    // Câu lệnh SQL xóa tất cả học vấn có idCV trùng với idCV được truyền vào
+	    String sql = "DELETE FROM KinhNghiem WHERE idCV = ?";
+
+	    try (Connection conn = DBConnection.getConnection();
+	         PreparedStatement ps = conn.prepareStatement(sql)) {
+
+	        // Thiết lập giá trị cho tham số idCV
+	        ps.setInt(1, idCV);
+
+	        // Thực thi câu lệnh xóa
+	        int affectedRows = ps.executeUpdate();
+	        if (affectedRows > 0) {
+	            System.out.println("Đã xóa " + affectedRows + " bản ghi kinh nghiệm với idCV = " + idCV);
+	        } else {
+	            System.out.println("Không tìm thấy học vấn với idCV = " + idCV);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	}
 }

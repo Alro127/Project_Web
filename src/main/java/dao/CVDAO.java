@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CVDAO {
-    private Connection connection;
+    private static Connection connection;
 
     // Constructor
     public CVDAO(Connection connection) {
@@ -65,6 +65,32 @@ public class CVDAO {
             e.printStackTrace();
         }
     }
+    public static void updateCV(CV cv, List<HocVan> hocVans, List<KinhNghiem> kinhNghiems, List<ChungChi> chungChis, List<KyNang> kyNangs) throws SQLException, ClassNotFoundException {
+        // Cập nhật thông tin CV
+        String sql = "UPDATE CV SET position = ?, careerGoals = ? WHERE idCV = ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            
+            ps.setString(1, cv.getPosition());
+            ps.setString(2, cv.getCareerGoals());
+            ps.setInt(3, cv.getIdCV());  // Cập nhật theo idCV thay vì idUV
+
+            int affectedRows = ps.executeUpdate();
+            
+            // Nếu cập nhật thành công, tiếp tục cập nhật danh sách liên quan
+            if (affectedRows > 0) {
+                // Cập nhật các thông tin liên quan (học vấn, kinh nghiệm, chứng chỉ, kỹ năng)
+                HocVanDAO.updateEducationList(cv, hocVans);
+                KinhNghiemDAO.updateExperienceList(cv, kinhNghiems);
+                ChungChiDAO.updateCertificateList(cv, chungChis);
+                KyNangDAO.updateSkillList(cv, kyNangs);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;  // Ném lại exception để xử lý ngoài hàm
+        }
+    }
 
 
     // Lấy tất cả CV
@@ -89,7 +115,7 @@ public class CVDAO {
         }
         return cvList;
     }
-    // Lấy tất cả CV
+    // Lấy tất cả CV bằng IdUV
     public List<CV> getAllCVbyIdUV(int idUV) throws SQLException {
         String sql = "SELECT * FROM CV WHERE IdUV = " + idUV;
         List<CV> cvList = new ArrayList<>();
@@ -160,5 +186,24 @@ public class CVDAO {
             throw new SQLException("Error deleting CV with Id: " + IdCV);
         }
     }
+    // Lấy tất cả CV bằng IdUV
+    public static boolean isCVExisted(CV cv) throws SQLException {
+        String sql = "SELECT COUNT(*) FROM CV WHERE IdUV = ? and IdCV = ?";
+        boolean isExisted = false;
+        
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setInt(1, cv.getIdUV());
+            ps.setInt(2, cv.getIdCV());
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    // Kiểm tra nếu có ít nhất 1 bản ghi, tức là CV đã tồn tại
+                    isExisted = rs.getInt(1) > 0;
+                }
+            }
+        }
+        
+        return isExisted;
+    }
+
 
 }

@@ -34,7 +34,6 @@ public class QuanLyCVServlet extends HttpServlet {
             List<CV> cvList= cvdao.getAllCVbyIdUV(id);
             // Đưa CV vào thuộc tính của request để truy cập trong JSP
             request.setAttribute("cvList", cvList);
-            
             // Chuyển hướng tới trang JSP để hiển thị
             RequestDispatcher dispatcher = request.getRequestDispatcher("QuanLyCV.jsp");
             dispatcher.forward(request, response);

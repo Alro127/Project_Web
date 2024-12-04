@@ -85,6 +85,7 @@ public class SaveCVServlet extends HttpServlet {
 	        JSONArray experienceArray = jsonObject.optJSONArray("experienceData");
 	        JSONArray certificateArray = jsonObject.optJSONArray("certificateData");
 	        JSONArray skillArray = jsonObject.optJSONArray("skillData");
+	        String mode =jsonObject.optString("mode");
 
 	        // Chuyển dữ liệu thành các đối tượng entity
 			/*
@@ -168,9 +169,17 @@ public class SaveCVServlet extends HttpServlet {
 	        
 	        CV cv = new CV(1, position, careerGoals);
 	        // Tiến hành lưu các đối tượng này vào cơ sở dữ liệu hoặc xử lý theo yêu cầu
-	        CVDAO.addCV(cv, educationList, experienceList, certificateList, skillList);
+	        if (!CVDAO.isCVExisted(cv) || mode.equals("create")) {
+	        	CVDAO.addCV(cv, educationList, experienceList, certificateList, skillList);
+	        }
+	        else
+	        {
+	        	CVDAO.updateCV(cv, educationList, experienceList, certificateList, skillList);
+	        }
+	        
 	        // Trả về phản hồi thành công
 	        out.write("{\"status\":\"success\"}");
+	        response.sendRedirect("QuanLyCVServlet");
 	    } catch (Exception e) {
 	        // Nếu có lỗi trong việc phân tích cú pháp JSON
 	        out.write("{\"status\":\"error\",\"message\":\"Invalid JSON data\"}");

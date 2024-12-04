@@ -54,4 +54,30 @@ public class ChungChiDAO {
         }
         return null;
     }
+
+	public static void updateCertificateList(CV cv, List<ChungChi> chungChis) throws ClassNotFoundException, SQLException {
+		deleteCertificateByCV(cv.getIdCV());
+		saveCertificateList(cv, chungChis);
+	}
+	public static void deleteCertificateByCV(int idCV) throws ClassNotFoundException {
+	    // Câu lệnh SQL xóa tất cả học vấn có idCV trùng với idCV được truyền vào
+	    String sql = "DELETE FROM ChungChi WHERE idCV = ?";
+
+	    try (Connection conn = DBConnection.getConnection();
+	         PreparedStatement ps = conn.prepareStatement(sql)) {
+
+	        // Thiết lập giá trị cho tham số idCV
+	        ps.setInt(1, idCV);
+
+	        // Thực thi câu lệnh xóa
+	        int affectedRows = ps.executeUpdate();
+	        if (affectedRows > 0) {
+	            System.out.println("Đã xóa " + affectedRows + " bản ghi chứng chỉ với idCV = " + idCV);
+	        } else {
+	            System.out.println("Không tìm thấy chứng chỉ với idCV = " + idCV);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	}
 }
