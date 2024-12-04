@@ -16,7 +16,7 @@
 					<div class="card-body ms-3">
 						<h5 class="card-title">${congViecLienQuan.ten}</h5>
 						<p class="card-text">
-							<strong>Công ty:</strong> ${congViecLienQuan.idCT} <br> <strong>Lương:</strong>
+							<strong>Công ty:</strong> ${congViecLienQuan.tenCongTy} <br> <strong>Lương:</strong>
 							${congViecLienQuan.luong} VND <br> <strong>Địa
 								điểm:</strong> ${congViecLienQuan.diaDiem}
 						</p>

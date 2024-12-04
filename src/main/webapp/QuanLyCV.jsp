@@ -27,6 +27,10 @@
             margin-right: 10px;
         }
     </style>
+    <script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+	crossorigin="anonymous"></script>
 </head>
 <body>
 	<jsp:include page="fragments/topNavAcc.jsp"></jsp:include>
@@ -35,8 +39,8 @@
         <h2 class="mb-4">Quản lý CV</h2>
 		<%List<CV> cvList = (List<CV>) request.getAttribute("cvList"); %>
         <!-- Button to Create New CV -->
-      <%--  <a href="CreateCVServlet?id=<%=%>" class="btn btn-primary mb-3"><i class="bi bi-file-earmark-plus"></i> Tạo CV mới</a> --%>
-		<!-- Chưa làm Create -->
+       <a href="CreateCVServlet" class="btn btn-primary mb-3"><i class="bi bi-file-earmark-plus"></i> Tạo CV mới</a>
+		<!-- Chưa làm Create --> 
         <!-- CV List -->
         <div class="row">
 

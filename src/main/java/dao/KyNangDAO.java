@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import beans.CV;
+import beans.ChungChi;
 import beans.KyNang;
 import conn.DBConnection;
 
@@ -56,4 +57,30 @@ public class KyNangDAO {
         }
         return null;
     }
+
+	public static void updateSkillList(CV cv, List<KyNang> kyNangs) throws ClassNotFoundException, SQLException {
+		deleteSkillByCV(cv.getIdCV());
+		saveSkillList(cv, kyNangs);
+	}
+	public static void deleteSkillByCV(int idCV) throws ClassNotFoundException {
+	    // Câu lệnh SQL xóa tất cả học vấn có idCV trùng với idCV được truyền vào
+	    String sql = "DELETE FROM KyNang WHERE idCV = ?";
+
+	    try (Connection conn = DBConnection.getConnection();
+	         PreparedStatement ps = conn.prepareStatement(sql)) {
+
+	        // Thiết lập giá trị cho tham số idCV
+	        ps.setInt(1, idCV);
+
+	        // Thực thi câu lệnh xóa
+	        int affectedRows = ps.executeUpdate();
+	        if (affectedRows > 0) {
+	            System.out.println("Đã xóa " + affectedRows + " bản ghi kỹ năng với idCV = " + idCV);
+	        } else {
+	            System.out.println("Không tìm thấy kỹ năng với idCV = " + idCV);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	}
 }
