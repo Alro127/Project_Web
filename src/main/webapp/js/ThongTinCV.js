@@ -1,6 +1,7 @@
 function saveData() {
     const form = document.getElementById('cvForm');
     const formData = new FormData(form);
+	const mode = "<%= mode %>"; 
 
     // Xử lý thông tin cá nhân (Ảnh đại diện)
     const avatar = document.getElementById('avatarPreview').src;
@@ -69,7 +70,8 @@ function saveData() {
         educationData: educationData,
         experienceData: experienceData,
         certificateData: certificateData,
-        skillData: skillData
+        skillData: skillData,
+		mode: mode
     };
 
     // Chuyển đối tượng JSON thành chuỗi

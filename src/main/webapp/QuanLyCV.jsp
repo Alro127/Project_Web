@@ -39,8 +39,8 @@
         <h2 class="mb-4">Quản lý CV</h2>
 		<%List<CV> cvList = (List<CV>) request.getAttribute("cvList"); %>
         <!-- Button to Create New CV -->
-      <%--  <a href="CreateCVServlet?id=<%=%>" class="btn btn-primary mb-3"><i class="bi bi-file-earmark-plus"></i> Tạo CV mới</a> --%>
-		<!-- Chưa làm Create -->
+       <a href="CreateCVServlet" class="btn btn-primary mb-3"><i class="bi bi-file-earmark-plus"></i> Tạo CV mới</a>
+		<!-- Chưa làm Create --> 
         <!-- CV List -->
         <div class="row">
 
