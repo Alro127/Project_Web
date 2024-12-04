@@ -326,11 +326,9 @@
 						</div>
 					</div>
 					<!-- Lưu CV-->
-					<%
-					    String mode = "create";
-					%>
+					<input type="hidden" id="mode" value="create" />
 					<div class="text-center">
-						<button type="submit" class="btn btn-success" onClick="saveData()">Lưu CV</button>
+						<button type="button" class="btn btn-success" onClick="saveData()">Lưu CV</button>
 					</div>
 				</form>
 			</div>
