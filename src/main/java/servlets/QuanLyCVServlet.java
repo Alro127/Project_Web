@@ -6,6 +6,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -25,11 +27,13 @@ public class QuanLyCVServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
+    		HttpSession session = request.getSession();
+    		String idTaiKhoan= (String) session.getAttribute("id");
+    		int id = Integer.parseInt(idTaiKhoan);
         	CVDAO cvdao = new CVDAO();
-            List<CV> cvList= cvdao.getAllCV();
+            List<CV> cvList= cvdao.getAllCVbyIdUV(id);
             // Đưa CV vào thuộc tính của request để truy cập trong JSP
             request.setAttribute("cvList", cvList);
-            
             // Chuyển hướng tới trang JSP để hiển thị
             RequestDispatcher dispatcher = request.getRequestDispatcher("QuanLyCV.jsp");
             dispatcher.forward(request, response);

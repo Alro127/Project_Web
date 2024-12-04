@@ -140,7 +140,8 @@
 				<h2 class="text-center mb-4 fw-bold">Hình Ảnh Hoạt Động</h2>
 				<div id="activityCarousel" class="carousel slide"
 					data-bs-ride="carousel">
-					<!-- Indicators -->
+					<!-- 
+					Indicators
 					<div class="carousel-indicators">
 						<button type="button" data-bs-target="#activityCarousel"
 							data-bs-slide-to="0" class="active" aria-current="true"
@@ -149,7 +150,7 @@
 							data-bs-slide-to="1" aria-label="Slide 2"></button>
 						<button type="button" data-bs-target="#activityCarousel"
 							data-bs-slide-to="2" aria-label="Slide 3"></button>
-					</div>
+					</div> -->
 
 					<!-- Carousel Items -->
 					<div class="carousel-inner">
@@ -159,10 +160,28 @@
 							int length = images.size();
 							int col = length / 3;
 							int excess = length - col * 3;
-							for (int i = 0; i < col; i++)
+							%>
+								<div class="carousel-item active">
+									<div class="row justify-content-center">
+											<%
+												for (int j = 0; j < 3; j ++ )
+												{
+													%>
+														<div class="col-4">
+															<img
+																src="${pageContext.request.contextPath}/<%= images.get(j) %>"
+																class="d-block w-100 rounded" alt="Hình ảnh 1">
+														</div>
+													<%
+												}
+											%>
+										</div>
+								</div>
+							<%
+							for (int i = 1; i < col; i++)
 							{
 								%>
-									<div class="carousel-item active">
+									<div class="carousel-item">
 										<div class="row justify-content-center">
 											<%
 												for (int j = 0; j < 3; j ++ )
@@ -183,7 +202,7 @@
 							if (excess > 0)
 							{
 								%>
-									<div class="carousel-item active">
+									<div class="carousel-item">
 										<div class="row justify-content-center">
 											<%
 												for (int i = 0; i < excess ; i++)

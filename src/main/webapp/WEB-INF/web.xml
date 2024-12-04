@@ -275,4 +275,14 @@
     <servlet-name>CongViecYeuThichServlet</servlet-name>
     <url-pattern>/CongViecYeuThichServlet</url-pattern>
   </servlet-mapping>
+	  <servlet>
+    <description></description>
+    <display-name>CreateCVServlet</display-name>
+    <servlet-name>CreateCVServlet</servlet-name>
+    <servlet-class>servlets.CreateCVServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CreateCVServlet</servlet-name>
+    <url-pattern>/CreateCVServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

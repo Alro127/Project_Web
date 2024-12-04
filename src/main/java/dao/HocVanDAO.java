@@ -64,4 +64,31 @@ public class HocVanDAO {
         }
         return null;
     }
+
+	public static void updateEducationList(CV cv, List<HocVan> hocVans) throws ClassNotFoundException, SQLException {
+		deleteEducationByCV(cv.getIdCV());
+		saveEducationList(cv, hocVans);
+	}
+	public static void deleteEducationByCV(int idCV) throws ClassNotFoundException {
+	    // Câu lệnh SQL xóa tất cả học vấn có idCV trùng với idCV được truyền vào
+	    String sql = "DELETE FROM HocVan WHERE idCV = ?";
+
+	    try (Connection conn = DBConnection.getConnection();
+	         PreparedStatement ps = conn.prepareStatement(sql)) {
+
+	        // Thiết lập giá trị cho tham số idCV
+	        ps.setInt(1, idCV);
+
+	        // Thực thi câu lệnh xóa
+	        int affectedRows = ps.executeUpdate();
+	        if (affectedRows > 0) {
+	            System.out.println("Đã xóa " + affectedRows + " bản ghi học vấn với idCV = " + idCV);
+	        } else {
+	            System.out.println("Không tìm thấy học vấn với idCV = " + idCV);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	}
+
 }
