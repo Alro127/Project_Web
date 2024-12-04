@@ -187,7 +187,7 @@
 							<strong>Công việc liên quan</strong>
 						</h5>
 						<jsp:include page="fragments/frg_CongViecLienQuan.jsp" />
-						<a>Xem thêm</a>
+						<a href="CongViecLienQuanServlet?id=${congViec.idCongViec}" >Xem thêm</a>
 					</div>
 
 				</div>

@@ -285,4 +285,14 @@
     <servlet-name>CreateCVServlet</servlet-name>
     <url-pattern>/CreateCVServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CongViecLienQuanServlet</display-name>
+    <servlet-name>CongViecLienQuanServlet</servlet-name>
+    <servlet-class>servlets.CongViecLienQuanServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CongViecLienQuanServlet</servlet-name>
+    <url-pattern>/CongViecLienQuanServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
