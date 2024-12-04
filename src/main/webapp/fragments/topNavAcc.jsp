@@ -46,7 +46,7 @@
 				</a>
 					<ul class="dropdown-menu dropdown-menu-end">
 						<li><a class="dropdown-item" href="DieuHuongServlet">Quản lý</a></li>
-						<li><a class="dropdown-item" href="#">Đăng xuất</a></li>
+						<li><a class="dropdown-item" href="LogoutServlet">Đăng xuất</a></li>
 					</ul></li>
 			</ul>
 		</div>

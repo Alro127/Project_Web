@@ -17,6 +17,7 @@ import com.google.gson.Gson;
 
 import beans.CongViec;
 import dao.CongViecDAO;
+import dao.CongViecYeuThichDAO;
 
 /**
  * Servlet implementation class ChiTietCongViecServlet
@@ -36,7 +37,7 @@ public class ChiTietCongViecServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession(true);
+        HttpSession session = request.getSession(false);
         String idStr = request.getParameter("id");
 
         try {
@@ -58,7 +59,13 @@ public class ChiTietCongViecServlet extends HttpServlet {
                 congViec.getIdCT() != Integer.parseInt((String) session.getAttribute("id"))) {
                 CongViecDAO.updateLuotXem(id);
             }
-
+            
+            boolean trangThai = false;
+            // Kiểm tra trạng thái lưu tin
+            if (session.getAttribute("id") != null)
+            	if (CongViecYeuThichDAO.GetCongViecYeuThich( Integer.parseInt((String) session.getAttribute("id")), id) != null)
+            		trangThai = true;
+            	
             // Kiểm tra nếu yêu cầu là AJAX
             if ("true".equals(request.getParameter("ajax"))) {
                 response.setContentType("application/json");
@@ -74,6 +81,7 @@ public class ChiTietCongViecServlet extends HttpServlet {
 
                 response.getWriter().write(json);
             } else {
+            	request.setAttribute("trangThai", trangThai);
                 request.setAttribute("congViec", congViec);
                 request.setAttribute("congViecLienQuans", congViecLienQuans);
                 request.getRequestDispatcher("ChiTietCongViec.jsp").forward(request, response);

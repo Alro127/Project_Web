@@ -257,6 +257,26 @@
   </servlet-mapping>
   <servlet>
     <description></description>
+    <display-name>LogoutServlet</display-name>
+    <servlet-name>LogoutServlet</servlet-name>
+    <servlet-class>servlets.LogoutServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LogoutServlet</servlet-name>
+    <url-pattern>/LogoutServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CongViecYeuThichServlet</display-name>
+    <servlet-name>CongViecYeuThichServlet</servlet-name>
+    <servlet-class>servlets.CongViecYeuThichServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CongViecYeuThichServlet</servlet-name>
+    <url-pattern>/CongViecYeuThichServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
     <display-name>CreateCVServlet</display-name>
     <servlet-name>CreateCVServlet</servlet-name>
     <servlet-class>servlets.CreateCVServlet</servlet-class>
