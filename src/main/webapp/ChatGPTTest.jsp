@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>ChatGPT Integration</title>
-    <script>
+<title>ChatGPT Integration</title>
+<script>
 	    async function sendMessage() {
 	        const message = document.getElementById('message').value;
 	        const response = await fetch('ChatGPTServlet', {
@@ -37,9 +37,10 @@
 
 </head>
 <body>
-    <h1>ChatGPT Integration</h1>
-    <textarea id="message" name = "message" placeholder="Enter your message here"></textarea>
-    <button onclick="sendMessage()">Send</button>
-    <div id="response" style="margin-top: 20px;"></div>
+	<h1>ChatGPT Integration</h1>
+	<textarea id="message" name="message"
+		placeholder="Enter your message here"></textarea>
+	<button onclick="sendMessage()">Send</button>
+	<div id="response" style="margin-top: 20px;"></div>
 </body>
 </html>

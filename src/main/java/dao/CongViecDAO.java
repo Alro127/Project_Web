@@ -155,6 +155,12 @@ public class CongViecDAO {
 				congViec.setLuotXem(rs.getInt("LuotXem"));
 				congViec.setLuotNop(rs.getInt("LuotNop"));
 				
+				CongTy congTy = CongTyDAO.GetCongTyById(congViec.getIdCT());
+				if (congTy != null) {
+				    congViec.setTenCongTy(congTy.getTenCongTy());
+				} else {
+				    congViec.setTenCongTy("Chưa cập nhật");
+				}
 				// Thêm đối tượng vào danh sách
 				congViecs.add(congViec);
 			}

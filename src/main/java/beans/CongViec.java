@@ -221,6 +221,7 @@ public class CongViec {
 				", quyenLoi='" + quyenLoi + '\'' +
 				", luotXem=" + luotXem +
 				", luotNop=" + luotNop +
+				", tenCongTy=" + tenCongTy +
 				'}';
 	}
 

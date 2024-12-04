@@ -99,8 +99,8 @@ h2 {
 }
 </style>
 <!-- Facebook SDK -->
-<script async defer crossorigin="anonymous" 
-    src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v15.0&appId=1536882806992085&autoLogAppEvents=1"></script>
+<script async defer crossorigin="anonymous"
+	src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v15.0&appId=1536882806992085&autoLogAppEvents=1"></script>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <title>Đăng Nhập</title>
 </head>
@@ -121,7 +121,7 @@ h2 {
 				<button type="submit">Đăng Nhập</button>
 			</div>
 		</form>
-		
+
 		<!-- Google login -->
 		<!-- <div id="g_id_onload"
 		     data-client_id="503615320731-kcpnsnsjmng7vusmcm110s6m35c7d0iv.apps.googleusercontent.com"
@@ -141,14 +141,11 @@ h2 {
 			</button>
 		</div> -->
 		<button onclick="window.location.href='LoginGoogleServlet'">
-	        Đăng nhập với Google
-	    </button>
+			Đăng nhập với Google</button>
 		<!-- Facebook Login -->
-		<div class="fb-login-button" 
-		    data-scope="public_profile,email" 
-		    data-onlogin="checkLoginState();">
-		</div>
-		
+		<div class="fb-login-button" data-scope="public_profile,email"
+			data-onlogin="checkLoginState();"></div>
+
 		<div class="form-footer">
 			<p>
 				Quên mật khẩu? <a href="#">Khôi phục</a>
@@ -158,7 +155,7 @@ h2 {
 			</p>
 		</div>
 	</div>
-		
+
 
 	<script type="text/javascript">
 	// Hàm kiểm tra trạng thái đăng nhập của người dùng bằng facebook

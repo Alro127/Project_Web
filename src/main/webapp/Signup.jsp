@@ -142,7 +142,7 @@ h2 {
 			</p>
 		</div>
 	</div>
-	
+
 	<script type="text/javascript">
 	function checkMessage() {
         const urlParams = new URLSearchParams(window.location.search);
