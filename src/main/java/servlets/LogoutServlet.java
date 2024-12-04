@@ -10,15 +10,15 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
- * Servlet implementation class DieuHuongServlet
+ * Servlet implementation class LogoutServlet
  */
-public class DieuHuongServlet extends HttpServlet {
+public class LogoutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DieuHuongServlet() {
+    public LogoutServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,16 +28,14 @@ public class DieuHuongServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		HttpSession session = request.getSession();
-		String role = (String) session.getAttribute("role");
+		HttpSession session = request.getSession(false); // `false` để không tạo session mới nếu chưa có
 
-		if ("CongTy".equals(role)) {
-			response.sendRedirect("TaiKhoanCongTyServlet");
-		} else if ("UngVien".equals(role)) {
-			response.sendRedirect("QuanLyTaiKhoanServlet");
-		} else {
-			response.sendRedirect("Login.jsp");
-		}
+        if (session != null) {
+            session.invalidate(); // Xóa session hiện tại
+        }
+
+        // Chuyển hướng về trang login
+        request.getRequestDispatcher("/CongViecServlet").forward(request, response);
 	}
 
 	/**

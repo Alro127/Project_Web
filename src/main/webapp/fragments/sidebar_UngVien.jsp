@@ -59,9 +59,14 @@
 
 <div id="sidebar" class="sidebar d-flex flex-column bg-white shadow">
 	<button id="btnToggle" class="btn-toggle">☰</button>
-	<a href="QuanLyTinDangServlet" class="nav-link hover-coral">
-		<i class="fs-4 fw-bold bi bi-file-earmark-post"></i> <span>Công việc đã ứng tuyển</span>
-	<a href="TimViec.jsp" class="nav-link hover-coral">
+	<a href="#" class="nav-link hover-coral">
+		<i class="fs-4 fw-bold bi bi-file-earmark-post"></i> 
+		<span>Công việc đã ứng tuyển</span>
+	<a href="CongViecYeuThich.jsp" class="nav-link hover-coral">
+    	<i class="fs-4 fw-bold bi bi-heart-fill"></i>
+    	<span>Công việc đã thích</span>
+	</a>
+	<a href="CongViecServlet" class="nav-link hover-coral">
 		<i class="fs-4 fw-bold bi bi-search"></i> 
 		<span>Tìm việc</span>
 	</a> 
@@ -73,12 +78,12 @@
 		<i class="fs-4 fw-bold bi bi-calendar-check"></i> 
 		<span>Lịch hẹn phỏng vấn</span>
 	</a> 
-	<a href="QuanLyTaiKhoan.jsp" class="nav-link hover-coral"> 
+
+	<a href="QuanLyTaiKhoanServlet" class="nav-link hover-coral"> 
 		<i class="fs-4 fw-bold bi bi-person-gear"></i> 
 		<span>Quản lý tài khoản</span>
 	</a>
 </div>
-
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 <script>

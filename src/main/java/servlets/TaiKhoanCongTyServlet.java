@@ -24,8 +24,10 @@ import org.json.JSONObject;
 
 import beans.CongTy;
 import beans.CongViec;
+import beans.TaiKhoan;
 import dao.CongTyDAO;
 import dao.CongViecDAO;
+import dao.TaiKhoanDAO;
 
 /**
  * Servlet implementation class TaiKhoanCongTy
@@ -46,6 +48,7 @@ public class TaiKhoanCongTyServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		TaiKhoan tk = TaiKhoanDAO.getTaiKhoanById(Integer.parseInt((String)request.getSession(true).getAttribute("id")));
 		CongTy congTy = new CongTy();
 	    try {
 	        congTy = CongTyDAO.GetCongTyById(Integer.parseInt((String)request.getSession(true).getAttribute("id")));
@@ -53,6 +56,7 @@ public class TaiKhoanCongTyServlet extends HttpServlet {
 	        e.printStackTrace();
 	    }
 	    request.setAttribute("congTy", congTy);
+	    request.setAttribute("tk", tk);
 	    request.getRequestDispatcher("/TaiKhoanCongTy.jsp").forward(request, response);
 	}
 
@@ -73,14 +77,14 @@ public class TaiKhoanCongTyServlet extends HttpServlet {
 
         try {
             JSONObject json = new JSONObject(jsonString.toString());
-            String imageSrc = json.getString("imageSrc"); // Base64 của ảnh
-            String fileName = json.getString("fileName"); // Tên tệp từ client
+            String imageSrc = json.getString("imageSrc"); // Base64 c?a ?nh
+            String fileName = json.getString("fileName"); // T�n t?p t? client
 
-            // Tách phần Base64 để lấy dữ liệu
+            // T�ch ph?n Base64 d? l?y d? li?u
             String base64Image = imageSrc.split(",")[1];
             byte[] imageBytes = Base64.getDecoder().decode(base64Image);
 
-            // Xác định đường dẫn lưu ảnh
+            // X�c d?nh du?ng d?n luu ?nh
             String relativePath = "src/main/webapp/assets/images/act";
             String absolutePath = "D:\\Project\\Project_Web\\src\\main\\webapp\\assets\\images\\act";  
             String aString = getServletContext().getRealPath("");
@@ -89,22 +93,22 @@ public class TaiKhoanCongTyServlet extends HttpServlet {
 			 */
             File directory = new File(absolutePath);
             if (!directory.exists()) {
-                directory.mkdirs(); // Tạo thư mục nếu chưa tồn tại
+                directory.mkdirs(); // T?o thu m?c n?u chua t?n t?i
             }
             
-            // Đường dẫn đầy đủ của ảnh
+            // �u?ng d?n d?y d? c?a ?nh
             String fullImagePath = absolutePath + File.separator + fileName;
 
-            // Lưu tệp vào thư mục và csdl
+            // Luu t?p v�o thu m?c v� csdl
             try (FileOutputStream fos = new FileOutputStream(fullImagePath)) {
                 fos.write(imageBytes);
                 CongTyDAO.addHinhAnhHoatDong(id, "assets/images/act"+ File.separator + fileName);
             }
 
-            // Trả đường dẫn tương đối về client
+            // Tr? du?ng d?n tuong d?i v? client
             JSONObject jsonResponse = new JSONObject();
             jsonResponse.put("status", "success");
-            jsonResponse.put("imagePath", relativePath + "/" + fileName); // Đường dẫn ảnh trả về
+            jsonResponse.put("imagePath", relativePath + "/" + fileName); // �u?ng d?n ?nh tr? v?
 
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
@@ -114,7 +118,7 @@ public class TaiKhoanCongTyServlet extends HttpServlet {
 
             JSONObject jsonResponse = new JSONObject();
             jsonResponse.put("status", "error");
-            jsonResponse.put("message", "Lỗi khi xử lý ảnh!");
+            jsonResponse.put("message", "L?i khi x? l� ?nh!");
 
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");

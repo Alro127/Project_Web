@@ -3,6 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.List"%>
 <%@ page import="beans.TaiKhoan"%>
+<%@ page import="beans.UngVien"%>
+<%@ page import="dao.UngVienDAO"%>
+<%@ page import="dao.TaiKhoanDAO"%>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -16,6 +19,10 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
 	rel="stylesheet">
 <link href="assets/css/style.css" rel="stylesheet">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+	crossorigin="anonymous"></script>
 </head>
 <body class="bg-light-grey">
 	<jsp:include page="fragments/topNavAcc.jsp"></jsp:include>
@@ -32,11 +39,9 @@
 					<form>
 						<%
 						TaiKhoan taiKhoan = (TaiKhoan) request.getAttribute("taiKhoan");
+						UngVien uv = (UngVien) request.getAttribute("uv");
 						%>
-						<%
-						taiKhoan = new TaiKhoan(0, "tandatAZ123", "nhat","google", "fb" ,"email","UngVien");
-						%>
-
+						<intput type="hidden" id ="id" value="<%=taiKhoan.getId()%>" />
 						<div class="row mb-3">
 							<!-- Username -->
 							<div class="col-6">
@@ -57,7 +62,30 @@
 						mật khẩu</button>
 
 					<!-- Phần giao diện Đổi Mật Khẩu sẽ được thêm vào tại đây -->
-					<div id="changePasswordForm" class="mt-3" style="display: none;"></div>
+					<div id="changePasswordForm" class="mt-3" style="display: none;">        
+						<div class="card">
+					         <div class="card-header">
+					             Thay đổi mật khẩu
+					         </div>
+					         <div class="card-body">
+					             <form id="changePasswordFormId">
+					                 <div class="mb-3">
+					                     <label for="oldPassword" class="form-label">Mật khẩu cũ</label>
+					                     <input type="password" id="oldPassword" name="oldPassword" class="form-control" placeholder="Nhập mật khẩu cũ" required />
+					                 </div>
+					                 <div class="mb-3">
+					                     <label for="newPassword" class="form-label">Mật khẩu mới</label>
+					                     <input type="password" id="newPassword" name="newPassword" class="form-control" placeholder="Nhập mật khẩu mới" required />
+					                 </div>
+					                 <div class="mb-3">
+					                     <label for="confirmPassword" class="form-label">Xác nhận mật khẩu mới</label>
+					                     <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" placeholder="Nhập lại mật khẩu mới" required />
+					                 </div>
+					                 <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+					             </form>
+					         </div>
+					     </div>
+				     </div>
 
 				</div>
 			</div>
@@ -65,7 +93,7 @@
 			<div class="card">
 				<div class="card-header">Thông tin cá nhân</div>
 				<div class="card-body">
-					<form>
+					<form action="QuanLyTaiKhoanServlet" method="POST">
 						<div class="mb-3 row">
 							<!-- Avatar -->
 							<div class="col-md-6">
@@ -92,73 +120,66 @@
 										</button>
 									</div>
 								</div>
+					        </div>
+					        <div class="col-md-6">
+					        	<!-- Họ tên -->
+						        <div>
+						            <label for="fullname" class="form-label">Họ tên</label>
+						            <input type="text" id="fullname" name="fullname" class="form-control" required value="<%= uv.getFullName()%>"/>
+						        </div>
+						        <!-- Giới tính -->
+							<div class="col-md-3">
+							    <label for="gender" class="form-label">Giới tính:</label>
+							    <select id="gender" name="gender" class="form-control" required>
+							        <option value="" <%= uv.getGender() == null ? "selected" : "" %>>Chọn giới tính</option>
+							        <option value="Nam" <%= "Nam".equals(uv.getGender()) ? "selected" : "" %>>Nam</option>
+							        <option value="Nữ" <%= "Nữ".equals(uv.getGender()) ? "selected" : "" %>>Nữ</option>
+							        <option value="Khác" <%= "Khác".equals(uv.getGender()) ? "selected" : "" %>>Khác</option>
+							    </select>
 							</div>
-							<div class="col-md-6">
-								<!-- Họ tên -->
-								<div>
-									<label for="fullname" class="form-label">Họ tên</label> <input
-										type="text" id="fullname" name="fullname" class="form-control"
-										required />
-								</div>
-								<!-- Giới tính -->
-								<div class="col-md-3">
-									<label for="gender" class="form-label">Giới tính:</label> <select
-										id="gender" name="gender" class="form-control" required>
-										<option value="">Chọn giới tính</option>
-										<option value="male">Nam</option>
-										<option value="female">Nữ</option>
-										<option value="other">Khác</option>
-									</select>
-								</div>
-								<!-- Ngày sinh -->
-								<div class="col-md-3">
-									<label for="dob" class="form-label">Ngày sinh:</label> <input
-										type="date" id="dob" name="dob" class="form-control" required />
-								</div>
-							</div>
-						</div>
 
-						<div class="mb-3 row">
-							<!-- Số điện thoại -->
-							<div class="col-md-6">
-								<label for="phone" class="form-label">Số điện thoại:</label> <input
-									type="tel" id="phone" name="phone" class="form-control"
-									placeholder="Nhập số điện thoại" required />
-							</div>
-							<!-- Email -->
-							<div class="col-md-6">
-								<label for="email" class="form-label">Email:</label> <input
-									type="email" id="email" name="email" class="form-control"
-									placeholder="Nhập email" readonly />
-							</div>
-						</div>
-
-						<div class="mb-3 row">
-							<!-- Tỉnh thành -->
-							<div class="col-md-6">
-								<label for="location" class="form-label">Tỉnh thành:</label> <input
-									type="text" id="location" name="location" class="form-control"
-									placeholder="Nhập tỉnh thành" required />
-							</div>
-							<!-- Địa chỉ -->
-							<div class="col-md-6">
-								<label for="address" class="form-label">Địa chỉ:</label> <input
-									type="text" id="address" name="address" class="form-control"
-									placeholder="Nhập địa chỉ" required />
-							</div>
-						</div>
-
-						<!-- Giới thiệu -->
-						<div class="mb-3">
-							<label for="introduction" class="form-label">Giới thiệu:</label>
-							<textarea id="introduction" name="introduction"
-								class="form-control" placeholder="Giới thiệu bản thân" rows="4"
-								required></textarea>
-						</div>
-
-						<!-- Nút lưu -->
-						<button type="submit" class="btn btn-primary">Lưu thông
-							tin</button>
+						        <!-- Ngày sinh -->
+						        <div class="col-md-3">
+						            <label for="dob" class="form-label">Ngày sinh:</label>
+						            <input type="date" id="dob" name="dob" class="form-control" required value="<%= uv.getDob()%>"/>
+						        </div>
+					        </div>
+					    </div>
+					
+					    <div class="mb-3 row">
+					        <!-- Số điện thoại -->
+					        <div class="col-md-6">
+					            <label for="phone" class="form-label">Số điện thoại:</label>
+					            <input type="tel" id="phone" name="phone" class="form-control" placeholder="Nhập số điện thoại" required value="<%= uv.getPhone()%>" />
+					        </div>
+					        <!-- Email -->
+					        <div class="col-md-6">
+					            <label for="email" class="form-label">Email:</label>
+					            <input type="email" id="email" name="email" class="form-control" placeholder="Nhập email" readonly value="<%= uv.getEmail()%>" />
+					        </div>
+					    </div>
+					
+					    <div class="mb-3 row">
+					        <!-- Tỉnh thành -->
+					        <div class="col-md-6">
+					            <label for="location" class="form-label">Tỉnh thành:</label>
+					            <input type="text" id="location" name="location" class="form-control" placeholder="Nhập tỉnh thành" required value="<%= uv.getLocation()%>"/>
+					        </div>
+					        <!-- Địa chỉ -->
+					        <div class="col-md-6">
+					            <label for="address" class="form-label">Địa chỉ:</label>
+					            <input type="text" id="address" name="address" class="form-control" placeholder="Nhập địa chỉ" required value="<%= uv.getAddress()%>" />
+					        </div>
+					    </div>
+					
+					    <!-- Giới thiệu -->
+					    <div class="mb-3">
+					        <label for="introduction" class="form-label">Giới thiệu:</label>
+					        <textarea id="introduction" name="introduction" class="form-control" placeholder="Giới thiệu bản thân" rows="4" required> <%= uv.getIntroduction()%></textarea>
+					    </div>
+					
+					    <!-- Nút lưu -->
+					    <button type="submit" class="btn btn-primary">Lưu thông tin</button>
 					</form>
 				</div>
 			</div>

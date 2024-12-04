@@ -237,6 +237,16 @@
   </servlet-mapping>
   <servlet>
     <description></description>
+    <display-name>QuanLyTaiKhoanServlet</display-name>
+    <servlet-name>QuanLyTaiKhoanServlet</servlet-name>
+    <servlet-class>servlets.QuanLyTaiKhoanServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>QuanLyTaiKhoanServlet</servlet-name>
+    <url-pattern>/QuanLyTaiKhoanServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
     <display-name>DieuHuongServlet</display-name>
     <servlet-name>DieuHuongServlet</servlet-name>
     <servlet-class>servlets.DieuHuongServlet</servlet-class>
@@ -244,5 +254,25 @@
   <servlet-mapping>
     <servlet-name>DieuHuongServlet</servlet-name>
     <url-pattern>/DieuHuongServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>LogoutServlet</display-name>
+    <servlet-name>LogoutServlet</servlet-name>
+    <servlet-class>servlets.LogoutServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LogoutServlet</servlet-name>
+    <url-pattern>/LogoutServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CongViecYeuThichServlet</display-name>
+    <servlet-name>CongViecYeuThichServlet</servlet-name>
+    <servlet-class>servlets.CongViecYeuThichServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CongViecYeuThichServlet</servlet-name>
+    <url-pattern>/CongViecYeuThichServlet</url-pattern>
   </servlet-mapping>
 </web-app>

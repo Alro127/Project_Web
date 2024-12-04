@@ -114,6 +114,28 @@ public class TaiKhoanDAO {
 	    }
 	    return -1; // Trả về -1 nếu không tìm thấy hoặc có lỗi
 	}
+	public static TaiKhoan getTaiKhoanById(int id) {
+		TaiKhoan tk = new TaiKhoan();
+	    try {
+	        Connection conn = DBConnection.getConnection();
+
+	        // Sử dụng columnName trong câu SQL
+	        String sqlcmd = "SELECT username, password  FROM TaiKhoan WHERE id = ?";
+	        
+	        PreparedStatement preparedStatement = conn.prepareStatement(sqlcmd);
+	        preparedStatement.setInt(1, id);
+	        
+	        ResultSet rs = preparedStatement.executeQuery();
+	        if (rs.next()) {
+	            tk.setId(id);
+	            tk.setUsername(rs.getString("username"));
+	            tk.setPassword(rs.getString("password"));
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace(); // In lỗi ra console để debug
+	    }
+	    return tk;
+	}
 
 	public static boolean isIDExisted(String id, String columnName)
 	{
@@ -159,9 +181,24 @@ public class TaiKhoanDAO {
     }
 
     private String getPasswordByUsername(String username) {
-        // Giả sử bạn truy vấn cơ sở dữ liệu và lấy mật khẩu hiện tại
-        // Đây chỉ là ví dụ, bạn cần thay thế bằng truy vấn thực tế
-        return "dat123"; // Ví dụ, trả về mật khẩu cũ từ DB
+		String password = "";
+	    try {
+	        Connection conn = DBConnection.getConnection();
+
+	        // Sử dụng columnName trong câu SQL
+	        String sqlcmd = "SELECT password  FROM TaiKhoan WHERE username = ?";
+	        
+	        PreparedStatement preparedStatement = conn.prepareStatement(sqlcmd);
+	        preparedStatement.setString(1, username);
+	        
+	        ResultSet rs = preparedStatement.executeQuery();
+	        if (rs.next()) {
+	        	password = rs.getString("password");
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace(); // In lỗi ra console để debug
+	    }
+        return password; // Ví dụ, trả về mật khẩu cũ từ DB
     }
 
     private boolean updatePassword(String username, String newPassword) {
@@ -203,4 +240,5 @@ public class TaiKhoanDAO {
 			// TODO: handle exception
 		}
 	}
+
 }

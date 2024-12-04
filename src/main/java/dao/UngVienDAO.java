@@ -33,7 +33,7 @@ public class UngVienDAO {
     }
 
     // Cập nhật thông tin ứng viên
-    public boolean updateUngVien(UngVien ungVien) throws SQLException {
+    public static boolean updateUngVien(UngVien ungVien) throws SQLException {
         String sql = "UPDATE UngVien SET fullName = ?, gender = ?, dob = ?, phone = ?, email = ?, " +
                      "location = ?, address = ?, introduction = ?, avatar = ? WHERE idUV = ?";
         try{
@@ -72,7 +72,7 @@ public class UngVienDAO {
     }
 
     // Lấy tất cả ứng viên
-    public List<UngVien> getAllUngVien() throws SQLException {
+    public static List<UngVien> getAllUngVien() throws SQLException {
         String sql = "SELECT idUV, fullName, gender, dob, phone, email, location, address, introduction, avatar FROM UngVien";
         List<UngVien> ungVienList = new ArrayList<>();
 

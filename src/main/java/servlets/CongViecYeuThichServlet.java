@@ -5,6 +5,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,54 +17,50 @@ import java.util.stream.Collectors;
 import com.google.gson.Gson;
 
 import beans.CongViec;
+import beans.CongViecYeuThich;
 import dao.CongViecDAO;
+import dao.CongViecYeuThichDAO;
 
 /**
- * Servlet implementation class CongViecServlet
+ * Servlet implementation class CongViecYeuThichDAO
  */
-public class CongViecServlet extends HttpServlet {
+public class CongViecYeuThichServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public CongViecServlet() {
+	public CongViecYeuThichServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	
-	private Map<String, Integer> countJobsByField(List<CongViec> congViecs) {
-	    // Sử dụng Map để lưu lĩnh vực và số lượng công việc
-	    Map<String, Integer> fieldCountMap = new HashMap<>();
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		HttpSession session = request.getSession(false);  
+		if (session == null) {
+			response.sendRedirect("Login.jsp"); 
+			return;
+		}
 
-	    // Điền dữ liệu vào Map
-	    for (CongViec congViec : congViecs) {
-	        String field = congViec.getLinhVuc(); // Lấy lĩnh vực từ đối tượng CongViec
-	        fieldCountMap.put(field, fieldCountMap.getOrDefault(field, 0) + 1);
-	    }
-
-	    return fieldCountMap;
-	}
-	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-	        throws ServletException, IOException {
-	    // Lấy toàn bộ danh sách công việc từ cơ sở dữ liệu
-	    List<CongViec> congViecs = new ArrayList<>();
+		// Kiểm tra xem session có chứa id người dùng không
+		String idUVStr = (String) session.getAttribute("id");
+		if (idUVStr == null) {
+			response.sendRedirect("Login.jsp"); 
+			return;
+		}
+		int idUV = Integer.parseInt(idUVStr);
+		
+		List<CongViec> congViecs = new ArrayList<>();
 	    try {
-	        congViecs = CongViecDAO.GetListCongViec();
+	        congViecs = CongViecYeuThichDAO.GetListCongViecYeuThich(idUV);
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	    }
-	    
-	    Map<String, Integer> jobCountsByField = countJobsByField(congViecs);
-	    request.setAttribute("jobCountsByField", jobCountsByField);
-		
-		List<String> linhVucs = new ArrayList<>();
+	    List<String> linhVucs = new ArrayList<>();
 		try {
 			linhVucs = CongViecDAO.getListLinhVuc();
 		} catch (Exception e) {
@@ -99,7 +97,7 @@ public class CongViecServlet extends HttpServlet {
 	                             .filter(cv -> cv.getTen().toLowerCase().contains(ten.toLowerCase())) // So sánh không phân biệt chữ hoa chữ thường
 	                             .collect(Collectors.toList());
 	    }
-		// Số công việc mỗi trang
+	    
 	    int pageSize = 9;
 	    int page = 1;  // Mặc định là trang đầu tiên
 
@@ -129,27 +127,61 @@ public class CongViecServlet extends HttpServlet {
 	    responseData.put("congViecs", pagedCongViecs);
 	    responseData.put("totalPages", totalPages);
 	    responseData.put("currentPage", page);
-	    //responseData.put("listLinhvuc", linhVucs);
 
 	    // Chỉ trả về JSON một lần
 	    String jsonResponse = new Gson().toJson(responseData);
 	    response.getWriter().write(jsonResponse);
 	    
-	    // Nếu không phải AJAX, bạn có thể chuyển hướng sang JSP
 	    if (!"true".equals(request.getParameter("ajax"))) {
-	        request.getRequestDispatcher("/TrangGioiThieu.jsp").forward(request, response);
+	        request.getRequestDispatcher("/CongViecYeuThich.jsp").forward(request, response);
 	    }
-
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// Lấy id công việc từ request
+		int idCongViec = Integer.parseInt(request.getParameter("idCongViec"));
+
+		// Lấy session
+		HttpSession session = request.getSession(false);  // không tạo session mới nếu không có
+		if (session == null) {
+			response.sendRedirect("Login.jsp"); // Nếu session không tồn tại, điều hướng đến trang đăng nhập
+			return;
+		}
+
+		// Kiểm tra xem session có chứa id người dùng không
+		String idUVStr = (String) session.getAttribute("id");
+		if (idUVStr == null) {
+			response.sendRedirect("Login.jsp"); // Nếu không có id trong session, điều hướng đến trang đăng nhập
+			return;
+		}
+
+		int idUV = Integer.parseInt(idUVStr);
+
+		try {
+			// Kiểm tra xem công việc đã được yêu thích chưa
+			CongViecYeuThich congViecYeuThich = CongViecYeuThichDAO.GetCongViecYeuThich(idUV, idCongViec);
+			if (congViecYeuThich != null) {
+				CongViecYeuThichDAO.DeleteCongViecYeuThich(idUV, idCongViec);
+			} else {
+				CongViecYeuThichDAO.AddCongViecYeuThich(idUV, idCongViec);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Lỗi hệ thống");
+			return;
+		}
+
+		// Lấy Referer (URL trước đó) để quay lại
+		String referer = request.getHeader("Referer");
+
+		// Nếu referer không null và hợp lệ, chuyển hướng về trang trước đó
+		if (referer != null && !referer.isEmpty()) {
+			response.sendRedirect(referer);
+		} 
 	}
+
 
 }
