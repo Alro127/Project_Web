@@ -1,3 +1,5 @@
+<%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -23,9 +25,9 @@
 <style>
 .image-container {
 	height: 300px;
-	background-image: linear-gradient(to top, #3d405b, rgba(61, 64, 91, 0)),
+	/* background-image: linear-gradient(to top, #3d405b, rgba(61, 64, 91, 0)),
 		url("https://scontent.fsgn5-12.fna.fbcdn.net/v/t39.30808-6/402094294_1774466179683868_1113741505075362781_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=127cfc&_nc_ohc=9b2c3efvWzkQ7kNvgEIJbIV&_nc_zt=23&_nc_ht=scontent.fsgn5-12.fna&_nc_gid=AdKPjrB1rFBJi7CZXDd25iq&oh=00_AYDJK9INSQonmITAgEBekgp-TIRYBj7iIwWyd3L8FqtT0Q&oe=674E4E80");
-	background-size: cover;
+ */	background-size: cover;
 	background-position: center;
 	border-radius: 10px;
 	position: relative;
@@ -61,18 +63,20 @@
 		<section class="container mb-5">
 			<div class="row position-relative" id="company-info">
 				<!-- Phần tên công ty và logo -->
-				<div class="image-container mb-5">
-					<div class="company-info ">
-						<img
-							src="https://scontent.fsgn5-9.fna.fbcdn.net/v/t39.30808-6/289805291_1433696720427484_7854231187395419608_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=a5f93a&_nc_ohc=moVhUnxq-3UQ7kNvgGNlVYm&_nc_zt=23&_nc_ht=scontent.fsgn5-9.fna&_nc_gid=ADNSqGRdJEcBiW7TsLx0dLU&oh=00_AYDFrKEzrQ8ZwTPKdmbEVqaCtb8pzTt5xTEpYtindDvxFA&oe=674E3D4F"
-							class="img-fluid rounded-circle img-logo" alt="Logo">
-						<div class="mx-3">
-							<h4>${congTy.tenCongTy}</h4>
-							<p>
-								Lĩnh vực: ${congTy.linhVuc} <br> Địa chỉ: ${congTy.diaChi}
-							</p>
-						</div>
-					</div>
+				<div class="image-container mb-5" 
+				     style="background-image: linear-gradient(to top, #3d405b, rgba(61, 64, 91, 0)), 
+							url('${pageContext.request.contextPath}/${congTy.getBackground()}');
+							">
+				    <div class="company-info">
+				        <img src="${pageContext.request.contextPath}/${congTy.getLogo()}" 
+				             class="img-fluid rounded-circle img-logo" alt="Logo">
+				        <div class="mx-3">
+				            <h4>${congTy.tenCongTy}</h4>
+				            <p>
+				                Lĩnh vực: ${congTy.linhVuc} <br> Địa chỉ: ${congTy.diaChi}
+				            </p>
+				        </div>
+				    </div>
 				</div>
 
 				<!-- Phần thông tin chung của công ty -->
@@ -148,63 +152,55 @@
 
 					<!-- Carousel Items -->
 					<div class="carousel-inner">
-						<div class="carousel-item active">
-							<div class="row justify-content-center">
-								<div class="col-4">
-									<img
-										src="https://scontent.fsgn5-8.fna.fbcdn.net/v/t1.6435-9/107864545_951346755329152_4992326549014438745_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=86c6b0&_nc_ohc=9J82IA9zdMcQ7kNvgGVUpme&_nc_zt=23&_nc_ht=scontent.fsgn5-8.fna&_nc_gid=AdjLYJwMuYSM6fnZTb6lDoj&oh=00_AYCY4qeH3JZtuiEtzQs5JmDNf6qMKcF5Gddt2UA5iWgZhA&oe=676FE70D"
-										class="d-block w-100 rounded" alt="Hình ảnh 1">
-								</div>
-								<div class="col-4">
-									<img
-										src="https://scontent.fsgn5-8.fna.fbcdn.net/v/t1.6435-9/107864545_951346755329152_4992326549014438745_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=86c6b0&_nc_ohc=9J82IA9zdMcQ7kNvgGVUpme&_nc_zt=23&_nc_ht=scontent.fsgn5-8.fna&_nc_gid=AdjLYJwMuYSM6fnZTb6lDoj&oh=00_AYCY4qeH3JZtuiEtzQs5JmDNf6qMKcF5Gddt2UA5iWgZhA&oe=676FE70D"
-										class="d-block w-100 rounded" alt="Hình ảnh 2">
-								</div>
-								<div class="col-4">
-									<img
-										src="https://scontent.fsgn5-8.fna.fbcdn.net/v/t1.6435-9/107864545_951346755329152_4992326549014438745_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=86c6b0&_nc_ohc=9J82IA9zdMcQ7kNvgGVUpme&_nc_zt=23&_nc_ht=scontent.fsgn5-8.fna&_nc_gid=AdjLYJwMuYSM6fnZTb6lDoj&oh=00_AYCY4qeH3JZtuiEtzQs5JmDNf6qMKcF5Gddt2UA5iWgZhA&oe=676FE70D"
-										class="d-block w-100 rounded" alt="Hình ảnh 3">
-								</div>
-							</div>
-						</div>
-						<div class="carousel-item active">
-							<div class="row justify-content-center">
-								<div class="col-4">
-									<img
-										src="https://scontent.fsgn5-8.fna.fbcdn.net/v/t1.6435-9/107864545_951346755329152_4992326549014438745_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=86c6b0&_nc_ohc=9J82IA9zdMcQ7kNvgGVUpme&_nc_zt=23&_nc_ht=scontent.fsgn5-8.fna&_nc_gid=AdjLYJwMuYSM6fnZTb6lDoj&oh=00_AYCY4qeH3JZtuiEtzQs5JmDNf6qMKcF5Gddt2UA5iWgZhA&oe=676FE70D"
-										class="d-block w-100 rounded" alt="Hình ảnh 1">
-								</div>
-								<div class="col-4">
-									<img
-										src="https://scontent.fsgn5-8.fna.fbcdn.net/v/t1.6435-9/107864545_951346755329152_4992326549014438745_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=86c6b0&_nc_ohc=9J82IA9zdMcQ7kNvgGVUpme&_nc_zt=23&_nc_ht=scontent.fsgn5-8.fna&_nc_gid=AdjLYJwMuYSM6fnZTb6lDoj&oh=00_AYCY4qeH3JZtuiEtzQs5JmDNf6qMKcF5Gddt2UA5iWgZhA&oe=676FE70D"
-										class="d-block w-100 rounded" alt="Hình ảnh 2">
-								</div>
-								<div class="col-4">
-									<img
-										src="https://scontent.fsgn5-8.fna.fbcdn.net/v/t1.6435-9/107864545_951346755329152_4992326549014438745_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=86c6b0&_nc_ohc=9J82IA9zdMcQ7kNvgGVUpme&_nc_zt=23&_nc_ht=scontent.fsgn5-8.fna&_nc_gid=AdjLYJwMuYSM6fnZTb6lDoj&oh=00_AYCY4qeH3JZtuiEtzQs5JmDNf6qMKcF5Gddt2UA5iWgZhA&oe=676FE70D"
-										class="d-block w-100 rounded" alt="Hình ảnh 3">
-								</div>
-							</div>
-						</div>
-						<div class="carousel-item active">
-							<div class="row justify-content-center">
-								<div class="col-4">
-									<img
-										src="https://scontent.fsgn5-8.fna.fbcdn.net/v/t1.6435-9/107864545_951346755329152_4992326549014438745_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=86c6b0&_nc_ohc=9J82IA9zdMcQ7kNvgGVUpme&_nc_zt=23&_nc_ht=scontent.fsgn5-8.fna&_nc_gid=AdjLYJwMuYSM6fnZTb6lDoj&oh=00_AYCY4qeH3JZtuiEtzQs5JmDNf6qMKcF5Gddt2UA5iWgZhA&oe=676FE70D"
-										class="d-block w-100 rounded" alt="Hình ảnh 1">
-								</div>
-								<div class="col-4">
-									<img
-										src="https://scontent.fsgn5-8.fna.fbcdn.net/v/t1.6435-9/107864545_951346755329152_4992326549014438745_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=86c6b0&_nc_ohc=9J82IA9zdMcQ7kNvgGVUpme&_nc_zt=23&_nc_ht=scontent.fsgn5-8.fna&_nc_gid=AdjLYJwMuYSM6fnZTb6lDoj&oh=00_AYCY4qeH3JZtuiEtzQs5JmDNf6qMKcF5Gddt2UA5iWgZhA&oe=676FE70D"
-										class="d-block w-100 rounded" alt="Hình ảnh 2">
-								</div>
-								<div class="col-4">
-									<img
-										src="https://scontent.fsgn5-8.fna.fbcdn.net/v/t1.6435-9/107864545_951346755329152_4992326549014438745_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=86c6b0&_nc_ohc=9J82IA9zdMcQ7kNvgGVUpme&_nc_zt=23&_nc_ht=scontent.fsgn5-8.fna&_nc_gid=AdjLYJwMuYSM6fnZTb6lDoj&oh=00_AYCY4qeH3JZtuiEtzQs5JmDNf6qMKcF5Gddt2UA5iWgZhA&oe=676FE70D"
-										class="d-block w-100 rounded" alt="Hình ảnh 3">
-								</div>
-							</div>
-						</div>
+						<%
+							//HttpSession session2 = request.getSession(true);
+							List<String> images = (List<String>)request.getAttribute("images");
+							int length = images.size();
+							int col = length / 3;
+							int excess = length - col * 3;
+							for (int i = 0; i < col; i++)
+							{
+								%>
+									<div class="carousel-item active">
+										<div class="row justify-content-center">
+											<%
+												for (int j = 0; j < 3; j ++ )
+												{
+													%>
+														<div class="col-4">
+															<img
+																src="${pageContext.request.contextPath}/<%= images.get(i * 3 + j) %>"
+																class="d-block w-100 rounded" alt="Hình ảnh 1">
+														</div>
+													<%
+												}
+											%>
+										</div>
+									</div>
+								<%
+							}
+							if (excess > 0)
+							{
+								%>
+									<div class="carousel-item active">
+										<div class="row justify-content-center">
+											<%
+												for (int i = 0; i < excess ; i++)
+												{
+													%>
+														<div class="col-4">
+															<img
+																src="${pageContext.request.contextPath}/<%= images.get(col * 3 + i) %>"
+																class="d-block w-100 rounded" alt="Hình ảnh 1">
+														</div>
+													<%
+												}
+											%>
+										</div>
+									</div>
+								<%
+							}
+						%>
 					</div>
 
 					<!-- Controls -->

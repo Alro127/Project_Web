@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import beans.CongTy;
 import beans.CongViec;
 import conn.DBConnection;
 
@@ -196,5 +197,45 @@ public class CongViecDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static CongTy getCongTyByID(int id)
+	{
+		 String cmd = "select * from CongTy where IdCT = ?";
+		 CongTy congTy = null;
+	     try {
+	    	 Connection conn = DBConnection.getConnection();
+             PreparedStatement statement = conn.prepareStatement(cmd);
+            // Gán giá trị tham số cho câu lệnh SQL
+            statement.setInt(1, id);
+
+            // Thực thi truy vấn
+            ResultSet resultSet = statement.executeQuery();
+            
+            // Lấy dữ liệu từ resultSet
+            if (resultSet.next()) {
+                int idCT = resultSet.getInt("IdCT");
+                String tenCongTy = resultSet.getString("TenCongTy");
+                String sdt = resultSet.getString("SDT");
+                String email = resultSet.getString("Email");
+                String maSoThue = resultSet.getString("MaSoThue");
+                String linhVuc = resultSet.getString("LinhVuc");
+                String quyMoNhanSu = resultSet.getString("QuyMoNhanSu");
+                String tinhThanh = resultSet.getString("TinhThanh");
+                String diaChi = resultSet.getString("DiaChi");
+                String url = resultSet.getString("Url");
+                String gioiThieu = resultSet.getString("GioiThieu");
+                String logo = resultSet.getString("Logo");
+                String background = resultSet.getString("Background");
+
+                // Tạo đối tượng CongTy
+                congTy = new CongTy(idCT, tenCongTy, sdt, email, maSoThue, linhVuc, quyMoNhanSu,
+                                    tinhThanh, diaChi, url, gioiThieu, logo, background);
+            }
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	     		
+	   return congTy;
 	}
 }

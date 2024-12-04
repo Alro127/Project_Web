@@ -3,6 +3,8 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import beans.CongTy;
 import conn.DBConnection;
@@ -41,5 +43,23 @@ public class CongTyDAO {
 	    }
 	    return null;
 	}
-
+	
+	public static List<String> getHinhAnhHoatDong(int id)
+	{
+		String sqlcmd = "select duongDan from HinhAnhHoatDong where idCongTy = ?";
+		List<String> images = new ArrayList<>();
+		try {
+			Connection conn = DBConnection.getConnection();
+			PreparedStatement preparedStatement = conn.prepareStatement(sqlcmd);
+			preparedStatement.setInt(1, id);
+			ResultSet rs = preparedStatement.executeQuery();
+			while (rs.next()) {
+				images.add(rs.getString(1));
+			}
+			return images;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 }
