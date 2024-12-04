@@ -92,7 +92,7 @@ function handleChangePasswordSubmit(event) {
 }
 // Lắng nghe sự kiện click vào nút Toggle để mở form đổi mật khẩu
 document.getElementById('toggleChangePassword').addEventListener('click', function(event) {
-    event.preventDefault();  // Ngừng reload trang (nếu nút là dạng <a href="..."> hoặc button mặc định)
+    event.preventDefault();  
     createChangePasswordForm();
 });
 document.getElementById("changePasswordFormId")?.addEventListener("submit", handleChangePasswordSubmit);

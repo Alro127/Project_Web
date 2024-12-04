@@ -33,10 +33,7 @@
 							<div class="card-body">
 								<form>
 									<%
-								TaiKhoan taiKhoan = (TaiKhoan) request.getAttribute("taiKhoan");
-								%>
-									<%
-								taiKhoan = new TaiKhoan(0, "nhat", "nhat","google", "fb" ,"email","UngVien");
+								TaiKhoan taiKhoan = (TaiKhoan) request.getAttribute("tk");
 								%>
 
 									<div class="row mb-3">
@@ -100,22 +97,6 @@
 											<label for="tenCongTy">Tên Công Ty</label> <input type="text"
 												class="form-control" id="tenCongTy" name="tenCongTy"
 												value="${congTy.tenCongTy}">
-										</div>
-										<!-- Giới tính -->
-										<div class="col-md-6">
-											<label for="gender" class="form-label">Giới tính:</label> <select
-												id="gender" name="gender" class="form-control" required>
-												<option value="">Chọn giới tính</option>
-												<option value="male">Nam</option>
-												<option value="female">Nữ</option>
-												<option value="other">Khác</option>
-											</select>
-										</div>
-										<!-- Ngày sinh -->
-										<div class="col-md-6">
-											<label for="dob" class="form-label">Ngày sinh:</label> <input
-												type="date" id="dob" name="dob" class="form-control"
-												required />
 										</div>
 									</div>
 								</div>
