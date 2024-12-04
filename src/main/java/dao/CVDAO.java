@@ -71,18 +71,13 @@ public class CVDAO {
     public List<CV> getAllCV() throws SQLException {
         String sql = "SELECT * FROM CV";
         List<CV> cvList = new ArrayList<>();
-        UngVienDAO ungVienDAO = new UngVienDAO();
-        HocVanDAO hocVanDAO = new HocVanDAO();
-        KinhNghiemDAO kinhNghiemDAO = new KinhNghiemDAO();
-        ChungChiDAO chungChiDAO = new ChungChiDAO();
-        KyNangDAO kyNangDAO = new KyNangDAO();
         try (Statement statement = connection.createStatement();
              ResultSet rs = statement.executeQuery(sql)) {
             while (rs.next()) {
                 CV cv = new CV();
                 cv.setIdCV(rs.getInt("idCV"));
                 cv.setIdUV(rs.getInt("idUV"));
-                cv.setUngvien(ungVienDAO.getUngVienById(cv.getIdUV()));
+                cv.setUngvien(UngVienDAO.getUngVienById(cv.getIdUV()));
                 cv.setPosition(rs.getString("position"));
                 cv.setCareerGoals(rs.getString("careerGoals"));
                 cv.setHocVan(HocVanDAO.getEducationListByCV(cv));
@@ -94,19 +89,39 @@ public class CVDAO {
         }
         return cvList;
     }
-
+    // Lấy tất cả CV
+    public List<CV> getAllCVbyIdUV(int idUV) throws SQLException {
+        String sql = "SELECT * FROM CV WHERE IdUV = " + idUV;
+        List<CV> cvList = new ArrayList<>();
+        try (Statement statement = connection.createStatement();
+             ResultSet rs = statement.executeQuery(sql)) {
+            while (rs.next()) {
+                CV cv = new CV();
+                cv.setIdCV(rs.getInt("idCV"));
+                cv.setIdUV(rs.getInt("idUV"));
+                cv.setUngvien(UngVienDAO.getUngVienById(cv.getIdUV()));
+                cv.setPosition(rs.getString("position"));
+                cv.setCareerGoals(rs.getString("careerGoals"));
+                cv.setHocVan(HocVanDAO.getEducationListByCV(cv));
+                cv.setKinhNghiem(KinhNghiemDAO.getExperienceListByCV(cv));
+                cv.setChungChi(ChungChiDAO.getCertificateListByCV(cv));
+                cv.setKyNang(KyNangDAO.getSkillListByCV(cv));
+                cvList.add(cv);
+            }
+        }
+        return cvList;
+    }
     // Lấy CV theo ID
     public CV getCVbyId(int IdCV) throws SQLException {
         String sql = "SELECT * FROM CV WHERE IdCV = ?";
         CV cv = new CV();
-        UngVienDAO ungVienDAO = new UngVienDAO();
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setInt(1, IdCV);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     cv.setIdCV(rs.getInt("idCV"));
                     cv.setIdUV(rs.getInt("idUV"));
-                    cv.setUngvien(ungVienDAO.getUngVienById(cv.getIdUV()));
+                    cv.setUngvien(UngVienDAO.getUngVienById(cv.getIdUV()));
                     cv.setPosition(rs.getString("position"));
                     cv.setCareerGoals(rs.getString("careerGoals"));
                     cv.setHocVan(HocVanDAO.getEducationListByCV(cv));
