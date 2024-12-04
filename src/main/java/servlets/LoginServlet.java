@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.List;
 
@@ -60,8 +61,6 @@ public class LoginServlet extends HttpServlet {
 			    session.setAttribute("refresh_token", information.get(4)); // Lưu refresh_token	
 			    session.setAttribute("role", information.get(5));
 			    session.setAttribute("email", information.get(6));
-			    
-			    System.out.println(id);
 			    String role = (String) session.getAttribute("role");
 			    if (role.equals("UngVien")) {
 			    	destination = "CongViecServlet";
@@ -74,11 +73,9 @@ public class LoginServlet extends HttpServlet {
 					session.setAttribute("name", ct.getTenCongTy());
 				}
 			}
-			
 		}
 		response.sendRedirect(destination);
 	}
-
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)

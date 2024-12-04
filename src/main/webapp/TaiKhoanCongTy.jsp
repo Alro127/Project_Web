@@ -33,10 +33,7 @@
 							<div class="card-body">
 								<form>
 									<%
-								TaiKhoan taiKhoan = (TaiKhoan) request.getAttribute("taiKhoan");
-								%>
-									<%
-								taiKhoan = new TaiKhoan(0, "nhat", "nhat","google", "fb" ,"email","UngVien");
+								TaiKhoan taiKhoan = (TaiKhoan) request.getAttribute("tk");
 								%>
 
 									<div class="row mb-3">
@@ -59,7 +56,30 @@
 									mật khẩu</button>
 
 								<!-- Phần giao diện Đổi Mật Khẩu sẽ được thêm vào tại đây -->
-								<div id="changePasswordForm" class="mt-3" style="display: none;"></div>
+								<div id="changePasswordForm" class="mt-3" style="display: none;">
+							        <div class="card">
+								        <div class="card-header">
+								            Thay đổi mật khẩu
+								        </div>
+								        <div class="card-body">
+								            <form id="changePasswordFormId">
+								                <div class="mb-3">
+								                    <label for="oldPassword" class="form-label">Mật khẩu cũ</label>
+								                    <input type="password" id="oldPassword" name="oldPassword" class="form-control" placeholder="Nhập mật khẩu cũ" required />
+								                </div>
+								                <div class="mb-3">
+								                    <label for="newPassword" class="form-label">Mật khẩu mới</label>
+								                    <input type="password" id="newPassword" name="newPassword" class="form-control" placeholder="Nhập mật khẩu mới" required />
+								                </div>
+								                <div class="mb-3">
+								                    <label for="confirmPassword" class="form-label">Xác nhận mật khẩu mới</label>
+								                    <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" placeholder="Nhập lại mật khẩu mới" required />
+								                </div>
+								                <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+								            </form>
+								        </div>
+								    </div>
+								</div>
 
 							</div>
 						</div>
@@ -100,22 +120,6 @@
 											<label for="tenCongTy">Tên Công Ty</label> <input type="text"
 												class="form-control" id="tenCongTy" name="tenCongTy"
 												value="${congTy.tenCongTy}">
-										</div>
-										<!-- Giới tính -->
-										<div class="col-md-6">
-											<label for="gender" class="form-label">Giới tính:</label> <select
-												id="gender" name="gender" class="form-control" required>
-												<option value="">Chọn giới tính</option>
-												<option value="male">Nam</option>
-												<option value="female">Nữ</option>
-												<option value="other">Khác</option>
-											</select>
-										</div>
-										<!-- Ngày sinh -->
-										<div class="col-md-6">
-											<label for="dob" class="form-label">Ngày sinh:</label> <input
-												type="date" id="dob" name="dob" class="form-control"
-												required />
 										</div>
 									</div>
 								</div>

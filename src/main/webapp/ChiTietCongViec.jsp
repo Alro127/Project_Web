@@ -150,12 +150,6 @@
 								<p>${congViec.quyenLoi}</p>
 								<hr>
 							</div>
-
-							<div class="card-footer text-end">
-								<button class="btn bg-dark-blue text-light">Ứng tuyển
-									ngay</button>
-								<button class="btn btn-outline-coral">Lưu tin</button>
-							</div>
 						</div>
 					</div>
 				</div>
