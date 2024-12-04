@@ -2,6 +2,7 @@ function saveData() {
     const form = document.getElementById('cvForm');
     const formData = new FormData(form);
 	const mode = document.getElementById('mode'); 
+	const IdCV = document.getElementById('IdCV'); 
 
     // Xử lý thông tin cá nhân (Ảnh đại diện)
     const avatar = document.getElementById('avatarPreview').src;
@@ -71,7 +72,8 @@ function saveData() {
         experienceData: experienceData,
         certificateData: certificateData,
         skillData: skillData,
-		mode: mode.value
+		mode: mode.value,
+		IdCV: IdCV.value
     };
 
     // Chuyển đối tượng JSON thành chuỗi
@@ -237,19 +239,10 @@ function addEducationItem() {
 	                <label class="form-label">Bắt đầu</label>
 	                <input type="date" name="educationStart[]" class="form-control">
 	            </div>
-	            <div class="col-md-5">
+	            <div class="col-md-6">
 	                <label class="form-label">Kết thúc</label>
 	                <input type="date" name="educationEnd[]" class="form-control me-2 education-end-date">
 	            </div>
-				<div class="col-md-1 d-flex flex-column justify-content-end px-0">
-					<div class="form-check d-flex justify-content-center align-items-center mb-3">
-						<input type="checkbox"
-							class="form-check-input education-current-checkbox"
-							onchange="toggleEndDate(this)"> <label
-							class="form-check-label" for="educationCurrent">Hiện
-							tại</label>
-					</div>
-				</div>
 			</div>
 	        <div class="row mb-2">
 	            <div class="col-md-6">

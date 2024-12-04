@@ -275,7 +275,7 @@
     <servlet-name>CongViecYeuThichServlet</servlet-name>
     <url-pattern>/CongViecYeuThichServlet</url-pattern>
   </servlet-mapping>
-  <servlet>
+	  <servlet>
     <description></description>
     <display-name>CreateCVServlet</display-name>
     <servlet-name>CreateCVServlet</servlet-name>

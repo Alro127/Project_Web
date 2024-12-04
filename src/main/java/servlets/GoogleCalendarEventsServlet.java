@@ -8,16 +8,19 @@ import jakarta.servlet.http.HttpSession;
 import okhttp3.Response;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 import com.google.api.client.auth.oauth2.BearerToken;
 import com.google.api.client.auth.oauth2.Credential;
+import com.google.api.client.auth.oauth2.TokenResponse;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.calendar.Calendar;
 import com.google.api.services.calendar.model.Events;
 
+import authentication.GoogleCredential;
 import dao.TaiKhoanDAO;
 
 import com.google.api.services.calendar.model.Event;
@@ -54,22 +57,34 @@ public class GoogleCalendarEventsServlet extends HttpServlet {
         			credential = new authentication.GoogleCredential(getServletContext()).getCredentials();
             		// Nếu mà đăng nhập mà không dùng google ý, thì giờ sẽ đăng nhập để sử dụng lịch
             		session.setAttribute("Credential", credential);
+            		// Cập nhật token mới vào session
+    		        session.setAttribute("access_token", credential.getAccessToken());
+    		        accessToken = (String) session.getAttribute("access_token");
 				}
         		else {
         			credential = new Credential(BearerToken.authorizationHeaderAccessMethod())
             		        .setAccessToken(accessToken);
 				}
         	}
-        	if (credential.getExpiresInSeconds() != null && credential.getExpiresInSeconds() <= 60) {
+        	System.out.println("Expires in seconds: " + credential.getExpiresInSeconds());
+
+        	if ((credential.getExpiresInSeconds() != null && credential.getExpiresInSeconds() <= 60) || 
+        			credential.getExpiresInSeconds() == null) {
     		    try {
-    		        credential.setRefreshToken(refreshToken);
-    		        if (!credential.refreshToken()) {
+    		    	GoogleCredential googleCredential = new GoogleCredential(getServletContext());
+    		    	TokenResponse tokenResponse = googleCredential.refreshAccessToken(refreshToken);
+    		    	accessToken = tokenResponse.getAccessToken();
+    		        if (accessToken == null) {
     		            // Không thể làm mới access token
     		            resp.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Access token expired and refresh failed.");
     		            return;
     		        }
-    		        // Cập nhật token mới vào session
-    		        session.setAttribute("access_token", credential.getAccessToken());
+    		        credential = new Credential(BearerToken.authorizationHeaderAccessMethod())
+            		        .setAccessToken(accessToken);
+    		        // Cập nhật token và credential mới vào session
+    		        session.setAttribute("access_token", accessToken);
+    		        session.setAttribute("Credential", credential);
+    		        accessToken = (String) session.getAttribute("access_token");
     		    } catch (IOException e) {
     		        throw new ServletException("Error refreshing access token.", e);
     		    }

@@ -3,6 +3,9 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import beans.CongTy;
 import conn.DBConnection;
@@ -41,5 +44,77 @@ public class CongTyDAO {
 	    }
 	    return null;
 	}
+	
+	public static List<String> getHinhAnhHoatDong(int id)
+	{
+		String sqlcmd = "select duongDan from HinhAnhHoatDong where idCongTy = ?";
+		List<String> images = new ArrayList<>();
+		try {
+			Connection conn = DBConnection.getConnection();
+			PreparedStatement preparedStatement = conn.prepareStatement(sqlcmd);
+			preparedStatement.setInt(1, id);
+			ResultSet rs = preparedStatement.executeQuery();
+			while (rs.next()) {
+				images.add(rs.getString(1));
+			}
+			return images;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	public static void addHinhAnhHoatDong(int id, String duongDan)
+	{
+		String sqlcmd = "insert into HinhAnhHoatDong (idCongTy, duongDan) values (?, ?)";
+		try {
+			Connection connection = DBConnection.getConnection();
+			PreparedStatement preparedStatement = connection.prepareStatement(sqlcmd);
+			preparedStatement.setInt(1, id);
+			preparedStatement.setString(2, duongDan);
+			preparedStatement.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void updateThongtinCongTy(CongTy ct) {
+	    String sqlcmd = "UPDATE CongTy SET TenCongTy = ?, SDT = ?, "
+	            + "MaSoThue = ?, LinhVuc = ?, QuyMoNhanSu = ?, TinhThanh = ?, "
+	            + "DiaChi = ?, URL = ?, GioiThieu = ? ";
 
+	    // Nếu có logo, thêm phần logo vào câu lệnh SQL
+	    if (ct.getLogo() != null) {
+	        sqlcmd += ", Logo = ?";
+	    }
+
+	    // Thêm phần WHERE vào câu lệnh SQL
+	    sqlcmd += " WHERE idCT = ?";
+
+	    try {
+	        Connection connection = DBConnection.getConnection();
+	        PreparedStatement preparedStatement = connection.prepareStatement(sqlcmd);
+	        preparedStatement.setString(1, ct.getTenCongTy());
+	        preparedStatement.setString(2, ct.getSdt());
+	        preparedStatement.setString(3, ct.getMaSoThue());
+	        preparedStatement.setString(4, ct.getLinhVuc());
+	        preparedStatement.setString(5, ct.getQuyMoNhanSu());
+	        preparedStatement.setString(6, ct.getTinhThanh());
+	        preparedStatement.setString(7, ct.getDiaChi());
+	        preparedStatement.setString(8, ct.getUrl());
+	        preparedStatement.setString(9, ct.getGioiThieu());
+
+	        // Nếu Logo không phải null, gán giá trị của Logo vào PreparedStatement
+	        if (ct.getLogo() != null) {
+	            preparedStatement.setString(10, ct.getLogo());
+	        }
+
+	        // Thêm ID công ty vào câu lệnh SQL
+	        preparedStatement.setInt(11, ct.getIdCT());
+	        preparedStatement.executeUpdate();
+	    } catch (SQLException | ClassNotFoundException e) {
+	        e.printStackTrace();
+	    }
+	}
+
+	
 }

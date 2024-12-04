@@ -10,11 +10,14 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.google.api.client.auth.oauth2.Credential;
+import com.google.api.client.auth.oauth2.TokenResponse;
 import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
 import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
+import com.google.api.client.googleapis.auth.oauth2.GoogleRefreshTokenRequest;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
+import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.calendar.Calendar;
 import com.google.api.services.calendar.CalendarScopes;
@@ -28,14 +31,16 @@ public class GoogleCredential {
     // Scope mới với quyền chỉnh sửa lịch
     private static final JacksonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
     private static final String TOKENS_DIRECTORY_PATH = "tokens";
-    
     // Lưu trữ ServletContext để truy cập tài nguyên
     private ServletContext servletContext;
 
     public GoogleCredential(ServletContext servletContext) {
         this.servletContext = servletContext;
     }
-
+    
+    public GoogleCredential() {
+		
+	}
     public Credential getCredentials() throws IOException, GeneralSecurityException {
         // Đọc file credentials.json từ thư mục WEB-INF
         InputStream in = servletContext.getResourceAsStream("/WEB-INF/classes/credential/credentials.json");
@@ -46,7 +51,6 @@ public class GoogleCredential {
         // Tải thông tin client secrets
         GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
         System.out.println("Working directory: " + System.getProperty("user.dir"));
-
         // Tạo flow OAuth với scope chỉnh sửa lịch
         GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
                 GoogleNetHttpTransport.newTrustedTransport(),
@@ -96,5 +100,22 @@ public class GoogleCredential {
                 new HttpCredentialsAdapter(credentials))
                 .setApplicationName("CV Hub")
                 .build();
+    }
+    
+    public TokenResponse refreshAccessToken(String refreshToken) throws IOException {
+    	InputStream in = servletContext.getResourceAsStream("/WEB-INF/classes/credential/credentials.json");
+    	GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
+    	String clientId = clientSecrets.getDetails().getClientId();
+        String clientSecret = clientSecrets.getDetails().getClientSecret();
+    	TokenResponse response = new GoogleRefreshTokenRequest(
+                new NetHttpTransport(),
+                new JacksonFactory(),
+                refreshToken, 
+                clientId,
+                clientSecret)
+                .execute();
+        System.out.println("Access token: " + response.getAccessToken());
+
+        return response;
     }
 }

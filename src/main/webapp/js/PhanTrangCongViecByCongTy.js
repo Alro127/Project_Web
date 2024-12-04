@@ -26,7 +26,7 @@ function loadJobs(page) {
                     <div class="col-12 col-md-4 mb-4 py-0">
                         <a href="ChiTietCongViecServlet?id=${congViec.idCongViec}" class="text-decoration-none text-dark">
                             <div class="d-flex py-3 px-3 bg-light shadow rounded">
-                                <img src="https://ibrand.vn/wp-content/uploads/2024/07/mbbank-logo-5.png"
+                                <img src="${congViec.logo}"
                                      class="card-img-top img-fluid" alt="Công việc" style="width: 100px; height: 100px; object-fit: cover;">
                                 <div class="card-body ms-3">
                                     <h5 class="card-title">${jobTitle}</h5>

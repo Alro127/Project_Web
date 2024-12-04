@@ -28,7 +28,7 @@
 		<jsp:include page="fragments/sidebar_CongTy.jsp" />
 		<div class="container mt-4 bg-light py-3 px-3 shadow rounded ">
 			<h2 class="text-center">Quản Lý Tài Khoản</h2>
-			<form action="updateCompany" method="POST">
+			<form>
 				<div class="container mt-3">
 					<div class="container">
 						<!-- Phần trên: Thông tin tài khoản -->
@@ -97,7 +97,7 @@
 										class="position-relative d-flex justify-content-center align-items-center">
 										<!-- Avatar -->
 										<img id="avatarPreview"
-											src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYDLLaxgOsud5O32KbTu-bnPjbkBNbYXePWQ&s"
+											src="${congTy.logo}"
 											alt="Avatar" class="rounded-circle border"
 											style="width: 200px; height: 200px; object-fit: cover;">
 
@@ -111,7 +111,9 @@
 											<!-- Upload button -->
 											<button type="button"
 												class="btn btn-outline-primary btn-sm me-1"
-												onclick="triggerAvatarUpload()">
+												data-bs-toggle="modal"
+												data-bs-target="#addAvatarImageModal"
+												>
 												<i class="bi bi-upload"></i>
 											</button>
 										</div>
@@ -195,7 +197,26 @@
 								<div class="row">
 									<h4>Hình ảnh hoạt động</h4>
 									<div class="d-flex flex-wrap" id="image-container">
-
+										<%
+									        // Lấy danh sách hình ảnh từ request attribute
+									        List<String> images = (List<String>) request.getAttribute("images");
+									
+									        // Kiểm tra nếu danh sách images không null và không rỗng
+									        if (images != null && !images.isEmpty()) {
+									            // Duyệt qua danh sách và tạo ra HTML cho từng ảnh
+									            for (String imageSrc : images) {
+									    %>
+									                <div class="mb-3">
+									                    <img src="<%= imageSrc %>" class="img-fluid img-thumbnail" style="max-width: 100%; max-height: 200px; object-fit: cover;" />
+									                </div>
+									    <%
+									            }
+									        } else {
+									    %>
+									        <p>Không có hình ảnh để hiển thị.</p>
+									    <%
+									        }
+									    %>
 										<!-- Hình ảnh sẽ được bỏ vào đây -->
 									</div>
 									<div class="modal fade" id="addImageModal" tabindex="-1"
@@ -224,13 +245,38 @@
 											</div>
 										</div>
 									</div>
-
+									<div class="modal fade" id="addAvatarImageModal" tabindex="-1"
+										aria-labelledby="addAvatarImageModalLabel" aria-hidden="true">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title" id="addAvatarImageModalLabel">Thêm
+														Hình Ảnh</h5>
+													<button type="button" class="btn-close"
+														data-bs-dismiss="modal" aria-label="Close"></button>
+												</div>
+												<div class="modal-body">
+													<div class="mb-3">
+														<label for="imageAvatarUpload" class="form-label">Chọn
+															hình ảnh:</label> <input type="file" class="form-control"
+															id="imageAvatarUpload">
+													</div>
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-secondary"
+														data-bs-dismiss="modal">Đóng</button>
+													<button type="button" class="btn btn-primary"
+														data-bs-dismiss="modal" id="saveAvatarImage">Lưu</button>
+												</div>
+											</div>
+										</div>
+									</div>
 									<!-- Nút thêm hình -->
-									<button class="btn btn-primary col-2" data-bs-toggle="modal"
+									<button type="button" class="btn btn-primary col-2" data-bs-toggle="modal"
 										data-bs-target="#addImageModal">Thêm hình ảnh</button>
 									<!-- Nút lưu và hủy -->
 									<div class="form-group text-end">
-										<button type="submit" class="btn btn-primary">Lưu
+										<button type="submit" class="btn btn-primary" id = "saveAllChanges">Lưu
 											Thay Đổi</button>
 										<a href="dashboard.jsp" class="btn btn-secondary">Hủy</a>
 									</div>

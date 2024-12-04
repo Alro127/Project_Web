@@ -87,6 +87,7 @@ public class SaveCVServlet extends HttpServlet {
 	        JSONArray certificateArray = jsonObject.optJSONArray("certificateData");
 	        JSONArray skillArray = jsonObject.optJSONArray("skillData");
 	        String mode =jsonObject.optString("mode");
+	        String IdCV = jsonObject.optString("IdCV");
 
 	        // Chuyển dữ liệu thành các đối tượng entity
 			/*
@@ -183,11 +184,12 @@ public class SaveCVServlet extends HttpServlet {
 			int idUV = Integer.parseInt(idUVStr);
 			
 	        CV cv = new CV(idUV, position, careerGoals);
-	        // Tiến hành lưu các đối tượng này vào cơ sở dữ liệu hoặc xử lý theo yêu cầu
-	        if (!CVDAO.isCVExisted(cv) || mode.equals("create")) {
+	        cv.setIdCV(Integer.parseInt(IdCV));
+       // Tiến hành lưu các đối tượng này vào cơ sở dữ liệu hoặc xử lý theo yêu cầu
+	        if (mode.equals("create")) {
 	        	CVDAO.addCV(cv, educationList, experienceList, certificateList, skillList);
 	        }
-	        else
+	        else if (mode.equals("edit"))
 	        {
 	        	CVDAO.updateCV(cv, educationList, experienceList, certificateList, skillList);
 	        }

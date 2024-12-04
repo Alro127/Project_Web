@@ -10,7 +10,7 @@
 			<div class="col-12 mb-4 py-0">
 				<div class="d-flex py-3 px-3 bg-light shadow rounded">
 					<img
-						src="https://ibrand.vn/wp-content/uploads/2024/07/mbbank-logo-5.png"
+						src="${congViec.logo}"
 						class="card-img-top img-fluid" alt="Công việc"
 						style="width: 100px; height: 100px; object-fit: cover;">
 					<div class="card-body ms-3">

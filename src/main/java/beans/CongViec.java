@@ -23,7 +23,8 @@ public class CongViec {
 	private int luotNop;
 	
 	private String tenCongTy;
-
+	private String logo;
+	
 	public String getTenCongTy() {
 		return tenCongTy;
 	}
@@ -222,7 +223,16 @@ public class CongViec {
 				", luotXem=" + luotXem +
 				", luotNop=" + luotNop +
 				", tenCongTy=" + tenCongTy +
+				", logo=" + logo +
 				'}';
+	}
+
+	public String getLogo() {
+		return logo;
+	}
+
+	public void setLogo(String logo) {
+		this.logo = logo;
 	}
 
 }

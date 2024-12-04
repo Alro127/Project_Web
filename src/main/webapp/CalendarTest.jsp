@@ -12,7 +12,7 @@
 	rel="stylesheet" />
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
-	rel="stylesheet">
+	rel="stylesheet"> 
 <script
 	src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
 <link
@@ -112,6 +112,26 @@
 				</div>
 			</div>
 		</div>
+		<div id="deleteEventModal" class="modal fade" tabindex="-1"
+			aria-labelledby="deleteEventModalLabel" aria-hidden="true">
+		    <div class="modal-dialog">
+		        <div class="modal-content">
+		            <div class="modal-header">
+		                <h5 class="modal-title">Delete Event</h5>
+		                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+		            </div>
+		            <div class="modal-body">
+		                <p>Are you sure you want to delete this event?</p>
+		            </div>
+		            <div class="modal-footer">
+		                <button id="confirmDeleteBtn" class="btn btn-danger">Yes</button>
+		                <button id="cancelDeleteBtn" class="btn btn-secondary">No</button>
+		            </div>
+		        </div>
+		    </div>
+		</div>
+		
+		
 	</div>
 
 	<script>
@@ -120,6 +140,7 @@
 	
 	    // Chuyển các sự kiện từ Servlet sang dạng JSON để FullCalendar có thể hiểu
 	    var events = ${events};
+	    
 	    var eventData = events.map(function(event) {
 		    return {
 		    	id: event.id,
@@ -163,20 +184,20 @@
 	    }
 	
 	    function showDeleteConfirmation(eventId) {
-	        // Hiển thị modal xác nhận xóa
-	        var modal = document.getElementById('deleteEventModal');
-	        modal.style.display = 'block';
-	
-	        // Thêm sự kiện click cho nút OK
+	    	var modalElement = document.getElementById('deleteEventModal');
+	        var modal = new bootstrap.Modal(modalElement); // Tạo một instance modal
+	        
+	        // Gán sự kiện cho nút Confirm
 	        document.getElementById('confirmDeleteBtn').onclick = function() {
 	            deleteEvent(eventId);
-	            modal.style.display = 'none';  // Đóng modal sau khi xóa
+	            modal.hide(); // Đóng modal sau khi xóa
 	        };
-	
-	        // Thêm sự kiện click cho nút Cancel
+	        
 	        document.getElementById('cancelDeleteBtn').onclick = function() {
-	            modal.style.display = 'none';  // Đóng modal mà không xóa sự kiện
+	            modal.hide(); // Đóng modal sau khi xóa
 	        };
+	        // Hiển thị modal
+	        modal.show();
 	    }
 	
 	    function deleteEvent(eventId) {

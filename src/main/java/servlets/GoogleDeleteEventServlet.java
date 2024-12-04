@@ -5,10 +5,14 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 
+import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
+import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.calendar.Calendar;
 
@@ -19,7 +23,7 @@ import authentication.GoogleCredential;
  */
 public class GoogleDeleteEventServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	private static final String APPLICATION_NAME = "Google Calendar API Java Quickstart";   
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -36,13 +40,13 @@ public class GoogleDeleteEventServlet extends HttpServlet {
 		 if (eventId != null && !eventId.isEmpty()) 
 		 {
 	            try {
-	                // Lấy đối tượng GoogleCredential để truy cập vào Google Calendar API
-	                GoogleCredential googleCredential = new GoogleCredential(getServletContext());
-	                Calendar service = new Calendar.Builder(
-	                        GoogleNetHttpTransport.newTrustedTransport(),
-	                        JacksonFactory.getDefaultInstance(),
-	                        googleCredential.getCredentials())
-	                        .setApplicationName("Google Calendar API")
+	            	// Lấy thông tin xác thực
+	    			HttpSession session = request.getSession(true);
+	                Credential credential = (Credential) session.getAttribute("Credential");
+
+	                // Tạo Google Calendar Service với credential đã lấy
+	                Calendar service = new Calendar.Builder(new NetHttpTransport(), JacksonFactory.getDefaultInstance(), credential)
+	                        .setApplicationName(APPLICATION_NAME)
 	                        .build();
 
 	                // Xóa sự kiện từ Google Calendar bằng eventId
@@ -50,9 +54,6 @@ public class GoogleDeleteEventServlet extends HttpServlet {
 
 	                // Trả về phản hồi thành công
 	                response.setStatus(HttpServletResponse.SC_OK);
-	            } catch (GeneralSecurityException e) {
-	                e.printStackTrace();
-	                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Security error occurred");
 	            } catch (IOException e) {
 	                e.printStackTrace();
 	                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "IO error occurred");
