@@ -8,8 +8,8 @@ public class SQLServerConnection {
 
     public static Connection initializeConnection() throws SQLException {
         String dbDriver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-        //String dbURL = "jdbc:sqlserver://localhost:1433";
-        String dbURL = "jdbc:sqlserver://MEOWWW\\DAT:1305";
+        String dbURL = "jdbc:sqlserver://localhost:1433";
+        //String dbURL = "jdbc:sqlserver://MEOWWW\\DAT:1305";
         String dbName = "CVHub";
         String dbUsername = "sa";
         //String dbPassword = "123";
