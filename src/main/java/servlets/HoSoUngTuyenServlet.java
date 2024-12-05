@@ -128,7 +128,19 @@ public class HoSoUngTuyenServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		String idCV = request.getParameter("idCV");
+		String idCongViec = request.getParameter("idCongViec");
+	    String trangThai = request.getParameter("trangThai");
+
+	    // Xử lý logic cập nhật trạng thái
+	    boolean updateSuccess = HoSoDAO.updateTrangThai(Integer.parseInt(idCV), Integer.parseInt(idCongViec), trangThai);
+
+	    // Gửi phản hồi về client
+	    if (updateSuccess) {
+	        response.getWriter().write("success");
+	    } else {
+	        response.getWriter().write("fail");
+	    }
 	}
 
 }

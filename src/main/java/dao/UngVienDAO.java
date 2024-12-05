@@ -70,20 +70,16 @@ public class UngVienDAO {
     }
 
 
-    public boolean updateAvatarUngVien(UngVien ungVien) throws SQLException {
-        String sql = "UPDATE UngVien SET avatar = ? WHERE idUV = ?";
-        try{
-        	Connection connection = DBConnection.getConnection();
-        	PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setString(1, ungVien.getAvatar());
-            ps.setInt(2, ungVien.getIdUV());
-
-            return ps.executeUpdate() > 0;
-		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
-		}
-        return false;
-    }
+	/*
+	 * public boolean updateAvatarUngVien(UngVien ungVien) throws SQLException {
+	 * String sql = "UPDATE UngVien SET avatar = ? WHERE idUV = ?"; try{ Connection
+	 * connection = DBConnection.getConnection(); PreparedStatement ps =
+	 * connection.prepareStatement(sql); ps.setString(1, ungVien.getAvatar());
+	 * ps.setInt(2, ungVien.getIdUV());
+	 * 
+	 * return ps.executeUpdate() > 0; } catch (ClassNotFoundException | SQLException
+	 * e) { e.printStackTrace(); } return false; }
+	 */
 
     // Lấy tất cả ứng viên
     public static List<UngVien> getAllUngVien() throws SQLException {

@@ -100,6 +100,25 @@ public class HoSoDAO {
 	        return false; 
 	    }
 	}
-	
+	public static boolean updateTrangThai(int idCV, int idCongViec, String trangThai) {
+	    // Câu lệnh SQL để cập nhật trạng thái
+	    String sql = "UPDATE HoSo SET TrangThai = ? WHERE IdCV = ? AND IdCongViec = ?";
+	    try (Connection conn = DBConnection.getConnection();
+	         PreparedStatement statement = conn.prepareStatement(sql)) {
+	         
+	        // Gán giá trị cho các tham số
+	        statement.setString(1, trangThai);
+	        statement.setInt(2, idCV);
+	        statement.setInt(3, idCongViec);
+
+	        // Thực hiện câu lệnh và kiểm tra số dòng bị ảnh hưởng
+	        int rowsAffected = statement.executeUpdate();
+	        return rowsAffected > 0; // Trả về true nếu có ít nhất một dòng được cập nhật
+	    } catch (ClassNotFoundException | SQLException e) {
+	        e.printStackTrace();
+	        return false; 
+	    }
+	}
+
 
 }

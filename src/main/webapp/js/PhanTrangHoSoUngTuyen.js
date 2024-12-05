@@ -49,7 +49,16 @@ function loadHoSos(page) {
                         <td class="text-muted">${hoSo.cv.position}</td>
                         <td class="text-muted">${hoSo.congViec.ten}</td>
                         <td class="text-muted">${thoiGianGui}</td>
-                        <td class="text-muted">${hoSo.trangThai}</td>
+						<td>
+						    <select class="form-select" 
+						            onchange="updateStatus(this, ${hoSo.idCV}, ${hoSo.idCongViec})" 
+						            data-original-value="${hoSo.trangThai}">
+						        <option value="Chờ" ${hoSo.trangThai == 'Chờ' ? 'selected' : ''} >Chờ</option>
+						        <option value="Phỏng vấn" ${hoSo.trangThai == 'Phỏng vấn' ? 'selected' : ''} >Phỏng vấn</option>
+						        <option value="Chấp nhận" ${hoSo.trangThai == 'Chấp nhận' ? 'selected' : ''} >Chấp nhận</option>
+						        <option value="Từ chối" ${hoSo.trangThai == 'Từ chối' ? 'selected' : ''} >Từ chối</option>
+						    </select>
+						</td>
                         <td>
 							<button type="button" 
 								class="btn btn-primary" 
@@ -86,7 +95,43 @@ function loadHoSos(page) {
         }
     });
 }
+function updateStatus(selectElement, idCV, idCongViec) {
+    const selectedValue = selectElement.value;
 
+    // Hiển thị hộp thoại xác nhận
+    const confirmUpdate = confirm(`Bạn có chắc chắn muốn thay đổi trạng thái thành "${selectedValue}" không?`);
+	
+	selectElement.style.color = getTextColor(selectedValue);
+
+    if (confirmUpdate) {
+        // Tạo FormData để gửi dữ liệu
+		const params = new URLSearchParams();
+		params.append('idCV', idCV);
+		params.append('idCongViec', idCongViec);
+		params.append('trangThai', selectedValue);
+
+		fetch('HoSoUngTuyenServlet', {
+		    method: 'POST',
+		    body: params,
+		})
+        .then(response => response.text()) // Có thể là text hoặc JSON, tùy server phản hồi
+        .then(data => {
+            // Kiểm tra phản hồi từ server (tùy thuộc server trả về gì)
+            if (data.trim() === 'success') { 
+                alert('Cập nhật trạng thái thành công!');
+            } else {
+                alert('Cập nhật trạng thái thất bại.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Có lỗi xảy ra khi cập nhật trạng thái.');
+        });
+    } else {
+        // Nếu người dùng hủy, trả lại giá trị ban đầu của dropdown
+        selectElement.value = selectElement.getAttribute('data-original-value');
+    }
+}
 // Tải trang đầu tiên khi trang được load
 $(document).ready(function() {
     $('#linhVucFilter, #thoiGianFilter, #trangThaiFilter, #luotNopFilter').change(function() {
