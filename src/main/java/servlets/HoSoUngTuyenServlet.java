@@ -72,11 +72,15 @@ public class HoSoUngTuyenServlet extends HttpServlet {
 		// Lấy param
 		String linhVuc = request.getParameter("linhVuc");
 		String thoiGian = request.getParameter("thoiGian");
-		String luotXem = request.getParameter("luotXem");
+		String trangThai = request.getParameter("trangThai");
 		String luotNop = request.getParameter("luotNop");
 		String searchText = request.getParameter("searchText");
 		
-		
+		hoSos = HoSo.locTheoHoTen(searchText, hoSos);
+		hoSos = HoSo.LocTheoLinhVuc(linhVuc, hoSos);
+		hoSos = HoSo.LocTheoLuotNop(luotNop, hoSos);
+		hoSos = HoSo.LocTheoThoiGian(thoiGian, hoSos);
+		hoSos = HoSo.LocTheoTrangThai(trangThai, hoSos);
 		
 		int pageSize = 20;
 	    int page = 1;  // Mặc định là trang đầu tiên

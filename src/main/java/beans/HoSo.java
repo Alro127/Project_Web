@@ -106,5 +106,25 @@ public class HoSo {
 	    }
 	 return hoSos;
 	}
-	
+	public static List<HoSo> LocTheoLuotNop(String luotNop, List<HoSo> hoSos)
+	{
+		if (luotNop != null && !luotNop.isEmpty()) {
+		    if ("1".equals(luotNop)) {
+		        // Sắp xếp theo lượt nộp cao nhất tới thấp nhất
+		        hoSos.sort(Comparator.comparing(hoSo -> hoSo.getCongViec().getLuotNop(), Comparator.reverseOrder()));
+		    } else if ("2".equals(luotNop)) {
+		        // Sắp xếp theo lượt nộp thấp nhất tới cao nhất
+		        hoSos.sort(Comparator.comparing(hoSo -> hoSo.getCongViec().getLuotNop()));
+		    }
+		}
+		return hoSos;
+	}
+	public static List<HoSo> locTheoHoTen(String searchText, List<HoSo> hoSos) {
+		if (searchText != null && !searchText.isEmpty()) {
+	        hoSos = hoSos.stream()
+	                             .filter(hs -> hs.getCv().getUngvien().getFullName().toLowerCase().contains(searchText.toLowerCase())) // So sánh không phân biệt chữ hoa chữ thường
+	                             .collect(Collectors.toList());
+		}
+		return hoSos;
+	}
 }
