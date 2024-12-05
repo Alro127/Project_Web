@@ -69,13 +69,13 @@ thead th {
 				</div>
 
 				<div class="col-12 col-md-2">
-					<select id="luotXemFilter" class="form-select text-muted"
-						aria-label="Lượt xem">
+					<select id="trangThaiFilter" class="form-select text-muted"
+						aria-label="Trạng thái">
 						<option value="">Tất cả trạng thái</option>
-						<option value="1">Chờ</option>
-						<option value="2">Hẹn phỏng vấn</option>
-						<option value="3">Đã tuyển</option>
-						<option value="4">Từ chối</option>
+						<option value="Chờ">Chờ</option>
+						<option value="Hẹn phỏng vấn">Hẹn phỏng vấn</option>
+						<option value="Đã tuyển">Đã tuyển</option>
+						<option value="Từ chối">Từ chối</option>
 					</select>
 				</div>
 
