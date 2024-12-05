@@ -40,11 +40,7 @@ public class LoginGoogleServlet extends HttpServlet {
 		        // Đảm bảo có credential trong toàn bộ phiên làm việc nếu đăng nhập bằng google
 		        HttpSession session = request.getSession(true);
 		        session.setAttribute("Credential", credential);
-		        
-		        String accessToken = credential.getAccessToken();
-		        String refreshToken = credential.getRefreshToken();
-		        System.out.println("Access Token: " + accessToken);
-		        System.out.println("Refresh Token: " + refreshToken);
+		       
 		        
 		        // Sử dụng credential để tạo đối tượng Oauth2 nhằm lấy thông tin user
 		        Oauth2 oauth2 = new Oauth2.Builder(GoogleNetHttpTransport.newTrustedTransport(), JSON_FACTORY, credential)
@@ -65,7 +61,18 @@ public class LoginGoogleServlet extends HttpServlet {
 		        }
 		        		        
 		        int id = TaiKhoanDAO.getID("id_google", id_google);
-		        TaiKhoanDAO.StoreTokens(accessToken, refreshToken, id, email);
+		        String refreshToken = TaiKhoanDAO.getRefreshToken(id);
+		        if (credential.getRefreshToken() != null)
+		        {
+		        	refreshToken = credential.getRefreshToken();
+		        }
+		        
+		        String accessToken = credential.getAccessToken();
+		       
+		      
+		        System.out.println("Access Token: " + accessToken);
+		        System.out.println("Refresh Token: " + refreshToken);
+		        TaiKhoanDAO.StoreTokens(accessToken, refreshToken, id, email, id_google);
 		        
 				List<String> information = TaiKhoanDAO.getInformationForSession(id);
 				// Kiểm tra xem list có dữ liệu hay không

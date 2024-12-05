@@ -62,7 +62,7 @@
 	<a href="CongViecDaUngTuyenServlet" class="nav-link hover-coral">
 		<i class="fs-4 fw-bold bi bi-file-earmark-post"></i> 
 		<span>Công việc đã ứng tuyển</span>
-	<a href="CongViecYeuThich.jsp" class="nav-link hover-coral">
+	<a href="CongViecYeuThichServlet" class="nav-link hover-coral">
     	<i class="fs-4 fw-bold bi bi-heart-fill"></i>
     	<span>Công việc đã thích</span>
 	</a>

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -34,6 +35,7 @@
 				<div class="card-header">Thông tin tài khoản</div>
 				<div class="card-body">
 					<form>
+
 						<!-- Lấy thông tin tài khoản -->
 						<c:set var="taiKhoan" value="${requestScope.taiKhoan}" />
 						<c:set var="uv" value="${requestScope.uv}" />
@@ -57,7 +59,7 @@
 					</form>
 
 					<!-- Nút Toggle để thêm phần Đổi Mật Khẩu -->
-					<button id="toggleChangePassword" class="btn btn-secondary mb-4">Đổi
+					<button type="button" id="toggleChangePassword" class="btn btn-secondary mb-4">Đổi
 						mật khẩu</button>
 
 					<!-- Phần giao diện Đổi Mật Khẩu -->
@@ -96,15 +98,43 @@
 			<div class="card">
 				<div class="card-header">Thông tin cá nhân</div>
 				<div class="card-body">
-					<form action="QuanLyTaiKhoanServlet" method="POST">
+					
+					<form>
 						<div class="mb-3 row">
+							<!-- Modal -->
+							<div class="modal fade" id="addAvatarImageModal" tabindex="-1"
+										aria-labelledby="addAvatarImageModalLabel" aria-hidden="true">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title" id="addAvatarImageModalLabel">Thêm
+														Hình Ảnh</h5>
+													<button type="button" class="btn-close"
+														data-bs-dismiss="modal" aria-label="Close"></button>
+												</div>
+												<div class="modal-body">
+													<div class="mb-3">
+														<label for="imageAvatarUpload" class="form-label">Chọn
+															hình ảnh:</label> <input type="file" class="form-control"
+															id="imageAvatarUpload">
+													</div>
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-secondary"
+														data-bs-dismiss="modal">Đóng</button>
+													<button type="button" class="btn btn-primary"
+														data-bs-dismiss="modal" id="saveAvatarImage">Lưu</button>
+												</div>
+											</div>
+										</div>
+							</div>
 							<!-- Avatar -->
 							<div class="col-md-6">
 								<div
 									class="position-relative d-flex justify-content-center align-items-center">
 									<!-- Avatar -->
 									<img id="avatarPreview"
-										src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYDLLaxgOsud5O32KbTu-bnPjbkBNbYXePWQ&s"
+										src="${uv.avatar}"
 										alt="Avatar" class="rounded-circle border"
 										style="width: 200px; height: 200px; object-fit: cover;">
 
@@ -118,7 +148,8 @@
 										<!-- Upload button -->
 										<button type="button"
 											class="btn btn-outline-primary btn-sm me-1"
-											onclick="triggerAvatarUpload()">
+											data-bs-toggle="modal"
+											data-bs-target="#addAvatarImageModal">
 											<i class="bi bi-upload"></i>
 										</button>
 									</div>
@@ -202,6 +233,10 @@
 		</div>
 	</div>
 
-	<script src="js/QuanLyTaiKhoan.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+	<script src="js/QuanLyUngVien.js"></script>
+	<script src="js/QuanLyMatKhau.js"></script>
 </body>
 </html>

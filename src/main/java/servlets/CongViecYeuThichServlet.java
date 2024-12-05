@@ -80,24 +80,22 @@ public class CongViecYeuThichServlet extends HttpServlet {
 	    String linhVuc = request.getParameter("linhVuc");
 	    String tinhThanh = request.getParameter("tinhThanh");
 	    String ten = request.getParameter("ten");  // Lấy giá trị tìm kiếm theo tên công việc
-	    if (linhVuc != null && !linhVuc.isEmpty()) {
-	        congViecs = congViecs.stream()
-	                             .filter(cv -> linhVuc.equals(cv.getLinhVuc()))
-	                             .collect(Collectors.toList());
-	    }
-
-	    if (tinhThanh != null && !tinhThanh.isEmpty()) {
-	        congViecs = congViecs.stream()
-	                             .filter(cv -> tinhThanh.equals(cv.getDiaDiem()))
-	                             .collect(Collectors.toList());
-	    }
-		
-	    if (ten != null && !ten.isEmpty()) {
-	        congViecs = congViecs.stream()
-	                             .filter(cv -> cv.getTen().toLowerCase().contains(ten.toLowerCase())) // So sánh không phân biệt chữ hoa chữ thường
-	                             .collect(Collectors.toList());
-	    }
-	    
+		/*
+		 * if (linhVuc != null && !linhVuc.isEmpty()) { congViecs = congViecs.stream()
+		 * .filter(cv -> linhVuc.equals(cv.getLinhVuc())) .collect(Collectors.toList());
+		 * }
+		 * 
+		 * if (tinhThanh != null && !tinhThanh.isEmpty()) { congViecs =
+		 * congViecs.stream() .filter(cv -> tinhThanh.equals(cv.getDiaDiem()))
+		 * .collect(Collectors.toList()); }
+		 * 
+		 * if (ten != null && !ten.isEmpty()) { congViecs = congViecs.stream()
+		 * .filter(cv -> cv.getTen().toLowerCase().contains(ten.toLowerCase())) // So
+		 * sánh không phân biệt chữ hoa chữ thường .collect(Collectors.toList()); }
+		 */
+	    congViecs = CongViec.LocLinhVuc(congViecs, linhVuc);
+	    congViecs = CongViec.LocTinhThanh(congViecs, tinhThanh);
+	    congViecs = CongViec.LocTen(congViecs, ten);
 	    int pageSize = 9;
 	    int page = 1;  // Mặc định là trang đầu tiên
 

@@ -293,5 +293,6 @@
 
 	<script src="js/ThemHinhAnh.js"></script>
 	<script src="js/QuanLyTaiKhoan.js"></script>
+	<script src="js/QuanLyMatKhau.js"></script>
 </body>
 </html>

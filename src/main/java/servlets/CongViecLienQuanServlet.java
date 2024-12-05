@@ -66,24 +66,22 @@ public class CongViecLienQuanServlet extends HttpServlet {
             String tinhThanh = request.getParameter("tinhThanh");
             String ten = request.getParameter("ten");
 
-            if (linhVuc != null && !linhVuc.isEmpty()) {
-                congViecs = congViecs.stream()
-                                     .filter(cv -> linhVuc.equals(cv.getLinhVuc()))
-                                     .collect(Collectors.toList());
-            }
-
-            if (tinhThanh != null && !tinhThanh.isEmpty()) {
-                congViecs = congViecs.stream()
-                                     .filter(cv -> tinhThanh.equals(cv.getDiaDiem()))
-                                     .collect(Collectors.toList());
-            }
-
-            if (ten != null && !ten.isEmpty()) {
-                congViecs = congViecs.stream()
-                                     .filter(cv -> cv.getTen().toLowerCase().contains(ten.toLowerCase()))
-                                     .collect(Collectors.toList());
-            }
-
+			/*
+			 * if (linhVuc != null && !linhVuc.isEmpty()) { congViecs = congViecs.stream()
+			 * .filter(cv -> linhVuc.equals(cv.getLinhVuc())) .collect(Collectors.toList());
+			 * }
+			 * 
+			 * if (tinhThanh != null && !tinhThanh.isEmpty()) { congViecs =
+			 * congViecs.stream() .filter(cv -> tinhThanh.equals(cv.getDiaDiem()))
+			 * .collect(Collectors.toList()); }
+			 * 
+			 * if (ten != null && !ten.isEmpty()) { congViecs = congViecs.stream()
+			 * .filter(cv -> cv.getTen().toLowerCase().contains(ten.toLowerCase()))
+			 * .collect(Collectors.toList()); }
+			 */
+            congViecs = CongViec.LocLinhVuc(congViecs, linhVuc);
+    	    congViecs = CongViec.LocTinhThanh(congViecs, tinhThanh);
+    	    congViecs = CongViec.LocTen(congViecs, ten);
             // Phân trang
             int pageSize = 30;
             int page = 1;

@@ -32,30 +32,30 @@ public class UngVienDAO {
         return false;
     }
 
-    // Cập nhật thông tin ứng viên
+ // Cập nhật thông tin ứng viên
     public static boolean updateUngVien(UngVien ungVien) throws SQLException {
-        String sql = "UPDATE UngVien SET fullName = ?, gender = ?, dob = ?, phone = ?, email = ?, " +
-                     "location = ?, address = ?, introduction = ?, avatar = ? WHERE idUV = ?";
-        try{
-        	Connection connection = DBConnection.getConnection();
-        	PreparedStatement ps = connection.prepareStatement(sql);
+        String sql = "UPDATE UngVien SET fullName = ?, gender = ?, dob = ?, phone = ?, location = ?, " +
+                     "address = ?, introduction = ?, avatar = ? WHERE idUV = ?";
+        try {
+            Connection connection = DBConnection.getConnection();
+            PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, ungVien.getFullName());
             ps.setString(2, ungVien.getGender());
             ps.setDate(3, new java.sql.Date(ungVien.getDob().getTime()));
             ps.setString(4, ungVien.getPhone());
-            ps.setString(5, ungVien.getEmail());
-            ps.setString(6, ungVien.getLocation());
-            ps.setString(7, ungVien.getAddress());
-            ps.setString(8, ungVien.getIntroduction());
-            ps.setString(9, ungVien.getAvatar());
-            ps.setInt(10, ungVien.getIdUV());
+            ps.setString(5, ungVien.getLocation());
+            ps.setString(6, ungVien.getAddress());
+            ps.setString(7, ungVien.getIntroduction());
+            ps.setString(8, ungVien.getAvatar());
+            ps.setInt(9, ungVien.getIdUV());
 
             return ps.executeUpdate() > 0;
-		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
-		}
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
         return false;
     }
+
     public boolean updateAvatarUngVien(UngVien ungVien) throws SQLException {
         String sql = "UPDATE UngVien SET avatar = ? WHERE idUV = ?";
         try{

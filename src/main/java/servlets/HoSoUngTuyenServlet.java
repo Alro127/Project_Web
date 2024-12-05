@@ -45,7 +45,13 @@ public class HoSoUngTuyenServlet extends HttpServlet {
 			response.sendRedirect("Login.jsp"); 
 			return;
 		}
-
+		List<String> linhVucs = new ArrayList<>();
+		try {
+			linhVucs = CongViecDAO.getListLinhVuc();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	  
+		request.setAttribute("linhVucs", linhVucs);
 		// Kiểm tra xem session có chứa id người dùng không
 		String idCTStr = (String) session.getAttribute("id");
 		if (idCTStr == null) {
@@ -62,6 +68,15 @@ public class HoSoUngTuyenServlet extends HttpServlet {
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	    }
+		
+		// Lấy param
+		String linhVuc = request.getParameter("linhVuc");
+		String thoiGian = request.getParameter("thoiGian");
+		String luotXem = request.getParameter("luotXem");
+		String luotNop = request.getParameter("luotNop");
+		String searchText = request.getParameter("searchText");
+		
+		
 		
 		int pageSize = 20;
 	    int page = 1;  // Mặc định là trang đầu tiên
@@ -86,19 +101,22 @@ public class HoSoUngTuyenServlet extends HttpServlet {
 	    response.setContentType("application/json");
 	    response.setCharacterEncoding("UTF-8");
 
-	    Map<String, Object> responseData = new HashMap<>();
-	    responseData.put("hoSos", pagedHoSos);
-	    responseData.put("totalPages", totalPages);
-	    responseData.put("currentPage", page);
-
-	    String jsonResponse = new Gson().toJson(responseData);
-	    System.out.println(jsonResponse); 
-	    response.getWriter().write(jsonResponse);
+	   
 
 	    // Nếu không phải AJAX, bạn có thể chuyển hướng sang JSP
 	    if (!"true".equals(request.getParameter("ajax"))) {
 	        request.getRequestDispatcher("HoSoUngTuyen.jsp").forward(request, response);
 	    }
+	    else {
+	    	 Map<String, Object> responseData = new HashMap<>();
+	 	    responseData.put("hoSos", pagedHoSos);
+	 	    responseData.put("totalPages", totalPages);
+	 	    responseData.put("currentPage", page);
+
+	 	    String jsonResponse = new Gson().toJson(responseData);
+	 	    System.out.println(jsonResponse); 
+	 	    response.getWriter().write(jsonResponse);
+		}
 	}
 
 	/**
