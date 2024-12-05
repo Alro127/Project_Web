@@ -25,7 +25,9 @@ document.getElementById("saveAllChanges").addEventListener("click", function(eve
 		avatarSource: avatarSource,
 		avatarFileName: avatarFileName,
 		imageSources: imageSources,
-		fileNames: fileNames
+		fileNames: fileNames,
+		backGroundSource: backGroundSource,
+		backGroundFileName: backGroundFileName
 	};
 	
 	// Gửi yêu cầu POST với fetch

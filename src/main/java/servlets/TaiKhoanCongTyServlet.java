@@ -94,6 +94,7 @@ public class TaiKhoanCongTyServlet extends HttpServlet {
             
             boolean isUpdateAvatar = true;
             boolean isUpdateActivities = true;
+            boolean isUpdateBackGround = true;
             // Kiểm tra và lấy avatarSource và avatarFileName
             String avatarSource = json.optString("avatarSource", null);  // Nếu không có sẽ trả về null
             String avatarFileName = json.optString("avatarFileName", null); // Nếu không có sẽ trả về null
@@ -112,6 +113,12 @@ public class TaiKhoanCongTyServlet extends HttpServlet {
                 isUpdateActivities = false;
             }
             
+            String backGroundSource = json.optString("backGroundSource", null);
+            String backGroundFileName = json.optString("backGroundFileName", null);
+            
+            if (backGroundSource == null || backGroundFileName == null) {
+				isUpdateBackGround = false;
+			}
             if (isUpdateActivities) {
                 // Đường dẫn thư mục trong project
                 String absolutePath = "D:\\Project\\Project_Web\\src\\main\\webapp\\assets\\images\\act";
@@ -245,6 +252,58 @@ public class TaiKhoanCongTyServlet extends HttpServlet {
 				ct.setLogo(null);
 			}
             CongTyDAO.updateThongtinCongTy(ct);
+            if (isUpdateBackGround) {
+				
+				// Đường dẫn thư mục avatar trong project
+                String backGroundPath = "D:\\Project\\Project_Web\\src\\main\\webapp\\assets\\images\\background";
+
+                // Đường dẫn thư mục avatar nơi ứng dụng được deploy
+                String deployedBackGroundPath = request.getServletContext().getRealPath("/assets/images/background");
+
+                // Kiểm tra và tạo thư mục lưu trữ nếu chưa tồn tại
+                File avatarDir = new File(backGroundPath);
+                if (!avatarDir.exists()) {
+                    avatarDir.mkdirs();
+                }
+                File deployedBackGroundDir = new File(deployedBackGroundPath);
+                if (!deployedBackGroundDir.exists()) {
+                    deployedBackGroundDir.mkdirs();
+                }
+
+                // Loại bỏ tiền tố base64 nếu có
+                if (backGroundSource != null && backGroundSource.startsWith("data:image")) {
+                	backGroundSource = backGroundSource.split(",")[1];  // Cắt bỏ phần tiền tố "data:image..."
+                }
+
+                try {
+                    // Giải mã dữ liệu Base64 của avatar
+                    byte[] decodedBackGround = Base64.getDecoder().decode(backGroundSource);
+
+                    // Lưu vào thư mục project
+                    File backGroundFile = new File(backGroundPath, backGroundFileName);
+                    try (FileOutputStream fos = new FileOutputStream(backGroundFile)) {
+                        fos.write(decodedBackGround);
+                    }
+
+                    // Lưu vào thư mục deploy
+                    File deployedBackGroundFile = new File(deployedBackGroundPath, backGroundFileName);
+                    try (FileOutputStream fos = new FileOutputStream(deployedBackGroundFile)) {
+                        fos.write(decodedBackGround);
+                    }
+                    CongTyDAO.updateBackGround("assets/images/background/" + backGroundFileName, id);
+                    System.out.println("Đã lưu background: " + backGroundFile.getAbsolutePath());
+                } catch (IllegalArgumentException e) {
+                    e.printStackTrace();
+                    response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                    response.getWriter().write("Dữ liệu Base64 của background không hợp lệ.");
+                    return;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+                    response.getWriter().write("Lỗi khi lưu background.");
+                    return;
+                }
+			}
             
             JSONObject jsonResponse = new JSONObject();
             jsonResponse.put("status", "success");

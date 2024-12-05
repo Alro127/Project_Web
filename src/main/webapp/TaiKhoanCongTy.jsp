@@ -38,66 +38,31 @@
 				<div class="container mt-3">
 					<div class="container">
 						<!-- Phần trên: Thông tin tài khoản -->
-						<div class="card mb-4">
-							<div class="card-header">Thông tin tài khoản</div>
-							<div class="card-body">
-								<form>
-									<!-- Hiển thị thông tin tài khoản bằng JSTL -->
-									<c:set var="taiKhoan" value="${tk}" />
-
-									<div class="row mb-3">
-										<!-- Username -->
-										<div class="col-6">
-											<label for="username" class="form-label">Username</label> <input
-												type="text" class="form-control" id="username"
-												value="${taiKhoan.username}" readonly>
-										</div>
-										<!-- Password -->
-										<div class="col-6">
-											<label for="password" class="form-label">Password</label> <input
-												type="password" class="form-control" id="password"
-												value="${taiKhoan.password}" readonly>
-										</div>
-									</div>
-								</form>
-
-								<!-- Nút Toggle để thêm phần Đổi Mật Khẩu -->
-								<button id="toggleChangePassword" class="btn btn-secondary mb-4">Đổi
-									mật khẩu</button>
-
-								<!-- Phần giao diện Đổi Mật Khẩu -->
-								<div id="changePasswordForm" class="mt-3" style="display: none;">
-									<div class="card">
-										<div class="card-header">Thay đổi mật khẩu</div>
-										<div class="card-body">
-											<form id="changePasswordFormId">
-												<div class="mb-3">
-													<label for="oldPassword" class="form-label">Mật
-														khẩu cũ</label> <input type="password" id="oldPassword"
-														name="oldPassword" class="form-control"
-														placeholder="Nhập mật khẩu cũ" required />
-												</div>
-												<div class="mb-3">
-													<label for="newPassword" class="form-label">Mật
-														khẩu mới</label> <input type="password" id="newPassword"
-														name="newPassword" class="form-control"
-														placeholder="Nhập mật khẩu mới" required />
-												</div>
-												<div class="mb-3">
-													<label for="confirmPassword" class="form-label">Xác
-														nhận mật khẩu mới</label> <input type="password"
-														id="confirmPassword" name="confirmPassword"
-														class="form-control" placeholder="Nhập lại mật khẩu mới"
-														required />
-												</div>
-												<button type="submit" class="btn btn-primary">Lưu
-													thay đổi</button>
-											</form>
-										</div>
-									</div>
-								</div>
-							</div>
+		
+						<div id = "backGroundReview" 
+							class="image-container mb-5" 
+						    style="background-image: url('${pageContext.request.contextPath}/${congTy.getBackground()}');
+						           background-size: cover; /* Đảm bảo ảnh luôn phủ đầy container */
+						           background-position: center center; /* Canh giữa ảnh */
+						           height: 300px; /* Chỉnh độ cao theo yêu cầu */
+						           width: 100%; /* Đảm bảo chiều rộng container luôn 100% */
+						           min-height: 300px; /* Đảm bảo chiều cao tối thiểu */
+						           position: relative; /* Đảm bảo container có thể chứa vị trí tuyệt đối của con */
+						           ">
+						    
+						        <!-- Button container -->
+						        <div class="position-absolute"
+						            style="bottom: 5px; right: 5px; padding: 5px;">
+						            <!-- Upload button -->
+						            <button type="button"
+						                class="btn btn-outline-primary btn-sm"
+						                data-bs-toggle="modal" data-bs-target="#addBackGroundImageModal">
+						                <i class="bi bi-upload"></i>
+						            </button>
+						        </div>
+						    </div>
 						</div>
+
 
 						<hr>
 						<div class="row">
@@ -273,6 +238,32 @@
 											</div>
 										</div>
 									</div>
+									<div class="modal fade" id="addBackGroundImageModal" tabindex="-1"
+										aria-labelledby="addBackGroundImageModalLabel" aria-hidden="true">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title" id="addBackGroundImageModalLabel">Thêm
+														Hình Ảnh</h5>
+													<button type="button" class="btn-close"
+														data-bs-dismiss="modal" aria-label="Close"></button>
+												</div>
+												<div class="modal-body">
+													<div class="mb-3">
+														<label for="imageBackGroundUpload" class="form-label">Chọn
+															hình ảnh:</label> <input type="file" class="form-control"
+															id="imageBackGroundUpload">
+													</div>
+												</div>
+												<div class="modal-footer">
+													<button type="button" class="btn btn-secondary"
+														data-bs-dismiss="modal">Đóng</button>
+													<button type="button" class="btn btn-primary"
+														data-bs-dismiss="modal" id="saveBackGroundImage">Lưu</button>
+												</div>
+											</div>
+										</div>
+									</div>
 									<!-- Nút thêm hình -->
 									<button type="button" class="btn btn-primary col-2"
 										data-bs-toggle="modal" data-bs-target="#addImageModal">Thêm
@@ -287,6 +278,67 @@
 							</div>
 						</div>
 			</form>
+			
+			<div class="card mb-4">
+							<div class="card-header">Thông tin tài khoản</div>
+							<div class="card-body">
+								<form>
+									<!-- Hiển thị thông tin tài khoản bằng JSTL -->
+									<c:set var="taiKhoan" value="${tk}" />
+
+									<div class="row mb-3">
+										<!-- Username -->
+										<div class="col-6">
+											<label for="username" class="form-label">Username</label> <input
+												type="text" class="form-control" id="username"
+												value="${taiKhoan.username}" readonly>
+										</div>
+										<!-- Password -->
+										<div class="col-6">
+											<label for="password" class="form-label">Password</label> <input
+												type="password" class="form-control" id="password"
+												value="${taiKhoan.password}" readonly>
+										</div>
+									</div>
+								</form>
+
+								<!-- Nút Toggle để thêm phần Đổi Mật Khẩu -->
+								<button id="toggleChangePassword" class="btn btn-secondary mb-4">Đổi
+									mật khẩu</button>
+
+								<!-- Phần giao diện Đổi Mật Khẩu -->
+								<div id="changePasswordForm" class="mt-3" style="display: none;">
+									<div class="card">
+										<div class="card-header">Thay đổi mật khẩu</div>
+										<div class="card-body">
+											<form id="changePasswordFormId">
+												<div class="mb-3">
+													<label for="oldPassword" class="form-label">Mật
+														khẩu cũ</label> <input type="password" id="oldPassword"
+														name="oldPassword" class="form-control"
+														placeholder="Nhập mật khẩu cũ" required />
+												</div>
+												<div class="mb-3">
+													<label for="newPassword" class="form-label">Mật
+														khẩu mới</label> <input type="password" id="newPassword"
+														name="newPassword" class="form-control"
+														placeholder="Nhập mật khẩu mới" required />
+												</div>
+												<div class="mb-3">
+													<label for="confirmPassword" class="form-label">Xác
+														nhận mật khẩu mới</label> <input type="password"
+														id="confirmPassword" name="confirmPassword"
+														class="form-control" placeholder="Nhập lại mật khẩu mới"
+														required />
+												</div>
+												<button type="submit" class="btn btn-primary">Lưu
+													thay đổi</button>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 		</div>
 
 	</div>

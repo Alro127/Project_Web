@@ -2,6 +2,31 @@ var imageSources = []; // Mảng lưu trữ dữ liệu Base64
 var fileNames = []; // Mảng lưu trữ tên tệp ảnh
 var avatarSource;
 var avatarFileName;
+var backGroundSource;
+var backGroundFileName;
+document.getElementById("saveBackGroundImage").addEventListener("click", function()
+{
+	var fileInput = document.getElementById("imageBackGroundUpload");
+		    var file = fileInput.files[0]; // Lấy thằng đầu tiên
+			console.log("file input" + fileInput);
+			console.log("file" + file);
+			if (file) {
+				var reader = new FileReader();
+				reader.onload = function(e)
+				{
+					var srcData = e.target.result; // URL ảnh (Base64)
+					var fileName = file.name; // Lấy tên file
+					backGroundSource = srcData;
+					backGroundFileName = fileName;
+					var backGroundImage = document.getElementById("backGroundReview");
+					backGroundImage.style.backgroundImage = "url('" + srcData + "')";
+					// Đóng modal
+					 var modal = new bootstrap.Modal(document.getElementById('addBackGroundImageModal'));
+					 modal.hide();
+				}
+				reader.readAsDataURL(file);
+			}
+})
 document.getElementById("saveAvatarImage").addEventListener("click", function()
 {
 		var fileInput = document.getElementById("imageAvatarUpload");
