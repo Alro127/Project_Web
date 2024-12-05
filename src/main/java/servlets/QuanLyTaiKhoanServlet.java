@@ -161,7 +161,12 @@ public class QuanLyTaiKhoanServlet extends HttpServlet {
 	        userAccount.setAddress(address);
 	        userAccount.setIntroduction(introduction);
 	        userAccount.setIdUV(id);
-	        userAccount.setAvatar("assets/images/avatar/" + avatarFileName);
+	        if (avatarFileName != null) {
+	        	userAccount.setAvatar("assets/images/avatar/" + avatarFileName);
+			}
+	        else {
+	        	userAccount.setAvatar(null);
+			}
 	        try {
 	            UngVienDAO.updateUngVien(userAccount);
 	            // Nếu cập nhật thành công, trả về phản hồi JSON

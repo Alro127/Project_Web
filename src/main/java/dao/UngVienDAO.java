@@ -32,10 +32,17 @@ public class UngVienDAO {
         return false;
     }
 
- // Cập nhật thông tin ứng viên
+    // Cập nhật thông tin ứng viên
     public static boolean updateUngVien(UngVien ungVien) throws SQLException {
         String sql = "UPDATE UngVien SET fullName = ?, gender = ?, dob = ?, phone = ?, location = ?, " +
-                     "address = ?, introduction = ?, avatar = ? WHERE idUV = ?";
+                     "address = ?, introduction = ? WHERE idUV = ?";
+        
+        // Kiểm tra xem avatar có phải là null không
+        if (ungVien.getAvatar() != null) {
+            sql = "UPDATE UngVien SET fullName = ?, gender = ?, dob = ?, phone = ?, location = ?, " +
+                  "address = ?, introduction = ?, avatar = ? WHERE idUV = ?";
+        }
+
         try {
             Connection connection = DBConnection.getConnection();
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -46,8 +53,14 @@ public class UngVienDAO {
             ps.setString(5, ungVien.getLocation());
             ps.setString(6, ungVien.getAddress());
             ps.setString(7, ungVien.getIntroduction());
-            ps.setString(8, ungVien.getAvatar());
-            ps.setInt(9, ungVien.getIdUV());
+            
+            // Nếu avatar không phải là null, set giá trị của avatar
+            if (ungVien.getAvatar() != null) {
+                ps.setString(8, ungVien.getAvatar());
+                ps.setInt(9, ungVien.getIdUV());
+            } else {
+                ps.setInt(8, ungVien.getIdUV());
+            }
 
             return ps.executeUpdate() > 0;
         } catch (ClassNotFoundException | SQLException e) {
@@ -55,6 +68,7 @@ public class UngVienDAO {
         }
         return false;
     }
+
 
     public boolean updateAvatarUngVien(UngVien ungVien) throws SQLException {
         String sql = "UPDATE UngVien SET avatar = ? WHERE idUV = ?";

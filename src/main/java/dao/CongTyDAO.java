@@ -106,10 +106,11 @@ public class CongTyDAO {
 	        // Nếu Logo không phải null, gán giá trị của Logo vào PreparedStatement
 	        if (ct.getLogo() != null) {
 	            preparedStatement.setString(10, ct.getLogo());
+	            preparedStatement.setInt(11, ct.getIdCT());
 	        }
-
-	        // Thêm ID công ty vào câu lệnh SQL
-	        preparedStatement.setInt(11, ct.getIdCT());
+	        else {
+	        	preparedStatement.setInt(10, ct.getIdCT());
+			}
 	        preparedStatement.executeUpdate();
 	    } catch (SQLException | ClassNotFoundException e) {
 	        e.printStackTrace();
