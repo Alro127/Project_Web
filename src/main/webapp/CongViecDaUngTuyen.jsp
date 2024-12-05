@@ -36,7 +36,7 @@ thead th {
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="js/PhanTrangQuanLyTin.js"></script>
+
 </head>
 <body class="bg-light-grey">
 
@@ -44,7 +44,7 @@ thead th {
 
 	<div class="d-flex mt-5">
 		<!-- Sidebar -->
-		<jsp:include page="fragments/sidebar_CongTy.jsp" />
+		<jsp:include page="fragments/sidebar_UngVien.jsp" />
 		<!-- Main content -->
 		<div class="container mt-4 bg-light py-3 px-3 shadow rounded ">
 
@@ -113,7 +113,8 @@ thead th {
 
 	<jsp:include page="modals/ChiTietCongViecModal.jsp" />
 	<jsp:include page="modals/ViewCVModal.jsp" />
-
+	
+	<script src="js/PhanTrangQuanLyTin.js"></script>
 	<script src="js/PhanTrangCongViecDaUngTuyen.js"></script>
 	<script src="js/CV.js"></script>
 </body>

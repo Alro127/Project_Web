@@ -6,7 +6,7 @@ function loadJobs(page) {
     var ten = $('#tenFilter').val();  // Lấy giá trị từ ô tìm kiếm theo tên công việc
 	
     $.ajax({
-        url: 'CongViecLienQuanServlet?id=56',  // URL của servlet hoặc API
+        url: 'CongViecLienQuanServlet?id='+ id,  // URL của servlet hoặc API
         method: 'GET',
         data: { 
             page: page, 

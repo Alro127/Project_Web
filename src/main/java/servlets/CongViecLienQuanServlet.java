@@ -114,7 +114,6 @@ public class CongViecLienQuanServlet extends HttpServlet {
 
                 Gson gson = new Gson();
                 String json = gson.toJson(responseData);
-
                 response.getWriter().write(json);
             } else {
                 request.setAttribute("congViecs", congViecLienQuans);

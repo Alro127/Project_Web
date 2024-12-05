@@ -67,10 +67,14 @@ public class LoginServlet extends HttpServlet {
 			    	UngVien uv = UngVienDAO.getUngVienById(id);
 			    	session.setAttribute("name", uv.getFullName());
 				}
-			    else {
+			    else if (role.equals("CongTy")){
 					destination = "TaiKhoanCongTyServlet";
 					CongTy ct = CongTyDAO.GetCongTyById(id);
 					session.setAttribute("name", ct.getTenCongTy());
+				}
+			    else {
+			    	session = request.getSession(true);
+					destination = "Login.jsp";
 				}
 			}
 		}

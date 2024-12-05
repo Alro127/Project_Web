@@ -10,18 +10,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Trang chủ Công Ty</title>
-<!-- Bootstrap CSS -->
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-<!-- Font Awesome -->
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-<!-- Bootstrap Icon -->
 <link
-	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css"
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
 	rel="stylesheet">
-<!-- Custom CSS -->
 <link href="assets/css/style.css" rel="stylesheet">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+	crossorigin="anonymous">
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
@@ -92,52 +89,6 @@
 			</div>
 		</section>
 
-
-
-		<!-- Sản phẩm và dịch vụ -->
-		<!-- <section class="py-5 rounded mb-5 bg-light shadow-sm rounded">
-			<div class="container">
-				<h2 class="text-center mb-4 fw-bold">Giới Thiệu Về Công Ty</h2>
-				<div class="row gy-4">
-					Sản phẩm
-					<div class="col-md-4">
-						<div class="text-center p-4 shadow-sm rounded bg-body">
-							<div class="mb-3">
-								<i class="bi bi-box-seam fs-1 text-primary"></i>
-							</div>
-							<h5 class="mb-3">Sản Phẩm</h5>
-							<p class="text-muted">Chúng tôi cung cấp các sản phẩm chất
-								lượng cao, đáp ứng mọi nhu cầu của khách hàng.</p>
-						</div>
-					</div>
-					Dịch vụ
-					<div class="col-md-4">
-						<div class="text-center p-4 shadow-sm rounded bg-body">
-							<div class="mb-3">
-								<i class="bi bi-wrench-adjustable-circle fs-1 text-success"></i>
-							</div>
-							<h5 class="mb-3">Dịch Vụ</h5>
-							<p class="text-muted">Chúng tôi cung cấp các dịch vụ tận tâm
-								và chuyên nghiệp, mang lại trải nghiệm tuyệt vời.</p>
-						</div>
-					</div>
-					Đội ngũ
-					<div class="col-md-4">
-						<div class="text-center p-4 shadow-sm rounded bg-body">
-							<div class="mb-3">
-								<i class="bi bi-people fs-1 text-warning"></i>
-							</div>
-							<h5 class="mb-3">Đội Ngũ</h5>
-							<p class="text-muted">Đội ngũ nhân viên giàu kinh nghiệm,
-								luôn sẵn sàng hỗ trợ khách hàng.</p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section> -->
-
-		<!-- Hình ảnh hoạt động -->
-		<!--Sau sẽ dùng vòng lặp để load hình lên-->
 		<section
 			class="activity-images-section py-5 my-5 bg-light shadow-sm rounded">
 			<div class="container">

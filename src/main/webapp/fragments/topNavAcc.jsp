@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+
 <style>
 .navbar {
 	position: fixed; /* Cố định nav */
@@ -15,7 +16,7 @@
 	<div class="container">
 		<div class="d-flex align-items-center">
 			<a href="CongViecServlet" class="text-decoration-none">
-				<h1 class="m-0 text-light">Logo</h1>
+				<h1 class="m-0 text-light">CVHub</h1>
 			</a>
 
 			<h2 class="m-0 text-coral ms-3">Cơ hội việc làm</h2>
