@@ -56,7 +56,7 @@ public class QuanLyTinDangServlet extends HttpServlet {
 	    
 		// Lấy param
 		String linhVuc = request.getParameter("linhVuc");
-		String thoiGian = request.getParameter("luotXem");
+		String thoiGian = request.getParameter("thoiGian");
 		String luotXem = request.getParameter("luotXem");
 		String luotNop = request.getParameter("luotNop");
 		String searchText = request.getParameter("searchText");

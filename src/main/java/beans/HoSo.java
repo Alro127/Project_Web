@@ -1,6 +1,9 @@
 package beans;
 
 import java.sql.Timestamp;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class HoSo {
 	private int idCV;
@@ -70,6 +73,38 @@ public class HoSo {
 	}
 	public HoSo() {
 		// TODO Auto-generated constructor stub
+	}
+	public static List<HoSo> LocTheoLinhVuc(String linhVuc, List<HoSo> hoSos) {
+		if (linhVuc != null && !linhVuc.isEmpty()) {
+			hoSos = hoSos.stream()
+	                             .filter(hs -> linhVuc.equals(hs.getCongViec().getLinhVuc()))
+	                             .collect(Collectors.toList());
+	    }
+	 return hoSos;
+	}
+	public static List<HoSo> LocTheoThoiGian(String thoiGian, List<HoSo> hoSos) {
+		if (thoiGian != null && !thoiGian.isEmpty()) {
+			 if ("1".equals(thoiGian)) {
+			        // Sắp xếp theo thời gian từ mới nhất đến cũ nhất
+			        hoSos = hoSos.stream()
+			                             .sorted(Comparator.comparing(HoSo::getThoiGianGui).reversed()) // Sắp xếp theo thời gian đăng
+			                             .collect(Collectors.toList());
+			    } else if ("2".equals(thoiGian)) {
+			        // Sắp xếp theo thời gian từ cũ nhất đến mới nhất
+			        hoSos = hoSos.stream()
+			                             .sorted(Comparator.comparing(HoSo::getThoiGianGui)) // Sắp xếp theo thời gian đăng
+			                             .collect(Collectors.toList());
+			    }
+		}
+		return hoSos;
+	}
+	public static List<HoSo> LocTheoTrangThai(String trangThai, List<HoSo> hoSos) {
+		if (trangThai != null && !trangThai.isEmpty()) {
+			hoSos = hoSos.stream()
+	                             .filter(hs -> trangThai.equals(hs.getTrangThai()))
+	                             .collect(Collectors.toList());
+	    }
+	 return hoSos;
 	}
 	
 }

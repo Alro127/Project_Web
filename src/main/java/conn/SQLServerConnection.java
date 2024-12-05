@@ -10,6 +10,7 @@ public class SQLServerConnection {
         String dbDriver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
         //String dbURL = "jdbc:sqlserver://localhost:1433";
         String dbURL = "jdbc:sqlserver://MEOWWW\\DAT:1305";
+        //String dbURL = "jdbc:sqlserver://26.149.246.221:1433";
         String dbName = "CVHub";
         String dbUsername = "sa";
         //String dbPassword = "123";

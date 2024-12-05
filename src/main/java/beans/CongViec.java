@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CongViec {
 
@@ -234,5 +235,30 @@ public class CongViec {
 	public void setLogo(String logo) {
 		this.logo = logo;
 	}
+	
+	public static List<CongViec> LocLinhVuc(List<CongViec> congViecs, String linhVuc) {
+		 if (linhVuc != null && !linhVuc.isEmpty()) {
+		        congViecs = congViecs.stream()
+		                             .filter(cv -> linhVuc.equals(cv.getLinhVuc()))
+		                             .collect(Collectors.toList());
+		    }
+		 return congViecs;
+	}
+	public static List<CongViec> LocTinhThanh(List<CongViec> congViecs, String tinhThanh) {
+		if (tinhThanh != null && !tinhThanh.isEmpty()) {
+	        congViecs = congViecs.stream()
+	                             .filter(cv -> tinhThanh.equals(cv.getDiaDiem()))
+	                             .collect(Collectors.toList());
+	    }
 
+		 return congViecs;
+	}
+	public static List<CongViec> LocTen(List<CongViec> congViecs, String ten) {
+		if (ten != null && !ten.isEmpty()) {
+	        congViecs = congViecs.stream()
+	                             .filter(cv -> cv.getTen().toLowerCase().contains(ten.toLowerCase())) // So sánh không phân biệt chữ hoa chữ thường
+	                             .collect(Collectors.toList());
+	    }
+		 return congViecs;
+	}
 }
