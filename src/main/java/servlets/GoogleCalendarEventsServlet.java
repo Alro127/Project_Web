@@ -19,6 +19,8 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.calendar.Calendar;
 import com.google.api.services.calendar.model.Events;
+import com.google.api.services.oauth2.Oauth2;
+import com.google.api.services.oauth2.model.Userinfo;
 
 import authentication.GoogleCredential;
 import dao.TaiKhoanDAO;
@@ -47,6 +49,7 @@ public class GoogleCalendarEventsServlet extends HttpServlet {
         try {
         	final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
         	HttpSession session = req.getSession(true);
+        	String id_google = (String) session.getAttribute("id_google");
         	String email = (String) session.getAttribute("email");
     		String accessToken = (String) session.getAttribute("access_token");
     		String refreshToken = (String) session.getAttribute("refresh_token");
@@ -81,15 +84,36 @@ public class GoogleCalendarEventsServlet extends HttpServlet {
     		        }
     		        credential = new Credential(BearerToken.authorizationHeaderAccessMethod())
             		        .setAccessToken(accessToken);
-    		        // Cập nhật token và credential mới vào session
-    		        session.setAttribute("access_token", accessToken);
-    		        session.setAttribute("Credential", credential);
-    		        accessToken = (String) session.getAttribute("access_token");
+    		        
     		    } catch (IOException e) {
     		        throw new ServletException("Error refreshing access token.", e);
     		    }
     		}
-        	TaiKhoanDAO.StoreTokens(accessToken, refreshToken, id, email);
+        	// Tạo OAuth2 service
+	        Oauth2 oauth2 = new Oauth2.Builder(new NetHttpTransport(), new JacksonFactory(), credential)
+	                .setApplicationName("Your Application Name")
+	                .build();
+	        
+	        // Cập nhật vào biến
+	        
+	        Userinfo userInfo = oauth2.userinfo().get().execute();
+	        accessToken = credential.getAccessToken();
+	        if (credential.getRefreshToken() != null) {
+	        	 refreshToken = credential.getRefreshToken();
+			}
+	        id_google = userInfo.getId();
+	        email = userInfo.getEmail();
+	        
+
+	        
+	        // Cập nhật token và credential mới vào session
+	        session.setAttribute("id_google",  id_google);
+	        session.setAttribute("email", email);
+	        session.setAttribute("access_token", accessToken);
+	        session.setAttribute("Credential", credential);
+	        
+	        
+        	TaiKhoanDAO.StoreTokens(accessToken, refreshToken, id, email, id_google);
         	Calendar service = new Calendar.Builder(HTTP_TRANSPORT, JSON_FACTORY, credential)
                      .setApplicationName(APPLICATION_NAME)
                      .build();

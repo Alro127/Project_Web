@@ -296,5 +296,6 @@
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 	<script src="js/ThemHinhAnh.js"></script>
 	<script src="js/QuanLyTaiKhoan.js"></script>
+	<script src="js/QuanLyMatKhau.js"></script>
 </body>
 </html>

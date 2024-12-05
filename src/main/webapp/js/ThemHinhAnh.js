@@ -68,27 +68,3 @@ document.getElementById("saveImage").addEventListener("click", function () {
         reader.readAsDataURL(file); // Đọc file để kích hoạt hàm
     }
 });
-document.getElementById("saveAvatarImage").addEventListener("click", function()
-{
-		var fileInput = document.getElementById("imageAvatarUpload");
-	    var file = fileInput.files[0]; // Lấy thằng đầu tiên
-		console.log("file input" + fileInput);
-		console.log("file" + file);
-		if (file) {
-			var reader = new FileReader();
-			reader.onload = function(e)
-			{
-				var srcData = e.target.result; // URL ảnh (Base64)
-				var fileName = file.name; // Lấy tên file
-				avatarSource = srcData;
-				avatarFileName = fileName;
-				var avtImage = document.getElementById("avatarPreview");
-				avtImage.src = srcData;
-				// Đóng modal
-				 var modal = new bootstrap.Modal(document.getElementById('addAvatarImageModal'));
-				 modal.hide();
-			}
-			reader.readAsDataURL(file);
-		}
-			
-});
