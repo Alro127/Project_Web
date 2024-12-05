@@ -315,4 +315,14 @@
     <servlet-name>HoSoUngTuyenServlet</servlet-name>
     <url-pattern>/HoSoUngTuyenServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CongViecDaUngTuyenServlet</display-name>
+    <servlet-name>CongViecDaUngTuyenServlet</servlet-name>
+    <servlet-class>servlets.CongViecDaUngTuyenServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CongViecDaUngTuyenServlet</servlet-name>
+    <url-pattern>/CongViecDaUngTuyenServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
