@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="java.util.List"%>
-<%@ page import="beans.TaiKhoan"%>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -10,16 +8,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Trang Quản Lý Tài Khoản Công Ty</title>
 <link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
-	rel="stylesheet">
-<link
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
 	rel="stylesheet">
 <link href="assets/css/style.css" rel="stylesheet">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+	crossorigin="anonymous">
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
 	crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<scrip
+	src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js">
+</script> <script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js">
+</script>
 </head>
 <body class="bg-light-grey">
 	<jsp:include page="fragments/topNavAcc.jsp"></jsp:include>
@@ -36,57 +42,63 @@
 							<div class="card-header">Thông tin tài khoản</div>
 							<div class="card-body">
 								<form>
-									<%
-								TaiKhoan taiKhoan = (TaiKhoan) request.getAttribute("tk");
-								%>
+									<!-- Hiển thị thông tin tài khoản bằng JSTL -->
+									<c:set var="taiKhoan" value="${tk}" />
 
 									<div class="row mb-3">
 										<!-- Username -->
 										<div class="col-6">
 											<label for="username" class="form-label">Username</label> <input
 												type="text" class="form-control" id="username"
-												value="<%=taiKhoan.getUsername()%>" readonly>
+												value="${taiKhoan.username}" readonly>
 										</div>
 										<!-- Password -->
 										<div class="col-6">
 											<label for="password" class="form-label">Password</label> <input
 												type="password" class="form-control" id="password"
-												value="<%=taiKhoan.getPassword()%>" readonly>
+												value="${taiKhoan.password}" readonly>
 										</div>
 									</div>
 								</form>
+
 								<!-- Nút Toggle để thêm phần Đổi Mật Khẩu -->
 								<button id="toggleChangePassword" class="btn btn-secondary mb-4">Đổi
 									mật khẩu</button>
 
-								<!-- Phần giao diện Đổi Mật Khẩu sẽ được thêm vào tại đây -->
+								<!-- Phần giao diện Đổi Mật Khẩu -->
 								<div id="changePasswordForm" class="mt-3" style="display: none;">
-							        <div class="card">
-								        <div class="card-header">
-								            Thay đổi mật khẩu
-								        </div>
-								        <div class="card-body">
-								            <form id="changePasswordFormId">
-								                <div class="mb-3">
-								                    <label for="oldPassword" class="form-label">Mật khẩu cũ</label>
-								                    <input type="password" id="oldPassword" name="oldPassword" class="form-control" placeholder="Nhập mật khẩu cũ" required />
-								                </div>
-								                <div class="mb-3">
-								                    <label for="newPassword" class="form-label">Mật khẩu mới</label>
-								                    <input type="password" id="newPassword" name="newPassword" class="form-control" placeholder="Nhập mật khẩu mới" required />
-								                </div>
-								                <div class="mb-3">
-								                    <label for="confirmPassword" class="form-label">Xác nhận mật khẩu mới</label>
-								                    <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" placeholder="Nhập lại mật khẩu mới" required />
-								                </div>
-								                <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
-								            </form>
-								        </div>
-								    </div>
+									<div class="card">
+										<div class="card-header">Thay đổi mật khẩu</div>
+										<div class="card-body">
+											<form id="changePasswordFormId">
+												<div class="mb-3">
+													<label for="oldPassword" class="form-label">Mật
+														khẩu cũ</label> <input type="password" id="oldPassword"
+														name="oldPassword" class="form-control"
+														placeholder="Nhập mật khẩu cũ" required />
+												</div>
+												<div class="mb-3">
+													<label for="newPassword" class="form-label">Mật
+														khẩu mới</label> <input type="password" id="newPassword"
+														name="newPassword" class="form-control"
+														placeholder="Nhập mật khẩu mới" required />
+												</div>
+												<div class="mb-3">
+													<label for="confirmPassword" class="form-label">Xác
+														nhận mật khẩu mới</label> <input type="password"
+														id="confirmPassword" name="confirmPassword"
+														class="form-control" placeholder="Nhập lại mật khẩu mới"
+														required />
+												</div>
+												<button type="submit" class="btn btn-primary">Lưu
+													thay đổi</button>
+											</form>
+										</div>
+									</div>
 								</div>
-
 							</div>
 						</div>
+
 						<hr>
 						<div class="row">
 							<h4>Thông Tin Chung</h4>
@@ -96,9 +108,8 @@
 									<div
 										class="position-relative d-flex justify-content-center align-items-center">
 										<!-- Avatar -->
-										<img id="avatarPreview"
-											src="${congTy.logo}"
-											alt="Avatar" class="rounded-circle border"
+										<img id="avatarPreview" src="${congTy.logo}" alt="Avatar"
+											class="rounded-circle border"
 											style="width: 200px; height: 200px; object-fit: cover;">
 
 										<!-- Hidden file input -->
@@ -111,9 +122,7 @@
 											<!-- Upload button -->
 											<button type="button"
 												class="btn btn-outline-primary btn-sm me-1"
-												data-bs-toggle="modal"
-												data-bs-target="#addAvatarImageModal"
-												>
+												data-bs-toggle="modal" data-bs-target="#addAvatarImageModal">
 												<i class="bi bi-upload"></i>
 											</button>
 										</div>
@@ -197,28 +206,21 @@
 								<div class="row">
 									<h4>Hình ảnh hoạt động</h4>
 									<div class="d-flex flex-wrap" id="image-container">
-										<%
-									        // Lấy danh sách hình ảnh từ request attribute
-									        List<String> images = (List<String>) request.getAttribute("images");
-									
-									        // Kiểm tra nếu danh sách images không null và không rỗng
-									        if (images != null && !images.isEmpty()) {
-									            // Duyệt qua danh sách và tạo ra HTML cho từng ảnh
-									            for (String imageSrc : images) {
-									    %>
-									                <div class="mb-3">
-									                    <img src="<%= imageSrc %>" class="img-fluid img-thumbnail" style="max-width: 100%; max-height: 200px; object-fit: cover;" />
-									                </div>
-									    <%
-									            }
-									        } else {
-									    %>
-									        <p>Không có hình ảnh để hiển thị.</p>
-									    <%
-									        }
-									    %>
-										<!-- Hình ảnh sẽ được bỏ vào đây -->
+										<c:choose>
+											<c:when test="${not empty images}">
+												<c:forEach var="imageSrc" items="${images}">
+													<div class="mb-3">
+														<img src="${imageSrc}" class="img-fluid img-thumbnail"
+															style="max-width: 100%; max-height: 200px; object-fit: cover;" />
+													</div>
+												</c:forEach>
+											</c:when>
+											<c:otherwise>
+												<p>Không có hình ảnh để hiển thị.</p>
+											</c:otherwise>
+										</c:choose>
 									</div>
+
 									<div class="modal fade" id="addImageModal" tabindex="-1"
 										aria-labelledby="addImageModalLabel" aria-hidden="true">
 										<div class="modal-dialog">
@@ -272,12 +274,13 @@
 										</div>
 									</div>
 									<!-- Nút thêm hình -->
-									<button type="button" class="btn btn-primary col-2" data-bs-toggle="modal"
-										data-bs-target="#addImageModal">Thêm hình ảnh</button>
+									<button type="button" class="btn btn-primary col-2"
+										data-bs-toggle="modal" data-bs-target="#addImageModal">Thêm
+										hình ảnh</button>
 									<!-- Nút lưu và hủy -->
 									<div class="form-group text-end">
-										<button type="submit" class="btn btn-primary" id = "saveAllChanges">Lưu
-											Thay Đổi</button>
+										<button type="submit" class="btn btn-primary"
+											id="saveAllChanges">Lưu Thay Đổi</button>
 										<a href="dashboard.jsp" class="btn btn-secondary">Hủy</a>
 									</div>
 								</div>
@@ -288,12 +291,6 @@
 
 	</div>
 
-	<!-- Bootstrap JS and dependencies -->
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-	<script
-		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 	<script src="js/ThemHinhAnh.js"></script>
 	<script src="js/QuanLyTaiKhoan.js"></script>
 </body>
