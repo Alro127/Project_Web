@@ -155,6 +155,17 @@ public class QuanLyTinDangServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		int idCongViec = Integer.parseInt(request.getParameter("id"));
+		if (CongViecDAO.DeleteCongViecById(idCongViec)) {
+		    response.getWriter().println("<script type='text/javascript'>"
+		        + "alert('Công việc đã được xóa thành công!');"
+		        + "</script>");
+		} else {
+		    response.getWriter().println("<script type='text/javascript'>"
+		        + "alert('Có lỗi xảy ra khi xóa công việc.');"
+		        + "</script>");
+		}
+
 		doGet(request, response);
 	}
 

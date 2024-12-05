@@ -52,8 +52,14 @@ function loadJobs(page) {
 				            <button type="button" class="btn btn-outline-coral btn-sm" onclick="showJobDetail(${congViec.idCongViec})">Chi tiết</button>
 				        </td>
 						<td>
-							<i class="bi bi-trash text-danger " style="cursor: pointer;" onclick="deleteJob(${congViec.idCongViec})"></i>
+							<form action="QuanLyTinDangServlet?id=${congViec.idCongViec}" method="POST" style="display:inline;" onsubmit="return confirmDelete()">
+							    <button type="submit" class="btn btn-link p-0" style="cursor: pointer;">
+							        <i class="bi bi-trash text-danger"></i>
+							    </button>
+							</form>
+
 						</td>
+
                     </tr>
                 `;
             });
@@ -78,6 +84,9 @@ function loadJobs(page) {
         }
     });
 }
+function confirmDelete() {
+        return confirm('Bạn có chắc chắn muốn xóa công việc này?');
+    }
 
 function showJobDetail(idCongViec) {
     $.ajax({

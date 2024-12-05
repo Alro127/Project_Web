@@ -224,6 +224,18 @@ public class CongViecDAO {
 			e.printStackTrace();
 		}
 	}
+	public static void updateLuotNop(int id)
+	{
+		String sqlcmd = "update CongViec set LuotNop = LuotNop + 1 where IdCongViec = ?";
+		try {
+			Connection conn = DBConnection.getConnection();
+			PreparedStatement preparedStatement = conn.prepareStatement(sqlcmd);
+			preparedStatement.setInt(1, id);
+			preparedStatement.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	
 	public static CongTy getCongTyByID(int id)
 	{
@@ -264,4 +276,21 @@ public class CongViecDAO {
 	     		
 	   return congTy;
 	}
+	public static boolean DeleteCongViecById(int idCongViec) {
+	    String sqlcmd = "DELETE FROM CongViec WHERE IdCongViec = ?";
+	    try (Connection conn = DBConnection.getConnection();
+	         PreparedStatement preparedStatement = conn.prepareStatement(sqlcmd)) {
+	        
+	        preparedStatement.setInt(1, idCongViec);
+	        int rowsAffected = preparedStatement.executeUpdate();
+	        
+	        // Nếu xóa thành công, rowsAffected sẽ > 0
+	        return rowsAffected > 0;
+	        
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return false;
+	    }
+	}
+
 }

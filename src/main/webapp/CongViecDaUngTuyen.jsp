@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Danh sách hồ sơ ứng tuyển</title>
+<title>Danh sách công việc đã ứng tuyển</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -32,12 +32,11 @@ thead th {
 	border-bottom: 2px solid #dee2e6;
 	/* Đường viền dưới dày hơn cho tiêu đề */
 }
-
 </style>
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+<script src="js/PhanTrangQuanLyTin.js"></script>
 </head>
 <body class="bg-light-grey">
 
@@ -54,7 +53,7 @@ thead th {
 				<div class="col-12 col-md-2">
 					<select id="linhVucFilter" class="form-select text-muted"
 						aria-label="Lĩnh vực">
-						<option value="">Tất cả công viẹc</option>
+						<option value="">Tất cả lĩnh vực</option>
 						<c:forEach var="linhVuc" items="${linhVucs}">
 							<option value="${linhVuc}">${linhVuc}</option>
 						</c:forEach>
@@ -63,7 +62,7 @@ thead th {
 				<div class="col-12 col-md-2">
 					<select id="thoiGianFilter" class="form-select text-muted"
 						aria-label="Thời gian">
-						<option value="">Thời gian gửi</option>
+						<option value="">Sắp xếp theo thời gian</option>
 						<option value="1">Mới nhất</option>
 						<option value="2">Cũ nhất</option>
 					</select>
@@ -80,15 +79,7 @@ thead th {
 					</select>
 				</div>
 
-				<div class="col-12 col-md-2">
-					<select id="luotNopFilter" class="form-select text-muted"
-						aria-label="Lượt nộp">
-						<option value="">Sắp xếp theo lượt nộp</option>
-						<option value="1">Cao nhất</option>
-						<option value="2">Thấp nhất</option>
-					</select>
-				</div>
-				<div class="col-md-4 mb-3">
+				<div class="col-md-6 mb-3">
 					<input id="search-input" type="text" class="form-control"
 						placeholder="Tìm kiếm..." />
 				</div>
@@ -98,12 +89,13 @@ thead th {
 			<table class="table table-bordered table-hover ">
 				<thead class="table bg-dark-blue text-light">
 					<tr>
-						<th>Tên hồ sơ</th>
-						<th>Vị trí ứng tuyển</th>
 						<th>Tên công việc</th>
+						<th>Tên công ty</th>
+						<th>Lĩnh vực</th>
 						<th>Thời gian gửi</th>
 						<th>Trạng thái</th>
 						<th>Chi tiết</th>
+						<th>CV đã gửi</th>
 					</tr>
 				</thead>
 				<tbody id="hoSo-list">
@@ -118,8 +110,11 @@ thead th {
 		</div>
 
 	</div>
-	<script src="js/PhanTrangHoSoUngTuyen.js"></script>
-	<script src="js/CV.js"></script>
+
+	<jsp:include page="modals/ChiTietCongViecModal.jsp" />
 	<jsp:include page="modals/ViewCVModal.jsp" />
+
+	<script src="js/PhanTrangCongViecDaUngTuyen.js"></script>
+	<script src="js/CV.js"></script>
 </body>
 </html>
