@@ -200,10 +200,7 @@
 	</div>
 	<script type="text/javascript">
 		// Chuyển giá trị từ Java (JSP) sang JavaScript
-		let idCongViec = $
-		{
-			congViec.idCongViec
-		};
+		let idCongViec = ${congViec.idCongViec};
 		console.log(idCongViec); // In ra để kiểm tra
 	</script>
 

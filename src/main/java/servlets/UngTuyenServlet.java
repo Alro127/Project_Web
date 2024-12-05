@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import dao.CongViecDAO;
 import dao.HoSoDAO;
 
 /**
@@ -41,15 +42,17 @@ public class UngTuyenServlet extends HttpServlet {
 
             int idCV = Integer.parseInt(idCVStr);
             int idCongViec = Integer.parseInt(idCongViecStr);
-
+            
             // Gọi DAO để xử lý logic ứng tuyển
 
             boolean isSuccessful = HoSoDAO.AddHoSo(idCV, idCongViec);
 
             if (isSuccessful) {
                 // Hiển thị thông báo thành công và quay lại trang trước đó
-                response.setContentType("text/html;charset=UTF-8");
+            	CongViecDAO.updateLuotNop(idCongViec);
+            	response.setContentType("text/html;charset=UTF-8");
                 response.getWriter().write("<script>alert('Ứng tuyển thành công!'); window.location.href=document.referrer;</script>");
+                
             } else {
                 // Hiển thị thông báo thất bại và quay lại trang trước đó
                 response.setContentType("text/html;charset=UTF-8");

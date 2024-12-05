@@ -6,7 +6,7 @@
 	<div class="row">
 		<!-- Công nghệ thông tin -->
 		<div class="col-4 col-md-2 mb-4">
-			<a href="JobFilterServlet?field=Công%20nghệ%20thông%20tin"
+			<a href="#"
 				class="text-decoration-none text-dark">
 				<div class="card text-center">
 					<video class="card-img-top img-fluid py-2 px-5" preload="none"
@@ -24,7 +24,7 @@
 		</div>
 		<!-- Xây dựng -->
 		<div class="col-4 col-md-2 mb-4">
-			<a href="JobFilterServlet?field=Xây%20dựng"
+			<a href="#"
 				class="text-decoration-none text-dark">
 				<div class="card text-center">
 					<video class="card-img-top img-fluid py-2 px-5" preload="none"
@@ -42,7 +42,7 @@
 		</div>
 		<!-- Logistics -->
 		<div class="col-4 col-md-2 mb-4">
-			<a href="JobFilterServlet?field=Logistics"
+			<a href="#"
 				class="text-decoration-none text-dark">
 				<div class="card text-center">
 					<video class="card-img-top img-fluid py-2 px-5" preload="none"
@@ -61,7 +61,7 @@
 		</div>
 		<!-- Kỹ thuật -->
 		<div class="col-4 col-md-2 mb-4">
-			<a href="JobFilterServlet?field=Kỹ%20thuật"
+			<a href="#"
 				class="text-decoration-none text-dark">
 				<div class="card text-center">
 					<video class="card-img-top img-fluid py-2 px-5" preload="none"
@@ -79,7 +79,7 @@
 		</div>
 		<!-- Tài chính -->
 		<div class="col-4 col-md-2 mb-4">
-			<a href="JobFilterServlet?field=Tài%20chính"
+			<a href="#"
 				class="text-decoration-none text-dark">
 				<div class="card text-center">
 					<video class="card-img-top img-fluid py-2 px-5" preload="none"
