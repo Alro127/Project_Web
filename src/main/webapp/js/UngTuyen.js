@@ -22,9 +22,13 @@ function openCVModal() {
                                 <div class="card-body">
                                     <h5 class="card-title">CV - ${cv.ungvien.fullName}</h5>
                                     <p class="card-text">${cv.position}</p>
-                                    <a href="LoadCVServlet?id=${cv.idCV}&mode=view" class="btn btn-info btn-sm">
-                                        <i class="bi bi-eye"></i> Xem
-                                    </a>
+									<button type="button" 
+										class="btn btn-info btn-sm btn-eye"
+										data-bs-toggle="modal" 
+										data-bs-target="#cvModal" 
+										onclick="loadCVContent(${cv.idCV})">
+									  Xem CV
+									</button> 
 									<a href="UngTuyenServlet?idCV=${cv.idCV}&idCongViec=${idCongViec}" class="btn btn-success btn-sm">
 									    <i class="bi bi-check"></i> Chọn
 									</a>

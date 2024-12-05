@@ -8,6 +8,9 @@ public class HoSo {
 	private Timestamp thoiGianGui;
 	private String trangThai;
 	
+	private CV cv;
+	private CongViec congViec;
+	
 	public int getIdCV() {
 		return idCV;
 	}
@@ -33,12 +36,40 @@ public class HoSo {
 		this.trangThai = trangThai;
 	}
 	
+	
+	public CV getCv() {
+		return cv;
+	}
+	public void setCv(CV cv) {
+		this.cv = cv;
+	}
+	public CongViec getCongViec() {
+		return congViec;
+	}
+	public void setCongViec(CongViec congViec) {
+		this.congViec = congViec;
+	}
+	
 	public HoSo(int idCV, int idCongViec, Timestamp thoiGianGui, String trangThai) {
 		super();
 		this.idCV = idCV;
 		this.idCongViec = idCongViec;
 		this.thoiGianGui = thoiGianGui;
 		this.trangThai = trangThai;
+	}
+	
+	
+	public HoSo(int idCV, int idCongViec, Timestamp thoiGianGui, String trangThai, CV cv, CongViec congViec) {
+		super();
+		this.idCV = idCV;
+		this.idCongViec = idCongViec;
+		this.thoiGianGui = thoiGianGui;
+		this.trangThai = trangThai;
+		this.cv = cv;
+		this.congViec = congViec;
+	}
+	public HoSo() {
+		// TODO Auto-generated constructor stub
 	}
 	
 }

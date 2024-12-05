@@ -66,10 +66,8 @@
 	</a> <a href="QuanLyTinDangServlet" class="nav-link hover-coral"> <i
 		class="fs-4 fw-bold bi bi-file-earmark-post"></i> <span>Quản lý
 			tin đã đăng</span>
-	</a> <a href="#" class="nav-link hover-coral"> <i
-		class="fs-4 fw-bold bi bi-search"></i> <span>Tìm CV</span>
-	</a> <a href="#" class="nav-link hover-coral"> <i
-		class="fs-4 fw-bold bi bi-briefcase"></i> <span>CV ứng tuyển</span>
+	</a> <a href="HoSoUngTuyen.jsp" class="nav-link hover-coral"> <i
+		class="fs-4 fw-bold bi bi-briefcase"></i> <span>Hồ sơ ứng tuyển</span>
 	</a> <a href="GoogleCalendarEventsServlet" class="nav-link hover-coral">
 		<i class="fs-4 fw-bold bi bi-calendar-check"></i> <span>Lịch
 			hẹn</span>

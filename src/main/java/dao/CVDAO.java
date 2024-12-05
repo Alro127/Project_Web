@@ -138,10 +138,11 @@ public class CVDAO {
         return cvList;
     }
     // Lấy CV theo ID
-    public CV getCVbyId(int IdCV) throws SQLException {
+    public static CV getCVbyId(int IdCV) throws SQLException, ClassNotFoundException {
         String sql = "SELECT * FROM CV WHERE IdCV = ?";
         CV cv = new CV();
-        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+        try (Connection conn = DBConnection.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             ps.setInt(1, IdCV);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {

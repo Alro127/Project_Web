@@ -275,7 +275,7 @@
     <servlet-name>CongViecYeuThichServlet</servlet-name>
     <url-pattern>/CongViecYeuThichServlet</url-pattern>
   </servlet-mapping>
-	  <servlet>
+  <servlet>
     <description></description>
     <display-name>CreateCVServlet</display-name>
     <servlet-name>CreateCVServlet</servlet-name>
@@ -304,5 +304,15 @@
   <servlet-mapping>
     <servlet-name>UngTuyenServlet</servlet-name>
     <url-pattern>/UngTuyenServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>HoSoUngTuyenServlet</display-name>
+    <servlet-name>HoSoUngTuyenServlet</servlet-name>
+    <servlet-class>servlets.HoSoUngTuyenServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>HoSoUngTuyenServlet</servlet-name>
+    <url-pattern>/HoSoUngTuyenServlet</url-pattern>
   </servlet-mapping>
 </web-app>

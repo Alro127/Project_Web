@@ -32,7 +32,7 @@ public class LoadCVServlet extends HttpServlet {
             
             // Chuyển hướng tới trang JSP để hiển thị
             if(mode.equalsIgnoreCase("view")) {
-            	RequestDispatcher dispatcher = request.getRequestDispatcher("ThongTinCV_view.jsp");
+            	RequestDispatcher dispatcher = request.getRequestDispatcher("fragments/frg_ViewCV.jsp");
             	dispatcher.forward(request, response);
             }
             else {
@@ -40,7 +40,7 @@ public class LoadCVServlet extends HttpServlet {
             	dispatcher.forward(request, response);
             }
             
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
             // Hiển thị lỗi nếu có vấn đề trong quá trình lấy dữ liệu
             response.getWriter().println("Error loading CV data: " + e.getMessage());
