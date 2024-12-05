@@ -116,6 +116,18 @@ public class CongTyDAO {
 	        e.printStackTrace();
 	    }
 	}
-
 	
+	public static void updateBackGround(String backGround, int id)
+	{
+		String sqlcmd = "update CongTy set Background = ? where IdCT = ?";
+		try {
+			Connection connection = DBConnection.getConnection();
+			PreparedStatement preparedStatement = connection.prepareStatement(sqlcmd);
+			preparedStatement.setString(1, backGround);
+			preparedStatement.setInt(2, id);
+			preparedStatement.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

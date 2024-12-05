@@ -113,68 +113,74 @@
 							//HttpSession session2 = request.getSession(true);
 							List<String> images = (List<String>)request.getAttribute("images");
 							int length = images.size();
-							int col = length / 3;
-							int excess = length - col * 3;
-							%>
-								<div class="carousel-item active">
-									<div class="row justify-content-center">
-											<%
-												for (int j = 0; j < 3; j ++ )
-												{
-													%>
-														<div class="col-4">
-															<img
-																src="${pageContext.request.contextPath}/<%= images.get(j) %>"
-																class="d-block w-100 rounded" alt="Hình ảnh 1">
-														</div>
-													<%
-												}
-											%>
-										</div>
-								</div>
-							<%
-							for (int i = 1; i < col; i++)
+							System.out.print(length);
+							if (length != 0)
 							{
+								int col = length / 3;
+								int excess = length - col * 3;
 								%>
-									<div class="carousel-item">
+									<div class="carousel-item active">
 										<div class="row justify-content-center">
-											<%
-												for (int j = 0; j < 3; j ++ )
-												{
-													%>
-														<div class="col-4">
-															<img
-																src="${pageContext.request.contextPath}/<%= images.get(i * 3 + j) %>"
-																class="d-block w-100 rounded" alt="Hình ảnh 1">
-														</div>
-													<%
-												}
-											%>
-										</div>
+												<%
+													for (int j = 0; j < (col > 0 ? 3 : col); j ++ )
+													{
+														%>
+															<div class="col-4">
+																<img
+																	src="${pageContext.request.contextPath}/<%= images.get(j) %>"
+																	class="d-block w-100 rounded" alt="Hình ảnh 1">
+															</div>
+														<%
+													}
+												%>
+											</div>
 									</div>
 								<%
-							}
-							if (excess > 0)
-							{
-								%>
-									<div class="carousel-item">
-										<div class="row justify-content-center">
-											<%
-												for (int i = 0; i < excess ; i++)
-												{
-													%>
-														<div class="col-4">
-															<img
-																src="${pageContext.request.contextPath}/<%= images.get(col * 3 + i) %>"
-																class="d-block w-100 rounded" alt="Hình ảnh 1">
-														</div>
-													<%
-												}
-											%>
+								
+								for (int i = 1; i < col; i++)
+								{
+									%>
+										<div class="carousel-item">
+											<div class="row justify-content-center">
+												<%
+													for (int j = 0; j < 3; j ++ )
+													{
+														%>
+															<div class="col-4">
+																<img
+																	src="${pageContext.request.contextPath}/<%= images.get(i * 3 + j) %>"
+																	class="d-block w-100 rounded" alt="Hình ảnh 1">
+															</div>
+														<%
+													}
+												%>
+											</div>
 										</div>
-									</div>
-								<%
+									<%
+								}
+								if (excess > 0)
+								{
+									%>
+										<div class="carousel-item">
+											<div class="row justify-content-center">
+												<%
+													for (int i = 0; i < excess ; i++)
+													{
+														%>
+															<div class="col-4">
+																<img
+																	src="${pageContext.request.contextPath}/<%= images.get(col * 3 + i) %>"
+																	class="d-block w-100 rounded" alt="Hình ảnh 1">
+															</div>
+														<%
+													}
+												%>
+											</div>
+										</div>
+									<%
+								}
 							}
+							
 						%>
 					</div>
 
