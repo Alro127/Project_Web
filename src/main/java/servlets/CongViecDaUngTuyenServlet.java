@@ -16,6 +16,7 @@ import java.util.Map;
 import com.google.gson.Gson;
 
 import beans.HoSo;
+import dao.CongViecDAO;
 import dao.HoSoDAO;
 
 /**
@@ -59,6 +60,22 @@ public class CongViecDaUngTuyenServlet extends HttpServlet {
 	        e.printStackTrace();
 	    }
 		
+		List<String> linhVucs = new ArrayList<>();
+		try {
+			linhVucs = CongViecDAO.getListLinhVuc();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	  
+		request.setAttribute("linhVucs", linhVucs);
+		String linhVuc = request.getParameter("linhVuc");
+	    String trangThai = request.getParameter("trangThai");
+	    String ten = request.getParameter("searchText");  // Lấy giá trị tìm kiếm theo tên công việc
+		String thoiGian = request.getParameter("thoiGian");
+		hoSos = HoSo.LocTheoTenCongViec(ten, hoSos);
+		hoSos = HoSo.LocTheoLinhVuc(linhVuc, hoSos);
+		hoSos = HoSo.LocTheoThoiGian(thoiGian, hoSos);
+		hoSos = HoSo.LocTheoTrangThai(trangThai, hoSos);
+		
 		int pageSize = 20;
 	    int page = 1;  // Mặc định là trang đầu tiên
 
@@ -79,22 +96,23 @@ public class CongViecDaUngTuyenServlet extends HttpServlet {
 	    int endIndex = Math.min(startIndex + pageSize, totalHoSos);
 	    List<HoSo> pagedHoSos = hoSos.subList(startIndex, endIndex);
 
-	    response.setContentType("application/json");
-	    response.setCharacterEncoding("UTF-8");
-
-	    Map<String, Object> responseData = new HashMap<>();
-	    responseData.put("hoSos", pagedHoSos);
-	    responseData.put("totalPages", totalPages);
-	    responseData.put("currentPage", page);
-
-	    String jsonResponse = new Gson().toJson(responseData);
-	    System.out.println(jsonResponse); 
-	    response.getWriter().write(jsonResponse);
-
 	    // Nếu không phải AJAX, bạn có thể chuyển hướng sang JSP
 	    if (!"true".equals(request.getParameter("ajax"))) {
 	        request.getRequestDispatcher("CongViecDaUngTuyen.jsp").forward(request, response);
 	    }
+	    else {
+	    	 response.setContentType("application/json");
+	 	    response.setCharacterEncoding("UTF-8");
+
+	 	    Map<String, Object> responseData = new HashMap<>();
+	 	    responseData.put("hoSos", pagedHoSos);
+	 	    responseData.put("totalPages", totalPages);
+	 	    responseData.put("currentPage", page);
+
+	 	    String jsonResponse = new Gson().toJson(responseData);
+	 	    System.out.println(jsonResponse); 
+	 	    response.getWriter().write(jsonResponse);
+		}
 	}
 
 	/**

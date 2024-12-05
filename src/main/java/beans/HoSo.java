@@ -127,4 +127,12 @@ public class HoSo {
 		}
 		return hoSos;
 	}
+	public static List<HoSo>LocTheoTenCongViec(String searchText, List<HoSo> hoSos) {
+		if (searchText != null && !searchText.isEmpty()) {
+	        hoSos = hoSos.stream()
+	                             .filter(hs -> hs.getCongViec().getTen().toLowerCase().contains(searchText.toLowerCase())) // So sánh không phân biệt chữ hoa chữ thường
+	                             .collect(Collectors.toList());
+		}
+		return hoSos;
+	}
 }

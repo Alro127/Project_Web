@@ -46,6 +46,7 @@ public class CongViecYeuThichDAO {
 				CongTy congTy = CongTyDAO.GetCongTyById(congViec.getIdCT());
 				if (congTy != null) {
 				    congViec.setTenCongTy(congTy.getTenCongTy());
+				    congViec.setLogo(congTy.getLogo());
 				} else {
 				    congViec.setTenCongTy("Chưa cập nhật");
 				}

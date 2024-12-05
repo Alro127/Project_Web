@@ -1,8 +1,7 @@
 function loadHoSos(page) { 
     let linhVuc = $('#linhVucFilter').val();  // Lấy giá trị lĩnh vực
     let thoiGian = $('#thoiGianFilter').val();  // Lấy giá trị thời gian
-    let luotXem = $('#luotXemFilter').val();  // Lấy giá trị lượt xem
-    let luotNop = $('#luotNopFilter').val();  // Lấy giá trị lượt nộp
+    let trangThai = $('#trangThaiFilter').val();  // Lấy giá trị lượt xem
     let searchText = $('#search-input').val();  // Lấy giá trị từ input tìm kiếm
 
     $.ajax({
@@ -12,18 +11,17 @@ function loadHoSos(page) {
             page: page,  // Truyền tham số page
             linhVuc: linhVuc,  // Truyền tham số lọc lĩnh vực
             thoiGian: thoiGian,  // Truyền tham số lọc thời gian
-            luotXem: luotXem,  // Truyền tham số lọc lượt xem
-            luotNop: luotNop,  // Truyền tham số lọc lượt nộp
+            trangThai: trangThai,  // Truyền tham số lọc lượt xem
             searchText: searchText,
             ajax: true  // Để xác định là AJAX request
         },  
         success: function(response) {
             // Kiểm tra dữ liệu trả về
             console.log("Dữ liệu trả về từ server: ", response);
-            if (!response || !response.hoSos || !response.totalPages) {
+           /* if (!response || !response.hoSos || !response.totalPages) {
                 alert(response);
                 return;
-            }
+            }*/
 
             // In ra thông tin phản hồi để kiểm tra
             console.log(response);  
@@ -92,7 +90,7 @@ function loadHoSos(page) {
 
 // Tải trang đầu tiên khi trang được load
 $(document).ready(function() {
-    $('#linhVucFilter, #thoiGianFilter, #luotXemFilter, #luotNopFilter').change(function() {
+    $('#linhVucFilter, #thoiGianFilter, #trangThaiFilter').change(function() {
         loadHoSos(1);  // Tải lại dữ liệu khi có thay đổi
     });
 
