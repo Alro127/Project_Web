@@ -100,8 +100,6 @@ function updateStatus(selectElement, idCV, idCongViec) {
 
     // Hiển thị hộp thoại xác nhận
     const confirmUpdate = confirm(`Bạn có chắc chắn muốn thay đổi trạng thái thành "${selectedValue}" không?`);
-	
-	selectElement.style.color = getTextColor(selectedValue);
 
     if (confirmUpdate) {
         // Tạo FormData để gửi dữ liệu
