@@ -130,4 +130,17 @@ public class CongTyDAO {
 			e.printStackTrace();
 		}
 	}
+	public static void addCongTyAfterSignUP(int id, String email)
+    {
+    	String sql = "insert into CongTy (IdCT, Email) values (?, ?)";
+    	try {
+			Connection connection = DBConnection.getConnection();
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setInt(1, id);
+			preparedStatement.setString(2, email);
+			preparedStatement.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    }
 }

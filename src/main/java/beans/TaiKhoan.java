@@ -65,4 +65,15 @@ public class TaiKhoan {
 	public void setId(int id) {
 		this.id = id;
 	}
+	public static boolean isValidUserNamePassword(String username, String password, String repassword) {
+		String uregex = "^[a-zA-Z0-9]{3,20}$";
+		String pregex = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$";
+		if (password == null || password.isEmpty() || username == null || username.isEmpty()) {
+            return false;
+        }
+		boolean isValidUsername = username.matches(uregex);
+		boolean isValidPassword = password.matches(pregex);
+		boolean isValidConfirmPassword = password.equals(repassword);
+		return isValidUsername  && isValidPassword && isValidConfirmPassword;
+	}
 }

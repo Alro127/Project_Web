@@ -14,8 +14,10 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.oauth2.Oauth2;
 import authentication.GoogleCredential;
 import beans.CongTy;
+import beans.UngVien;
 import dao.CongTyDAO;
 import dao.TaiKhoanDAO;
+import dao.UngVienDAO;
 
 /**
  * Servlet implementation class LoginGoogleServlet
@@ -85,13 +87,20 @@ public class LoginGoogleServlet extends HttpServlet {
 				    session.setAttribute("refresh_token", information.get(4)); // Lưu refresh_token	
 				    session.setAttribute("role", information.get(5));
 				    session.setAttribute("email", information.get(6));
-				    if (session.getAttribute("role") == "UngVien") {
+				    String role = (String) session.getAttribute("role");
+				    if (role.equals("UngVien")) {
 				    	destination = "CongViecServlet";
+				    	UngVien uv = UngVienDAO.getUngVienById(id);
+				    	session.setAttribute("name", uv.getFullName());
+					}
+				    else if (role.equals("CongTy")){
+						destination = "TaiKhoanCongTyServlet";
+						CongTy ct = CongTyDAO.GetCongTyById(id);
+						session.setAttribute("name", ct.getTenCongTy());
 					}
 				    else {
-						destination = "TaiKhoanCongTyServlet";
-						CongTy ct = CongTyDAO.GetCongTyById(Integer.parseInt((String)session.getAttribute("id")));
-						session.setAttribute("name", ct.getTenCongTy());
+				    	session = request.getSession(true);
+						destination = "Login.jsp";
 					}
 				}
 		        // Chuyển hướng người dùng đến trang tiếp theo sau khi đăng nhập thành công

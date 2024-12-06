@@ -28,17 +28,6 @@ public class TaiKhoanDAO {
 		}
 		return false;
 	}
-	public static boolean isValidUserNamePassword(String username, String password, String repassword) {
-		String uregex = "^[a-zA-Z0-9]{3,20}$";
-		String pregex = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$";
-		if (password == null || password.isEmpty() || username == null || username.isEmpty()) {
-            return false;
-        }
-		boolean isValidUsername = username.matches(uregex);
-		boolean isValidPassword = password.matches(pregex);
-		boolean isValidConfirmPassword = password.equals(repassword);
-		return isValidUsername  && isValidPassword && isValidConfirmPassword;
-	}
 	
 	public static boolean isExistedAccount(String username, String password)
 	{
@@ -57,15 +46,19 @@ public class TaiKhoanDAO {
 		}
 		return false;
 	}
-	public static void AddAccount(String username, String password)
+	public static void AddAccount(String username, String password, String email, String role)
 	{
 		try {
 			Connection conn = DBConnection.getConnection();
-			String sqlcmd = "insert into TaiKhoan(username, password) values (?, ?)";
+			String sqlcmd = "insert into TaiKhoan(username, password, email, role) values (?, ?, ?, ?)";
 			PreparedStatement preparedStatement = conn.prepareStatement(sqlcmd);
 			preparedStatement.setString(1, username);
 			preparedStatement.setString(2, password);
-			preparedStatement.executeQuery();
+			preparedStatement.setString(3, email);
+			preparedStatement.setString(4, role);
+			preparedStatement.execute();
+			preparedStatement.close();
+			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
