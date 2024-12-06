@@ -24,7 +24,7 @@ function loadJobs(page) {
 			
             let jobListHtml = '';
             response.congViecs.forEach(function(congViec) {
-                let maxTitleLength = 20;  // Giới hạn độ dài tên công việc
+                let maxTitleLength = 35;  // Giới hạn độ dài tên công việc
                 let jobTitle = congViec.ten;
                 if (jobTitle.length > maxTitleLength) {
                     jobTitle = jobTitle.substring(0, maxTitleLength) + '...';  // Cắt và thêm ba chấm
