@@ -1,5 +1,5 @@
 <%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
-<%@page import="java.util.List"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -102,94 +102,60 @@
 				<h2 class="text-center mb-4 fw-bold">Hình Ảnh Hoạt Động</h2>
 				<div id="activityCarousel" class="carousel slide"
 					data-bs-ride="carousel">
-					<!-- 
-					Indicators
-					<div class="carousel-indicators">
-						<button type="button" data-bs-target="#activityCarousel"
-							data-bs-slide-to="0" class="active" aria-current="true"
-							aria-label="Slide 1"></button>
-						<button type="button" data-bs-target="#activityCarousel"
-							data-bs-slide-to="1" aria-label="Slide 2"></button>
-						<button type="button" data-bs-target="#activityCarousel"
-							data-bs-slide-to="2" aria-label="Slide 3"></button>
-					</div> -->
 
 					<!-- Carousel Items -->
 					<div class="carousel-inner">
-						<%
-							//HttpSession session2 = request.getSession(true);
-							List<String> images = (List<String>)request.getAttribute("images");
-							int length = images.size();
-							System.out.print(length);
-							if (length != 0)
-							{
-								int col = length / 3;
-								int excess = length - col * 3;
-								%>
-									<div class="carousel-item active">
-										<div class="row justify-content-center">
-												<%
-													for (int j = 0; j < (col > 0 ? 3 : col); j ++ )
-													{
-														%>
-															<div class="col-4">
-																<img
-																	src="${pageContext.request.contextPath}/<%= images.get(j) %>"
-																	class="d-block w-100 rounded" alt="Hình ảnh 1">
-															</div>
-														<%
-													}
-												%>
+						<c:set var="length" value="${fn:length(images)}" />
+						<c:if test="${length != 0}">
+							<c:set var="col" value="${length / 3}" />
+							<c:set var="excess" value="${length % 3}" />
+
+							<!-- Carousel active item -->
+							<div class="carousel-item active">
+								<div class="row justify-content-center">
+									<c:forEach var="j" begin="0" end="${col > 0 ? 2 : col - 1}">
+										<div class="col-4">
+											<img src="${pageContext.request.contextPath}/${images[j]}"
+												class="d-block w-100 rounded" alt="Hình ảnh ${j + 1}">
+										</div>
+									</c:forEach>
+								</div>
+							</div>
+
+							<!-- Other carousel items -->
+							<c:forEach var="i" begin="1" end="${col - 1}">
+								<div class="carousel-item">
+									<div class="row justify-content-center">
+										<c:forEach var="j" begin="0" end="2">
+											<div class="col-4">
+												<img
+													src="${pageContext.request.contextPath}/${images[i * 3 + j]}"
+													class="d-block w-100 rounded"
+													alt="Hình ảnh ${(i * 3 + j) + 1}">
 											</div>
+										</c:forEach>
 									</div>
-								<%
-								
-								for (int i = 1; i < col; i++)
-								{
-									%>
-										<div class="carousel-item">
-											<div class="row justify-content-center">
-												<%
-													for (int j = 0; j < 3; j ++ )
-													{
-														%>
-															<div class="col-4">
-																<img
-																	src="${pageContext.request.contextPath}/<%= images.get(i * 3 + j) %>"
-																	class="d-block w-100 rounded" alt="Hình ảnh 1">
-															</div>
-														<%
-													}
-												%>
+								</div>
+							</c:forEach>
+
+							<!-- Excess images -->
+							<c:if test="${excess > 0}">
+								<div class="carousel-item">
+									<div class="row justify-content-center">
+										<c:forEach var="i" begin="0" end="${excess - 1}">
+											<div class="col-4">
+												<img
+													src="${pageContext.request.contextPath}/${images[col * 3 + i]}"
+													class="d-block w-100 rounded"
+													alt="Hình ảnh ${(col * 3 + i) + 1}">
 											</div>
-										</div>
-									<%
-								}
-								if (excess > 0)
-								{
-									%>
-										<div class="carousel-item">
-											<div class="row justify-content-center">
-												<%
-													for (int i = 0; i < excess ; i++)
-													{
-														%>
-															<div class="col-4">
-																<img
-																	src="${pageContext.request.contextPath}/<%= images.get(col * 3 + i) %>"
-																	class="d-block w-100 rounded" alt="Hình ảnh 1">
-															</div>
-														<%
-													}
-												%>
-											</div>
-										</div>
-									<%
-								}
-							}
-							
-						%>
+										</c:forEach>
+									</div>
+								</div>
+							</c:if>
+						</c:if>
 					</div>
+
 
 					<!-- Controls -->
 					<button class="carousel-control-prev" type="button"
@@ -213,15 +179,6 @@
 			<section class="mb-5">
 				<div class="container mb-2">
 					<h2 class="mb16">Các Công Việc Của Chúng Tôi</h2>
-					<div class="mb16 filter-section">
-						<select class="form-select" id="jobFilter"
-							aria-label="Bộ lọc công việc">
-							<option selected>Tất cả công việc</option>
-							<option value="1">Công việc IT</option>
-							<option value="2">Công việc Kinh doanh</option>
-							<option value="3">Công việc Hỗ trợ khách hàng</option>
-						</select>
-					</div>
 				</div>
 				<div class="container">
 					<jsp:include page="fragments/frg_CongViec.jsp" />

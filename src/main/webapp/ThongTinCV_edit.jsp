@@ -63,25 +63,6 @@
 									<img id="avatarPreview" src="${cv.ungvien.avatar}" alt="Avatar"
 										class="rounded-circle border"
 										style="width: 200px; height: 200px; object-fit: cover;">
-
-									<!-- Hidden file input -->
-									<input type="file" id="avatarUpload" class="d-none"
-										accept="image/*" onchange="previewAvatar(event)">
-
-									<!-- Button container -->
-									<div class="position-absolute d-flex align-items-center"
-										style="bottom: 0; right: 0; transform: translate(50%, 50%);">
-										<!-- Upload button -->
-										<button type="button"
-											class="btn btn-outline-primary btn-sm me-1"
-											onclick="triggerAvatarUpload()">
-											<i class="bi bi-upload"></i>
-										</button>
-
-										<!-- Save button -->
-										<button type="button" class="btn btn-outline-primary btn-sm"
-											onclick="uploadAvatarToServer()">Lưu</button>
-									</div>
 								</div>
 
 

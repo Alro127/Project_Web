@@ -45,5 +45,6 @@
 		</div>
 	</div>
 	<script src="js/PhanTrangCongViecYeuThich.js"></script>
+	<script src="js/LocSlider.js"></script>
 </body>
 </html>

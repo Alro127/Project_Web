@@ -58,7 +58,7 @@
 						<div class="col-md-4">
 							<!-- Thông tin cá nhân -->
 							<div class="container text-center mt-4">
-								<div class="position-relative d-inline-block">
+								<div class="position-relative d-inline-block ">
 									<!-- Avatar -->
 									<img id="avatarPreview" src="${uv.avatar}" alt="Avatar"
 										class="rounded-circle border"
@@ -67,7 +67,8 @@
 
 								<!-- Tên nằm dưới avatar -->
 								<h2 class="mt-3">${uv.fullName}</h2>
-
+							</div>
+							<div>
 								<!-- Vị trí ứng tuyển -->
 								<div class="mb-3">
 									<label class="form-label fw-bold">VỊ TRÍ ỨNG TUYỂN</label> <input
@@ -153,7 +154,9 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-md-8">
+							
+						</div>
+						<div class="col-md-8">
 								<!-- Thông tin CV -->
 								<!-- Mục tiêu nghề nghiệp -->
 								<div class="mb-3">
@@ -335,7 +338,7 @@
 									</button>
 								</div>
 							</div>
-						</div>
+						
 						<!-- Lưu CV-->
 						<textarea type="hidden" id="mode" style="display: none;">create</textarea>
 						<div class="text-center">

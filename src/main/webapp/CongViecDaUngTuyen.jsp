@@ -53,7 +53,7 @@ thead th {
 		<jsp:include page="fragments/sidebar_UngVien.jsp" />
 		<!-- Main content -->
 		<div class="container mt-4 bg-light py-3 px-3 shadow rounded ">
-
+			<h2 class="text-center mb-4">Công Việc Đã Ứng Tuyển</h2>
 			<!-- Bộ lọc -->
 			<div class="row mb-3">
 				<div class="col-12 col-md-2">

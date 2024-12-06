@@ -38,11 +38,12 @@
 			<button id="searchBtn" class="btn bg-coral text-light w-100">Tìm
 				kiếm</button>
 		</div>
-		<div class="row">
+	</div>
+	<div class="row">
 		<div class="col-md-5 mb-3">
 			<div class="form-control">
-				<label for="kinhNghiemFilter">Chọn năm kinh nghiệm: <span id="kinhNghiem"></span>
-					<!-- Hiển thị giá trị tại đây --></label>
+				<label for="kinhNghiemFilter">Chọn năm kinh nghiệm: <span
+					id="kinhNghiem"></span> <!-- Hiển thị giá trị tại đây --></label>
 				<div class="m-3" id="kinhNghiemFilter"></div>
 			</div>
 		</div>
@@ -53,20 +54,9 @@
 				<div class="m-3" id="luongFilter"></div>
 			</div>
 		</div>
-		</div>
-		<div class="col-md-5 mb-3">
-			<div class="form-control">
-				<label for="luongFilter">Chọn khoảng lương: <span id="luong"></span>
-					<!-- Hiển thị giá trị tại đây --></label>
-				<div class="m-3" id="luongFilter"></div>
-			</div>
-		</div>
 	</div>
-	</div>
-	
-		
 </div>
 <script>
-    var minLuong = ${minLuong};
-    var maxLuong = ${maxLuong};
+	var minLuong = ${minLuong};
+	var maxLuong = ${maxLuong};
 </script>
