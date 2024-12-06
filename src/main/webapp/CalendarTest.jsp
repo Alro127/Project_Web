@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,6 +8,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Google Calendar Events</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.js"></script>
 <link
 	href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css"
 	rel="stylesheet" />
@@ -53,6 +56,37 @@
 /* Highlight ngày hôm nay */
 .fc-day-today {
 	background-color: #e9f7ef; /* Màu xanh nhạt */
+}
+.checkbox-menu li label {
+    display: block;
+    padding: 3px 10px;
+    clear: both;
+    font-weight: normal;
+    line-height: 1.42857143;
+    color: #333;
+    white-space: nowrap;
+    margin:0;
+    transition: background-color .4s ease;
+}
+.checkbox-menu li input {
+    margin: 0px 5px;
+    top: 2px;
+    position: relative;
+}
+
+.checkbox-menu li.active label {
+    background-color: #cbcbff;
+    font-weight:bold;
+}
+
+.checkbox-menu li label:hover,
+.checkbox-menu li label:focus {
+    background-color: #f5f5f5;
+}
+
+.checkbox-menu li.active label:hover,
+.checkbox-menu li.active label:focus {
+    background-color: #b8b8ff;
 }
 </style>
 
@@ -101,6 +135,18 @@
 								<label for="eventEnd" class="form-label">End Time:</label> <input
 									type="datetime-local" id="eventEnd" name="eventEnd"
 									class="form-control" required>
+							</div>
+							<div class="mb-3">
+								<label for="ungViens" class="form-label">Chọn ứng viên:</label> 
+								<ul class="dropdown-menu checkbox-menu allow-focus">
+									<c:forEach var="email" items="${emails}">
+										 <li >
+										    <label>
+										      <input type="checkbox" value = "${email}"> ${email}
+										    </label>
+									 	 </li>
+									</c:forEach>								 
+								</ul>
 							</div>
 						</div>
 						<div class="modal-footer">
@@ -170,6 +216,7 @@
 	    // Show modal for adding events
 	    document.getElementById('addEventBtn').addEventListener('click', function() {
 	        var modal = new bootstrap.Modal(document.getElementById('addEventModal'));
+	        
 	        modal.show();
 	    });
 		});
@@ -214,7 +261,12 @@
 	        xhr.send('eventId=' + eventId);  // Gửi ID sự kiện để xóa
 	    }
 	
-
+	    $(".checkbox-menu").on("change", "input[type='checkbox']", function() {
+	    	   $(this).closest("li").toggleClass("active", this.checked);
+	    	});
+	    $(document).on('click', '.allow-focus', function (e) {
+	    	  e.stopPropagation();
+	    	});
 </script>
 
 </body>

@@ -23,6 +23,7 @@ import com.google.api.services.oauth2.Oauth2;
 import com.google.api.services.oauth2.model.Userinfo;
 
 import authentication.GoogleCredential;
+import dao.CongTyDAO;
 import dao.TaiKhoanDAO;
 
 import com.google.api.services.calendar.model.Event;
@@ -124,7 +125,9 @@ public class GoogleCalendarEventsServlet extends HttpServlet {
                     .execute();
 
             List<Event> items = events.getItems();
-            
+            List <String> emails = CongTyDAO.getEmailOfEmployeesFromCompany(id);
+            req.setAttribute("emails", email);
+            session.setAttribute("emails", emails);
             // Truyền danh sách sự kiện vào request
             req.setAttribute("events", items);
             
