@@ -1,10 +1,13 @@
 package beans;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import org.checkerframework.common.value.qual.StaticallyExecutable;
 
 public class CongViec {
 
@@ -260,5 +263,47 @@ public class CongViec {
 	                             .collect(Collectors.toList());
 	    }
 		 return congViecs;
+	}
+	public static double findMaxLuong(List<CongViec> congViecs)
+	{
+		double luongMax = 0;
+		for (CongViec congViec : congViecs) {
+			if (congViec.getLuong() > luongMax)
+			{
+				luongMax = congViec.getLuong();
+			}
+		}
+		return luongMax;
+	}
+	public static double findMinLuong(List<CongViec> congViecs)
+	{
+		double luongMin = CongViec.findMaxLuong(congViecs);
+		for (CongViec congViec : congViecs) {
+			if (congViec.getLuong() < luongMin)
+			{
+				luongMin = congViec.getLuong();
+			}
+		}
+		return luongMin;
+	}
+	public static List<CongViec> findInRangeLuong(List<CongViec> congViecs, double minValue, double maxValue)
+	{
+		List<CongViec> result = new ArrayList<CongViec>();
+		for (CongViec congViec : congViecs) {
+			if (congViec.getLuong() >= minValue && congViec.getLuong() <= maxValue) {
+				result.add(congViec);
+			}
+		}
+		return result;
+	}
+	public static List<CongViec> findInExperince(List<CongViec> congViecs, int kinhNghiem)
+	{
+		List<CongViec> result = new ArrayList<CongViec>();
+		for (CongViec congViec : congViecs) {
+			if (congViec.getNamKinhNghiem() >= kinhNghiem) {
+				result.add(congViec);
+			}
+		}
+		return result;
 	}
 }

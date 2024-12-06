@@ -25,7 +25,22 @@
 				</c:forEach>
 			</select>
 		</div>
-
+		<div class="col-md-3 mb-3">
+			<label for="luongFilter">Chọn năm kinh nghiệm: <span id="kinhNghiem"> 1</span> năm</label>
+             <!-- Thêm thẻ input cho slider -->
+              <input id="kinhNghiemFilter" type="range" min="0" max="10" step="1" data-slider-value="[0,10]"  />
+              <br>
+		</div>
+		<div>
+			<h3>Lọc theo lương</h3>
+		    <form>
+		        <div class="form-group">
+		            <label for="luongFilter">Chọn khoảng lương: <span id="luong"></span> <!-- Hiển thị giá trị tại đây --></label>
+		            <div id="luongFilter"></div> <!-- Thanh trượt -->
+		            <br>
+		        </div>
+		    </form>
+		</div>
 		<div class="col-md-2 mb-3">
 			<button id="searchBtn" class="btn bg-coral text-light w-100">Tìm
 				kiếm</button>
@@ -33,3 +48,7 @@
 
 	</div>
 </div>
+<script>
+    var minLuong = ${minLuong};
+    var maxLuong = ${maxLuong};
+</script>
