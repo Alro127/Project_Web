@@ -23,22 +23,25 @@ function loadJobs(page) {
 				    jobTitle = jobTitle.substring(0, maxTitleLength) + '...';  // Cắt và thêm ba chấm
 				}
                 jobListHtml += `
-                    <div class="col-12 col-md-4 mb-4 py-0">
-                        <a href="ChiTietCongViecServlet?id=${congViec.idCongViec}" class="text-decoration-none text-dark">
-                            <div class="d-flex py-3 px-3 bg-light shadow rounded">
-                                <img src="${congViec.logo}"
-                                     class="card-img-top img-fluid" alt="Công việc" style="width: 100px; height: 100px; object-fit: cover;">
-                                <div class="card-body ms-3">
-                                    <h5 class="card-title">${jobTitle}</h5>
-                                    <p class="card-text">
-                                        <strong>Công ty:</strong> ${congViec.tenCongTy} <br> <strong>Lương:</strong>
-                                        ${congViec.luong} VND <br> <strong>Địa điểm:</strong>
-                                        ${congViec.diaDiem}
-                                    </p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
+				<div class="col-12 col-md-4 mb-4 py-0">
+				    <a href="ChiTietCongViecServlet?id=${congViec.idCongViec}" class="text-decoration-none text-dark">
+				        <div class="d-flex py-3 px-3 bg-light shadow rounded">
+				            <img src="${congViec.logo}"
+				                 class="card-img-top img-fluid" alt="Công việc" style="width: 100px; height: 100px; object-fit: cover;">
+				            <div class="card-body ms-3">
+				                <h5 class="card-title">
+				                    <strong>${jobTitle}</strong>
+				                </h5>
+				                <h6 class="font-weight-bold" style="font-size: 1.1rem;">${congViec.tenCongTy}</h6>
+				                <p class="card-text">
+				                    <strong><i class="bi bi-currency-dollar text-warning"></i> </strong> ${congViec.luong} VND <br>
+				                    <strong><i class="bi bi-geo-alt text-primary"></i></strong> ${congViec.diaDiem}
+				                </p>
+				            </div>
+				        </div>
+				    </a>
+				</div>
+
                 `;
             });
 

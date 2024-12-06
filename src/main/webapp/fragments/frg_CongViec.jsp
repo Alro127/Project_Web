@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 
 <div class="container">
-	<div class="row">
+	<div >
 		<div id="job-list" class="row">
 			<!-- Danh sách công việc sẽ được tải ở đây -->
 		</div>
