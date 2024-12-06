@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -65,9 +66,7 @@
 											<i class="bi bi-currency-dollar text-coral fs-2"></i>
 											<div class="ms-3 text-start align-items-center">
 												<p class="mb-0 text-muted">Lương</p>
-												<p>
-													<strong>${congViec.luong} VNĐ</strong>
-												</p>
+													<strong><fmt:formatNumber value="${congViec.luong}" type="number" pattern="#,###" /> VND</strong>									
 											</div>
 										</div>
 									</div>
