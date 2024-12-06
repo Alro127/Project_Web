@@ -194,7 +194,7 @@ public class QuanLyTaiKhoanServlet extends HttpServlet {
 	        response.setContentType("application/json");
 	        response.getWriter().write(errorResponse.toString());
 	    }
-	    doGet(request, response);
+	    //doGet(request, response);
 	}
 	
 

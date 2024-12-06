@@ -150,6 +150,7 @@
 								<div class="col-md-6">
 									<label for="phone" class="form-label">Số điện thoại:</label> <input
 										type="tel" id="phone" name="phone" class="form-control"
+										pattern="[0-9]{10}"
 										placeholder="Nhập số điện thoại" value="${congTy.sdt}"
 										required />
 								</div>

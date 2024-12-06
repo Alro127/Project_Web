@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	LuongKetThucHienTai = maxLuong;
 	
 	// Gán giá trị mặc định là 0
-	$('#kinhNghiemFilter').val(0);
+	/*$('#kinhNghiemFilter').val(0);
 	$('#kinhNghiem').text($('#kinhNghiemFilter').val());
 	$.each(events, function(k,v) {
 	  $('#kinhNghiemFilter').on(v, function() {
@@ -16,7 +16,33 @@ document.addEventListener('DOMContentLoaded', function () {
 		kinhNghiem = $('#kinhNghiemFilter').val();
 		console.log(kinhNghiem);
 	  });
-	})
+	})*/
+	var kinhNghiemSlider = document.getElementById('kinhNghiemFilter');
+	var kinhNghiemSpan = document.getElementById('kinhNghiem');
+
+	    noUiSlider.create(kinhNghiemSlider, {
+	        start: 0, // Giá trị mặc định là 0 năm
+	        connect: [true, false], // Chỉ kết nối bên trái
+	        range: {
+	            'min': 0,
+	            'max': 10, // Tối đa 10 năm kinh nghiệm
+	        },
+	        step: 1, // Bước nhảy mỗi lần
+	        format: {
+	            to: function (value) {
+	                return Math.round(value); // Làm tròn giá trị
+	            },
+	            from: function (value) {
+	                return value;
+	            }
+	        }
+	    });
+		// Cập nhật số năm kinh nghiệm khi thay đổi giá trị
+		   kinhNghiemSlider.noUiSlider.on('update', function (values, handle) {
+		       kinhNghiem = values[0];
+		       kinhNghiemSpan.textContent = `${kinhNghiem}`; // Hiển thị giá trị hiện tại
+		       console.log('Năm kinh nghiệm:', kinhNghiem);
+		   });	
 	
     var priceRangeSlider = document.getElementById('luongFilter');
 

@@ -99,7 +99,7 @@ public class CongViecServlet extends HttpServlet {
 	    	congViecs = CongViec.findInExperince(congViecs, Integer.parseInt(kinhNghiem));
 		}
 	    if (luongKhoiDiemHienTai != null && LuongKetThucHienTai != null) {
-	    	 congViecs = CongViec.findInRangeLuong(congViecs, Integer.parseInt(luongKhoiDiemHienTai), Integer.parseInt(LuongKetThucHienTai));
+	    	 congViecs = CongViec.findInRangeLuong(congViecs, Double.parseDouble(luongKhoiDiemHienTai), Double.parseDouble(LuongKetThucHienTai));
 		}
 		Collections.shuffle(congViecs);
 		// Số công việc mỗi trang
@@ -135,7 +135,7 @@ public class CongViecServlet extends HttpServlet {
 	        request.getRequestDispatcher("TrangGioiThieu.jsp").forward(request, response);
 	    }
 	    else {
-	    	 Map<String, Object> responseData = new HashMap<>();
+	    	Map<String, Object> responseData = new HashMap<>();
 	 	    responseData.put("congViecs", pagedCongViecs);
 	 	    responseData.put("totalPages", totalPages);
 	 	    responseData.put("currentPage", page);

@@ -26,6 +26,11 @@
 </script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link href="assets/css/style.css" rel="stylesheet">
+<!-- Liên kết CSS của noUiSlider -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.6.0/nouislider.min.css" rel="stylesheet">
+
+<!-- Liên kết JavaScript của noUiSlider -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.6.0/nouislider.min.js"></script>
 </head>
 <body class="bg-light-grey">
 	<!-- Header Navigation -->
@@ -58,5 +63,6 @@
 		var id = "${idCongViec}"; 
 	</script>
 	<script src="js/PhanTrangCongViecLienQuan.js"></script>
+	<script src="js/LocSlider.js"></script>
 </body>
 </html>
