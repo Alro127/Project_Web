@@ -21,6 +21,11 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
 	crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<scrip
+	src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js">
+</script> <script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"> </script>
 </head>
 <body class="bg-light-grey">
 
@@ -105,33 +110,6 @@
 
 					<form>
 						<div class="mb-3 row">
-							<!-- Modal -->
-							<div class="modal fade" id="addAvatarImageModal" tabindex="-1"
-								aria-labelledby="addAvatarImageModalLabel" aria-hidden="true">
-								<div class="modal-dialog">
-									<div class="modal-content">
-										<div class="modal-header">
-											<h5 class="modal-title" id="addAvatarImageModalLabel">Thêm
-												Hình Ảnh</h5>
-											<button type="button" class="btn-close"
-												data-bs-dismiss="modal" aria-label="Close"></button>
-										</div>
-										<div class="modal-body">
-											<div class="mb-3">
-												<label for="imageAvatarUpload" class="form-label">Chọn
-													hình ảnh:</label> <input type="file" class="form-control"
-													id="imageAvatarUpload">
-											</div>
-										</div>
-										<div class="modal-footer">
-											<button type="button" class="btn btn-secondary"
-												data-bs-dismiss="modal">Đóng</button>
-											<button type="button" class="btn btn-primary"
-												data-bs-dismiss="modal" id="saveAvatarImage">Lưu</button>
-										</div>
-									</div>
-								</div>
-							</div>
 							<!-- Avatar -->
 							<div class="col-md-6">
 								<div
@@ -235,10 +213,7 @@
 			</div>
 		</div>
 	</div>
-
-	<script
-		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+	<jsp:include page="modals/AddImageModals.jsp"></jsp:include>
 	<script src="js/QuanLyUngVien.js"></script>
 	<script src="js/QuanLyMatKhau.js"></script>
 </body>
