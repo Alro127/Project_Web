@@ -21,7 +21,7 @@ function loadJobs(page) {
                 /*alert('Dữ liệu không hợp lệ!');
                 return;*/
             }
-
+			
             let jobListHtml = '';
             response.congViecs.forEach(function(congViec) {
                 let maxTitleLength = 20;  // Giới hạn độ dài tên công việc
@@ -29,6 +29,12 @@ function loadJobs(page) {
                 if (jobTitle.length > maxTitleLength) {
                     jobTitle = jobTitle.substring(0, maxTitleLength) + '...';  // Cắt và thêm ba chấm
                 }
+				
+				let formattedSalary = congViec.luong.toLocaleString() + ' VND';
+
+				// Kiểm tra năm kinh nghiệm và thay đổi giá trị nếu cần
+			    let experience = congViec.namKinhNghiem === 0 ? 'Không yêu cầu kinh nghiệm' : congViec.namKinhNghiem + ' năm';
+				
                 jobListHtml += `
 				<div class="col-12 col-md-4 mb-4 py-0">
 				    <a href="ChiTietCongViecServlet?id=${congViec.idCongViec}" class="text-decoration-none text-dark">
@@ -40,10 +46,14 @@ function loadJobs(page) {
 				                    <strong>${jobTitle}</strong>
 				                </h5>
 				                <h6 class="font-weight-bold" style="font-size: 1.1rem;">${congViec.tenCongTy}</h6>
-				                <p class="card-text">
-				                    <strong><i class="bi bi-currency-dollar text-warning"></i> </strong> ${congViec.luong} VND <br>
-				                    <strong><i class="bi bi-geo-alt text-primary"></i></strong> ${congViec.diaDiem}
-				                </p>
+								<p class="card-text">
+			                        <strong><i class="bi bi-currency-dollar text-warning"></i> </strong> 
+			                        ${formattedSalary} <br>
+			                        <strong><i class="bi bi-briefcase text-success"></i> </strong> 
+			                        ${experience} <br>
+			                        <strong><i class="bi bi-geo-alt text-primary"></i></strong> 
+			                        ${congViec.diaDiem}
+			                    </p>
 				            </div>
 				        </div>
 				    </a>

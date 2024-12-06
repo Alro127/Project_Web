@@ -29,27 +29,38 @@ function loadJobs(page) {
                 if (jobTitle.length > maxTitleLength) {
                     jobTitle = jobTitle.substring(0, maxTitleLength) + '...';  // Cắt và thêm ba chấm
                 }
+				
+				let formattedSalary = congViec.luong.toLocaleString() + ' VND';
+
+				// Kiểm tra năm kinh nghiệm và thay đổi giá trị nếu cần
+			    let experience = congViec.namKinhNghiem === 0 ? 'Không yêu cầu kinh nghiệm' : congViec.namKinhNghiem + ' năm';
+				
                 jobListHtml += `
 				<div class="col-12 col-md-4 mb-4 py-0">
-				    <a href="ChiTietCongViecServlet?id=${congViec.idCongViec}" class="text-decoration-none text-dark">
-				        <div class="d-flex py-3 px-3 bg-light shadow rounded">
-				            <img src="${congViec.logo}"
-				                 class="card-img-top img-fluid" alt="Công việc" style="width: 100px; height: 100px; object-fit: cover;">
-				            <div class="card-body ms-3">
-				                <h5 class="card-title">
-				                    <strong>${jobTitle}</strong>
-				                </h5>
-				                <h6 class="font-weight-bold" style="font-size: 1.1rem;">${congViec.tenCongTy}</h6>
-				                <p class="card-text">
-				                    <strong><i class="bi bi-currency-dollar text-warning"></i> </strong> <!-- Chỉ thay đổi màu của biểu tượng tiền -->
-				                    ${congViec.luong} VND <br>
-				                    <strong><i class="bi bi-geo-alt text-primary"></i></strong> <!-- Chỉ thay đổi màu của biểu tượng địa điểm -->
-				                    ${congViec.diaDiem}
-				                </p>
-				            </div>
-				        </div>
-				    </a>
-				</div>
+			        <a href="ChiTietCongViecServlet?id=${congViec.idCongViec}" class="text-decoration-none text-dark">
+			            <div class="py-3 px-3 bg-light shadow rounded">
+							<h5 class="card-title">
+		                        <strong>${jobTitle}</strong>
+		                    </h5>
+							<div class="d-flex mt-2"> 
+								<img src="${congViec.logo}"
+				                     class="card-img-top img-fluid" alt="Công việc" style="width: 100px; height: 100px; object-fit: cover;">
+				                <div class="card-body ms-3">
+				                    
+				                    <h6 class="font-weight-bold" style="font-size: 1.1rem;">${congViec.tenCongTy}</h6>
+				                    <p class="card-text">
+				                        <strong><i class="bi bi-currency-dollar text-warning"></i> </strong> 
+				                        ${formattedSalary} <br>
+				                        <strong><i class="bi bi-briefcase text-success"></i> </strong> 
+				                        ${experience} <br>
+				                        <strong><i class="bi bi-geo-alt text-primary"></i></strong> 
+				                        ${congViec.diaDiem}
+				                    </p>
+				                </div>
+							</div>
+			            </div>
+			        </a>  
+			    </div>
 
                 `;
             });
