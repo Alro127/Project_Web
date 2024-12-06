@@ -5,7 +5,11 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import services.Message;
+
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Timestamp;
 
 import beans.CongViec;
@@ -40,7 +44,19 @@ public class DangCongViecServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// Tạo đối tượng công việc và gán giá trị từ request
+		HttpSession session = request.getSession(false);  
+		if (session == null) {
+			response.sendRedirect("Login.jsp"); 
+			return;
+		}
+
+		// Kiểm tra xem session có chứa id người dùng không
+		String idCTStr = (String) session.getAttribute("id");
+		if (idCTStr == null) {
+			response.sendRedirect("Login.jsp"); 
+			return;
+		}
+		int idCT= Integer.parseInt(idCTStr);
 		CongViec congViec = new CongViec();
 
 		// Kiểm tra các tham số request để đảm bảo không rỗng
@@ -53,6 +69,7 @@ public class DangCongViecServlet extends HttpServlet {
 		String moTa = request.getParameter("moTa");
 		String yeuCau = request.getParameter("yeuCau");
 		String quyenLoi = request.getParameter("quyenLoi");
+		
 		try {
 			// Kiểm tra giá trị đầu vào
 			if (ten != null && !ten.isEmpty() && diaDiem != null && !diaDiem.isEmpty() && luongStr != null
@@ -60,7 +77,7 @@ public class DangCongViecServlet extends HttpServlet {
 					&& thoiGianHetHanStr != null && !thoiGianHetHanStr.isEmpty()) {
 
 				// Gán giá trị cho đối tượng congViec
-				congViec.setIdCT(Integer.parseInt("1"));
+				congViec.setIdCT(idCT);
 				congViec.setTen(ten);
 				congViec.setDiaDiem(diaDiem);
 				congViec.setLuong(Double.parseDouble(luongStr));
@@ -77,24 +94,17 @@ public class DangCongViecServlet extends HttpServlet {
 
 				// Thêm công việc mới vào cơ sở dữ liệu
 				if (CongViecDAO.AddCongViecMoi(congViec)) {
-					// Đặt thông báo thành công
-					request.setAttribute("message", "Đăng công việc thành công!");
-				} else {
-					// Đặt thông báo lỗi
-					request.setAttribute("message", "Có lỗi xảy ra, vui lòng thử lại.");
-				}
-			} else {
-				// Nếu tham số yêu cầu không hợp lệ
-				request.setAttribute("message", "Dữ liệu không hợp lệ. Vui lòng kiểm tra lại.");
-			}
+	                Message.alertAndRedirect(response, "Đăng công việc thành công!", "QuanLyTinDangServlet");
+	            } else {
+	            	Message.alertAndRedirect(response, "Có lỗi xảy ra, vui lòng thử lại.", "DangCongViec.jsp");
+	            }
+	        } else {
+	        	Message.alertAndRedirect(response, "Dữ liệu không hợp lệ. Vui lòng kiểm tra lại.", "DangCongViec.jsp");
+	        }
 		} catch (Exception e) {
-			// Xử lý lỗi và gửi thông báo về phía người dùng
-			request.setAttribute("message", "Đã xảy ra lỗi: " + e.getMessage());
-			e.printStackTrace();
-		} finally {
-			// Chuyển tiếp đến trang DangCongViec.jsp để hiển thị thông báo
-			request.getRequestDispatcher("DangCongViec.jsp").forward(request, response);
-		}
+	        e.printStackTrace();
+	        Message.alertAndRedirect(response, "Đã xảy ra lỗi: " + e.getMessage(), "DangCongViec.jsp");
+	    }
 	}
-
+	
 }

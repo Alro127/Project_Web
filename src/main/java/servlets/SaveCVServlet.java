@@ -27,37 +27,6 @@ public class SaveCVServlet extends HttpServlet {
 
 	private final ObjectMapper objectMapper = new ObjectMapper();
 	
-	/*
-	 * protected void doPost(HttpServletRequest request, HttpServletResponse
-	 * response) throws ServletException, IOException { // Thiết lập kiểu trả về là
-	 * JSON response.setContentType("application/json"); PrintWriter out =
-	 * response.getWriter();
-	 * 
-	 * // Đọc dữ liệu JSON từ request body StringBuilder stringBuilder = new
-	 * StringBuilder(); String line; try (BufferedReader reader =
-	 * request.getReader()) { while ((line = reader.readLine()) != null) {
-	 * stringBuilder.append(line); } } String jsonString = stringBuilder.toString();
-	 * 
-	 * // Kiểm tra nếu chuỗi là một JSON hợp lệ try { // Chuyển chuỗi JSON thành đối
-	 * tượng JSONObject JSONObject jsonObject = new JSONObject(jsonString);
-	 * 
-	 * // Lấy các giá trị từ JSON String careerGoals =
-	 * jsonObject.optString("careerGoals"); String educationData =
-	 * jsonObject.optString("educationData"); String experienceData =
-	 * jsonObject.optString("experienceData"); String certificateData =
-	 * jsonObject.optString("certificateData"); String skillData =
-	 * jsonObject.optString("skillData");
-	 * 
-	 * // In các giá trị ra console để kiểm tra System.out.println("Career Goals: "
-	 * + careerGoals); System.out.println("Education Data: " + educationData);
-	 * System.out.println("Experience Data: " + experienceData);
-	 * System.out.println("Certificate Data: " + certificateData);
-	 * System.out.println("Skill Data: " + skillData);
-	 * 
-	 * // Trả về phản hồi nếu cần out.write("{\"status\":\"success\"}"); } catch
-	 * (Exception e) { // Nếu có lỗi trong việc phân tích cú pháp JSON
-	 * out.write("{\"status\":\"error\",\"message\":\"Invalid JSON data\"}"); } }
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    // Thiết lập kiểu trả về là JSON
 	    response.setContentType("application/json");
