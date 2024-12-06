@@ -51,12 +51,14 @@
 						<div class="mb-3">
 							<label for="luong" class="form-label">Lương</label> <input
 								type="number" class="form-control" id="luong" name="luong"
-								placeholder="Nhập mức lương" step="0.01">
+								placeholder="Nhập mức lương" step="0.01"
+								min="0">
 						</div>
 						<div class="mb-3">
 							<label for="namKinhNghiem" class="form-label">Kinh Nghiệm
 								(Năm)</label> <input type="number" class="form-control"
 								id="namKinhNghiem" name="namKinhNghiem"
+								min="0"
 								placeholder="Nhập số năm kinh nghiệm tối thiểu">
 						</div>
 						<div class="mb-3">
@@ -96,6 +98,6 @@
 
 		</div>
 	</div>
-
+	<script src="js/kiemTraSoAm.js"></script>
 </body>
 </html>
