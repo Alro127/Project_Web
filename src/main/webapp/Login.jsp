@@ -120,31 +120,20 @@ h2 {
 			<div class="form-group">
 				<button type="submit">Đăng Nhập</button>
 			</div>
-		</form>
 
+		</form>
+		<div id="g_id_onload" data-type="standard" data-size="large"
+			data-theme="outline" data-text="sign_in_with"
+			data-shape="rectangular" data-logo_alignment="left"></div>
 		<!-- Google login -->
-		<!-- <div id="g_id_onload"
-		     data-client_id="503615320731-kcpnsnsjmng7vusmcm110s6m35c7d0iv.apps.googleusercontent.com"
-		     data-auto_prompt="false"
-		     data-callback="handleCredentialResponse">
-		</div> -->
-		<!-- <div class="g_id_signin"
-		     data-type="standard"
-		     data-size="large"
-		     data-theme="outline"
-		     data-text="sign_in_with"
-		     data-shape="rectangular"
-		     data-logo_alignment="left">
-		     
-		     <button onclick="window.location.href='https://accounts.google.com/o/oauth2/auth?client_id=503615320731-kcpnsnsjmng7vusmcm110s6m35c7d0iv.apps.googleusercontent.com&redirect_uri=http://localhost:8888/Callback&response_type=code&scope=https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/userinfo.email&access_type=offline';">
-			    Đăng nhập với Google
-			</button>
-		</div> -->
-		<button onclick="window.location.href='LoginGoogleServlet'">
-			Đăng nhập với Google</button>
-		<!-- Facebook Login -->
-		<div class="fb-login-button" data-scope="public_profile,email"
-			data-onlogin="checkLoginState();"></div>
+
+		<div class="g_id_signin" data-type="standard" data-size="large"
+			data-theme="outline" data-text="sign_in_with"
+			data-shape="rectangular" data-logo_alignment="left">
+
+			<button onclick="window.location.href='LoginGoogleServlet'">
+				Đăng nhập với Google</button>
+		</div>
 
 		<div class="form-footer">
 			<p>
