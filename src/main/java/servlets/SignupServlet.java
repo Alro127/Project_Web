@@ -7,7 +7,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import beans.TaiKhoan;
+import dao.CongTyDAO;
 import dao.TaiKhoanDAO;
+import dao.UngVienDAO;
 
 /**
  * Servlet implementation class SignupServlet
@@ -43,29 +46,37 @@ public class SignupServlet extends HttpServlet {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		String confirmPassword = request.getParameter("confirm-password");
-		String role = "Company";
-
+		String email = request.getParameter("email");
+		String role = request.getParameter("role");
+		
 		String destination = "Signup.jsp?error=1";
 		
-		if (!TaiKhoanDAO.isValidUserNamePassword(username, password, confirmPassword)) {
+		if (!TaiKhoan.isValidUserNamePassword(username, password, confirmPassword)) {
             // Trả về lỗi nếu thiếu username hoặc password
             request.setAttribute("errorMessage", "Tên đăng nhập và mật khẩu không hợp lệ");
-            request.getRequestDispatcher("Signup.jsp").forward(request, response);
+            request.getRequestDispatcher(destination).forward(request, response);
             return;
         }
 		// Check tồn tại
 		// boolean isRegistered = registerUser(username, password, role);
-		boolean isRegistered = true;
+		//boolean isRegistered = true;
 		if (TaiKhoanDAO.isExistedAccount(username, password)) {
 			// Nếu đăng ký thất bại, hiển thị thông báo lỗi
-            //request.setAttribute("errorMessage", "Tên đăng nhập đã tồn tại hoặc có lỗi xảy ra.");
+            request.setAttribute("errorMessage", "Tên đăng nhập đã tồn tại hoặc có lỗi xảy ra.");
             
         } else {
 			/*
 			 * if (role == "Employee") response.sendRedirect("ThongTinUngVien.jsp"); else
 			 * response.sendRedirect("ThongTinCongTy.jsp");
 			 */
-        	TaiKhoanDAO.AddAccount(username, password);
+        	TaiKhoanDAO.AddAccount(username, password, email, role);
+        	int id = TaiKhoanDAO.getID("username", username);
+        	if (role.equals("UngVien")) {
+				UngVienDAO.addUngVienAfterSignUP(id, email);
+			}
+        	else {
+				CongTyDAO.addCongTyAfterSignUP(id, email);
+			}
         	destination = "Login.jsp?success=1";
         }
 		request.getRequestDispatcher(destination).forward(request, response);
