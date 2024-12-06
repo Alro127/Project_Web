@@ -152,5 +152,18 @@ public class UngVienDAO {
 		}
         return false;
     }
+    public static void addUngVienAfterSignUP(int id, String email)
+    {
+    	String sql = "insert into UngVien (IdUV, email) values (?, ?)";
+    	try {
+			Connection connection = DBConnection.getConnection();
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setInt(1, id);
+			preparedStatement.setString(2, email);
+			preparedStatement.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    }
 }
 

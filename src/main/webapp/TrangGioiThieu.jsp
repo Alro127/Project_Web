@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Giới Thiệu</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
 	rel="stylesheet">
@@ -24,7 +25,16 @@
 <script
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js">	
 </script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+ <!-- Bootstrap Slider CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.6.2/css/bootstrap-slider.min.css" rel="stylesheet">
+<!-- Bootstrap Slider JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.6.2/bootstrap-slider.min.js"></script>
+<!-- Liên kết CSS của noUiSlider -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.6.0/nouislider.min.css" rel="stylesheet">
+
+<!-- Liên kết JavaScript của noUiSlider -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.6.0/nouislider.min.js"></script>
+
 <link href="assets/css/style.css" rel="stylesheet">
 </head>
 <body class="bg-light-grey">
@@ -56,5 +66,6 @@
 	<!-- Footer -->
 	<jsp:include page="fragments/footer.jsp" />
 	<script src="js/PhanTrangGioiThieu.js"></script>
+	//<script src="js/LocSlider.js"></script>
 </body>
 </html>

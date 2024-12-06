@@ -17,9 +17,9 @@ public class SQLServerConnection {
         String dbPassword = "1";
 
         // Chuỗi kết nối với các tham số cấu hình chính xác
-        String connectionURL = dbURL + ";databaseName=" + dbName + ";encrypt=true;trustServerCertificate=true;";  
+        //String connectionURL = dbURL + ";databaseName=" + dbName + ";encrypt=true;trustServerCertificate=true;";  
         // Chuỗi của Đạt
-        //String connectionURL = dbURL + ";databaseName=" + dbName + ";trustServerCertificate=true;"; 
+        String connectionURL = dbURL + ";databaseName=" + dbName + ";trustServerCertificate=true;"; 
         Connection conn = null;
 
 		try {

@@ -79,27 +79,29 @@ public class CongViecServlet extends HttpServlet {
 		}
 		request.setAttribute("tinhThanhs", tinhThanhs);
 		
+		double minLuong = CongViec.findMinLuong(congViecs);
+		double maxLuong = CongViec.findMaxLuong(congViecs);
+		request.setAttribute("minLuong", minLuong);
+		request.setAttribute("maxLuong", maxLuong);
+		
+		// Đoạn fetch
 		// Lọc theo lĩnh vực và tỉnh thành (nếu có)
 	    String linhVuc = request.getParameter("linhVuc");
 	    String tinhThanh = request.getParameter("tinhThanh");
 	    String ten = request.getParameter("ten");  // Lấy giá trị tìm kiếm theo tên công việc
-		/*
-		 * if (linhVuc != null && !linhVuc.isEmpty()) { congViecs = congViecs.stream()
-		 * .filter(cv -> linhVuc.equals(cv.getLinhVuc())) .collect(Collectors.toList());
-		 * }
-		 * 
-		 * if (tinhThanh != null && !tinhThanh.isEmpty()) { congViecs =
-		 * congViecs.stream() .filter(cv -> tinhThanh.equals(cv.getDiaDiem()))
-		 * .collect(Collectors.toList()); }
-		 * 
-		 * if (ten != null && !ten.isEmpty()) { congViecs = congViecs.stream()
-		 * .filter(cv -> cv.getTen().toLowerCase().contains(ten.toLowerCase())) // So
-		 * sánh không phân biệt chữ hoa chữ thường .collect(Collectors.toList()); }
-		 */
+	    String kinhNghiem = request.getParameter("kinhNghiem");
+	    String luongKhoiDiemHienTai = request.getParameter("luongKhoiDiemHienTai");
+	    String LuongKetThucHienTai = request.getParameter("LuongKetThucHienTai");
 	    congViecs = CongViec.LocLinhVuc(congViecs, linhVuc);
 	    congViecs = CongViec.LocTinhThanh(congViecs, tinhThanh);
 	    congViecs = CongViec.LocTen(congViecs, ten);
-	    Collections.shuffle(congViecs);
+	    if (kinhNghiem != null) {
+	    	congViecs = CongViec.findInExperince(congViecs, Integer.parseInt(kinhNghiem));
+		}
+	    if (luongKhoiDiemHienTai != null && LuongKetThucHienTai != null) {
+	    	 congViecs = CongViec.findInRangeLuong(congViecs, Integer.parseInt(luongKhoiDiemHienTai), Integer.parseInt(LuongKetThucHienTai));
+		}
+		Collections.shuffle(congViecs);
 		// Số công việc mỗi trang
 	    int pageSize = 9;
 	    int page = 1;  // Mặc định là trang đầu tiên
@@ -126,20 +128,23 @@ public class CongViecServlet extends HttpServlet {
 	    response.setContentType("application/json");
 	    response.setCharacterEncoding("UTF-8");
 
-	    Map<String, Object> responseData = new HashMap<>();
-	    responseData.put("congViecs", pagedCongViecs);
-	    responseData.put("totalPages", totalPages);
-	    responseData.put("currentPage", page);
-	    //responseData.put("listLinhvuc", linhVucs);
-
-	    // Chỉ trả về JSON một lần
-	    String jsonResponse = new Gson().toJson(responseData);
-	    response.getWriter().write(jsonResponse);
+	   
 	    
 	    // Nếu không phải AJAX, bạn có thể chuyển hướng sang JSP
 	    if (!"true".equals(request.getParameter("ajax"))) {
 	        request.getRequestDispatcher("TrangGioiThieu.jsp").forward(request, response);
 	    }
+	    else {
+	    	 Map<String, Object> responseData = new HashMap<>();
+	 	    responseData.put("congViecs", pagedCongViecs);
+	 	    responseData.put("totalPages", totalPages);
+	 	    responseData.put("currentPage", page);
+	 	    //responseData.put("listLinhvuc", linhVucs);
+
+	 	    // Chỉ trả về JSON một lần
+	 	    String jsonResponse = new Gson().toJson(responseData);
+	 	    response.getWriter().write(jsonResponse);
+		}
 
 	}
 
