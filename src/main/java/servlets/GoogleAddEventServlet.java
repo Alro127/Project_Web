@@ -22,6 +22,7 @@ import com.google.api.services.calendar.model.EventAttendee;
 import com.google.api.services.calendar.model.EventDateTime;
 
 import authentication.GoogleCredential;
+import dao.CongTyDAO;
 
 /**
  * Servlet implementation class GoogleAddEventServlet
@@ -64,7 +65,15 @@ public class GoogleAddEventServlet extends HttpServlet {
 
             // Thêm người tham gia vào danh sách
             // Lấy từ CSDL
-            attendeesEmail.add(new EventAttendee().setEmail("td13052004@gmail.com"));
+            String role = session.getAttribute("role").toString();
+            if (role.equals("CongTy")) {
+            	int id = Integer.parseInt((String)session.getAttribute("id"));
+            	List<String> emails = CongTyDAO.getEmailOfEmployeesFromCompany(id);
+                for (String email : emails) {
+					attendeesEmail.add(new EventAttendee().setEmail(email));
+				}
+			}
+            
             // Tạo sự kiện và thêm vào Google Calendar
             Event event = new Event()
                     .setSummary(title)
