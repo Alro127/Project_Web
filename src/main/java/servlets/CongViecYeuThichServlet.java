@@ -75,27 +75,28 @@ public class CongViecYeuThichServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		request.setAttribute("tinhThanhs", tinhThanhs);
+		double minLuong = CongViec.findMinLuong(congViecs);
+		double maxLuong = CongViec.findMaxLuong(congViecs);
+		request.setAttribute("minLuong", minLuong);
+		request.setAttribute("maxLuong", maxLuong);
+		
 		
 		// Lọc theo lĩnh vực và tỉnh thành (nếu có)
 	    String linhVuc = request.getParameter("linhVuc");
 	    String tinhThanh = request.getParameter("tinhThanh");
 	    String ten = request.getParameter("ten");  // Lấy giá trị tìm kiếm theo tên công việc
-		/*
-		 * if (linhVuc != null && !linhVuc.isEmpty()) { congViecs = congViecs.stream()
-		 * .filter(cv -> linhVuc.equals(cv.getLinhVuc())) .collect(Collectors.toList());
-		 * }
-		 * 
-		 * if (tinhThanh != null && !tinhThanh.isEmpty()) { congViecs =
-		 * congViecs.stream() .filter(cv -> tinhThanh.equals(cv.getDiaDiem()))
-		 * .collect(Collectors.toList()); }
-		 * 
-		 * if (ten != null && !ten.isEmpty()) { congViecs = congViecs.stream()
-		 * .filter(cv -> cv.getTen().toLowerCase().contains(ten.toLowerCase())) // So
-		 * sánh không phân biệt chữ hoa chữ thường .collect(Collectors.toList()); }
-		 */
+	    String kinhNghiem = request.getParameter("kinhNghiem");
+	    String luongKhoiDiemHienTai = request.getParameter("luongKhoiDiemHienTai");
+	    String LuongKetThucHienTai = request.getParameter("LuongKetThucHienTai");
 	    congViecs = CongViec.LocLinhVuc(congViecs, linhVuc);
 	    congViecs = CongViec.LocTinhThanh(congViecs, tinhThanh);
 	    congViecs = CongViec.LocTen(congViecs, ten);
+	    if (kinhNghiem != null) {
+	    	congViecs = CongViec.findInExperince(congViecs, Integer.parseInt(kinhNghiem));
+		}
+	    if (luongKhoiDiemHienTai != null && LuongKetThucHienTai != null) {
+	    	 congViecs = CongViec.findInRangeLuong(congViecs, Double.parseDouble(luongKhoiDiemHienTai), Double.parseDouble(LuongKetThucHienTai));
+		}
 	    int pageSize = 9;
 	    int page = 1;  // Mặc định là trang đầu tiên
 
