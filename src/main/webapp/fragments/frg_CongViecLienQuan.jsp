@@ -15,16 +15,21 @@
 							alt="Công việc"
 							style="width: 100px; height: 100px; object-fit: cover;">
 						<div class="card-body ms-3">
-							<h5 class="card-title">${congViecLienQuan.ten}</h5>
+							<h5 class="card-title">
+								<strong>${congViecLienQuan.ten}</strong>
+							</h5>
+							<h6 class="font-weight-bold" style="font-size: 1.1rem;">${congViecLienQuan.tenCongTy}</h6>
 							<p class="card-text">
-								<strong>Công ty:</strong> ${congViecLienQuan.tenCongTy} <br>
-								<strong>Lương:</strong> ${congViecLienQuan.luong} VND <br>
-								<strong>Địa điểm:</strong> ${congViecLienQuan.diaDiem}
+								<strong><i class="bi bi-currency-dollar text-warning"></i>
+									</strong> ${congViecLienQuan.luong} VND <br> <strong><i
+									class="bi bi-geo-alt text-primary"></i></strong>
+								${congViecLienQuan.diaDiem}
 							</p>
 						</div>
 					</div>
 				</a>
 			</div>
+
 		</c:forEach>
 	</div>
 </div>
