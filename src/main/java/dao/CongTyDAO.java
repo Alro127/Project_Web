@@ -143,4 +143,28 @@ public class CongTyDAO {
 			e.printStackTrace();
 		}
     }
+	public static List<String> getEmailOfEmployeesFromCompany(int idCT)
+	{
+		 List<String> emails = new ArrayList<String>();
+		 String sql = "SELECT UV.email "
+                 + "FROM UngVien UV "
+                 + "JOIN CV cv ON UV.IdUV = cv.IdUV "
+                 + "join HoSo hs on cv.IdCV = hs.IdCongViec "
+                 + "JOIN CongViec ON HS.IdCongViec = CongViec.IdCongViec "
+                 + "JOIN CongTy CT ON CongViec.IdCT = CT.IdCT "
+                 + "WHERE CT.IdCT = ? and hs.TrangThai = N'Phỏng vấn'"; // Sử dụng tham số cho IdCT
+		 try {
+			Connection connection = DBConnection.getConnection();
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setInt(1, idCT);
+			ResultSet rs = preparedStatement.executeQuery();
+			while (rs.next()) {
+				emails.add(rs.getString(1));
+			}
+			return emails;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 }

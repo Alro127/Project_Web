@@ -91,7 +91,7 @@ function saveData() {
         certificateData: certificateData,
         skillData: skillData,
 		mode: mode.value,
-		IdCV: IdCV.value
+		IdCV: IdCV && IdCV.value ? IdCV.value : "0" // thay "defaultValue" bằng giá trị bạn muốn
     };
 	// Kiểm tra dữ liệu trước khi gửi
 	if (!validateData(dataToSend)) {
