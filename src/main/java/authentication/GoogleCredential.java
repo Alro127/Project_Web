@@ -60,7 +60,7 @@ public class GoogleCredential {
                 		"https://www.googleapis.com/auth/calendar"))
                 //.setDataStoreFactory(new FileDataStoreFactory(new java.io.File(TOKENS_DIRECTORY_PATH)))
                 .setAccessType("offline") // Cần có refresh token
-                .setApprovalPrompt("force") // Buộc hiển thị màn hình cấp quyền
+                //.setApprovalPrompt("force") // Buộc hiển thị màn hình cấp quyền
                 .build();
         
         // Set receiver để nhận mã xác thực từ trình duyệt

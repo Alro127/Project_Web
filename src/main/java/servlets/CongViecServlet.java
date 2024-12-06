@@ -124,20 +124,23 @@ public class CongViecServlet extends HttpServlet {
 	    response.setContentType("application/json");
 	    response.setCharacterEncoding("UTF-8");
 
-	    Map<String, Object> responseData = new HashMap<>();
-	    responseData.put("congViecs", pagedCongViecs);
-	    responseData.put("totalPages", totalPages);
-	    responseData.put("currentPage", page);
-	    //responseData.put("listLinhvuc", linhVucs);
-
-	    // Chỉ trả về JSON một lần
-	    String jsonResponse = new Gson().toJson(responseData);
-	    response.getWriter().write(jsonResponse);
+	   
 	    
 	    // Nếu không phải AJAX, bạn có thể chuyển hướng sang JSP
 	    if (!"true".equals(request.getParameter("ajax"))) {
 	        request.getRequestDispatcher("TrangGioiThieu.jsp").forward(request, response);
 	    }
+	    else {
+	    	 Map<String, Object> responseData = new HashMap<>();
+	 	    responseData.put("congViecs", pagedCongViecs);
+	 	    responseData.put("totalPages", totalPages);
+	 	    responseData.put("currentPage", page);
+	 	    //responseData.put("listLinhvuc", linhVucs);
+
+	 	    // Chỉ trả về JSON một lần
+	 	    String jsonResponse = new Gson().toJson(responseData);
+	 	    response.getWriter().write(jsonResponse);
+		}
 
 	}
 
