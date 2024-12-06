@@ -33,13 +33,7 @@
 	</c:choose>
 
 	<!-- Main Content -->
-	<div class="container mt-5">
-		<!--  Tìm kiếm -->
-		<div class="bg-white rounded p-3 shadow-sm mt-4 mb-4"
-			style="background-color: rgba(255, 255, 255, 0.5);">
-			<jsp:include page="fragments/frg_TimKiemVaLoc.jsp" />
-		</div>
-
+	<div class="container mt-5 py-5">
 		<!-- Content -->
 		<div class="container">
 			<div class="row">

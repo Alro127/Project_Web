@@ -68,7 +68,7 @@
 	</c:choose>
 
 	<!-- Main Content -->
-	<div class="container mt-5">
+	<div class="container mt-5 py-2">
 		<section class="container mb-5">
 			<div class="row position-relative" id="company-info">
 				<!-- Phần tên công ty và logo -->
