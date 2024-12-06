@@ -140,7 +140,7 @@ h2 {
 			    Đăng nhập với Google
 			</button>
 		</div> -->
-		<button onclick="window.location.href='LoginGoogleServlet'">
+		<button onclick="redirectToGoogleLogin()">
 			Đăng nhập với Google</button>
 		<!-- Facebook Login -->
 		<div class="fb-login-button" data-scope="public_profile,email"
@@ -197,5 +197,27 @@ h2 {
             window.history.replaceState({}, document.title, url); // Cập nhật URL mà không tải lại trang
         }
     </script>
+    <script>
+    // Hàm lấy tham số từ URL
+    function getUrlParameter(name) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(name); // Trả về giá trị của tham số hoặc null nếu không có tham số
+    }
+
+    // Hàm kiểm tra tham số 'role' và truyền vào URL của LoginGoogleServlet
+    function redirectToGoogleLogin() {
+        // Lấy giá trị của 'role' từ URL
+        const role = getUrlParameter('role');
+        
+        // Nếu có tham số 'role', thêm nó vào URL
+        if (role) {
+            window.location.href = 'LoginGoogleServlet?role=' + role;
+        } else {
+            // Nếu không có tham số 'role', chỉ điều hướng đến LoginGoogleServlet mà không có tham số
+            window.location.href = 'LoginGoogleServlet';
+        }
+    }
+	</script>
+    
 </body>
 </html>

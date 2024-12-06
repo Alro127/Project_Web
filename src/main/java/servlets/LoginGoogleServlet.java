@@ -38,7 +38,7 @@ public class LoginGoogleServlet extends HttpServlet {
 	    	 	GoogleCredential getCredential = new GoogleCredential(getServletContext());
 		        Credential credential = getCredential.getCredentials();
 		        String destination = "";
-		        
+		        String role = request.getParameter("role");
 		        // Đảm bảo có credential trong toàn bộ phiên làm việc nếu đăng nhập bằng google
 		        HttpSession session = request.getSession(true);
 		        session.setAttribute("Credential", credential);
@@ -55,14 +55,22 @@ public class LoginGoogleServlet extends HttpServlet {
 		        String email = userinfo.getEmail();
 		        
 		        session.setAttribute("id_google", id_google);
-		        
+		        int id;
 		        // Nếu đăng nhập lần đầu thì sẽ thêm vào CSDL
 		        if (!TaiKhoanDAO.isIDExisted(id_google, "id_google"))
 		        {
 		        	TaiKhoanDAO.AddAccountByID(id_google, "id_google");
+		        	TaiKhoanDAO.SetRoleByIDGoogle(id_google, role);
+		        	id = TaiKhoanDAO.getID("id_google", id_google);
+		        	if (role.equals("UngVien")) {
+						UngVienDAO.addUngVienAfterSignUP(id, email);
+					}
+		        	else {
+						CongTyDAO.addCongTyAfterSignUP(id, email);
+					}
 		        }
 		        		        
-		        int id = TaiKhoanDAO.getID("id_google", id_google);
+		        id = TaiKhoanDAO.getID("id_google", id_google);
 		        String refreshToken = TaiKhoanDAO.getRefreshToken(id);
 		        if (credential.getRefreshToken() != null)
 		        {
@@ -87,7 +95,7 @@ public class LoginGoogleServlet extends HttpServlet {
 				    session.setAttribute("refresh_token", information.get(4)); // Lưu refresh_token	
 				    session.setAttribute("role", information.get(5));
 				    session.setAttribute("email", information.get(6));
-				    String role = (String) session.getAttribute("role");
+				    role = (String) session.getAttribute("role");
 				    if (role.equals("UngVien")) {
 				    	destination = "CongViecServlet";
 				    	UngVien uv = UngVienDAO.getUngVienById(id);

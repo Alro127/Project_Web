@@ -107,6 +107,7 @@ document.getElementById("saveImage").addEventListener("click", function () {
                 // Đóng modal
                 var modal = new bootstrap.Modal(document.getElementById('addImageModal'));
                 modal.hide();
+				
            /* })
             .catch(error => {
                 console.error("Lỗi:", error);

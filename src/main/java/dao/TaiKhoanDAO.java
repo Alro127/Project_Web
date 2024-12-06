@@ -252,5 +252,19 @@ public class TaiKhoanDAO {
 		}
     	return null;
     }
-
+    public static void SetRoleByIDGoogle(String id_goole, String role)
+    {
+    	String sql = "update TaiKhoan set role = ? where id_google = ?";
+    	try {
+			Connection connection = DBConnection.getConnection();
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, role);
+			preparedStatement.setString(2, id_goole);
+			preparedStatement.execute();
+			preparedStatement.close();
+			connection.close();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+    }
 }

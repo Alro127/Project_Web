@@ -66,6 +66,7 @@ document.getElementById("saveAllChanges").addEventListener("click", function(eve
 	    } else {
 	        alert(response.text);
 	    }
+		window.location.reload(true);
 	})
 	.then(data => {
 	    console.log("Phản hồi từ server:", data);
@@ -76,9 +77,11 @@ document.getElementById("saveAllChanges").addEventListener("click", function(eve
 	        // Hiển thị thông báo khi có lỗi
 	        alert("Lỗi khi cập nhật thông tin.");
 	    }
+		window.location.reload(true);
 	})
 	.catch(error => {
 	    console.error("Lỗi khi gửi dữ liệu:", error);
 	    alert("Đã xảy ra lỗi khi gửi yêu cầu.");
+		window.location.reload(true);
 	});
 })

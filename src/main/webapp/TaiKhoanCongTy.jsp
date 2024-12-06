@@ -239,7 +239,8 @@
 												<c:forEach var="imageSrc" items="${images}">
 													<div class="mb-3">
 														<img src="${imageSrc}" class="img-fluid img-thumbnail"
-															style="max-width: 100%; max-height: 200px; object-fit: cover;" />
+															style="max-width: 100%; max-height: 200px; object-fit: cover;"
+															data-file-name="${imageSrc.substring(imageSrc.lastIndexOf('/') + 1)}" />
 													</div>
 												</c:forEach>
 											</c:when>
@@ -249,6 +250,24 @@
 										</c:choose>
 									</div>
 								</div>
+								<div id="delete-modal" class="modal" tabindex="-1" role="dialog">
+								    <div class="modal-dialog" role="document">
+								        <div class="modal-content">
+								            <div class="modal-header">
+								                <h5 class="modal-title">Xác nhận xóa</h5>
+								                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+								            </div>
+								            <div class="modal-body">
+								                <p>Bạn có chắc chắn muốn xóa ảnh này không?</p>
+								            </div>
+								            <div class="modal-footer">
+								                <button type="button" class="btn btn-danger" id="confirm-delete">Xóa</button>
+								                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Hủy</button>
+								            </div>
+								        </div>
+								    </div>
+								</div>
+					
 								<button type="button" class="btn btn-primary col-2"
 									data-bs-toggle="modal" data-bs-target="#addImageModal">Thêm
 									hình ảnh</button>
@@ -271,5 +290,6 @@
 	<script src="js/ThemHinhAnh.js"></script>
 	<script src="js/QuanLyTaiKhoan.js"></script>
 	<script src="js/QuanLyMatKhau.js"></script>
+	<script src="js/XoaHinhAnhHoatDong.js"></script>
 </body>
 </html>

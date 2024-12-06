@@ -325,4 +325,24 @@
     <servlet-name>CongViecDaUngTuyenServlet</servlet-name>
     <url-pattern>/CongViecDaUngTuyenServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>XoaHinhAnhHoatDongServlet</display-name>
+    <servlet-name>XoaHinhAnhHoatDongServlet</servlet-name>
+    <servlet-class>servlets.XoaHinhAnhHoatDongServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>XoaHinhAnhHoatDongServlet</servlet-name>
+    <url-pattern>/XoaHinhAnhHoatDongServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>SetRoleLoginGoogleServlet</display-name>
+    <servlet-name>SetRoleLoginGoogleServlet</servlet-name>
+    <servlet-class>servlets.SetRoleLoginGoogleServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SetRoleLoginGoogleServlet</servlet-name>
+    <url-pattern>/SetRoleLoginGoogleServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

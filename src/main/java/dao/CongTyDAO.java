@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.api.client.util.Strings;
+
 import beans.CongTy;
 import conn.DBConnection;
 
@@ -166,5 +168,20 @@ public class CongTyDAO {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	public static void XoaHinhAnhHoatDong(int idCT, String path)
+	{
+		String sql = "delete from HinhAnhHoatDong where idCongTy = ? and duongDan = ?";
+		try {
+			Connection connection = DBConnection.getConnection();
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setInt(1, idCT);
+			preparedStatement.setString(2, path);
+			preparedStatement.execute();
+			preparedStatement.close();
+			connection.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
