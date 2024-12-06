@@ -46,7 +46,7 @@ public class TaiKhoanDAO {
 		}
 		return false;
 	}
-	public static void AddAccount(String username, String password, String email, String role)
+	public static boolean AddAccount(String username, String password, String email, String role)
 	{
 		try {
 			Connection conn = DBConnection.getConnection();
@@ -56,12 +56,14 @@ public class TaiKhoanDAO {
 			preparedStatement.setString(2, password);
 			preparedStatement.setString(3, email);
 			preparedStatement.setString(4, role);
-			preparedStatement.execute();
+			int rowsAffected = preparedStatement.executeUpdate();
 			preparedStatement.close();
 			conn.close();
+	        return rowsAffected > 0; 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return false;
 	}
 	public static List<String> getInformationForSession(int id)
 	{

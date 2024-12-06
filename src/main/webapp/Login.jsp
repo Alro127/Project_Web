@@ -120,25 +120,26 @@ h2 {
 			<div class="form-group">
 				<button type="submit">Đăng Nhập</button>
 			</div>
-
 		</form>
-		<div id="g_id_onload" data-type="standard" data-size="large"
-			data-theme="outline" data-text="sign_in_with"
-			data-shape="rectangular" data-logo_alignment="left"></div>
-		<!-- Google login -->
 
-		<div class="g_id_signin" data-type="standard" data-size="large"
-			data-theme="outline" data-text="sign_in_with"
-			data-shape="rectangular" data-logo_alignment="left">
+		<!-- Google login -->
+		 <div id="g_id_onload">
+		</div> 
+		<div class="g_id_signin"
+		     data-type="standard"
+		     data-size="large"
+		     data-theme="outline"
+		     data-text="sign_in_with"
+		     data-shape="rectangular"
+		     data-logo_alignment="left">
 
 			<button onclick="window.location.href='LoginGoogleServlet'">
-				Đăng nhập với Google</button>
-		</div>
-
+			Đăng nhập với Google</button>
+		</div> 
+		<!-- <button onclick="window.location.href='LoginGoogleServlet'">
+			Đăng nhập với Google</button> -->
+		
 		<div class="form-footer">
-			<p>
-				Quên mật khẩu? <a href="#">Khôi phục</a>
-			</p>
 			<p>
 				Chưa có tài khoản? <a href="Signup.jsp">Đăng ký tài khoản</a>
 			</p>
