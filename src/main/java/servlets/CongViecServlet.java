@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -100,6 +101,7 @@ public class CongViecServlet extends HttpServlet {
 	    if (luongKhoiDiemHienTai != null && LuongKetThucHienTai != null) {
 	    	 congViecs = CongViec.findInRangeLuong(congViecs, Double.parseDouble(luongKhoiDiemHienTai), Double.parseDouble(LuongKetThucHienTai));
 		}
+		Collections.shuffle(congViecs);
 		// Số công việc mỗi trang
 	    int pageSize = 9;
 	    int page = 1;  // Mặc định là trang đầu tiên
