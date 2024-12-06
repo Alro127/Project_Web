@@ -13,6 +13,9 @@ function loadJobs(page) {
             linhVuc: linhVuc,  // Thêm tham số lĩnh vực
             tinhThanh: tinhThanh,  // Thêm tham số tỉnh thành
             ten: ten,  // Thêm tham số tìm kiếm theo tên công việc
+			kinhNghiem: kinhNghiem,
+			luongKhoiDiemHienTai: luongKhoiDiemHienTai,
+			LuongKetThucHienTai: LuongKetThucHienTai,
             ajax: true  // Đánh dấu là yêu cầu AJAX
         },
         success: function(response) {

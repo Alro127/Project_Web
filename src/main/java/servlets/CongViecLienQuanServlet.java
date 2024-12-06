@@ -60,28 +60,30 @@ public class CongViecLienQuanServlet extends HttpServlet {
 
             request.setAttribute("linhVucs", linhVucs);
             request.setAttribute("tinhThanhs", tinhThanhs);
-
+            double minLuong = CongViec.findMinLuong(congViecLienQuans);
+    		double maxLuong = CongViec.findMaxLuong(congViecLienQuans);
+            request.setAttribute("minLuong", minLuong);
+    		request.setAttribute("maxLuong", maxLuong);
             // Lọc công việc
             String linhVuc = request.getParameter("linhVuc");
             String tinhThanh = request.getParameter("tinhThanh");
             String ten = request.getParameter("ten");
-
-			/*
-			 * if (linhVuc != null && !linhVuc.isEmpty()) { congViecs = congViecs.stream()
-			 * .filter(cv -> linhVuc.equals(cv.getLinhVuc())) .collect(Collectors.toList());
-			 * }
-			 * 
-			 * if (tinhThanh != null && !tinhThanh.isEmpty()) { congViecs =
-			 * congViecs.stream() .filter(cv -> tinhThanh.equals(cv.getDiaDiem()))
-			 * .collect(Collectors.toList()); }
-			 * 
-			 * if (ten != null && !ten.isEmpty()) { congViecs = congViecs.stream()
-			 * .filter(cv -> cv.getTen().toLowerCase().contains(ten.toLowerCase()))
-			 * .collect(Collectors.toList()); }
-			 */
-            congViecs = CongViec.LocLinhVuc(congViecs, linhVuc);
-    	    congViecs = CongViec.LocTinhThanh(congViecs, tinhThanh);
-    	    congViecs = CongViec.LocTen(congViecs, ten);
+            String kinhNghiem = request.getParameter("kinhNghiem");
+    	    String luongKhoiDiemHienTai = request.getParameter("luongKhoiDiemHienTai");
+    	    String LuongKetThucHienTai = request.getParameter("LuongKetThucHienTai");
+    	    
+            congViecLienQuans = CongViec.LocLinhVuc(congViecLienQuans, linhVuc);
+            congViecLienQuans = CongViec.LocTinhThanh(congViecLienQuans, tinhThanh);
+            congViecLienQuans = CongViec.LocTen(congViecLienQuans, ten);
+            congViecLienQuans = CongViec.LocLinhVuc(congViecLienQuans, linhVuc);
+            congViecLienQuans = CongViec.LocTinhThanh(congViecLienQuans, tinhThanh);
+            congViecLienQuans = CongViec.LocTen(congViecLienQuans, ten);
+    	    if (kinhNghiem != null) {
+    	    	congViecLienQuans = CongViec.findInExperince(congViecLienQuans, Integer.parseInt(kinhNghiem));
+    		}
+    	    if (luongKhoiDiemHienTai != null && LuongKetThucHienTai != null) {
+    	    	congViecLienQuans = CongViec.findInRangeLuong(congViecLienQuans, Double.parseDouble(luongKhoiDiemHienTai), Double.parseDouble(LuongKetThucHienTai));
+    		}
             // Phân trang
             int pageSize = 30;
             int page = 1;
@@ -95,7 +97,7 @@ public class CongViecLienQuanServlet extends HttpServlet {
                 }
             }
 
-            int totalCongViecs = congViecs.size();
+            int totalCongViecs = congViecLienQuans.size();
             int totalPages = (int) Math.ceil((double) totalCongViecs / pageSize);
             int startIndex = (page - 1) * pageSize;
             int endIndex = Math.min(startIndex + pageSize, totalCongViecs);

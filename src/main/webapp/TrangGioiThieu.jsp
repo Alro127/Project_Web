@@ -66,6 +66,6 @@
 	<!-- Footer -->
 	<jsp:include page="fragments/footer.jsp" />
 	<script src="js/PhanTrangGioiThieu.js"></script>
-	//<script src="js/LocSlider.js"></script>
+	<script src="js/LocSlider.js"></script>
 </body>
 </html>

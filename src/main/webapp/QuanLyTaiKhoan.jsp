@@ -170,7 +170,7 @@
 							<!-- Số điện thoại -->
 							<div class="col-md-6">
 								<label for="phone" class="form-label">Số điện thoại:</label> <input
-									type="tel" id="phone" name="phone" class="form-control"
+									type="tel" id="phone" name="phone" pattern="[0-9]{10}" class="form-control"
 									placeholder="Nhập số điện thoại" required value="${uv.phone}" />
 							</div>
 							<!-- Email -->
