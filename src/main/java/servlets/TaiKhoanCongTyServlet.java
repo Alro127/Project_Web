@@ -70,7 +70,7 @@ public class TaiKhoanCongTyServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//doGet(request, response);
-		HttpSession session = request.getSession(true);
+		HttpSession session = request.getSession(false);
 		int id = Integer.parseInt((String)session.getAttribute("id"));
 		BufferedReader reader = request.getReader();
         StringBuilder jsonString = new StringBuilder();
@@ -252,6 +252,8 @@ public class TaiKhoanCongTyServlet extends HttpServlet {
 				ct.setLogo(null);
 			}
             CongTyDAO.updateThongtinCongTy(ct);
+            session.setAttribute("name", ct.getTenCongTy());
+            
             if (isUpdateBackGround) {
 				
 				// Đường dẫn thư mục avatar trong project
@@ -308,7 +310,7 @@ public class TaiKhoanCongTyServlet extends HttpServlet {
             JSONObject jsonResponse = new JSONObject();
             jsonResponse.put("status", "success");
             //jsonResponse.put("imagePath", relativePath + "/" + fileName); // �u?ng d?n ?nh tr? v?
-
+            
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
             response.getWriter().write(jsonResponse.toString());

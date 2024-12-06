@@ -50,7 +50,7 @@ public class QuanLyTaiKhoanServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    // Lấy thông tin từ form
-	    HttpSession session = request.getSession(true);
+	    HttpSession session = request.getSession(false);
 	    int id = Integer.parseInt((String) session.getAttribute("id"));
 	    BufferedReader reader = request.getReader();
 	    StringBuilder jsonString = new StringBuilder();
@@ -173,6 +173,7 @@ public class QuanLyTaiKhoanServlet extends HttpServlet {
 	            JSONObject successResponse = new JSONObject();
 	            successResponse.put("success", true);
 	            successResponse.put("message", "Cập nhật thông tin thành công.");
+	            session.setAttribute("name", userAccount.getFullName());
 	            response.setContentType("application/json");
 	            response.getWriter().write(successResponse.toString());
 	        } catch (SQLException e) {
@@ -193,6 +194,8 @@ public class QuanLyTaiKhoanServlet extends HttpServlet {
 	        response.setContentType("application/json");
 	        response.getWriter().write(errorResponse.toString());
 	    }
+	    doGet(request, response);
 	}
+	
 
 }
