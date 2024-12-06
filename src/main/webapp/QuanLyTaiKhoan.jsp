@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Quản lý tài khoản ứng viên</title>
+<title>Quản lý tài khoản</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
 	rel="stylesheet">
@@ -23,16 +23,20 @@
 	crossorigin="anonymous"></script>
 </head>
 <body class="bg-light-grey">
+
 	<jsp:include page="fragments/topNavAcc.jsp"></jsp:include>
-	<!-- Sidebar -->
+
 	<div class="d-flex mt-5">
 		<jsp:include page="fragments/sidebar_UngVien.jsp" />
+
 		<div class="container mt-5">
-			<h2>Quản lý thông tin cá nhân</h2>
+			<h2 class="text-center">Quản Lý Tài Khoản</h2>
 
 			<!-- Phần trên: Thông tin tài khoản -->
 			<div class="card mb-4">
-				<div class="card-header">Thông tin tài khoản</div>
+				<div class="card-header">
+					<strong>Thông tin tài khoản</strong>
+				</div>
 				<div class="card-body">
 					<form>
 
@@ -59,8 +63,8 @@
 					</form>
 
 					<!-- Nút Toggle để thêm phần Đổi Mật Khẩu -->
-					<button type="button" id="toggleChangePassword" class="btn btn-secondary mb-4">Đổi
-						mật khẩu</button>
+					<button type="button" id="toggleChangePassword"
+						class="btn btn-secondary mb-4">Đổi mật khẩu</button>
 
 					<!-- Phần giao diện Đổi Mật Khẩu -->
 					<div id="changePasswordForm" class="mt-3" style="display: none;">
@@ -96,46 +100,45 @@
 
 			<!-- Phần dưới: Thông tin cá nhân -->
 			<div class="card">
-				<div class="card-header">Thông tin cá nhân</div>
+				<div class="card-header"><strong>Thông tin cá nhân</strong></div>
 				<div class="card-body">
-					
+
 					<form>
 						<div class="mb-3 row">
 							<!-- Modal -->
 							<div class="modal fade" id="addAvatarImageModal" tabindex="-1"
-										aria-labelledby="addAvatarImageModalLabel" aria-hidden="true">
-										<div class="modal-dialog">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="addAvatarImageModalLabel">Thêm
-														Hình Ảnh</h5>
-													<button type="button" class="btn-close"
-														data-bs-dismiss="modal" aria-label="Close"></button>
-												</div>
-												<div class="modal-body">
-													<div class="mb-3">
-														<label for="imageAvatarUpload" class="form-label">Chọn
-															hình ảnh:</label> <input type="file" class="form-control"
-															id="imageAvatarUpload">
-													</div>
-												</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary"
-														data-bs-dismiss="modal">Đóng</button>
-													<button type="button" class="btn btn-primary"
-														data-bs-dismiss="modal" id="saveAvatarImage">Lưu</button>
-												</div>
+								aria-labelledby="addAvatarImageModalLabel" aria-hidden="true">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title" id="addAvatarImageModalLabel">Thêm
+												Hình Ảnh</h5>
+											<button type="button" class="btn-close"
+												data-bs-dismiss="modal" aria-label="Close"></button>
+										</div>
+										<div class="modal-body">
+											<div class="mb-3">
+												<label for="imageAvatarUpload" class="form-label">Chọn
+													hình ảnh:</label> <input type="file" class="form-control"
+													id="imageAvatarUpload">
 											</div>
 										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-secondary"
+												data-bs-dismiss="modal">Đóng</button>
+											<button type="button" class="btn btn-primary"
+												data-bs-dismiss="modal" id="saveAvatarImage">Lưu</button>
+										</div>
+									</div>
+								</div>
 							</div>
 							<!-- Avatar -->
 							<div class="col-md-6">
 								<div
 									class="position-relative d-flex justify-content-center align-items-center">
 									<!-- Avatar -->
-									<img id="avatarPreview"
-										src="${uv.avatar}"
-										alt="Avatar" class="rounded-circle border"
+									<img id="avatarPreview" src="${uv.avatar}" alt="Avatar"
+										class="rounded-circle border"
 										style="width: 200px; height: 200px; object-fit: cover;">
 
 									<!-- Hidden file input -->
@@ -148,13 +151,13 @@
 										<!-- Upload button -->
 										<button type="button"
 											class="btn btn-outline-primary btn-sm me-1"
-											data-bs-toggle="modal"
-											data-bs-target="#addAvatarImageModal">
+											data-bs-toggle="modal" data-bs-target="#addAvatarImageModal">
 											<i class="bi bi-upload"></i>
 										</button>
 									</div>
 								</div>
 							</div>
+							
 							<div class="col-md-6">
 								<!-- Họ tên -->
 								<div>
@@ -223,11 +226,11 @@
 								required>${uv.introduction}</textarea>
 						</div>
 
-
-						<!-- Nút lưu -->
-						<button type="submit" class="btn btn-primary">Lưu thông
-							tin</button>
 					</form>
+					<div class="form-group text-end">
+						<button type="submit" class="btn btn-primary" id="saveAllCandidateChanges">Lưu
+							Thay Đổi</button>
+					</div>
 				</div>
 			</div>
 		</div>

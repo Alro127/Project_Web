@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Trang Quản Lý Tài Khoản Công Ty</title>
+<title>Quản Lý tài Khoản</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
 	rel="stylesheet">
@@ -29,16 +29,19 @@
 </script>
 </head>
 <body class="bg-light-grey">
+
 	<jsp:include page="fragments/topNavAcc.jsp"></jsp:include>
+
 	<div class="d-flex mt-5">
-		<!-- Sidebar -->
+
 		<jsp:include page="fragments/sidebar_CongTy.jsp" />
-		<div class="container mt-4 bg-light py-3 px-3 shadow rounded ">
+
+		<div class="container mt-5">
 
 			<h2 class="text-center">Quản Lý Tài Khoản</h2>
 			<div class="card mb-4">
 				<div class="card-header">
-					<h4>Thông Tin Tài Khoản</h4>
+					<strong>Thông tin tài khoản</strong>
 				</div>
 				<div class="card-body">
 					<form>
@@ -96,13 +99,13 @@
 					</div>
 				</div>
 			</div>
-			<form>
-				<div class="container mt-3">
-					<div class="container">
-						<!-- Phần trên: Thông tin tài khoản -->
-						<hr>
+			<div class="card">
+				<div class="card-header">
+					<strong>Thông tin cá nhân</strong>
+				</div>
+				<div class="card-body">
+					<form>
 						<div class="row">
-							<h4>Thông Tin Chung</h4>
 							<div class="mb-3 row">
 								<!-- Avatar -->
 								<div class="col-md-6">
@@ -129,9 +132,10 @@
 										</div>
 									</div>
 								</div>
+								<!-- Họ tên -->
 								<div class="col-md-6">
 									<div class="row">
-										<!-- Họ tên -->
+
 										<div>
 											<label for="tenCongTy">Tên Công Ty</label> <input type="text"
 												class="form-control" id="tenCongTy" name="tenCongTy"
@@ -197,14 +201,13 @@
 								</div>
 							</div>
 
-							<!-- Giới thiệu -->
 							<div class="mb-3">
 								<label for="introduction" class="form-label">Giới thiệu:</label>
 								<textarea id="introduction" name="introduction"
 									class="form-control" placeholder="Giới thiệu bản thân" rows="4"
 									required>${congTy.gioiThieu}</textarea>
 								<hr>
-								<h4>Background</h4>
+								<h5>Background</h5>
 								<div id="backGroundReview" class="image-container mb-5"
 									style="background-image: url('${pageContext.request.contextPath}/${congTy.getBackground()}');
 						           background-size: cover; /* Đảm bảo ảnh luôn phủ đầy container */
@@ -228,7 +231,7 @@
 								</div>
 								<hr>
 								<div class="row">
-									<h4>Hình ảnh hoạt động</h4>
+									<h5>Hình ảnh hoạt động</h5>
 									<div class="d-flex flex-wrap" id="image-container">
 										<c:choose>
 											<c:when test="${not empty images}">
@@ -323,21 +326,23 @@
 												</div>
 											</div>
 										</div>
+										<button type="button" class="btn btn-primary col-2"
+											data-bs-toggle="modal" data-bs-target="#addImageModal">Thêm
+											hình ảnh</button>
 									</div>
-									<!-- Nút thêm hình -->
-									<button type="button" class="btn btn-primary col-2"
-										data-bs-toggle="modal" data-bs-target="#addImageModal">Thêm
-										hình ảnh</button>
-									<!-- Nút lưu và hủy -->
-									<div class="form-group text-end">
-										<button type="submit" class="btn btn-primary"
-											id="saveAllChanges">Lưu Thay Đổi</button>
-										<a href="dashboard.jsp" class="btn btn-secondary">Hủy</a>
-									</div>
+
 								</div>
 							</div>
+
 						</div>
-			</form>
+					</form>
+					<div class="form-group text-end">
+						<button type="submit" class="btn btn-primary" id="saveAllChanges">Lưu
+							Thay Đổi</button>
+					</div>
+				</div>
+
+			</div>
 
 
 		</div>
