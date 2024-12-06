@@ -97,10 +97,18 @@ h2 {
 .form-footer a:hover {
 	text-decoration: underline;
 }
+#loginGoogle{
+	width: 300px;
+    height: 34.93px;
+    border-radius: 4px;
+    background: #ffff;
+}
+#loginGoogle:hover {
+    cursor: pointer !important;
+    background: #ccc !important;
+}
+
 </style>
-<!-- Facebook SDK -->
-<script async defer crossorigin="anonymous"
-	src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v15.0&appId=1536882806992085&autoLogAppEvents=1"></script>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <title>Đăng Nhập</title>
 </head>
@@ -122,34 +130,27 @@ h2 {
 			</div>
 		</form>
 
-		<!-- Google login -->
-		<!-- <div id="g_id_onload"
-		     data-client_id="503615320731-kcpnsnsjmng7vusmcm110s6m35c7d0iv.apps.googleusercontent.com"
-		     data-auto_prompt="false"
-		     data-callback="handleCredentialResponse">
-		</div> -->
-		<!-- <div class="g_id_signin"
+		<!-- Google Sign-In Button -->
+		<!-- <div id="g_id_onload" data-client_id="YOUR_CLIENT_ID.apps.googleusercontent.com">
+		</div>
+		
+		<div class="g_id_signin"
 		     data-type="standard"
 		     data-size="large"
 		     data-theme="outline"
 		     data-text="sign_in_with"
 		     data-shape="rectangular"
-		     data-logo_alignment="left">
-		     
-		     <button onclick="window.location.href='https://accounts.google.com/o/oauth2/auth?client_id=503615320731-kcpnsnsjmng7vusmcm110s6m35c7d0iv.apps.googleusercontent.com&redirect_uri=http://localhost:8888/Callback&response_type=code&scope=https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/userinfo.email&access_type=offline';">
-			    Đăng nhập với Google
-			</button>
+		     data-logo_alignment="left"
+		     data-onsuccess="handleCredentialResponse"
+		     style="cursor: pointer;" >
 		</div> -->
-		<button onclick="redirectToGoogleLogin()">
-			Đăng nhập với Google</button>
-		<!-- Facebook Login -->
-		<div class="fb-login-button" data-scope="public_profile,email"
-			data-onlogin="checkLoginState();"></div>
+		<!-- Nút của bạn sẽ nằm trên nút Google -->
+		<button id = "loginGoogle" class="custom-button" onclick="redirectToGoogleLogin()">
+		    Đăng nhập với Google
+		</button>
+		
 
 		<div class="form-footer">
-			<p>
-				Quên mật khẩu? <a href="#">Khôi phục</a>
-			</p>
 			<p>
 				Chưa có tài khoản? <a href="Signup.jsp">Đăng ký tài khoản</a>
 			</p>
@@ -218,6 +219,12 @@ h2 {
         }
     }
 	</script>
+    <script>
+    function handleCredentialResponse(response) {
+        // Chỉ để giữ nút hoạt động mà không làm gì.
+        console.log('Đăng nhập không kích hoạt: ', response);
+    }
+</script>
     
 </body>
 </html>

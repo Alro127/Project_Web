@@ -7,6 +7,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import com.google.common.graph.SuccessorsFunction;
+
 import beans.TaiKhoan;
 import dao.CongTyDAO;
 import dao.TaiKhoanDAO;
@@ -53,7 +55,7 @@ public class SignupServlet extends HttpServlet {
 		
 		if (!TaiKhoan.isValidUserNamePassword(username, password, confirmPassword)) {
             // Trả về lỗi nếu thiếu username hoặc password
-            request.setAttribute("errorMessage", "Tên đăng nhập và mật khẩu không hợp lệ");
+            request.setAttribute("message", "Tên đăng nhập và mật khẩu không hợp lệ");
             request.getRequestDispatcher(destination).forward(request, response);
             return;
         }
@@ -62,22 +64,30 @@ public class SignupServlet extends HttpServlet {
 		//boolean isRegistered = true;
 		if (TaiKhoanDAO.isExistedAccount(username, password)) {
 			// Nếu đăng ký thất bại, hiển thị thông báo lỗi
-            request.setAttribute("errorMessage", "Tên đăng nhập đã tồn tại hoặc có lỗi xảy ra.");
+            request.setAttribute("message", "Tên đăng nhập đã tồn tại hoặc có lỗi xảy ra.");
             
         } else {
 			/*
 			 * if (role == "Employee") response.sendRedirect("ThongTinUngVien.jsp"); else
 			 * response.sendRedirect("ThongTinCongTy.jsp");
 			 */
-        	TaiKhoanDAO.AddAccount(username, password, email, role);
-        	int id = TaiKhoanDAO.getID("username", username);
-        	if (role.equals("UngVien")) {
-				UngVienDAO.addUngVienAfterSignUP(id, email);
+        	
+        	if (TaiKhoanDAO.AddAccount(username, password, email, role))
+        	{
+        		int id = TaiKhoanDAO.getID("username", username);
+            	if (role.equals("UngVien")) {
+    				UngVienDAO.addUngVienAfterSignUP(id, email);
+    			}
+            	else {
+    				CongTyDAO.addCongTyAfterSignUP(id, email);
+    			}
+        	} 
+        	else 
+        	{
+        		request.setAttribute("message", "Có lỗi, vui lòng thử lại");
 			}
-        	else {
-				CongTyDAO.addCongTyAfterSignUP(id, email);
-			}
-        	destination = "Login.jsp?success=1";
+      	
+        	
         }
 		request.getRequestDispatcher(destination).forward(request, response);
 		doGet(request, response);

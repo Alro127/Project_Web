@@ -148,7 +148,7 @@
 									<div class="text-end">
 										<button type="button" id="editPersonalInfoBtn"
 											class="btn btn-outline-primary">
-											<a href="ThongTinUngVien.jsp" style="text-decoration: none;"><i
+											<a href="QuanLyTaiKhoanServlet" style="text-decoration: none;"><i
 												class="bi bi-pencil-square"></i> Chỉnh sửa thông tin</a>
 										</button>
 									</div>
