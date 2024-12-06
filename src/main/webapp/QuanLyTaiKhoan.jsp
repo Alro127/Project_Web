@@ -203,12 +203,12 @@
 								class="form-control" placeholder="Giới thiệu bản thân" rows="4"
 								required>${uv.introduction}</textarea>
 						</div>
-
-					</form>
-					<div class="form-group text-end">
+						<div class="form-group text-end">
 						<button type="submit" class="btn btn-primary" id="saveAllCandidateChanges">Lưu
 							Thay Đổi</button>
-					</div>
+						</div>
+					</form>
+					
 				</div>
 			</div>
 		</div>
@@ -216,5 +216,6 @@
 	<jsp:include page="modals/AddImageModals.jsp"></jsp:include>
 	<script src="js/QuanLyUngVien.js"></script>
 	<script src="js/QuanLyMatKhau.js"></script>
+	
 </body>
 </html>

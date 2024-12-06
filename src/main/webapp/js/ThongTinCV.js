@@ -22,6 +22,15 @@ function saveData() {
 
     const educationData = [];
     for (let i = 0; i < educationStartDates.length; i++) {
+		const start = new Date(educationStartDates[i].value);
+		    const end = new Date(educationEndDates[i].value);
+
+		    // Kiểm tra nếu start sau end
+		    if (start > end) {
+		        alert(`Lỗi: Ngày bắt đầu của học vấn ${i + 1} không thể sau ngày kết thúc.`);
+		        isEducationValid = false;
+		        return; // Dừng vòng lặp nếu có lỗi
+		    }
         educationData.push({
             start: educationStartDates[i].value,
             end: educationEndDates[i].value,
@@ -39,6 +48,15 @@ function saveData() {
 
     const experienceData = [];
     for (let i = 0; i < experienceStartDates.length; i++) {
+		const start = new Date(experienceStartDates[i].value);
+		    const end = new Date(experienceEndDates[i].value);
+
+		    // Kiểm tra nếu start sau end
+		    if (start > end) {
+		        alert(`Lỗi: Ngày bắt đầu của kinh nghiệm ${i + 1} không thể sau ngày kết thúc.`);
+		        isExperienceValid = false;
+		        return; // Dừng vòng lặp nếu có lỗi
+		    }
         experienceData.push({
             start: experienceStartDates[i].value,
             end: experienceEndDates[i].value,
@@ -75,7 +93,11 @@ function saveData() {
 		mode: mode.value,
 		IdCV: IdCV.value
     };
-
+	// Kiểm tra dữ liệu trước khi gửi
+	if (!validateData(dataToSend)) {
+	    alert("Dữ liệu không hợp lệ: có trường bị rỗng.");
+	    return; // Hoặc có thể xử lý khác như thông báo lỗi cho người dùng
+	}
     // Chuyển đối tượng JSON thành chuỗi
     const jsonData = JSON.stringify(dataToSend);
 
@@ -116,6 +138,16 @@ function previewAvatar(event) {
 			alert("Vui lòng chọn một tệp hình ảnh hợp lệ (JPEG, PNG, hoặc GIF).");
 		}
 	}
+}
+function validateData(data) {
+    // Kiểm tra tất cả các thuộc tính trong đối tượng dữ liệu
+    for (let key in data) {
+        // Nếu có thuộc tính nào rỗng hoặc không tồn tại (null, undefined, ""), trả về false
+        if (!data[key] || data[key].length === 0) {
+            return false;  // Dữ liệu không hợp lệ
+        }
+    }
+    return true;  // Dữ liệu hợp lệ
 }
 // Gửi ảnh đã chọn lên server
 function uploadAvatarToServer() {
