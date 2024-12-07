@@ -71,6 +71,7 @@ public class GoogleAddEventServlet extends HttpServlet {
             	List<String> emails = CongTyDAO.getEmailOfEmployeesFromCompany(id);
                 for (String email : emails) {
 					attendeesEmail.add(new EventAttendee().setEmail(email));
+					System.out.println(email);
 				}
 			}
             

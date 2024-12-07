@@ -86,7 +86,7 @@ public class SignupServlet extends HttpServlet {
         	{
         		request.setAttribute("message", "Có lỗi, vui lòng thử lại");
 			}
-      	
+        	destination = "Login.jsp?success=1";
         	
         }
 		request.getRequestDispatcher(destination).forward(request, response);

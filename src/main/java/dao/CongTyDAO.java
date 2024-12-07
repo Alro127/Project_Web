@@ -148,7 +148,7 @@ public class CongTyDAO {
 	public static List<String> getEmailOfEmployeesFromCompany(int idCT)
 	{
 		 List<String> emails = new ArrayList<String>();
-		 String sql = "SELECT UV.email "
+		 String sql = "SELECT distinct UV.email "
                  + "FROM UngVien UV "
                  + "JOIN CV cv ON UV.IdUV = cv.IdUV "
                  + "join HoSo hs on cv.IdCV = hs.IdCongViec "

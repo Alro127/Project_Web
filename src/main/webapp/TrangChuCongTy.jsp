@@ -116,7 +116,7 @@
 									<c:forEach var="j" begin="0" end="${col > 0 ? 2 : col - 1}">
 										<div class="col-4">
 											<img src="${pageContext.request.contextPath}/${images[j]}"
-												class="d-block w-100 rounded" alt="Hình ảnh ${j + 1}">
+												class="d-block w-100 rounded" alt="Hình ảnh ${j + 1}" style="object-fit: cover;">
 										</div>
 									</c:forEach>
 								</div>
@@ -131,7 +131,7 @@
 												<img
 													src="${pageContext.request.contextPath}/${images[i * 3 + j]}"
 													class="d-block w-100 rounded"
-													alt="Hình ảnh ${(i * 3 + j) + 1}">
+													alt="Hình ảnh ${(i * 3 + j) + 1}" style="object-fit: cover;">
 											</div>
 										</c:forEach>
 									</div>
@@ -147,7 +147,7 @@
 												<img
 													src="${pageContext.request.contextPath}/${images[col * 3 + i]}"
 													class="d-block w-100 rounded"
-													alt="Hình ảnh ${(col * 3 + i) + 1}">
+													alt="Hình ảnh ${(col * 3 + i) + 1}" style="object-fit: cover;">
 											</div>
 										</c:forEach>
 									</div>
