@@ -45,7 +45,7 @@ public class QuanLyTaiKhoanServlet extends HttpServlet {
 		UngVien uv = UngVienDAO.getUngVienById(taiKhoan.getId());
 		request.setAttribute("taiKhoan", taiKhoan); // Đưa vào request để hiển thị trong JSP
 		request.setAttribute("uv", uv);
-		request.getRequestDispatcher("QuanLyTaiKhoan.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/views/QuanLyTaiKhoan.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

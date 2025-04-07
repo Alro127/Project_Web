@@ -48,7 +48,7 @@ public class CongTyServlet extends HttpServlet {
 	    List<String> images = CongTyDAO.getHinhAnhHoatDong(id);
 	    request.setAttribute("images", images);
 	    request.setAttribute("congTy", congTy);
-	    request.getRequestDispatcher("TrangChuCongTy.jsp").forward(request, response);
+	    request.getRequestDispatcher("/WEB-INF/views/TrangChuCongTy.jsp").forward(request, response);
 	}
 
 	/**

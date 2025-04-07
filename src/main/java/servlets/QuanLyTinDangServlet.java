@@ -146,7 +146,7 @@ public class QuanLyTinDangServlet extends HttpServlet {
 
 	    // Nếu không phải AJAX, bạn có thể chuyển hướng sang JSP
 	    if (!"true".equals(request.getParameter("ajax"))) {
-	        request.getRequestDispatcher("QuanLyTinDang.jsp").forward(request, response);
+	        request.getRequestDispatcher("/WEB-INF/views/QuanLyTinDang.jsp").forward(request, response);
 	    }
 	}
 

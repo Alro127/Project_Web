@@ -119,7 +119,7 @@ public class CongViecLienQuanServlet extends HttpServlet {
                 response.getWriter().write(json);
             } else {
                 request.setAttribute("congViecs", congViecLienQuans);
-                request.getRequestDispatcher("TrangCongViecLienQuan.jsp").forward(request, response);
+                request.getRequestDispatcher("/WEB-INF/views/TrangCongViecLienQuan.jsp").forward(request, response);
             }
         } catch (NumberFormatException e) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "ID không hợp lệ");

@@ -12,6 +12,10 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Timestamp;
 
+import org.eclipse.tags.shaded.org.apache.xpath.operations.And;
+
+import com.mysql.cj.Session;
+
 import beans.CongViec;
 import dao.CongViecDAO;
 
@@ -35,8 +39,23 @@ public class DangCongViecServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// Nếu cần xử lý GET request, bạn có thể bổ sung ở đây.
-	}
+		HttpSession session = request.getSession();
+		
+		if (session.getAttribute("id") == null) {
+			request.getRequestDispatcher("Login.jsp").forward(request, response);
+			return;
+		}
+			
+		
+		if (session.getAttribute("role").equals("CongTy")) {
+			request.getRequestDispatcher("/WEB-INF/views/DangCongViec.jsp").forward(request, response);	
+			return;
+		}
+		
+		request.getRequestDispatcher("CongViecServlet").forward(request, response);
+		
+		}
+		
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
@@ -96,14 +115,14 @@ public class DangCongViecServlet extends HttpServlet {
 				if (CongViecDAO.AddCongViecMoi(congViec)) {
 	                Message.alertAndRedirect(response, "Đăng công việc thành công!", "QuanLyTinDangServlet");
 	            } else {
-	            	Message.alertAndRedirect(response, "Có lỗi xảy ra, vui lòng thử lại.", "DangCongViec.jsp");
+	            	Message.alertAndRedirect(response, "Có lỗi xảy ra, vui lòng thử lại.", "/WEB-INF/views/DangCongViec.jsp");
 	            }
 	        } else {
-	        	Message.alertAndRedirect(response, "Dữ liệu không hợp lệ. Vui lòng kiểm tra lại.", "DangCongViec.jsp");
+	        	Message.alertAndRedirect(response, "Dữ liệu không hợp lệ. Vui lòng kiểm tra lại.", "/WEB-INF/views/DangCongViec.jsp");
 	        }
 		} catch (Exception e) {
 	        e.printStackTrace();
-	        Message.alertAndRedirect(response, "Đã xảy ra lỗi: " + e.getMessage(), "DangCongViec.jsp");
+	        Message.alertAndRedirect(response, "Đã xảy ra lỗi: " + e.getMessage(), "/WEB-INF/views/DangCongViec.jsp");
 	    }
 	}
 	

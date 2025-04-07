@@ -85,7 +85,7 @@ public class QuanLyCVServlet extends HttpServlet {
             } else {
                 // Nếu không phải là yêu cầu AJAX, chuyển tiếp đến JSP
                 request.setAttribute("cvList", cvList);
-                RequestDispatcher dispatcher = request.getRequestDispatcher("QuanLyCV.jsp");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/QuanLyCV.jsp");
                 dispatcher.forward(request, response);
             }
         } catch (SQLException e) {

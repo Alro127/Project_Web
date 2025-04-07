@@ -34,7 +34,7 @@ public class CreateCVServlet extends HttpServlet {
 		request.setAttribute("uv", uv);
 		
 		// Chuyển hướng tới trang JSP để hiển thị
-		RequestDispatcher dispatcher = request.getRequestDispatcher("ThongTinCV_create.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/ThongTinCV_create.jsp");
 		dispatcher.forward(request, response);
 	}
 

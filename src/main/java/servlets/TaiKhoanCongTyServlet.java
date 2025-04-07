@@ -61,7 +61,7 @@ public class TaiKhoanCongTyServlet extends HttpServlet {
 	    request.setAttribute("images", images);
 	    
 	    request.setAttribute("tk", tk);
-	    request.getRequestDispatcher("/TaiKhoanCongTy.jsp").forward(request, response);
+	    request.getRequestDispatcher("/WEB-INF/views/TaiKhoanCongTy.jsp").forward(request, response);
 	}
 
 	/**

@@ -84,7 +84,7 @@ public class ChiTietCongViecServlet extends HttpServlet {
             	request.setAttribute("trangThai", trangThai);
                 request.setAttribute("congViec", congViec);
                 request.setAttribute("congViecLienQuans", congViecLienQuans);
-                request.getRequestDispatcher("ChiTietCongViec.jsp").forward(request, response);
+                request.getRequestDispatcher("/WEB-INF/views/ChiTietCongViec.jsp").forward(request, response);
             }
         } catch (NumberFormatException e) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "ID không hợp lệ");

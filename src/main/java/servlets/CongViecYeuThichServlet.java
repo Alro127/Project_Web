@@ -132,7 +132,7 @@ public class CongViecYeuThichServlet extends HttpServlet {
 	    response.getWriter().write(jsonResponse);
 	    
 	    if (!"true".equals(request.getParameter("ajax"))) {
-	        request.getRequestDispatcher("/CongViecYeuThich.jsp").forward(request, response);
+	        request.getRequestDispatcher("/WEB-INF/views/CongViecYeuThich.jsp").forward(request, response);
 	    }
 	}
 

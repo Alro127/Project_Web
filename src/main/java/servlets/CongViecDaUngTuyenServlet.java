@@ -98,7 +98,7 @@ public class CongViecDaUngTuyenServlet extends HttpServlet {
 
 	    // Nếu không phải AJAX, bạn có thể chuyển hướng sang JSP
 	    if (!"true".equals(request.getParameter("ajax"))) {
-	        request.getRequestDispatcher("CongViecDaUngTuyen.jsp").forward(request, response);
+	        request.getRequestDispatcher("/WEB-INF/views/CongViecDaUngTuyen.jsp").forward(request, response);
 	    }
 	    else {
 	    	 response.setContentType("application/json");

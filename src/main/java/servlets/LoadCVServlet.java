@@ -36,7 +36,7 @@ public class LoadCVServlet extends HttpServlet {
             	dispatcher.forward(request, response);
             }
             else {
-            	RequestDispatcher dispatcher = request.getRequestDispatcher("ThongTinCV_edit.jsp");
+            	RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/ThongTinCV_edit.jsp");
             	dispatcher.forward(request, response);
             }
             
