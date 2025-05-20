@@ -114,6 +114,7 @@
 							<button type="button" class="btn btn-secondary"
 								data-bs-dismiss="modal">Close</button>
 						</div>
+						<input type="hidden" name="csrfToken" value="<c:out value='${csrfToken}'/>">
 					</form>
 				</div>
 			</div>

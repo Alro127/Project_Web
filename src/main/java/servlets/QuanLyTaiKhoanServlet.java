@@ -19,7 +19,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Base64;
 
-import org.apache.naming.java.javaURLContextFactory;
 import org.json.JSONObject;
 
 import beans.CV;

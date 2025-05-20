@@ -348,6 +348,7 @@
 							<button type="button" class="btn"
 								onclick="submitAndGoToQuanLyCV()">Quay Lại</button>
 						</div>
+						<input type="hidden" name="csrfToken" value="<c:out value='${csrfToken}'/>">
 				</form>
 			</div>
 		</div>
@@ -356,7 +357,7 @@
 	<!-- Bootstrap JS -->
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-	<script src="js/ThongTinCV.js"></script>
+	<script src="${pageContext.request.contextPath}/js/ThongTinCV.js"></script>
 	<script>
 		function submitAndGoToQuanLyCV() {
 			// Gửi form đến SaveCVServlet trước

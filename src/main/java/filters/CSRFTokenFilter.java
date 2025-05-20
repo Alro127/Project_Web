@@ -35,17 +35,39 @@ public class CSRFTokenFilter implements Filter {
 
 
         // Nếu là POST: kiểm tra token
-        if ("POST".equalsIgnoreCase(req.getMethod())) {
+		/*
+		 * if ("POST".equalsIgnoreCase(req.getMethod())) { String tokenSession =
+		 * (String) req.getSession().getAttribute("csrfToken"); String tokenRequest =
+		 * req.getParameter("csrfToken");
+		 * 
+		 * if (tokenSession == null || tokenRequest == null ||
+		 * !tokenSession.equals(tokenRequest)) {
+		 * res.sendError(HttpServletResponse.SC_FORBIDDEN,
+		 * "CSRF token không hợp lệ hoặc đã hết hạn."); return; }
+		 * 
+		 * req.getSession().removeAttribute("csrfToken");
+		 * 
+		 * String csrfToken = UUID.randomUUID().toString();
+		 * req.getSession().setAttribute("csrfToken", csrfToken); }
+		 */
+         if ("POST".equalsIgnoreCase(req.getMethod())) {
             String tokenSession = (String) req.getSession().getAttribute("csrfToken");
-            String tokenRequest = req.getParameter("csrfToken");
+
+            // Ưu tiên lấy token từ header
+            String tokenRequest = req.getHeader("X-CSRF-TOKEN");
+
+            // Nếu không có trong header, lấy từ body/form field
+            if (tokenRequest == null || tokenRequest.isEmpty()) {
+                tokenRequest = req.getParameter("csrfToken");
+            }
 
             if (tokenSession == null || tokenRequest == null || !tokenSession.equals(tokenRequest)) {
                 res.sendError(HttpServletResponse.SC_FORBIDDEN, "CSRF token không hợp lệ hoặc đã hết hạn.");
                 return;
             }
 
+            // Token đúng thì xoá token cũ và sinh token mới
             req.getSession().removeAttribute("csrfToken");
-            
             String csrfToken = UUID.randomUUID().toString();
             req.getSession().setAttribute("csrfToken", csrfToken);
         }

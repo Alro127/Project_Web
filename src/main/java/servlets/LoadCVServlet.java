@@ -32,7 +32,7 @@ public class LoadCVServlet extends HttpServlet {
             
             // Chuyển hướng tới trang JSP để hiển thị
             if(mode.equalsIgnoreCase("view")) {
-            	RequestDispatcher dispatcher = request.getRequestDispatcher("fragments/frg_ViewCV.jsp");
+            	RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/fragments/frg_ViewCV.jsp");
             	dispatcher.forward(request, response);
             }
             else {

@@ -1,4 +1,5 @@
 function saveData() {
+
     const form = document.getElementById('cvForm');
     const formData = new FormData(form);
 	const mode = document.getElementById('mode'); 
@@ -81,6 +82,14 @@ function saveData() {
             level: skillLevels[i].value
         });
     }
+	
+	const csrfToken = document.querySelector('input[name="csrfToken"]');
+	console.log('CSRF Token element:', csrfToken);  // Kiểm tra element token
+	if (csrfToken) {
+	    console.log('CSRF Token:', csrfToken.value);  // Kiểm tra giá trị token
+	} else {
+	    console.log('CSRF Token not found');
+	}
 
     // Tạo đối tượng JSON để gửi
     const dataToSend = {
@@ -105,6 +114,7 @@ function saveData() {
     const xhr = new XMLHttpRequest();
     xhr.open('POST', 'SaveCVServlet', true);
     xhr.setRequestHeader('Content-Type', 'application/json');  // Cần đặt header đúng kiểu
+	xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken.value); 
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             alert('Gửi CV thành công rồi nhé');
