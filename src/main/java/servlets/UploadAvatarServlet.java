@@ -6,6 +6,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
+import utils.CSRFTokenManager;
+
 import java.io.IOException;
 import java.io.*;
 import java.sql.*;
@@ -41,6 +43,7 @@ public class UploadAvatarServlet extends HttpServlet {
             int rowsAffected = pstmt.executeUpdate();
 
             if (rowsAffected > 0) {
+            	//CSRFTokenManager.generateToken(request);
                 out.print("{\"success\": true}");
             } else {
                 out.print("{\"success\": false, \"message\": \"Không tìm thấy người dùng.\"}");

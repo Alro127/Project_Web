@@ -36,6 +36,7 @@
 		<div class="container mt-4 bg-light py-3 px-3 shadow rounded ">
 			<h2 class="text-center mb-4">Đăng Công Việc</h2>
 			<form action="DangCongViecServlet" method="POST">
+				<input type="hidden" name="csrfToken" value="<c:out value='${csrfToken}'/>">
 				<div class="row">
 					<div class="col-md-6">
 						<div class="mb-3">

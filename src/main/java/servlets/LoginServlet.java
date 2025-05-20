@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import utils.CSRFTokenManager;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -63,11 +64,13 @@ public class LoginServlet extends HttpServlet {
 			    session.setAttribute("email", information.get(6));
 			    String role = (String) session.getAttribute("role");
 			    if (role.equals("UngVien")) {
+			    	//CSRFTokenManager.generateToken(request);
 			    	destination = "CongViecServlet";
 			    	UngVien uv = UngVienDAO.getUngVienById(id);
 			    	session.setAttribute("name", uv.getFullName());
 				}
 			    else if (role.equals("CongTy")){
+			    	//CSRFTokenManager.generateToken(request);
 					destination = "TaiKhoanCongTyServlet";
 					CongTy ct = CongTyDAO.GetCongTyById(id);
 					session.setAttribute("name", ct.getTenCongTy());

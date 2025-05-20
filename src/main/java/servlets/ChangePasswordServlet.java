@@ -5,6 +5,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import utils.CSRFTokenManager;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -27,6 +29,7 @@ public class ChangePasswordServlet extends HttpServlet {
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();
         if (isUpdated) {
+        	//CSRFTokenManager.generateToken(request);
             out.write("{\"status\":\"success\", \"message\":\"Mật khẩu đã được thay đổi thành công!\"}");
         } else {
             out.write("{\"status\":\"error\", \"message\":\"Mật khẩu cũ không đúng!\"}");

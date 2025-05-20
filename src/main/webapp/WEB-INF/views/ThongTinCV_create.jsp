@@ -53,6 +53,7 @@
 			</div>
 			<div class="card-body">
 				<form id="cvForm">
+					<input type="hidden" name="csrfToken" value="<c:out value='${csrfToken}'/>">
 					<div class=row>
 						<c:set var="uv" value="${requestScope.uv}" />
 						<div class="col-md-4">

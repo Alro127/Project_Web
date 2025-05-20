@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import utils.CSRFTokenManager;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -167,6 +168,7 @@ public class CongViecYeuThichServlet extends HttpServlet {
 			} else {
 				CongViecYeuThichDAO.AddCongViecYeuThich(idUV, idCongViec);
 			}
+			//CSRFTokenManager.generateToken(request);
 		} catch (Exception e) {
 			e.printStackTrace();
 			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Lỗi hệ thống");

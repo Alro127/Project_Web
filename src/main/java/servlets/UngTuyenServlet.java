@@ -5,6 +5,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import utils.CSRFTokenManager;
+
 import java.io.IOException;
 
 import dao.CongViecDAO;
@@ -50,6 +52,7 @@ public class UngTuyenServlet extends HttpServlet {
             if (isSuccessful) {
                 // Hiển thị thông báo thành công và quay lại trang trước đó
             	CongViecDAO.updateLuotNop(idCongViec);
+            	//CSRFTokenManager.generateToken(request);
             	response.setContentType("text/html;charset=UTF-8");
                 response.getWriter().write("<script>alert('Ứng tuyển thành công!'); window.location.href=document.referrer;</script>");
                 

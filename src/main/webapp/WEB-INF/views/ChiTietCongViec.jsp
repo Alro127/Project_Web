@@ -116,6 +116,7 @@
 
 										<div class="col-md-3 mb-3">
 											<form action="CongViecYeuThichServlet" method="POST">
+												<input type="hidden" name="csrfToken" value="<c:out value='${csrfToken}'/>">
 												<input type="hidden" name="idCongViec"
 													value="${congViec.idCongViec}" />
 												<button type="submit"

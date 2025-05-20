@@ -6,6 +6,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import utils.CSRFTokenManager;
+
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -34,6 +36,7 @@ public class DeleteCVServlet extends HttpServlet {
     	try {
     	    boolean isDeleted = cvdao.deleteCVbyId(IdCV);
     	    if (isDeleted) {
+    	    	//CSRFTokenManager.generateToken(request);
     	        // Xóa thành công, chuyển hướng đến trang danh sách CV
     	        response.sendRedirect("QuanLyCVServlet"); // Hoặc trang phù hợp khác
     	    } else {

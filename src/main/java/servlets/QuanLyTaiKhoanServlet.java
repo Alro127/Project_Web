@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import utils.CSRFTokenManager;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -170,6 +171,7 @@ public class QuanLyTaiKhoanServlet extends HttpServlet {
 	        try {
 	            UngVienDAO.updateUngVien(userAccount);
 	            // Nếu cập nhật thành công, trả về phản hồi JSON
+	            //CSRFTokenManager.generateToken(request);
 	            JSONObject successResponse = new JSONObject();
 	            successResponse.put("success", true);
 	            successResponse.put("message", "Cập nhật thông tin thành công.");

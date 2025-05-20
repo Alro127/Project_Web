@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import utils.CSRFTokenManager;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -108,7 +109,7 @@ public class XoaHinhAnhHoatDongServlet extends HttpServlet {
 	            jsonResponse.put("success", false);
 	            jsonResponse.put("message", "Không thể xóa ảnh trong cả hai thư mục.");
 	        }
-
+	        //CSRFTokenManager.generateToken(request);
 
 	        // Gửi phản hồi về client
 	        response.setContentType("application/json");

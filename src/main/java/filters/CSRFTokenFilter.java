@@ -25,10 +25,14 @@ public class CSRFTokenFilter implements Filter {
 
         // Nếu là GET: tạo token mới và gán vào request
         if ("GET".equalsIgnoreCase(req.getMethod())) {
-            String csrfToken = UUID.randomUUID().toString();
-            req.getSession().setAttribute("csrfToken", csrfToken);
-            req.setAttribute("csrfToken", csrfToken); // để form.jsp đọc được
+            String csrfToken = (String) req.getSession().getAttribute("csrfToken");
+            if (csrfToken == null) {
+                csrfToken = UUID.randomUUID().toString();
+                req.getSession().setAttribute("csrfToken", csrfToken);
+            }
+            req.setAttribute("csrfToken", csrfToken);
         }
+
 
         // Nếu là POST: kiểm tra token
         if ("POST".equalsIgnoreCase(req.getMethod())) {
@@ -40,8 +44,10 @@ public class CSRFTokenFilter implements Filter {
                 return;
             }
 
-            // Token đúng → XÓA để không dùng lại được nữa (1 lần)
             req.getSession().removeAttribute("csrfToken");
+            
+            String csrfToken = UUID.randomUUID().toString();
+            req.getSession().setAttribute("csrfToken", csrfToken);
         }
 
         chain.doFilter(request, response);

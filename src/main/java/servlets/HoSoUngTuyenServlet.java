@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import utils.CSRFTokenManager;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -137,6 +138,7 @@ public class HoSoUngTuyenServlet extends HttpServlet {
 
 	    // Gửi phản hồi về client
 	    if (updateSuccess) {
+	    	//CSRFTokenManager.generateToken(request);
 	        response.getWriter().write("success");
 	    } else {
 	        response.getWriter().write("fail");

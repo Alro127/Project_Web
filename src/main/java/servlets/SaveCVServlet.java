@@ -20,6 +20,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import utils.CSRFTokenManager;
 import conn.SQLServerConnection;
 import dao.CVDAO;
 
@@ -162,7 +163,7 @@ public class SaveCVServlet extends HttpServlet {
 	        {
 	        	CVDAO.updateCV(cv, educationList, experienceList, certificateList, skillList);
 	        }
-	        
+	        //CSRFTokenManager.generateToken(request);
 	        // Trả về phản hồi thành công
 	        out.write("{\"status\":\"success\"}");
 	        request.getRequestDispatcher("QuanLyCVServlet").forward(request, response);

@@ -74,6 +74,7 @@
 							<div class="card-header">Thay đổi mật khẩu</div>
 							<div class="card-body">
 								<form id="changePasswordFormId">
+									<input type="hidden" name="csrfToken" value="<c:out value='${csrfToken}'/>">
 									<div class="mb-3">
 										<label for="oldPassword" class="form-label">Mật khẩu
 											cũ</label> <input type="password" id="oldPassword" name="oldPassword"

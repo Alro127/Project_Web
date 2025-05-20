@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import services.Message;
+import utils.CSRFTokenManager;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -114,6 +115,7 @@ public class DangCongViecServlet extends HttpServlet {
 				// Thêm công việc mới vào cơ sở dữ liệu
 				if (CongViecDAO.AddCongViecMoi(congViec)) {
 	                Message.alertAndRedirect(response, "Đăng công việc thành công!", "QuanLyTinDangServlet");
+	                //CSRFTokenManager.generateToken(request);
 	            } else {
 	            	Message.alertAndRedirect(response, "Có lỗi xảy ra, vui lòng thử lại.", "/WEB-INF/views/DangCongViec.jsp");
 	            }

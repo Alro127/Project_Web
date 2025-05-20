@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import utils.CSRFTokenManager;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -293,6 +294,7 @@ public class TaiKhoanCongTyServlet extends HttpServlet {
                         fos.write(decodedBackGround);
                     }
                     CongTyDAO.updateBackGround("assets/images/background/" + backGroundFileName, id);
+                    //CSRFTokenManager.generateToken(request);
                     System.out.println("Đã lưu background: " + backGroundFile.getAbsolutePath());
                 } catch (IllegalArgumentException e) {
                     e.printStackTrace();
