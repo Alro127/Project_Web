@@ -60,7 +60,7 @@
 <div id="sidebar" class="sidebar d-flex flex-column bg-white shadow">
 	<button id="btnToggle" class="btn-toggle">☰</button>
 
-	<a href="DangCongViec.jsp" class="nav-link hover-coral"> <i
+	<a href="DangCongViecServlet" class="nav-link hover-coral"> <i
 		class="fs-4 fw-bold bi bi-clipboard-plus"></i> <span>Đăng tin
 			tuyển dụng</span>
 	</a> <a href="QuanLyTinDangServlet" class="nav-link hover-coral"> <i

@@ -109,7 +109,7 @@ public class HoSoUngTuyenServlet extends HttpServlet {
 
 	    // Nếu không phải AJAX, bạn có thể chuyển hướng sang JSP
 	    if (!"true".equals(request.getParameter("ajax"))) {
-	        request.getRequestDispatcher("HoSoUngTuyen.jsp").forward(request, response);
+	        request.getRequestDispatcher("/WEB-INF/views/HoSoUngTuyen.jsp").forward(request, response);
 	    }
 	    else {
 	    	 Map<String, Object> responseData = new HashMap<>();
