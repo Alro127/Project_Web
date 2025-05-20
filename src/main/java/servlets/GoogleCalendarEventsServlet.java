@@ -132,7 +132,7 @@ public class GoogleCalendarEventsServlet extends HttpServlet {
             req.setAttribute("events", items);
             
             // Chuyển tiếp tới trang showCalendar.jsp
-            req.getRequestDispatcher("CalendarTest.jsp").forward(req, resp);
+            req.getRequestDispatcher("/WEB-INF/views/CalendarTest.jsp").forward(req, resp);
         } catch (Exception e) {
             throw new ServletException(e);
         }
