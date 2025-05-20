@@ -346,6 +346,23 @@
     <url-pattern>/SetRoleLoginGoogleServlet</url-pattern>
   </servlet-mapping>
   <filter>
+	    <filter-name>ClickjackFilter</filter-name>
+	    <filter-class>org.apache.catalina.filters.HttpHeaderSecurityFilter</filter-class>
+	    <init-param>
+	        <param-name>antiClickJackingEnabled</param-name>
+	        <param-value>true</param-value>
+	    </init-param>
+	    <init-param>
+	        <param-name>antiClickJackingOption</param-name>
+	        <param-value>DENY</param-value>
+	    </init-param>
+	</filter>
+
+	<filter-mapping>
+	    <filter-name>ClickjackFilter</filter-name>
+	    <url-pattern>/*</url-pattern>
+	</filter-mapping>
+	 <filter>
     <display-name>CSRFTokenFilter</display-name>
     <filter-name>CSRFTokenFilter</filter-name>
     <filter-class>filters.CSRFTokenFilter</filter-class>
