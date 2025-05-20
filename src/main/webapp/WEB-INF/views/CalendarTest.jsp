@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -60,9 +61,16 @@
 <body class="bg-light-grey">
 	<jsp:include page="fragments/topNavAcc.jsp"></jsp:include>
 	<div class="d-flex mt-5">
+	
+		<c:set var="role" value="${sessionScope.role}" />
+		<c:if test="${role == 'CongTy'}">
+		    <jsp:include page="fragments/sidebar_CongTy.jsp" />
+		</c:if>
+		<c:if test="${role == 'UngVien'}">
+		    <jsp:include page="fragments/sidebar_UngVien.jsp" />
+		</c:if>
 
-		<jsp:include page="fragments/sidebar_CongTy.jsp" />
-
+		<input type="hidden" name="csrfToken" value="<c:out value='${csrfToken}'/>">
 		<div class="container my-5">
 			<div class="d-flex justify-content-end mb-3">
 				<button id="addEventBtn" class="btn bg-dark-blue text-light me-2">Add
@@ -114,7 +122,6 @@
 							<button type="button" class="btn btn-secondary"
 								data-bs-dismiss="modal">Close</button>
 						</div>
-						<input type="hidden" name="csrfToken" value="<c:out value='${csrfToken}'/>">
 					</form>
 				</div>
 			</div>
@@ -140,7 +147,7 @@
 		
 		
 	</div>
-
+	
 	<script>
 		document.addEventListener('DOMContentLoaded', function() {
 	    var calendarEl = document.getElementById('calendar');
@@ -181,7 +188,10 @@
 	        modal.show();
 	    });
 		});
-
+		
+		// CSRF Token từ hidden input
+		const csrfToken = document.querySelector('input[name="csrfToken"]').value;
+		
 		function convertDateTime() {
 	    // Convert datetime-local values to include seconds
 	    var startTime = document.getElementById("eventStart").value;
@@ -212,6 +222,7 @@
 	        var xhr = new XMLHttpRequest();
 	        xhr.open('POST', 'GoogleDeleteEventServlet', true);
 	        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	        xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken);  // Gửi CSRF token qua header
 	        xhr.onreadystatechange = function() {
 	            if (xhr.readyState == 4 && xhr.status == 200) {
 	                // Sau khi xóa thành công, làm mới lại lịch
@@ -221,7 +232,31 @@
 	        };
 	        xhr.send('eventId=' + eventId);  // Gửi ID sự kiện để xóa
 	    }
-	
+	    document.getElementById('addEventForm').addEventListener('submit', function(event) {
+	        event.preventDefault();  // Ngăn không để form tự submit
+
+	        var xhr = new XMLHttpRequest();
+	        xhr.open('POST', 'GoogleAddEventServlet', true);
+	        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	        xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken);  // Gửi CSRF token qua header
+
+	        var formData = new FormData(document.getElementById('addEventForm'));
+
+	        // Chuyển dữ liệu form thành chuỗi URL encoded
+	        var data = new URLSearchParams();
+	        formData.forEach((value, key) => {
+	            data.append(key, value);
+	        });
+
+	        xhr.onreadystatechange = function() {
+	            if (xhr.readyState == 4 && xhr.status == 200) {
+	                alert('Event added successfully');
+	                location.reload();  // Tải lại trang để cập nhật lịch
+	            }
+	        };
+
+	        xhr.send(data);
+	    });
 
 </script>
 
