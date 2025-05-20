@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -116,6 +118,8 @@ h2 {
 	<div class="login-container">
 		<h2>Đăng Nhập</h2>
 		<form action="LoginServlet" method="POST">
+			<input type="hidden" name="csrfToken" value="<c:out value='${csrfToken}'/>">
+			<input type="hidden" name="csrfToken" value="${csrfToken}">
 			<div class="form-group">
 				<label for="username">Tên đăng nhập:</label> <input type="text"
 					id="username" name="username" placeholder="Nhập tên đăng nhập"

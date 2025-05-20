@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -159,6 +161,7 @@ select:focus {
 		<c:remove var="message" />
 
 		<form action="SignupServlet" method="POST">
+			<input type="hidden" name="csrfToken" value="<c:out value='${csrfToken}'/>">
 			<div class="form-group">
 				<label for="username">Tên đăng nhập:</label> <input type="text"
 					id="username" name="username" placeholder="Nhập tên đăng nhập"
