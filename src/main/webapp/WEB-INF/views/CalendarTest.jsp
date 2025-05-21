@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,19 +8,26 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Google Calendar Events</title>
-<link
+<link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css"
-	rel="stylesheet" />
-<link
+	integrity="sha384-XAwSl+dWXwrKgck7ghRqZWt5qm45ebgphyS/SxBg8+vJZOoC7D6cMEHRbECjcxyM"
+	crossorigin="anonymous">
+<link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
-	rel="stylesheet"> 
+	integrity="sha384-Bk5cbLkZQ5raZ0+H2/+VbfYx3WpvxvQK4zqXZr7sYODuaX7bKXoSOnipQxkaS8sv"
+	crossorigin="anonymous">
 <script
-	src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
-<link
+	src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"
+	integrity="sha384-ycW+tWqmMV6wenX20sVTbfUIEHYMVjeerPjPuBflLhtH7Eq4feXfgq3aanNygyd2"
+	crossorigin="anonymous"></script>
+<link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
-	rel="stylesheet">
+	integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+	crossorigin="anonymous">
 <script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+	crossorigin="anonymous"></script>
 <link href="assets/css/style.css" rel="stylesheet">
 
 <style>
@@ -61,16 +68,17 @@
 <body class="bg-light-grey">
 	<jsp:include page="fragments/topNavAcc.jsp"></jsp:include>
 	<div class="d-flex mt-5">
-	
+
 		<c:set var="role" value="${sessionScope.role}" />
 		<c:if test="${role == 'CongTy'}">
-		    <jsp:include page="fragments/sidebar_CongTy.jsp" />
+			<jsp:include page="fragments/sidebar_CongTy.jsp" />
 		</c:if>
 		<c:if test="${role == 'UngVien'}">
-		    <jsp:include page="fragments/sidebar_UngVien.jsp" />
+			<jsp:include page="fragments/sidebar_UngVien.jsp" />
 		</c:if>
 
-		<input type="hidden" name="csrfToken" value="<c:out value='${csrfToken}'/>">
+		<input type="hidden" name="csrfToken"
+			value="<c:out value='${csrfToken}'/>">
 		<div class="container my-5">
 			<div class="d-flex justify-content-end mb-3">
 				<button id="addEventBtn" class="btn bg-dark-blue text-light me-2">Add
@@ -111,9 +119,9 @@
 									class="form-control" required>
 							</div>
 							<div class="mb-3">
-								<label for="ungViens" class="form-label">Chọn ứng viên:</label> 
+								<label for="ungViens" class="form-label">Chọn ứng viên:</label>
 								<select>
-									
+
 								</select>
 							</div>
 						</div>
@@ -128,26 +136,26 @@
 		</div>
 		<div id="deleteEventModal" class="modal fade" tabindex="-1"
 			aria-labelledby="deleteEventModalLabel" aria-hidden="true">
-		    <div class="modal-dialog">
-		        <div class="modal-content">
-		            <div class="modal-header">
-		                <h5 class="modal-title">Delete Event</h5>
-		                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-		            </div>
-		            <div class="modal-body">
-		                <p>Are you sure you want to delete this event?</p>
-		            </div>
-		            <div class="modal-footer">
-		                <button id="confirmDeleteBtn" class="btn btn-danger">Yes</button>
-		                <button id="cancelDeleteBtn" class="btn btn-secondary">No</button>
-		            </div>
-		        </div>
-		    </div>
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Delete Event</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+					</div>
+					<div class="modal-body">
+						<p>Are you sure you want to delete this event?</p>
+					</div>
+					<div class="modal-footer">
+						<button id="confirmDeleteBtn" class="btn btn-danger">Yes</button>
+						<button id="cancelDeleteBtn" class="btn btn-secondary">No</button>
+					</div>
+				</div>
+			</div>
 		</div>
-		
-		
+
+
 	</div>
-	
+
 	<script>
 		document.addEventListener('DOMContentLoaded', function() {
 	    var calendarEl = document.getElementById('calendar');

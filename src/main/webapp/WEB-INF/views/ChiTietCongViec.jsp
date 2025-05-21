@@ -7,19 +7,23 @@
 <head>
 <meta charset="UTF-8">
 <title>Chi tiết công việc</title>
-<link
+<link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
-	rel="stylesheet">
-<link
+	integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+	crossorigin="anonymous">
+<link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
-	rel="stylesheet">
+	integrity="sha384-Bk5cbLkZQ5raZ0+H2/+VbfYx3WpvxvQK4zqXZr7sYODuaX7bKXoSOnipQxkaS8sv"
+	crossorigin="anonymous">
 <link href="assets/css/style.css" rel="stylesheet">
 
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
 	crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+	integrity="sha384-vtXRMe3mGCbOeY7l30aIg8H9p3GdeSe4IFlP6G8JMa7o7lXvnz3GFKzPxzJdPfGK"
+	crossorigin="anonymous"></script>
 <body class="bg-light-grey">
 	<!-- Navigation -->
 	<c:choose>
@@ -66,7 +70,8 @@
 											<i class="bi bi-currency-dollar text-coral fs-2"></i>
 											<div class="ms-3 text-start align-items-center">
 												<p class="mb-0 text-muted">Lương</p>
-													<strong><fmt:formatNumber value="${congViec.luong}" type="number" pattern="#,###" /> VND</strong>									
+												<strong><fmt:formatNumber value="${congViec.luong}"
+														type="number" pattern="#,###" /> VND</strong>
 											</div>
 										</div>
 									</div>
@@ -116,8 +121,9 @@
 
 										<div class="col-md-3 mb-3">
 											<form action="CongViecYeuThichServlet" method="POST">
-												<input type="hidden" name="csrfToken" value="<c:out value='${csrfToken}'/>">
-												<input type="hidden" name="idCongViec"
+												<input type="hidden" name="csrfToken"
+													value="<c:out value='${csrfToken}'/>"> <input
+													type="hidden" name="idCongViec"
 													value="${congViec.idCongViec}" />
 												<button type="submit"
 													class="btn btn-outline-coral form-control">
@@ -194,7 +200,10 @@
 	</div>
 	<script type="text/javascript">
 		// Chuyển giá trị từ Java (JSP) sang JavaScript
-		let idCongViec = ${congViec.idCongViec};
+		let idCongViec = $
+		{
+			congViec.idCongViec
+		};
 		console.log(idCongViec); // In ra để kiểm tra
 	</script>
 

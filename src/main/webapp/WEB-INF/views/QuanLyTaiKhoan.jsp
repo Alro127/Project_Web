@@ -8,9 +8,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Quản lý tài khoản</title>
-<link
+<link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
-	rel="stylesheet">
+	integrity="sha384-Bk5cbLkZQ5raZ0+H2/+VbfYx3WpvxvQK4zqXZr7sYODuaX7bKXoSOnipQxkaS8sv"
+	crossorigin="anonymous">
 <link href="assets/css/style.css" rel="stylesheet">
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
@@ -21,17 +22,23 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
 	crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<scrip
-	src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js">
-</script> <script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.3/js/bootstrap.min.js"> </script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+	integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"
+	integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+	integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+	crossorigin="anonymous"></script>
 </head>
 <body class="bg-light-grey">
 
 	<jsp:include page="fragments/topNavAcc.jsp"></jsp:include>
 
-	<div class="d-flex mt-5" >
+	<div class="d-flex mt-5">
 		<jsp:include page="fragments/sidebar_UngVien.jsp" />
 
 		<div class="container mt-5">
@@ -77,7 +84,8 @@
 							<div class="card-header">Thay đổi mật khẩu</div>
 							<div class="card-body">
 								<form id="changePasswordFormId">
-									<input type="hidden" name="csrfToken" value="<c:out value='${csrfToken}'/>">
+									<input type="hidden" name="csrfToken"
+										value="<c:out value='${csrfToken}'/>">
 									<div class="mb-3">
 										<label for="oldPassword" class="form-label">Mật khẩu
 											cũ</label> <input type="password" id="oldPassword" name="oldPassword"
@@ -106,7 +114,9 @@
 
 			<!-- Phần dưới: Thông tin cá nhân -->
 			<div class="card">
-				<div class="card-header"><strong>Thông tin cá nhân</strong></div>
+				<div class="card-header">
+					<strong>Thông tin cá nhân</strong>
+				</div>
 				<div class="card-body">
 
 					<form>
@@ -136,7 +146,7 @@
 									</div>
 								</div>
 							</div>
-							
+
 							<div class="col-md-6">
 								<!-- Họ tên -->
 								<div>
@@ -171,8 +181,9 @@
 							<!-- Số điện thoại -->
 							<div class="col-md-6">
 								<label for="phone" class="form-label">Số điện thoại:</label> <input
-									type="tel" id="phone" name="phone" pattern="[0-9]{10}" class="form-control"
-									placeholder="Nhập số điện thoại" required value="${uv.phone}" />
+									type="tel" id="phone" name="phone" pattern="[0-9]{10}"
+									class="form-control" placeholder="Nhập số điện thoại" required
+									value="${uv.phone}" />
 							</div>
 							<!-- Email -->
 							<div class="col-md-6">
@@ -205,11 +216,11 @@
 								required>${uv.introduction}</textarea>
 						</div>
 						<div class="form-group text-end">
-						<button type="submit" class="btn btn-primary" id="saveAllCandidateChanges">Lưu
-							Thay Đổi</button>
+							<button type="submit" class="btn btn-primary"
+								id="saveAllCandidateChanges">Lưu Thay Đổi</button>
 						</div>
 					</form>
-					
+
 				</div>
 			</div>
 		</div>
@@ -217,6 +228,6 @@
 	<jsp:include page="modals/AddImageModals.jsp"></jsp:include>
 	<script src="js/QuanLyUngVien.js"></script>
 	<script src="js/QuanLyMatKhau.js"></script>
-	
+
 </body>
 </html>

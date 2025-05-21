@@ -7,9 +7,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Quản Lý tài Khoản</title>
-<link
+<link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
-	rel="stylesheet">
+	integrity="sha384-Bk5cbLkZQ5raZ0+H2/+VbfYx3WpvxvQK4zqXZr7sYODuaX7bKXoSOnipQxkaS8sv"
+	crossorigin="anonymous">
 <link href="assets/css/style.css" rel="stylesheet">
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
@@ -20,13 +21,17 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
 	crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<scrip
-	src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js">
-</script> <script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.3/js/bootstrap.min.js">
-	
-</script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+	integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"
+	integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+	integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+	crossorigin="anonymous"></script>
 </head>
 <body class="bg-light-grey">
 
@@ -74,7 +79,8 @@
 							<div class="card-header">Thay đổi mật khẩu</div>
 							<div class="card-body">
 								<form id="changePasswordFormId">
-									<input type="hidden" name="csrfToken" value="<c:out value='${csrfToken}'/>">
+									<input type="hidden" name="csrfToken"
+										value="<c:out value='${csrfToken}'/>">
 									<div class="mb-3">
 										<label for="oldPassword" class="form-label">Mật khẩu
 											cũ</label> <input type="password" id="oldPassword" name="oldPassword"
@@ -151,9 +157,8 @@
 								<div class="col-md-6">
 									<label for="phone" class="form-label">Số điện thoại:</label> <input
 										type="tel" id="phone" name="phone" class="form-control"
-										pattern="[0-9]{10}"
-										placeholder="Nhập số điện thoại" value="${congTy.sdt}"
-										required />
+										pattern="[0-9]{10}" placeholder="Nhập số điện thoại"
+										value="${congTy.sdt}" required />
 								</div>
 								<!-- Email -->
 								<div class="col-md-6">
@@ -252,23 +257,26 @@
 									</div>
 								</div>
 								<div id="delete-modal" class="modal" tabindex="-1" role="dialog">
-								    <div class="modal-dialog" role="document">
-								        <div class="modal-content">
-								            <div class="modal-header">
-								                <h5 class="modal-title">Xác nhận xóa</h5>
-								                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-								            </div>
-								            <div class="modal-body">
-								                <p>Bạn có chắc chắn muốn xóa ảnh này không?</p>
-								            </div>
-								            <div class="modal-footer">
-								                <button type="button" class="btn btn-danger" id="confirm-delete">Xóa</button>
-								                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Hủy</button>
-								            </div>
-								        </div>
-								    </div>
+									<div class="modal-dialog" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title">Xác nhận xóa</h5>
+												<button type="button" class="btn-close"
+													data-bs-dismiss="modal" aria-label="Close"></button>
+											</div>
+											<div class="modal-body">
+												<p>Bạn có chắc chắn muốn xóa ảnh này không?</p>
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-danger"
+													id="confirm-delete">Xóa</button>
+												<button type="button" class="btn btn-secondary"
+													data-bs-dismiss="modal" aria-label="Close">Hủy</button>
+											</div>
+										</div>
+									</div>
 								</div>
-					
+
 								<button type="button" class="btn btn-primary col-2"
 									data-bs-toggle="modal" data-bs-target="#addImageModal">Thêm
 									hình ảnh</button>

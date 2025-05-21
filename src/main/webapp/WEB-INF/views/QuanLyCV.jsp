@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ page import="java.util.List"%>
 <%@ page import="beans.CV"%>
 <!DOCTYPE html>
@@ -10,9 +10,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Quản lý CV</title>
-<link
+<link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
-	rel="stylesheet">
+	integrity="sha384-Bk5cbLkZQ5raZ0+H2/+VbfYx3WpvxvQK4zqXZr7sYODuaX7bKXoSOnipQxkaS8sv"
+	crossorigin="anonymous">
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -23,12 +24,16 @@
 	integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
 	crossorigin="anonymous"></script>
 <script
-	src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js">
-</script> 
+	src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"
+	integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp"
+	crossorigin="anonymous"></script>
 <script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.3/js/bootstrap.min.js">	
-</script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+	integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+	crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+	integrity="sha384-vtXRMe3mGCbOeY7l30aIg8H9p3GdeSe4IFlP6G8JMa7o7lXvnz3GFKzPxzJdPfGK"
+	crossorigin="anonymous"></script>
 <link href="assets/css/style.css" rel="stylesheet">
 <style>
 .card {
@@ -70,13 +75,10 @@
 							<!-- Hiển thị thông tin CV -->
 							<h5 class="card-title">CV - ${cv.ungvien.fullName}</h5>
 							<p class="card-text">${cv.position}</p>
-							<button type="button" 
-								class="btn btn-primary btn-sm btn-eye"
-								data-bs-toggle="modal" 
-								data-bs-target="#cvModal" 
-								onclick="loadCVContent(${cv.idCV})">
-							  Xem CV
-							</button> <a href="LoadCVServlet?id=${cv.idCV}&mode=edit"
+							<button type="button" class="btn btn-primary btn-sm btn-eye"
+								data-bs-toggle="modal" data-bs-target="#cvModal"
+								onclick="loadCVContent(${cv.idCV})">Xem CV</button>
+							<a href="LoadCVServlet?id=${cv.idCV}&mode=edit"
 								class="btn btn-warning btn-sm btn-manage"> <i
 								class="bi bi-pencil"></i> Chỉnh sửa
 							</a> <a href="DeleteCVServlet?id=${cv.idCV}"
@@ -94,9 +96,8 @@
 	<script
 		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<script
-		src="js/CV.js"></script>
-	
+	<script src="js/CV.js"></script>
+
 	<jsp:include page="modals/ViewCVModal.jsp"></jsp:include>
 </body>
 </html>

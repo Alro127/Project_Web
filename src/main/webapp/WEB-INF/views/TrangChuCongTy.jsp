@@ -1,5 +1,5 @@
 <%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -10,9 +10,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Trang chủ Công Ty</title>
-<link
+<link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
-	rel="stylesheet">
+	integrity="sha384-Bk5cbLkZQ5raZ0+H2/+VbfYx3WpvxvQK4zqXZr7sYODuaX7bKXoSOnipQxkaS8sv"
+	crossorigin="anonymous">
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -23,12 +24,16 @@
 	integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
 	crossorigin="anonymous"></script>
 <script
-	src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js">
-</script> 
+	src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"
+	integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp"
+	crossorigin="anonymous"></script>
 <script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.3/js/bootstrap.min.js">	
-</script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+	integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+	crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+	integrity="sha384-vtXRMe3mGCbOeY7l30aIg8H9p3GdeSe4IFlP6G8JMa7o7lXvnz3GFKzPxzJdPfGK"
+	crossorigin="anonymous"></script>
 <link href="assets/css/style.css" rel="stylesheet">
 
 <style>
@@ -36,7 +41,8 @@
 	height: 300px;
 	/* background-image: linear-gradient(to top, #3d405b, rgba(61, 64, 91, 0)),
 		url("https://scontent.fsgn5-12.fna.fbcdn.net/v/t39.30808-6/402094294_1774466179683868_1113741505075362781_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=127cfc&_nc_ohc=9b2c3efvWzkQ7kNvgEIJbIV&_nc_zt=23&_nc_ht=scontent.fsgn5-12.fna&_nc_gid=AdKPjrB1rFBJi7CZXDd25iq&oh=00_AYDJK9INSQonmITAgEBekgp-TIRYBj7iIwWyd3L8FqtT0Q&oe=674E4E80");
- */	background-size: cover;
+ */
+	background-size: cover;
 	background-position: center;
 	border-radius: 10px;
 	position: relative;
@@ -72,20 +78,20 @@
 		<section class="container mb-5">
 			<div class="row position-relative" id="company-info">
 				<!-- Phần tên công ty và logo -->
-				<div class="image-container mb-5" 
-				     style="background-image: linear-gradient(to top, #3d405b, rgba(61, 64, 91, 0)), 
+				<div class="image-container mb-5"
+					style="background-image: linear-gradient(to top, #3d405b, rgba(61, 64, 91, 0)), 
 							url('${pageContext.request.contextPath}/${congTy.getBackground()}');
 							">
-				    <div class="company-info">
-				        <img src="${pageContext.request.contextPath}/${congTy.getLogo()}" 
-				             class="img-fluid rounded-circle img-logo" alt="Logo">
-				        <div class="mx-3">
-				            <h4>${congTy.tenCongTy}</h4>
-				            <p>
-				                Lĩnh vực: ${congTy.linhVuc} <br> Địa chỉ: ${congTy.diaChi}
-				            </p>
-				        </div>
-				    </div>
+					<div class="company-info">
+						<img src="${pageContext.request.contextPath}/${congTy.getLogo()}"
+							class="img-fluid rounded-circle img-logo" alt="Logo">
+						<div class="mx-3">
+							<h4>${congTy.tenCongTy}</h4>
+							<p>
+								Lĩnh vực: ${congTy.linhVuc} <br> Địa chỉ: ${congTy.diaChi}
+							</p>
+						</div>
+					</div>
 				</div>
 
 				<!-- Phần thông tin chung của công ty -->
@@ -191,7 +197,7 @@
 	<jsp:include page="fragments/footer.jsp" />
 
 	<script type="text/javascript">
-		var idCT = "${congTy.idCT}"; 
+		var idCT = "${congTy.idCT}";
 		console.log(idCT);// Lưu idCT từ servlet vào một biến JavaScript
 	</script>
 
