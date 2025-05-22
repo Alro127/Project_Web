@@ -31,9 +31,10 @@ function handleChangePasswordSubmit(event) {
     fetch('ChangePasswordServlet', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
+            'Content-Type': 'application/x-www-form-urlencoded',
+			'X-CSRF-TOKEN': csrfToken
         },
-        body: `oldPassword=${encodeURIComponent(oldPassword)}&newPassword=${encodeURIComponent(newPassword)}&username=${encodeURIComponent(username)}&csrfToken=${encodeURIComponent(csrfToken)}`
+        body: `oldPassword=${encodeURIComponent(oldPassword)}&newPassword=${encodeURIComponent(newPassword)}&username=${encodeURIComponent(username)}`
     })
     .then(response => {
         if (response.ok) {
