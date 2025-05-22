@@ -119,7 +119,6 @@ h2 {
 		<h2>Đăng Nhập</h2>
 		<form action="LoginServlet" method="POST">
 			<input type="hidden" name="csrfToken" value="<c:out value='${csrfToken}'/>">
-			<input type="hidden" name="csrfToken" value="${csrfToken}">
 			<div class="form-group">
 				<label for="username">Tên đăng nhập:</label> <input type="text"
 					id="username" name="username" placeholder="Nhập tên đăng nhập"
