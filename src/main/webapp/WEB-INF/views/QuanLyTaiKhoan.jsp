@@ -2,6 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<%
+    String nonce = (String) request.getAttribute("cspNonce");
+%>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -21,18 +24,21 @@
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-	crossorigin="anonymous"></script>
+	crossorigin="anonymous" nonce="<%= nonce %>"></script>
+
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
 	integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-	crossorigin="anonymous"></script>
+	crossorigin="anonymous" nonce="<%= nonce %>"></script>
+
 <script
 	src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"
 	integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp"
-	crossorigin="anonymous"></script>
+	crossorigin="anonymous" nonce="<%= nonce %>"></script>
+
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
 	integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
-	crossorigin="anonymous"></script>
+	crossorigin="anonymous" nonce="<%= nonce %>"></script>
 </head>
 <body class="bg-light-grey">
 
@@ -79,7 +85,7 @@
 						class="btn btn-secondary mb-4">Đổi mật khẩu</button>
 
 					<!-- Phần giao diện Đổi Mật Khẩu -->
-					<div id="changePasswordForm" class="mt-3" style="display: none;">
+					<div id="changePasswordForm" class="mt-3 hidden">
 						<div class="card">
 							<div class="card-header">Thay đổi mật khẩu</div>
 							<div class="card-body">
@@ -127,16 +133,16 @@
 									class="position-relative d-flex justify-content-center align-items-center">
 									<!-- Avatar -->
 									<img id="avatarPreview" src="${uv.avatar}" alt="Avatar"
-										class="rounded-circle border"
-										style="width: 200px; height: 200px; object-fit: cover;">
+     									class="rounded-circle border avatar-preview">
+
 
 									<!-- Hidden file input -->
 									<input type="file" id="avatarUpload" class="d-none"
 										accept="image/*" onchange="previewAvatar(event)">
 
 									<!-- Button container -->
-									<div class="position-absolute d-flex align-items-center"
-										style="bottom: 0; right: 0; transform: translate(50%, 50%);">
+									<div class="position-absolute d-flex align-items-center avatar-button-position">
+
 										<!-- Upload button -->
 										<button type="button"
 											class="btn btn-outline-primary btn-sm me-1"
@@ -226,8 +232,8 @@
 		</div>
 	</div>
 	<jsp:include page="modals/AddImageModals.jsp"></jsp:include>
-	<script src="js/QuanLyUngVien.js"></script>
-	<script src="js/QuanLyMatKhau.js"></script>
+	<script src="js/QuanLyUngVien.js" nonce="<%= nonce %>"></script>
+	<script src="js/QuanLyMatKhau.js" nonce="<%= nonce %>"></script>
 
 </body>
 </html>

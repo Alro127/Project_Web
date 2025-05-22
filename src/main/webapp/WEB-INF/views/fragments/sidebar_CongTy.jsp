@@ -1,43 +1,42 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+    String nonce = (String) request.getAttribute("cspNonce");
+%>
 <!DOCTYPE html>
-<style>
+
+<!-- Style nội tuyến có nonce -->
+<style nonce="<%= nonce %>">
 /* Sidebar styles */
 .sidebar {
 	height: 100vh;
 	width: 250px;
 	position: fixed;
 	top: 0;
-	left: -250px; /* Ẩn sidebar ngoài màn hình */
-	background-color: #343a40; /* Màu nền */
+	left: -250px;
+	background-color: #343a40;
 	transition: all 0.3s ease-in-out;
-	z-index: 1050; /* Đảm bảo hiển thị trên các thành phần khác */
+	z-index: 1050;
 }
-
 .sidebar.active {
-	left: 0; /* Hiển thị sidebar */
+	left: 0;
 }
-
 .sidebar .nav-link {
 	color: #343a40;
 	display: flex;
 	align-items: center;
 	gap: 20px;
-	font-size: 16px; /* Cỡ chữ cho từng liên kết */
+	font-size: 16px;
 	font-weight: bold;
 	text-decoration: none;
 	padding: 10px 20px;
 }
-
 .sidebar .nav-link:hover {
-	background-color: #495057; /* Hiệu ứng hover */
+	background-color: #495057;
 }
-
-/* Nút toggle nằm bên trong sidebar */
 .btn-toggle {
 	position: absolute;
 	top: 70px;
-	right: -40px; /* Dịch ra khỏi sidebar để nằm sát mép phải */
+	right: -40px;
 	background-color: #343a40;
 	color: #fff;
 	border: none;
@@ -47,43 +46,48 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	z-index: 1100; /* Hiển thị trên sidebar */
+	z-index: 1100;
 	cursor: pointer;
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
-
 .btn-toggle:hover {
 	background-color: #495057;
 }
 </style>
 
+<!-- HTML -->
 <div id="sidebar" class="sidebar d-flex flex-column bg-white shadow">
 	<button id="btnToggle" class="btn-toggle">☰</button>
 
-	<a href="DangCongViecServlet" class="nav-link hover-coral"> <i
-		class="fs-4 fw-bold bi bi-clipboard-plus"></i> <span>Đăng tin
-			tuyển dụng</span>
-	</a> <a href="QuanLyTinDangServlet" class="nav-link hover-coral"> <i
-		class="fs-4 fw-bold bi bi-file-earmark-post"></i> <span>Quản lý
-			tin đã đăng</span>
-	</a> <a href="HoSoUngTuyenServlet" class="nav-link hover-coral"> <i
-		class="fs-4 fw-bold bi bi-briefcase"></i> <span>Hồ sơ ứng tuyển</span>
-	</a> <a href="GoogleCalendarEventsServlet" class="nav-link hover-coral">
-		<i class="fs-4 fw-bold bi bi-calendar-check"></i> <span>Lịch
-			hẹn</span>
-	</a> <a href="TaiKhoanCongTyServlet" class="nav-link hover-coral"> <i
-		class=" fs-4 fw-bold bi bi-person-gear"></i> <span>Quản lý tài
-			khoản</span>
+	<a href="DangCongViecServlet" class="nav-link hover-coral">
+		<i class="fs-4 fw-bold bi bi-clipboard-plus"></i>
+		<span>Đăng tin tuyển dụng</span>
 	</a>
 
+	<a href="QuanLyTinDangServlet" class="nav-link hover-coral">
+		<i class="fs-4 fw-bold bi bi-file-earmark-post"></i>
+		<span>Quản lý tin đã đăng</span>
+	</a>
+
+	<a href="HoSoUngTuyenServlet" class="nav-link hover-coral">
+		<i class="fs-4 fw-bold bi bi-briefcase"></i>
+		<span>Hồ sơ ứng tuyển</span>
+	</a>
+
+	<a href="GoogleCalendarEventsServlet" class="nav-link hover-coral">
+		<i class="fs-4 fw-bold bi bi-calendar-check"></i>
+		<span>Lịch hẹn</span>
+	</a>
+
+	<a href="TaiKhoanCongTyServlet" class="nav-link hover-coral">
+		<i class="fs-4 fw-bold bi bi-person-gear"></i>
+		<span>Quản lý tài khoản</span>
+	</a>
 </div>
 
-<script>
-	const sidebar = document.getElementById('sidebar');
-	const toggleButton = document.getElementById('toggleSidebar');
-	
-	document.getElementById('btnToggle').addEventListener('click', function() {
-	        const sidebar = document.getElementById('sidebar');
-	        sidebar.classList.toggle('active');
-	    });
+<!-- Script có nonce -->
+<script nonce="<%= nonce %>">
+document.getElementById('btnToggle').addEventListener('click', function () {
+    document.getElementById('sidebar').classList.toggle('active');
+});
 </script>

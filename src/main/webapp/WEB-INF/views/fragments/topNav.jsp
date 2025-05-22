@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="cspNonce" value="${requestScope.cspNonce}" />
+
 <!DOCTYPE html>
-<style>
+<style nonce="${cspNonce}">
 .navbar {
 	position: fixed; /* Cố định nav */
 	top: 0; /* Đặt ở đầu */
@@ -10,6 +13,7 @@
 	z-index: 1030; /* Đảm bảo nav nằm trên các thành phần khác */
 }
 </style>
+
 <nav class="navbar navbar-expand-lg navbar-light bg-dark-blue">
 	<div class="container">
 		<div class="d-flex align-items-center">
@@ -25,10 +29,9 @@
 		</button>
 		<div>
 			<a href="Login.jsp?role=UngVien"
-				class="btn bg-coral text-light me-2 hover-coral">Ứng viên</a> <a
-				href="Login.jsp?role=CongTy"
-				class="btn btn-outline-coral bg-dark-blue text-light hover-coral">Nhà
-				tuyển dụng</a>
+				class="btn bg-coral text-light me-2 hover-coral">Ứng viên</a> 
+			<a href="Login.jsp?role=CongTy"
+				class="btn btn-outline-coral bg-dark-blue text-light hover-coral">Nhà tuyển dụng</a>
 		</div>
 	</div>
 </nav>

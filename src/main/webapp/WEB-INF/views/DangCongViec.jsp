@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%
+    String nonce = (String) request.getAttribute("cspNonce");
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,7 +26,7 @@
 	crossorigin="anonymous"></script>
 </head>
 <body class="bg-light-grey">
-	<script>
+	<script nonce="<%= nonce %>">
 		<c:if test="${not empty message}">
 		alert("${message}");
 		</c:if>

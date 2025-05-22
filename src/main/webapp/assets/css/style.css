@@ -86,3 +86,87 @@
 	/* Làm cho hình ảnh tròn */
 }
 
+.video-placeholder {
+	background: transparent url('https://cdn-icons-png.flaticon.com/512/16046/16046406.png') center center / contain no-repeat;
+}
+
+.bg-semi-transparent {
+	background-color: rgba(255, 255, 255, 0.5);
+}
+
+.job-img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+
+.font-rem-1-1 {
+    font-size: 1.1rem;
+}
+
+.hidden {
+	display: none;
+}
+
+.avatar-button-position {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	transform: translate(50%, 50%);
+}
+
+.avatar-preview {
+	width: 200px;
+	height: 200px;
+	object-fit: cover;
+}
+
+.bg-preview {
+	background-size: cover;
+	background-position: center center;
+	height: 500px;
+	width: 100%;
+	min-height: 300px;
+	position: relative;
+}
+
+.avatar-button-position {
+    bottom: 10px;
+    right: 10px;
+    position: absolute;
+}
+
+.background-upload-button {
+    bottom: 5px;
+    right: 5px;
+    padding: 5px;
+    position: absolute;
+}
+
+.image-preview {
+    max-width: 100%;
+    max-height: 200px;
+    object-fit: cover;
+}
+
+.hoatdong-img {
+    max-width: 100%;
+    max-height: 200px;
+    object-fit: cover;
+}
+
+.inline-form {
+    display: inline;
+}
+.pointer-btn {
+    cursor: pointer;
+}
+
+.custom-margin {
+    margin: 150px;
+}
+
+.custom-width {
+    width: 80vw;
+}
+

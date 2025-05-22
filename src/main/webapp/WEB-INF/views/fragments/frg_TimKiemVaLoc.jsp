@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="cspNonce" value="${requestScope.cspNonce}" />
+
 <!DOCTYPE html>
-<style>
+<style nonce="${cspNonce}">
 .noUi-connect {
 	background-color: #ff8160;
 }
@@ -11,6 +13,7 @@
 	box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
 }
 </style>
+
 <div class="container mt-3">
 	<div class="row">
 		<div class="col-md-4 mb-3">
@@ -43,20 +46,20 @@
 		<div class="col-md-5 mb-3">
 			<div class="form-control">
 				<label for="kinhNghiemFilter">Chọn năm kinh nghiệm: <span
-					id="kinhNghiem"></span> <!-- Hiển thị giá trị tại đây --></label>
+					id="kinhNghiem"></span></label>
 				<div class="m-3" id="kinhNghiemFilter"></div>
 			</div>
 		</div>
 		<div class="col-md-5 mb-3">
 			<div class="form-control">
-				<label for="luongFilter">Chọn khoảng lương: <span id="luong"></span>
-					<!-- Hiển thị giá trị tại đây --></label>
+				<label for="luongFilter">Chọn khoảng lương: <span id="luong"></span></label>
 				<div class="m-3" id="luongFilter"></div>
 			</div>
 		</div>
 	</div>
 </div>
-<script>
-	var minLuong = ${minLuong};
-	var maxLuong = ${maxLuong};
+
+<script nonce="${cspNonce}">
+	const minLuong = ${minLuong};
+	const maxLuong = ${maxLuong};
 </script>

@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+    String nonce = (String) request.getAttribute("cspNonce");
+%>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -74,7 +77,7 @@
 						mật khẩu</button>
 
 					<!-- Phần giao diện Đổi Mật Khẩu -->
-					<div id="changePasswordForm" class="mt-3" style="display: none;">
+					<div id="changePasswordForm" class="mt-3 hidden">
 						<div class="card">
 							<div class="card-header">Thay đổi mật khẩu</div>
 							<div class="card-body">
@@ -120,16 +123,15 @@
 										class="position-relative d-flex justify-content-center align-items-center">
 										<!-- Avatar -->
 										<img id="avatarPreview" src="${congTy.logo}" alt="Avatar"
-											class="rounded-circle border"
-											style="width: 200px; height: 200px; object-fit: cover;">
+											class="rounded-circle border avatar-preview">
 
 										<!-- Hidden file input -->
 										<input type="file" id="avatarUpload" class="d-none"
 											accept="image/*" onchange="previewAvatar(event)">
 
 										<!-- Button container -->
-										<div class="position-absolute d-flex align-items-center"
-											style="bottom: 0; right: 0; transform: translate(50%, 50%);">
+										<div class="position-absolute d-flex align-items-center avatar-button-position">
+
 											<!-- Upload button -->
 											<button type="button"
 												class="btn btn-outline-primary btn-sm me-1"
@@ -215,19 +217,11 @@
 									required>${congTy.gioiThieu}</textarea>
 								<hr>
 								<h5>Background</h5>
-								<div id="backGroundReview" class="image-container mb-5"
-									style="background-image: url('${pageContext.request.contextPath}/${congTy.getBackground()}');
-						           background-size: cover; /* Đảm bảo ảnh luôn phủ đầy container */
-						           background-position: center center; /* Canh giữa ảnh */
-						           height: 500px; /* Chỉnh độ cao theo yêu cầu */
-						           width: 100%; /* Đảm bảo chiều rộng container luôn 100% */
-						           min-height: 300px; /* Đảm bảo chiều cao tối thiểu */
-						           position: relative; /* Đảm bảo container có thể chứa vị trí tuyệt đối của con */
-						           ">
+								<div id="backGroundReview" class="image-container mb-5 bg-preview"></div>
 
 									<!-- Button container -->
-									<div class="position-absolute"
-										style="bottom: 5px; right: 5px; padding: 5px;">
+									<div class="position-absolute background-upload-button"
+										>
 										<!-- Upload button -->
 										<button type="button" class="btn btn-outline-primary btn-sm"
 											data-bs-toggle="modal"
@@ -244,9 +238,9 @@
 											<c:when test="${not empty images}">
 												<c:forEach var="imageSrc" items="${images}">
 													<div class="mb-3">
-														<img src="${imageSrc}" class="img-fluid img-thumbnail"
-															style="max-width: 100%; max-height: 200px; object-fit: cover;"
+														<img src="${imageSrc}" class="img-fluid img-thumbnail hoatdong-img"
 															data-file-name="${imageSrc.substring(imageSrc.lastIndexOf('/') + 1)}" />
+
 													</div>
 												</c:forEach>
 											</c:when>
@@ -300,5 +294,14 @@
 	<script src="js/QuanLyTaiKhoan.js"></script>
 	<script src="js/QuanLyMatKhau.js"></script>
 	<script src="js/XoaHinhAnhHoatDong.js"></script>
+	
+	<script nonce="<%= nonce %>">
+	document.addEventListener("DOMContentLoaded", function () {
+		const bg = document.getElementById("backGroundReview");
+		const imgUrl = '<c:out value="${pageContext.request.contextPath}/${congTy.background}" />';
+		bg.style.backgroundImage = `url('${imgUrl}')`;
+	});
+	</script>
+	
 </body>
 </html>

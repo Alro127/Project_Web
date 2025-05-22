@@ -52,8 +52,8 @@ function loadJobs(page) {
 				            <button type="button" class="btn btn-outline-coral btn-sm" onclick="showJobDetail(${congViec.idCongViec})">Chi tiết</button>
 				        </td>
 						<td>
-							<form action="QuanLyTinDangServlet?id=${congViec.idCongViec}" method="POST" style="display:inline;" onsubmit="return confirmDelete()">
-							    <button type="submit" class="btn btn-link p-0" style="cursor: pointer;">
+							<form action="QuanLyTinDangServlet?id=${congViec.idCongViec}" method="POST" class="inline-form" onsubmit="return confirmDelete()">
+							    <button type="submit" class="btn btn-link p-0 pointer-btn" >
 							        <i class="bi bi-trash text-danger"></i>
 							    </button>
 							</form>
