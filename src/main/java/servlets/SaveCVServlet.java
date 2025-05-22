@@ -23,6 +23,7 @@ import jakarta.servlet.http.HttpSession;
 import utils.CSRFTokenManager;
 import conn.SQLServerConnection;
 import dao.CVDAO;
+import filters.HTMLSanitizer;
 
 public class SaveCVServlet extends HttpServlet {
 
@@ -87,9 +88,14 @@ public class SaveCVServlet extends HttpServlet {
 	                // Xử lý lỗi nếu chuỗi ngày không hợp lệ
 	                e.printStackTrace();
 	            }
-	            educationEntity.setSchool(educationObject.optString("school"));
-	            educationEntity.setMajor(educationObject.optString("major"));
-	            educationEntity.setDescription(educationObject.optString("description"));
+	            educationEntity.setSchool(HTMLSanitizer.sanitizeInput(educationObject.optString("school")));
+	            educationEntity.setMajor(HTMLSanitizer.sanitizeInput(educationObject.optString("major")));
+	            educationEntity.setDescription(HTMLSanitizer.sanitizeInput(educationObject.optString("description")));
+				/*
+				 * educationEntity.setSchool(educationObject.optString("school"));
+				 * educationEntity.setMajor(educationObject.optString("major"));
+				 * educationEntity.setDescription(educationObject.optString("description"));
+				 */
 	            educationList.add(educationEntity);
 	        }
 	        
@@ -116,9 +122,16 @@ public class SaveCVServlet extends HttpServlet {
 	                // Xử lý lỗi nếu chuỗi ngày không hợp lệ
 	                e.printStackTrace();
 	            }
-	            experienceEntity.setCompany(experienceObject.optString("company"));
-	            experienceEntity.setPosition(experienceObject.optString("position"));
-	            experienceEntity.setDescription(experienceObject.optString("description"));
+				/*
+				 * experienceEntity.setCompany(experienceObject.optString("company"));
+				 * experienceEntity.setPosition(experienceObject.optString("position"));
+				 * experienceEntity.setDescription(experienceObject.optString("description"));
+				 */
+	            
+	            experienceEntity.setCompany(HTMLSanitizer.sanitizeInput(experienceObject.optString("company")));
+	            experienceEntity.setPosition(HTMLSanitizer.sanitizeInput(experienceObject.optString("position")));
+	            experienceEntity.setDescription(HTMLSanitizer.sanitizeInput(experienceObject.optString("description")));
+
 	            experienceList.add(experienceEntity);
 	        }
 	        
@@ -126,7 +139,8 @@ public class SaveCVServlet extends HttpServlet {
 	        for (int i = 0; i < certificateArray.length(); i++) {
 	            JSONObject certificateObject = certificateArray.getJSONObject(i);
 	            ChungChi certificateEntity = new ChungChi();
-	            certificateEntity.setName(certificateObject.optString("name"));
+				/* certificateEntity.setName(certificateObject.optString("name")); */
+	            certificateEntity.setName(HTMLSanitizer.sanitizeInput(certificateObject.optString("name")));
 	            certificateList.add(certificateEntity);
 	        }
 	        
@@ -134,8 +148,13 @@ public class SaveCVServlet extends HttpServlet {
 	        for (int i = 0; i < skillArray.length(); i++) {
 	            JSONObject skillObject = skillArray.getJSONObject(i);
 	            KyNang skillEntity = new KyNang();
-	            skillEntity.setName(skillObject.optString("name"));
-	            skillEntity.setLevel(skillObject.optString("level"));
+				/*
+				 * skillEntity.setName(skillObject.optString("name"));
+				 * skillEntity.setLevel(skillObject.optString("level"));
+				 */
+	            skillEntity.setName(HTMLSanitizer.sanitizeInput(skillObject.optString("name")));
+	            skillEntity.setLevel(HTMLSanitizer.sanitizeInput(skillObject.optString("level")));
+
 	            skillList.add(skillEntity);
 	        }
 	        
@@ -153,9 +172,12 @@ public class SaveCVServlet extends HttpServlet {
 			}
 			int idUV = Integer.parseInt(idUVStr);
 			
-	        CV cv = new CV(idUV, position, careerGoals);
+			/* CV cv = new CV(idUV, position, careerGoals); */
+			CV cv = new CV(idUV,
+		               HTMLSanitizer.sanitizeInput(position),
+		               HTMLSanitizer.sanitizeInput(careerGoals));
 	        cv.setIdCV(Integer.parseInt(IdCV));
-       // Tiến hành lưu các đối tượng này vào cơ sở dữ liệu hoặc xử lý theo yêu cầu
+	        // Tiến hành lưu các đối tượng này vào cơ sở dữ liệu hoặc xử lý theo yêu cầu
 	        if (mode.equals("create")) {
 	        	CVDAO.addCV(cv, educationList, experienceList, certificateList, skillList);
 	        }
