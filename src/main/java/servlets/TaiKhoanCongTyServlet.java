@@ -30,6 +30,7 @@ import beans.TaiKhoan;
 import dao.CongTyDAO;
 import dao.CongViecDAO;
 import dao.TaiKhoanDAO;
+import filters.HTMLSanitizer;
 
 /**
  * Servlet implementation class TaiKhoanCongTy
@@ -84,14 +85,24 @@ public class TaiKhoanCongTyServlet extends HttpServlet {
             JSONObject json = new JSONObject(jsonString.toString());
             // Lấy các trường thông tin từ JSON
             String tenCongTy = json.getString("tenCongTy");
+            tenCongTy = HTMLSanitizer.sanitizeInput(tenCongTy);
             String sdt = json.getString("sdt");
+            sdt = HTMLSanitizer.sanitizeInput(sdt);
             String tinhThanh = json.getString("tinhThanh");
+            tinhThanh = HTMLSanitizer.sanitizeInput(tinhThanh);
             String diaChi = json.getString("diaChi");
+            diaChi = HTMLSanitizer.sanitizeInput(diaChi);
             String maSoThue = json.getString("maSoThue");
+            maSoThue = HTMLSanitizer.sanitizeInput(maSoThue);
             String linhVuc = json.getString("linhVuc");
+            linhVuc = HTMLSanitizer.sanitizeInput(linhVuc);
             String quyMoNhanSu = json.getString("quyMoNhanSu");
+            quyMoNhanSu = HTMLSanitizer.sanitizeInput(quyMoNhanSu);
             String url = json.getString("url");
+            url = HTMLSanitizer.sanitizeInput(url);
             String gioiThieu = json.getString("gioiThieu");
+            gioiThieu = HTMLSanitizer.sanitizeInput(gioiThieu);
+            
             
             boolean isUpdateAvatar = true;
             boolean isUpdateActivities = true;

@@ -5,6 +5,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import utils.PasswordUtil;
+
 import java.io.IOException;
 
 import com.google.common.graph.SuccessorsFunction;
@@ -62,7 +64,8 @@ public class SignupServlet extends HttpServlet {
 		// Check tồn tại
 		// boolean isRegistered = registerUser(username, password, role);
 		//boolean isRegistered = true;
-		if (TaiKhoanDAO.isExistedAccount(username, password)) {
+		String hashedPassword = PasswordUtil.encryptPassword(password);
+		if (TaiKhoanDAO.isExistedAccount(username, hashedPassword)) {
 			// Nếu đăng ký thất bại, hiển thị thông báo lỗi
             request.setAttribute("message", "Tên đăng nhập đã tồn tại hoặc có lỗi xảy ra.");
             
@@ -72,7 +75,7 @@ public class SignupServlet extends HttpServlet {
 			 * response.sendRedirect("ThongTinCongTy.jsp");
 			 */
         	
-        	if (TaiKhoanDAO.AddAccount(username, password, email, role))
+        	if (TaiKhoanDAO.AddAccount(username, hashedPassword, email, role))
         	{
         		int id = TaiKhoanDAO.getID("username", username);
             	if (role.equals("UngVien")) {

@@ -8,25 +8,30 @@ import java.util.List;
 
 import beans.TaiKhoan;
 import conn.DBConnection;
+import utils.PasswordUtil;
 
 public class TaiKhoanDAO {
-	public static Boolean AuthenticationAccount(TaiKhoan tk)
-	{
-		try {
-			Connection conn = DBConnection.getConnection();
-			String sql = "select * from TaiKhoan where username = ? and password = ?";
-			PreparedStatement preparedStatement = conn.prepareStatement(sql);
-			preparedStatement.setString(1, tk.getUsername());
-			preparedStatement.setString(2, tk.getPassword());
-			ResultSet rs = preparedStatement.executeQuery();
-			
-			if (rs.next()) {
-				return true;
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return false;
+	public static Boolean AuthenticationAccount(TaiKhoan tk) {
+	    try {
+	        Connection conn = DBConnection.getConnection();
+	        String sql = "SELECT password FROM TaiKhoan WHERE username = ?";
+	        PreparedStatement preparedStatement = conn.prepareStatement(sql);
+	        preparedStatement.setString(1, tk.getUsername());
+
+	        ResultSet rs = preparedStatement.executeQuery();
+
+	        if (rs.next()) {
+	            String hashedPassword = rs.getString("password");
+
+	            // So sánh mật khẩu người dùng nhập với mật khẩu mã hóa trong DB
+	            if (PasswordUtil.checkPassword(tk.getPassword(), hashedPassword)) {
+	                return true;
+	            }
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return false;
 	}
 	
 	public static boolean isExistedAccount(String username, String password)
@@ -163,16 +168,23 @@ public class TaiKhoanDAO {
     public boolean updateTaiKhoan(String username, String oldPassword, String newPassword) {
         // Kiểm tra mật khẩu cũ có đúng không (có thể cần gọi database)
         // Giả sử bạn có một phương thức `getPasswordByUsername` để lấy mật khẩu hiện tại
+    	
+    	if (oldPassword.isEmpty() || oldPassword == null || newPassword.isEmpty() || newPassword == null
+			|| username.isEmpty() || username == null)
+    	{
+    		return false;
+		}
+    	// đã hash bằng BCrypt
         String currentPassword = getPasswordByUsername(username);
-
+        
         // Kiểm tra mật khẩu cũ
-        if (currentPassword == null || !currentPassword.equals(oldPassword)) {
+        if (currentPassword == null || !PasswordUtil.checkPassword(oldPassword, currentPassword)) {
             return false;  // Mật khẩu cũ không đúng
         }
-
+        String newPasswordHashed = PasswordUtil.encryptPassword(newPassword);
         // Tiến hành cập nhật mật khẩu mới vào cơ sở dữ liệu
         // Giả sử bạn có phương thức `updatePassword`
-        return updatePassword(username, newPassword);
+        return updatePassword(username, newPasswordHashed);
     }
 
     private String getPasswordByUsername(String username) {

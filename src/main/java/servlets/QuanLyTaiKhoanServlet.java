@@ -27,6 +27,7 @@ import beans.UngVien;
 import dao.CVDAO;
 import dao.TaiKhoanDAO;
 import dao.UngVienDAO;
+import filters.HTMLSanitizer;
 
 public class QuanLyTaiKhoanServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -63,13 +64,20 @@ public class QuanLyTaiKhoanServlet extends HttpServlet {
 	        JSONObject json = new JSONObject(jsonString.toString());
 	        // Lấy dữ liệu từ JSON
 	        String fullname = json.getString("fullname");
+	        fullname = HTMLSanitizer.sanitizeInput(fullname);
 	        String gender = json.getString("gender");
+	        gender = HTMLSanitizer.sanitizeInput(gender);
 	        String dobString = json.getString("dob");
+	        dobString = HTMLSanitizer.sanitizeInput(dobString);
 	        String phone = json.getString("phone");
+	        phone = HTMLSanitizer.sanitizeInput(phone);
 	        String location = json.getString("location");
+	        location = HTMLSanitizer.sanitizeInput(location);
 	        String address = json.getString("address");
+	        address = HTMLSanitizer.sanitizeInput(address);
 	        String introduction = json.getString("introduction");
-
+	        introduction = HTMLSanitizer.sanitizeInput(introduction);
+	        
 	        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	        Date dob = null;
 

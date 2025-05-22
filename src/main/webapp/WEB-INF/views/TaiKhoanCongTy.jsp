@@ -70,7 +70,7 @@
 							<div class="col-6">
 								<label for="password" class="form-label">Password</label> <input
 									type="password" class="form-control" id="password"
-									value="${taiKhoan.password}" readonly>
+									value="************" readonly>
 							</div>
 						</div>
 					</form>

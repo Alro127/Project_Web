@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import dao.TaiKhoanDAO;
+import filters.HTMLSanitizer;
 
 public class ChangePasswordServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -18,7 +19,10 @@ public class ChangePasswordServlet extends HttpServlet {
         String oldPassword = request.getParameter("oldPassword");
         String newPassword = request.getParameter("newPassword");
         String username = request.getParameter("username"); // Giả sử bạn truyền username từ frontend.
-
+        
+        oldPassword = HTMLSanitizer.sanitizeInput(oldPassword);
+        newPassword = HTMLSanitizer.sanitizeInput(newPassword);
+        username = HTMLSanitizer.sanitizeInput(username);
         // Gọi phương thức trong TaiKhoanDAO để cập nhật mật khẩu
         TaiKhoanDAO taiKhoanDAO = new TaiKhoanDAO();
 
@@ -33,7 +37,7 @@ public class ChangePasswordServlet extends HttpServlet {
         	String newToken = (String) request.getSession().getAttribute("csrfToken");
         	response.getWriter().write("{\"status\":\"success\", \"message\":\"Mật khẩu đã được cập nhật\", \"newToken\":\"" + newToken + "\"}");
         } else {
-        	response.getWriter().write("{\"status\":\"error\", \"message\":\"Mật khẩu cũ không đúng!\"}");
+        	response.getWriter().write("{\"status\":\"error\", \"message\":\"Có lỗi xảy ra khi thực hiện thao tác!\"}");
         }
     }
 }
