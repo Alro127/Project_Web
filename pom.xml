@@ -204,8 +204,18 @@
 		    <artifactId>org.eclipse.core.runtime</artifactId>
 		    <version>3.31.0</version>
 		</dependency>
-
-
+		<!-- https://mvnrepository.com/artifact/org.owasp.encoder/encoder-jakarta-jsp -->
+		<dependency>
+		    <groupId>org.owasp.encoder</groupId>
+		    <artifactId>encoder-jakarta-jsp</artifactId>
+		    <version>1.3.0</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.googlecode.owasp-java-html-sanitizer/owasp-java-html-sanitizer -->
+		<dependency>
+		    <groupId>com.googlecode.owasp-java-html-sanitizer</groupId>
+		    <artifactId>owasp-java-html-sanitizer</artifactId>
+		    <version>20220608.1</version>
+		</dependency>
 	</dependencies>
 	<!-- Build Plugins -->
 	<build>

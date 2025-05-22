@@ -130,24 +130,45 @@ public class QuanLyTinDangServlet extends HttpServlet {
 	    int startIndex = (page - 1) * pageSize;
 	    int endIndex = Math.min(startIndex + pageSize, totalCongViecs);
 	    List<CongViec> pagedCongViecs = congViecs.subList(startIndex, endIndex);
+	    
+	    String isAjax = request.getParameter("ajax");
 
-	    response.setContentType("application/json");
-	    response.setCharacterEncoding("UTF-8");
+	    if ("true".equals(isAjax)) {
+	        // Trả JSON nếu là AJAX
+	        Map<String, Object> responseData = new HashMap<>();
+	        responseData.put("congViecs", pagedCongViecs);
+	        responseData.put("totalPages", totalPages);
+	        responseData.put("currentPage", page);
 
-	    Map<String, Object> responseData = new HashMap<>();
-	    responseData.put("congViecs", pagedCongViecs);
-	    responseData.put("totalPages", totalPages);
-	    responseData.put("currentPage", page);
-
-	    // Chỉ trả về JSON một lần
-	    String jsonResponse = new Gson().toJson(responseData);
-	    System.out.println(jsonResponse); // Kiểm tra dữ liệu JSON trước khi trả về
-	    response.getWriter().write(jsonResponse);
-
-	    // Nếu không phải AJAX, bạn có thể chuyển hướng sang JSP
-	    if (!"true".equals(request.getParameter("ajax"))) {
+	        String jsonResponse = new Gson().toJson(responseData);
+	        response.setContentType("application/json");
+	        response.getWriter().write(jsonResponse);
+	    } else {
+	        // Nếu không phải AJAX thì forward
+	        request.setAttribute("congViecs", pagedCongViecs);
+	        request.setAttribute("totalPages", totalPages);
+	        request.setAttribute("currentPage", page);
 	        request.getRequestDispatcher("/WEB-INF/views/QuanLyTinDang.jsp").forward(request, response);
 	    }
+
+	    
+		/*
+		 * response.setContentType("application/json");
+		 * response.setCharacterEncoding("UTF-8");
+		 * 
+		 * Map<String, Object> responseData = new HashMap<>();
+		 * responseData.put("congViecs", pagedCongViecs); responseData.put("totalPages",
+		 * totalPages); responseData.put("currentPage", page);
+		 * 
+		 * // Chỉ trả về JSON một lần String jsonResponse = new
+		 * Gson().toJson(responseData); System.out.println(jsonResponse); // Kiểm tra dữ
+		 * liệu JSON trước khi trả về response.getWriter().write(jsonResponse);
+		 * 
+		 * // Nếu không phải AJAX, bạn có thể chuyển hướng sang JSP if
+		 * (!"true".equals(request.getParameter("ajax"))) {
+		 * request.getRequestDispatcher("/WEB-INF/views/QuanLyTinDang.jsp").forward(
+		 * request, response); }
+		 */
 	}
 
 	/**
