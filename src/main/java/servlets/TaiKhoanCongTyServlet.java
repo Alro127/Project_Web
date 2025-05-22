@@ -309,8 +309,11 @@ public class TaiKhoanCongTyServlet extends HttpServlet {
                 }
 			}
             
+            String newToken = (String) request.getSession().getAttribute("csrfToken");
+
             JSONObject jsonResponse = new JSONObject();
             jsonResponse.put("status", "success");
+            jsonResponse.put("newToken", newToken); 
             //jsonResponse.put("imagePath", relativePath + "/" + fileName); // �u?ng d?n ?nh tr? v?
             
             response.setContentType("application/json");

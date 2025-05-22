@@ -26,6 +26,8 @@ document.getElementById("saveAvatarImage").addEventListener("click", function()
 });
 document.getElementById("saveAllCandidateChanges").addEventListener("click", function (event) {
 	event.preventDefault(); // Ngừng hành động gửi form mặc định
+	
+	
     var formData = {
         fullname: document.getElementById("fullname").value,
         gender: document.getElementById("gender").value,
@@ -37,6 +39,8 @@ document.getElementById("saveAllCandidateChanges").addEventListener("click", fun
 		avatarSource: avatarSource,
 		avatarFileName: avatarFileName
     };
+	const csrfToken = document.querySelector("meta[name='csrf-token']").content;
+
 	// In ra thông tin từ formData để kiểm tra
 	   console.log("Full Name: ", formData.fullname);
 	   console.log("Gender: ", formData.gender);
@@ -62,6 +66,7 @@ document.getElementById("saveAllCandidateChanges").addEventListener("click", fun
         method: "POST",
         headers: {
             "Content-Type": "application/json",
+			"X-CSRF-TOKEN": csrfToken 
         },
         body: JSON.stringify(formData),
     })
@@ -69,6 +74,10 @@ document.getElementById("saveAllCandidateChanges").addEventListener("click", fun
     .then(data => {
         if (data.success) {
             alert("Thông tin cá nhân đã được cập nhật.");
+			if (data.newToken) {
+			    document.querySelector("meta[name='csrf-token']").setAttribute("content", data.newToken);
+			}
+
         } else {
             alert("Có lỗi xảy ra, vui lòng thử lại.");
         }

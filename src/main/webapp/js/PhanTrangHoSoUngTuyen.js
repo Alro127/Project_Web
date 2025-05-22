@@ -103,19 +103,23 @@ function updateStatus(selectElement, idCV, idCongViec) {
 
     if (confirmUpdate) {
         // Tạo FormData để gửi dữ liệu
+		const csrfToken = document.querySelector("meta[name='csrf-token']").content;
+		
 		const params = new URLSearchParams();
 		params.append('idCV', idCV);
 		params.append('idCongViec', idCongViec);
 		params.append('trangThai', selectedValue);
+		params.append('csrfToken', csrfToken); 
 
 		fetch('HoSoUngTuyenServlet', {
 		    method: 'POST',
 		    body: params,
 		})
-        .then(response => response.text()) // Có thể là text hoặc JSON, tùy server phản hồi
+        .then(response => response.json()) 
         .then(data => {
             // Kiểm tra phản hồi từ server (tùy thuộc server trả về gì)
-            if (data.trim() === 'success') { 
+            if (data.status === "success") { 
+				document.querySelector("meta[name='csrf-token']").setAttribute("content", data.newToken);
                 alert('Cập nhật trạng thái thành công!');
             } else {
                 alert('Cập nhật trạng thái thất bại.');
