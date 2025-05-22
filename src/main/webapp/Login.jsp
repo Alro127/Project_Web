@@ -120,9 +120,8 @@ h2 { margin-bottom: 20px; color: var(--first-color); }
 			</div>
 		</form>
 
-		<button id="loginGoogle" class="custom-button" onclick="redirectToGoogleLogin()">
-		    Đăng nhập với Google
-		</button>
+		<button id="loginGoogle" class="custom-button">Đăng nhập với Google</button>
+
 
 		<div class="form-footer">
 			<p>Chưa có tài khoản? <a href="Signup.jsp">Đăng ký tài khoản</a></p>
@@ -188,11 +187,20 @@ h2 { margin-bottom: 20px; color: var(--first-color); }
 	}
 	</script>
 
-	<!-- Không dùng onload trực tiếp, thay bằng addEventListener -->
+
 	<script nonce="<%= nonce %>">
 	document.addEventListener("DOMContentLoaded", function () {
 	    checkLoginMessage();
 	});
+	
 	</script>
+	<script nonce="<%= nonce %>">
+    document.addEventListener("DOMContentLoaded", function () {
+        const googleBtn = document.getElementById("loginGoogle");
+        if (googleBtn) {
+            googleBtn.addEventListener("click", redirectToGoogleLogin);
+        }
+    });
+</script>
 </body>
 </html>

@@ -3,6 +3,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+    String nonce = (String) request.getAttribute("cspNonce");
+%>
 <!DOCTYPE html>
 <html lang="vi">
 
@@ -36,7 +39,7 @@
 	crossorigin="anonymous"></script>
 <link href="assets/css/style.css" rel="stylesheet">
 
-<style>
+<style nonce="<%= nonce %>">
 .image-container {
 	height: 300px;
 	/* background-image: linear-gradient(to top, #3d405b, rgba(61, 64, 91, 0)),
@@ -78,10 +81,8 @@
 		<section class="container mb-5">
 			<div class="row position-relative" id="company-info">
 				<!-- Phần tên công ty và logo -->
-				<div class="image-container mb-5"
-					style="background-image: linear-gradient(to top, #3d405b, rgba(61, 64, 91, 0)), 
-							url('${pageContext.request.contextPath}/${congTy.getBackground()}');
-							">
+				<div class="image-container mb-5 bg-company-banner" id="companyBanner">
+
 					<div class="company-info">
 						<img src="${pageContext.request.contextPath}/${congTy.getLogo()}"
 							class="img-fluid rounded-circle img-logo" alt="Logo">
@@ -196,12 +197,23 @@
 	<!-- Footer -->
 	<jsp:include page="fragments/footer.jsp" />
 
-	<script type="text/javascript">
+	<script type="text/javascript" nonce="<%= nonce %>">
 		var idCT = "${congTy.idCT}";
 		console.log(idCT);// Lưu idCT từ servlet vào một biến JavaScript
 	</script>
 
 	<script src="js/PhanTrangCongViecByCongTy.js"></script>
+	
+	<script nonce="<%= nonce %>">
+	document.addEventListener("DOMContentLoaded", function () {
+		const banner = document.getElementById("companyBanner");
+		if (banner) {
+			const bgUrl = "${pageContext.request.contextPath}/${congTy.getBackground()}";
+			banner.style.backgroundImage = `linear-gradient(to top, #3d405b, rgba(61, 64, 91, 0)), url('${bgUrl}')`;
+		}
+	});
+	</script>
+	
 </body>
 
 </html>

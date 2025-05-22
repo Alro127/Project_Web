@@ -170,3 +170,17 @@
     width: 80vw;
 }
 
+.bg-transparent-white {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.company-logo {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+
+.no-underline {
+	text-decoration: none;
+}
+

@@ -29,11 +29,11 @@
 
 						<div class="d-flex mt-2">
 							<img src="${congViecLienQuan.logo}"
-								class="card-img-top img-fluid" alt="Công việc"
-								style="width: 100px; height: 100px; object-fit: cover;">
+								class="card-img-top img-fluid job-img" alt="Công việc"
+								>
 							<div class="card-body ms-3">
 
-								<h6 class="font-weight-bold" style="font-size: 1.1rem;">${congViecLienQuan.tenCongTy}</h6>
+								<h6 class="font-weight-bold font-rem-1-1" >${congViecLienQuan.tenCongTy}</h6>
 								<p class="card-text">
 									<!-- Định dạng lương với dấu phân cách hàng nghìn -->
 									<strong><i class="bi bi-currency-dollar text-warning"></i></strong>

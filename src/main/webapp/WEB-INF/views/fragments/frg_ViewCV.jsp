@@ -16,8 +16,8 @@
 						<div class="position-relative d-inline-block">
 							<!-- Avatar -->
 							<img id="avatarPreview" src="${cv.ungvien.avatar}" 
-								alt="Avatar" class="rounded-circle border"
-								style="width: 200px; height: 200px; object-fit: cover;">
+								alt="Avatar" class="rounded-circle border avatar-preview"
+								>
 						</div>
 
 						<!-- Tên nằm dưới avatar -->

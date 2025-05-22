@@ -65,8 +65,8 @@
 								<div class="position-relative d-inline-block ">
 									<!-- Avatar -->
 									<img id="avatarPreview" src="${uv.avatar}" alt="Avatar"
-										class="rounded-circle border"
-										style="width: 200px; height: 200px; object-fit: cover;">
+										class="rounded-circle border avatar-preview"
+										>
 								</div>
 
 								<!-- Tên nằm dưới avatar -->
@@ -153,7 +153,7 @@
 										<button type="button" id="editPersonalInfoBtn"
 											class="btn btn-outline-primary">
 											<a href="QuanLyTaiKhoanServlet"
-												style="text-decoration: none;"><i
+												class= "no-underline"><i
 												class="bi bi-pencil-square"></i> Chỉnh sửa thông tin</a>
 										</button>
 									</div>
@@ -345,7 +345,7 @@
 						</div>
 
 						<!-- Lưu CV-->
-						<textarea type="hidden" id="mode" style="display: none;">create</textarea>
+						<textarea type="hidden" id="mode" class = "hidden">create</textarea>
 						<div class="text-center">
 							<button type="button" class="btn btn-success"
 								onClick="saveData()">Lưu CV</button>

@@ -2,6 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%
+    String nonce = (String) request.getAttribute("cspNonce");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,8 +46,8 @@
 		<div class="container">
 			<div class="row">
 				<!-- Chi tiết công việc -->
-				<div class="bg-white rounded p-3 shadow-sm mb-4 col-md-8"
-					style="background-color: rgba(255, 255, 255, 0.5);">
+				<div class="bg-white rounded p-3 shadow-sm mb-4 col-md-8 bg-transparent-white">
+
 					<div class="container">
 						<div class="row">
 							<div class="card-header bg-white text-dark">
@@ -115,7 +118,7 @@
 											<button type="button"
 												class="btn bg-dark-blue text-light form-control"
 												data-bs-toggle="modal" data-bs-target="#cvListModal"
-												onclick="openCVModal()">Ứng tuyển</button>
+												>Ứng tuyển</button>
 										</div>
 
 
@@ -161,15 +164,15 @@
 				<!-- Khác-->
 				<div class="ps-4 md-4 pe-0 mb-4 col-md-4">
 					<!-- Công ty -->
-					<div class="bg-white rounded shadow-sm p-3 mb-4"
-						style="background-color: rgba(255, 255, 255, 0.5);">
+					<div class="bg-white rounded shadow-sm p-3 mb-4 bg-transparent-white"
+						>
 						<h5>
 							<strong>${congViec.tenCongTy}</strong>
 						</h5>
 						<div class="d-flex">
-							<img src="${congViec.logo}" class="card-img-top img-fluid"
+							<img src="${congViec.logo}" class="card-img-top img-fluid company-logo"
 								alt="Công việc"
-								style="width: 100px; height: 100px; object-fit: cover;">
+								>
 							<div class="card-body ms-3">
 								<p class="card-text">
 									<strong>Quy mô:</strong> ${congViec.idCT} <br> <strong>Lĩnh
@@ -184,8 +187,8 @@
 					</div>
 
 					<!-- Công Việc liên quan -->
-					<div class="bg-white rounded shadow-sm p-3"
-						style="background-color: rgba(255, 255, 255, 0.5);">
+					<div class="bg-white rounded shadow-sm p-3 bg-transparent-white"
+						>
 						<h5>
 							<strong>Công việc liên quan</strong>
 						</h5>
@@ -198,7 +201,7 @@
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript">
+	<script type="text/javascript" nonce="<%= nonce %>">
 		// Chuyển giá trị từ Java (JSP) sang JavaScript
 		let idCongViec = $
 		{
@@ -215,5 +218,15 @@
 	<script src="js/CV.js"></script>
 	<!-- Footer -->
 	<jsp:include page="fragments/footer.jsp" />
+	
+	<script nonce="<%= nonce %>">
+	document.addEventListener("DOMContentLoaded", function () {
+		const btn = document.getElementById("btnUngTuyen");
+		if (btn) {
+			btn.addEventListener("click", openCVModal);
+		}
+	});
+</script>
+	
 </body>
 </html>

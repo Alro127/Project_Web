@@ -19,6 +19,7 @@ import com.mysql.cj.Session;
 
 import beans.CongViec;
 import dao.CongViecDAO;
+import filters.HTMLSanitizer;
 
 /**
  * Servlet implementation class DangCongViecServlet
@@ -81,14 +82,23 @@ public class DangCongViecServlet extends HttpServlet {
 
 		// Kiểm tra các tham số request để đảm bảo không rỗng
 		String ten = request.getParameter("ten");
+		ten = HTMLSanitizer.sanitizeInput(ten);
 		String diaDiem = request.getParameter("diaDiem");
+		diaDiem = HTMLSanitizer.sanitizeInput(diaDiem);
 		String luongStr = request.getParameter("luong");
+		luongStr = HTMLSanitizer.sanitizeInput(luongStr);
 		String namKinhNghiemStr = request.getParameter("namKinhNghiem");
+		namKinhNghiemStr = HTMLSanitizer.sanitizeInput(namKinhNghiemStr);
 		String linhVuc = request.getParameter("linhVuc");
+		linhVuc = HTMLSanitizer.sanitizeInput(linhVuc);
 		String thoiGianHetHanStr = request.getParameter("thoiGianHetHan"); // yyyy-MM-ddTHH:mm
+		thoiGianHetHanStr = HTMLSanitizer.sanitizeInput(thoiGianHetHanStr);
 		String moTa = request.getParameter("moTa");
+		moTa = HTMLSanitizer.sanitizeInput(moTa);
 		String yeuCau = request.getParameter("yeuCau");
+		yeuCau = HTMLSanitizer.sanitizeInput(yeuCau);
 		String quyenLoi = request.getParameter("quyenLoi");
+		quyenLoi = HTMLSanitizer.sanitizeInput(quyenLoi);
 		
 		try {
 			// Kiểm tra giá trị đầu vào
@@ -117,10 +127,10 @@ public class DangCongViecServlet extends HttpServlet {
 	                Message.alertAndRedirect(response, "Đăng công việc thành công!", "QuanLyTinDangServlet");
 	                //CSRFTokenManager.generateToken(request);
 	            } else {
-	            	Message.alertAndRedirect(response, "Có lỗi xảy ra, vui lòng thử lại.", "/WEB-INF/views/DangCongViec.jsp");
+	            	Message.alertAndRedirect(response, "Có lỗi xảy ra, vui lòng thử lại.", "DangCongViecServlet");
 	            }
 	        } else {
-	        	Message.alertAndRedirect(response, "Dữ liệu không hợp lệ. Vui lòng kiểm tra lại.", "/WEB-INF/views/DangCongViec.jsp");
+	        	Message.alertAndRedirect(response, "Dữ liệu không hợp lệ. Vui lòng kiểm tra lại.", "DangCongViecServlet");
 	        }
 		} catch (Exception e) {
 	        e.printStackTrace();

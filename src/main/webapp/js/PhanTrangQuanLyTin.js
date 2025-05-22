@@ -39,6 +39,7 @@ function loadJobs(page) {
 				}
                 let thoiGianDang = new Date(congViec.thoiGianDang).toLocaleDateString('vi-VN');
                 let thoiGianHetHan = new Date(congViec.thoiGianHetHan).toLocaleDateString('vi-VN');
+				let csrfToken = document.querySelector('meta[name="csrf-token"]').content;
 
                 jobListHtml += `
                     <tr>
@@ -52,8 +53,9 @@ function loadJobs(page) {
 				            <button type="button" class="btn btn-outline-coral btn-sm" onclick="showJobDetail(${congViec.idCongViec})">Chi tiết</button>
 				        </td>
 						<td>
-							<form action="QuanLyTinDangServlet?id=${congViec.idCongViec}" method="POST" class="inline-form" onsubmit="return confirmDelete()">
-							    <button type="submit" class="btn btn-link p-0 pointer-btn" >
+							<form action="QuanLyTinDangServlet?id=${congViec.idCongViec}" method="POST" class = "inline-form" onsubmit="return confirmDelete()">
+								<input type="hidden" name="csrfToken" value="${csrfToken}">
+								<button type="submit" class="btn btn-link p-0 pointer-btn" >
 							        <i class="bi bi-trash text-danger"></i>
 							    </button>
 							</form>

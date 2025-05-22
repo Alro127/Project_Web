@@ -64,8 +64,8 @@
 								<div class="position-relative d-inline-block">
 									<!-- Avatar -->
 									<img id="avatarPreview" src="${cv.ungvien.avatar}" alt="Avatar"
-										class="rounded-circle border"
-										style="width: 200px; height: 200px; object-fit: cover;">
+										class="rounded-circle border avatar-preview"
+										>
 								</div>
 
 
@@ -150,7 +150,7 @@
 								<div class="text-end">
 									<button type="button" id="editPersonalInfoBtn"
 										class="btn btn-outline-primary">
-										<a href="QuanLyTaiKhoanServlet" style="text-decoration: none;"><i
+										<a href="QuanLyTaiKhoanServlet" class ="no-underline"><i
 											class="bi bi-pencil-square"></i> Chỉnh sửa thông tin</a>
 									</button>
 								</div>
@@ -338,8 +338,8 @@
 					<!-- Lưu CV-->
 
 					<div class="text-center">
-						<textarea type="hidden" id="mode" style="display: none;">edit</textarea>
-						<textarea type="hidden" id="IdCV" style="display: none;">${cv.idCV}</textarea>
+						<textarea type="hidden" id="mode" class = "hidden">edit</textarea>
+						<textarea type="hidden" id="IdCV" class = "hidden">${cv.idCV}</textarea>
 						<button type="button" class="btn btn-success" onclick="saveData()">Lưu
 							CV</button>
 						<button type="button" class="btn"
