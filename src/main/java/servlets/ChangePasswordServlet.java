@@ -30,9 +30,10 @@ public class ChangePasswordServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         if (isUpdated) {
         	//CSRFTokenManager.generateToken(request);
-            out.write("{\"status\":\"success\", \"message\":\"Mật khẩu đã được thay đổi thành công!\"}");
+        	String newToken = (String) request.getSession().getAttribute("csrfToken");
+        	response.getWriter().write("{\"status\":\"success\", \"message\":\"Mật khẩu đã được cập nhật\", \"newToken\":\"" + newToken + "\"}");
         } else {
-            out.write("{\"status\":\"error\", \"message\":\"Mật khẩu cũ không đúng!\"}");
+        	response.getWriter().write("{\"status\":\"error\", \"message\":\"Mật khẩu cũ không đúng!\"}");
         }
     }
 }

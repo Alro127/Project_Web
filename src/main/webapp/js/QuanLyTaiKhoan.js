@@ -10,6 +10,8 @@ document.getElementById("saveAllChanges").addEventListener("click", function(eve
 	var quyMoNhanSu = document.getElementById("quyMoNhanSu").value;
 	var url = document.getElementById("url").value;
 	var gioiThieu = document.getElementById("introduction").value;
+	const csrfToken = document.querySelector("meta[name='csrf-token']").content;
+
 	
 	// In tất cả giá trị ra console để kiểm tra
 	    console.log("Tên công ty: ", tenCongTy);
@@ -49,14 +51,15 @@ document.getElementById("saveAllChanges").addEventListener("click", function(eve
 		imageSources: imageSources,
 		fileNames: fileNames,
 		backGroundSource: backGroundSource,
-		backGroundFileName: backGroundFileName
+		backGroundFileName: backGroundFileName,
 	};
 	
 	// Gửi yêu cầu POST với fetch
 	fetch("TaiKhoanCongTyServlet", {
 	    method: "POST",
 	    headers: {
-	        "Content-Type": "application/json"
+	        "Content-Type": "application/json",
+			"X-CSRF-TOKEN": csrfToken 
 	    },
 	    body: JSON.stringify(dataToSend) // Chuyển đối tượng thành JSON
 	})
@@ -64,15 +67,20 @@ document.getElementById("saveAllChanges").addEventListener("click", function(eve
 	    if (response.ok) {
 	        return response.json(); // Giả sử server trả về dữ liệu JSON
 	    } else {
-	        alert(response.text);
-	    }
-		window.location.reload(true);
+			return response.text().then(text => {
+			            console.error("Phản hồi lỗi:", text);
+			            alert("Lỗi từ server: " + text);
+			        });
+	}
 	})
 	.then(data => {
 	    console.log("Phản hồi từ server:", data);
 	    if (data.status === "success") {
 	        // Hiển thị thông báo khi thành công
 	        alert("Cập nhật thành công!");
+			if (data.newToken) {
+                document.querySelector("meta[name='csrf-token']").setAttribute("content", data.newToken);
+            }
 	    } else {
 	        // Hiển thị thông báo khi có lỗi
 	        alert("Lỗi khi cập nhật thông tin.");

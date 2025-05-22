@@ -24,12 +24,15 @@ function handleChangePasswordSubmit(event) {
         alert("Mật khẩu mới và mật khẩu xác nhận không khớp.");
         return;
     }
+	
+	const csrfToken = document.querySelector("meta[name='csrf-token']").content;
 
     // Gửi yêu cầu AJAX tới Servlet để thay đổi mật khẩu
     fetch('ChangePasswordServlet', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
+            'Content-Type': 'application/x-www-form-urlencoded',
+			'X-CSRF-TOKEN': csrfToken
         },
         body: `oldPassword=${encodeURIComponent(oldPassword)}&newPassword=${encodeURIComponent(newPassword)}&username=${encodeURIComponent(username)}`
     })
@@ -47,6 +50,9 @@ function handleChangePasswordSubmit(event) {
         } else {
             if (data.status === "success") {
                 alert(data.message);
+				if (data.newToken) {
+		              document.querySelector("meta[name='csrf-token']").setAttribute("content", data.newToken);
+                }
             } else {
                 alert(data.message);
             }
