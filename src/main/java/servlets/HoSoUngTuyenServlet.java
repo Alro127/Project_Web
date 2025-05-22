@@ -135,13 +135,16 @@ public class HoSoUngTuyenServlet extends HttpServlet {
 
 	    // Xử lý logic cập nhật trạng thái
 	    boolean updateSuccess = HoSoDAO.updateTrangThai(Integer.parseInt(idCV), Integer.parseInt(idCongViec), trangThai);
-
+	    
+	    response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
 	    // Gửi phản hồi về client
 	    if (updateSuccess) {
-	    	//CSRFTokenManager.generateToken(request);
-	        response.getWriter().write("success");
+	    	String newToken = (String) request.getSession().getAttribute("csrfToken");
+
+	        response.getWriter().write("{\"status\":\"success\", \"newToken\":\"" + newToken + "\"}");
 	    } else {
-	        response.getWriter().write("fail");
+	    	response.getWriter().write("{\"status\":\"fail\"}");
 	    }
 	}
 

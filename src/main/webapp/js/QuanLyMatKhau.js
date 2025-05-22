@@ -24,6 +24,8 @@ function handleChangePasswordSubmit(event) {
         alert("Mật khẩu mới và mật khẩu xác nhận không khớp.");
         return;
     }
+	
+	const csrfToken = document.querySelector("meta[name='csrf-token']").content;
 
     // Gửi yêu cầu AJAX tới Servlet để thay đổi mật khẩu
     fetch('ChangePasswordServlet', {
@@ -31,7 +33,7 @@ function handleChangePasswordSubmit(event) {
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
-        body: `oldPassword=${encodeURIComponent(oldPassword)}&newPassword=${encodeURIComponent(newPassword)}&username=${encodeURIComponent(username)}`
+        body: `oldPassword=${encodeURIComponent(oldPassword)}&newPassword=${encodeURIComponent(newPassword)}&username=${encodeURIComponent(username)}&csrfToken=${encodeURIComponent(csrfToken)}`
     })
     .then(response => {
         if (response.ok) {
@@ -47,6 +49,9 @@ function handleChangePasswordSubmit(event) {
         } else {
             if (data.status === "success") {
                 alert(data.message);
+				if (data.newToken) {
+		              document.querySelector("meta[name='csrf-token']").setAttribute("content", data.newToken);
+                }
             } else {
                 alert(data.message);
             }

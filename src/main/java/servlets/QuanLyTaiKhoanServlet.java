@@ -174,6 +174,10 @@ public class QuanLyTaiKhoanServlet extends HttpServlet {
 	            JSONObject successResponse = new JSONObject();
 	            successResponse.put("success", true);
 	            successResponse.put("message", "Cập nhật thông tin thành công.");
+	            
+	            String newToken = (String) request.getSession().getAttribute("csrfToken");
+	            successResponse.put("newToken", newToken);
+	            
 	            session.setAttribute("name", userAccount.getFullName());
 	            response.setContentType("application/json");
 	            response.getWriter().write(successResponse.toString());
