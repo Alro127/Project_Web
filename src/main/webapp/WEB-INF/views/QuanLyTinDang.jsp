@@ -49,6 +49,8 @@ thead th {
 </style>
 
 <script src="js/PhanTrangQuanLyTin.js"></script>
+<meta name="csrf-token" content="${csrfToken}">
+
 </head>
 <body class="bg-light-grey">
 
