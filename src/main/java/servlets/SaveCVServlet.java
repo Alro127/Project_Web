@@ -15,11 +15,13 @@ import beans.ChungChi;
 import beans.HocVan;
 import beans.KinhNghiem;
 import beans.KyNang;
+import beans.TaiKhoan;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import utils.AuthUtil;
 import utils.CSRFTokenManager;
 import conn.SQLServerConnection;
 import dao.CVDAO;
@@ -31,6 +33,13 @@ public class SaveCVServlet extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    // Thiết lập kiểu trả về là JSON
+		
+		if (!AuthUtil.authorizeRole(request, response, "UngVien")) return;
+		
+		HttpSession session = request.getSession(false);
+		
+		TaiKhoan taiKhoan = (TaiKhoan) session.getAttribute("account");
+		
 	    response.setContentType("application/json");
 	    PrintWriter out = response.getWriter();
 	    
@@ -157,22 +166,9 @@ public class SaveCVServlet extends HttpServlet {
 
 	            skillList.add(skillEntity);
 	        }
-	        
-	        HttpSession session = request.getSession(false);  
-			if (session == null) {
-				response.sendRedirect("Login.jsp"); 
-				return;
-			}
 
-			// Kiểm tra xem session có chứa id người dùng không
-			String idUVStr = (String) session.getAttribute("id");
-			if (idUVStr == null) {
-				response.sendRedirect("Login.jsp"); 
-				return;
-			}
-			int idUV = Integer.parseInt(idUVStr);
+			int idUV = taiKhoan.getId();
 			
-			/* CV cv = new CV(idUV, position, careerGoals); */
 			CV cv = new CV(idUV,
 		               HTMLSanitizer.sanitizeInput(position),
 		               HTMLSanitizer.sanitizeInput(careerGoals));

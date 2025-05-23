@@ -6,12 +6,15 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import utils.AuthUtil;
 import utils.CSRFTokenManager;
 
 import java.io.IOException;
 import java.sql.SQLException;
 
 import beans.CV;
+import beans.TaiKhoan;
 import dao.CVDAO;
 
 /**
@@ -26,28 +29,36 @@ public class DeleteCVServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doPost(request,response);
+		//doPost(request,response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Gọi phương thức từ CVDAO để lấy danh sách CV
-    	int IdCV = Integer.parseInt(request.getParameter("id"));
-    	CVDAO cvdao = new CVDAO();
-    	try {
-    	    boolean isDeleted = cvdao.deleteCVbyId(IdCV);
-    	    if (isDeleted) {
-    	    	//CSRFTokenManager.generateToken(request);
-    	        // Xóa thành công, chuyển hướng đến trang danh sách CV
-    	        response.sendRedirect("QuanLyCVServlet"); // Hoặc trang phù hợp khác
-    	    } else {
-    	        // Nếu không có CV nào bị xóa, hiển thị thông báo lỗi
-    	        response.getWriter().println("No CV found with ID: " + IdCV);
-    	    }
-    	} catch (SQLException e) {
-    	    // Xử lý lỗi trong quá trình xóa CV
-    	    e.printStackTrace();
-    	    response.getWriter().println("Error deleting CV: " + e.getMessage());
-    	}
+	    if (!AuthUtil.authorizeRole(request, response, "UngVien")) return;
+
+	    HttpSession session = request.getSession(false);
+	    TaiKhoan taiKhoan = (TaiKhoan) session.getAttribute("account");
+
+	    int idCV = Integer.parseInt(request.getParameter("id"));
+
+	    // ✅ Kiểm tra quyền sở hữu
+	    if (!CVDAO.isCVBelongsToUser(idCV, taiKhoan.getId())) {
+	        response.sendError(HttpServletResponse.SC_FORBIDDEN, "Bạn không có quyền xoá CV này.");
+	        return;
+	    }
+
+	    CVDAO cvdao = new CVDAO();
+	    try {
+	        boolean isDeleted = cvdao.deleteCVbyId(idCV);
+	        if (isDeleted) {
+	            response.sendRedirect("QuanLyCVServlet");
+	        } else {
+	            response.getWriter().println("Không tìm thấy CV với ID: " + idCV);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        response.getWriter().println("Lỗi khi xoá CV: " + e.getMessage());
+	    }
 	}
+
 
 }

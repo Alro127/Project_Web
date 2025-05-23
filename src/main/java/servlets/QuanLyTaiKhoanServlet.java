@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import utils.AuthUtil;
 import utils.CSRFTokenManager;
 
 import java.io.BufferedReader;
@@ -18,13 +19,18 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Base64;
+import java.util.List;
 
 import org.json.JSONObject;
 
+import com.mysql.cj.Session;
+
 import beans.CV;
+import beans.CongTy;
 import beans.TaiKhoan;
 import beans.UngVien;
 import dao.CVDAO;
+import dao.CongTyDAO;
 import dao.TaiKhoanDAO;
 import dao.UngVienDAO;
 import filters.HTMLSanitizer;
@@ -37,22 +43,35 @@ public class QuanLyTaiKhoanServlet extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Gọi phương thức từ CVDAO để lấy danh sách CV
-		HttpSession session = request.getSession();
-		String idTaiKhoan= (String) session.getAttribute("id");
-		int id = Integer.parseInt(idTaiKhoan);
-		TaiKhoan taiKhoan = TaiKhoanDAO.getTaiKhoanById(id);
-		UngVien uv = UngVienDAO.getUngVienById(taiKhoan.getId());
-		request.setAttribute("taiKhoan", taiKhoan); // Đưa vào request để hiển thị trong JSP
-		request.setAttribute("uv", uv);
-		request.getRequestDispatcher("/WEB-INF/views/QuanLyTaiKhoan.jsp").forward(request, response);
-	}
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	if (!AuthUtil.authorizeRole(request, response, "UngVien")) return;
+
+        TaiKhoan taiKhoan = (TaiKhoan) request.getSession(false).getAttribute("account");
+        
+        try {
+	        UngVien uv = UngVienDAO.getUngVienById(taiKhoan.getId());
+
+	        request.setAttribute("taiKhoan", taiKhoan);
+	        request.setAttribute("uv", uv);
+	        
+	        request.getRequestDispatcher("/WEB-INF/views/QuanLyTaiKhoan.jsp").forward(request, response);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+	    }
+        
+    }
+
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    // Lấy thông tin từ form
-	    HttpSession session = request.getSession(false);
-	    int id = Integer.parseInt((String) session.getAttribute("id"));
+		if (!AuthUtil.authorizeRole(request, response, "UngVien")) return;
+		
+		HttpSession session = request.getSession(false);
+
+        TaiKhoan taiKhoan = (TaiKhoan) session.getAttribute("account");
+	    int id = taiKhoan.getId();
+	    
 	    BufferedReader reader = request.getReader();
 	    StringBuilder jsonString = new StringBuilder();
 	    String line;

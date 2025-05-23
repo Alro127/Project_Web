@@ -77,6 +77,7 @@ public class SignupServlet extends HttpServlet {
         	
         	if (TaiKhoanDAO.AddAccount(username, hashedPassword, email, role))
         	{
+        		destination = "Login.jsp";
         		int id = TaiKhoanDAO.getID("username", username);
             	if (role.equals("UngVien")) {
     				UngVienDAO.addUngVienAfterSignUP(id, email);

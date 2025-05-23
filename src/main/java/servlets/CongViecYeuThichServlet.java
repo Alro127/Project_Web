@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import utils.AuthUtil;
 import utils.CSRFTokenManager;
 
 import java.io.IOException;
@@ -19,6 +20,7 @@ import com.google.gson.Gson;
 
 import beans.CongViec;
 import beans.CongViecYeuThich;
+import beans.TaiKhoan;
 import dao.CongViecDAO;
 import dao.CongViecYeuThichDAO;
 
@@ -41,19 +43,14 @@ public class CongViecYeuThichServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		HttpSession session = request.getSession(false);  
-		if (session == null) {
-			response.sendRedirect("Login.jsp"); 
-			return;
-		}
+		
+		if (!AuthUtil.authorizeRole(request, response, "UngVien")) return;
+		
+		HttpSession session = request.getSession(false);
+		
+		TaiKhoan taiKhoan = (TaiKhoan) session.getAttribute("account");
 
-		// Kiểm tra xem session có chứa id người dùng không
-		String idUVStr = (String) session.getAttribute("id");
-		if (idUVStr == null) {
-			response.sendRedirect("Login.jsp"); 
-			return;
-		}
-		int idUV = Integer.parseInt(idUVStr);
+		int idUV = taiKhoan.getId();
 		
 		List<CongViec> congViecs = new ArrayList<>();
 	    try {
@@ -142,23 +139,16 @@ public class CongViecYeuThichServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// Lấy id công việc từ request
+		
+		if (!AuthUtil.authorizeRole(request, response, "UngVien")) return;
+		
+		HttpSession session = request.getSession(false);
+		
+		TaiKhoan taiKhoan = (TaiKhoan) session.getAttribute("account");
+		
 		int idCongViec = Integer.parseInt(request.getParameter("idCongViec"));
 
-		// Lấy session
-		HttpSession session = request.getSession(false);  // không tạo session mới nếu không có
-		if (session == null) {
-			response.sendRedirect("Login.jsp"); // Nếu session không tồn tại, điều hướng đến trang đăng nhập
-			return;
-		}
-
-		// Kiểm tra xem session có chứa id người dùng không
-		String idUVStr = (String) session.getAttribute("id");
-		if (idUVStr == null) {
-			response.sendRedirect("Login.jsp"); // Nếu không có id trong session, điều hướng đến trang đăng nhập
-			return;
-		}
-
-		int idUV = Integer.parseInt(idUVStr);
+		int idUV = taiKhoan.getId();
 
 		try {
 			// Kiểm tra xem công việc đã được yêu thích chưa
@@ -175,13 +165,8 @@ public class CongViecYeuThichServlet extends HttpServlet {
 			return;
 		}
 
-		// Lấy Referer (URL trước đó) để quay lại
-		String referer = request.getHeader("Referer");
+		response.sendRedirect(request.getContextPath() + "/ChiTietCongViecServlet?id=" + idCongViec);
 
-		// Nếu referer không null và hợp lệ, chuyển hướng về trang trước đó
-		if (referer != null && !referer.isEmpty()) {
-			response.sendRedirect(referer);
-		} 
 	}
 
 

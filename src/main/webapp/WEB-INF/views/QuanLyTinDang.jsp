@@ -58,6 +58,12 @@ thead th {
 </head>
 <body class="bg-light-grey">
 
+	<c:if test="${not empty sessionScope.flashMessage}">
+		<script>alert('${sessionScope.flashMessage}');</script>
+		<c:remove var="flashMessage" scope="session" />
+	</c:if>
+
+
 	<jsp:include page="fragments/topNavAcc.jsp"></jsp:include>
 
 	<div class="d-flex mt-5">

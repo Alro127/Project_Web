@@ -5,6 +5,9 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import utils.AuthUtil;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -16,6 +19,7 @@ import java.util.stream.Collectors;
 import com.google.gson.Gson;
 
 import beans.CongViec;
+import beans.TaiKhoan;
 import dao.CongViecDAO;
 
 /**
@@ -38,10 +42,15 @@ public class QuanLyTinDangServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
+		if (!AuthUtil.authorizeRole(request, response, "CongTy")) return;
+        
+        HttpSession session = request.getSession(false);
+        
+        TaiKhoan taiKhoan = (TaiKhoan) session.getAttribute("account");
+		
 		List<CongViec> congViecs = new ArrayList<>();
 	    try {
-	    	//int id = Integer.parseInt(request.getParameter("id"));
-	        congViecs = CongViecDAO.GetListCongViecByIdCT(Integer.parseInt((String)request.getSession(true).getAttribute("id")));
+	        congViecs = CongViecDAO.GetListCongViecByIdCT(taiKhoan.getId());
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	    }
@@ -151,43 +160,39 @@ public class QuanLyTinDangServlet extends HttpServlet {
 	        request.getRequestDispatcher("/WEB-INF/views/QuanLyTinDang.jsp").forward(request, response);
 	    }
 
-	    
-		/*
-		 * response.setContentType("application/json");
-		 * response.setCharacterEncoding("UTF-8");
-		 * 
-		 * Map<String, Object> responseData = new HashMap<>();
-		 * responseData.put("congViecs", pagedCongViecs); responseData.put("totalPages",
-		 * totalPages); responseData.put("currentPage", page);
-		 * 
-		 * // Chỉ trả về JSON một lần String jsonResponse = new
-		 * Gson().toJson(responseData); System.out.println(jsonResponse); // Kiểm tra dữ
-		 * liệu JSON trước khi trả về response.getWriter().write(jsonResponse);
-		 * 
-		 * // Nếu không phải AJAX, bạn có thể chuyển hướng sang JSP if
-		 * (!"true".equals(request.getParameter("ajax"))) {
-		 * request.getRequestDispatcher("/WEB-INF/views/QuanLyTinDang.jsp").forward(
-		 * request, response); }
-		 */
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		int idCongViec = Integer.parseInt(request.getParameter("id"));
-		if (CongViecDAO.DeleteCongViecById(idCongViec)) {
-		    response.getWriter().println("<script type='text/javascript'>"
-		        + "alert('Công việc đã được xóa thành công!');"
-		        + "</script>");
-		} else {
-		    response.getWriter().println("<script type='text/javascript'>"
-		        + "alert('Có lỗi xảy ra khi xóa công việc.');"
-		        + "</script>");
-		}
+	    if (!AuthUtil.authorizeRole(request, response, "CongTy")) return;
 
-		doGet(request, response);
+	    try {
+	        int idCongViec = Integer.parseInt(request.getParameter("id"));
+	        TaiKhoan taiKhoan = (TaiKhoan) request.getSession(false).getAttribute("account");
+
+	        // ✅ Kiểm tra công việc có thuộc về công ty đang đăng nhập không
+	        if (!CongViecDAO.isCongViecBelongsToCompany(idCongViec, taiKhoan.getId())) {
+	            response.sendError(HttpServletResponse.SC_FORBIDDEN, "Bạn không có quyền xóa công việc này.");
+	            return;
+	        }
+
+	        if (CongViecDAO.DeleteCongViecById(idCongViec)) {
+	            response.getWriter().println("<script>alert('Công việc đã được xóa thành công!');</script>");
+	        } else {
+	            response.getWriter().println("<script>alert('Có lỗi xảy ra khi xóa công việc.');</script>");
+	        }
+
+	    } catch (NumberFormatException e) {
+	        response.sendError(HttpServletResponse.SC_BAD_REQUEST, "ID không hợp lệ.");
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Lỗi hệ thống.");
+	    }
+
+	    doGet(request, response);
 	}
+
 
 }

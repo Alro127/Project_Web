@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import utils.AuthUtil;
 import utils.CSRFTokenManager;
 
 import java.io.IOException;
@@ -18,6 +19,7 @@ import com.google.gson.Gson;
 
 import beans.CongViec;
 import beans.HoSo;
+import beans.TaiKhoan;
 import dao.CongViecDAO;
 import dao.HoSoDAO;
 
@@ -41,11 +43,12 @@ public class HoSoUngTuyenServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		HttpSession session = request.getSession(false);  
-		if (session == null) {
-			response.sendRedirect("Login.jsp"); 
-			return;
-		}
+		if (!AuthUtil.authorizeRole(request, response, "CongTy")) return;
+		
+		HttpSession session = request.getSession(false);
+		
+		TaiKhoan taiKhoan = (TaiKhoan) session.getAttribute("account");
+		
 		List<String> linhVucs = new ArrayList<>();
 		try {
 			linhVucs = CongViecDAO.getListLinhVuc();
@@ -53,13 +56,8 @@ public class HoSoUngTuyenServlet extends HttpServlet {
 			e.printStackTrace();
 		}	  
 		request.setAttribute("linhVucs", linhVucs);
-		// Kiểm tra xem session có chứa id người dùng không
-		String idCTStr = (String) session.getAttribute("id");
-		if (idCTStr == null) {
-			response.sendRedirect("Login.jsp"); 
-			return;
-		}
-		int idCT= Integer.parseInt(idCTStr);
+
+		int idCT= taiKhoan.getId();
 		
 		List<HoSo> hoSos = new ArrayList<>();
 		
@@ -128,23 +126,33 @@ public class HoSoUngTuyenServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		String idCV = request.getParameter("idCV");
-		String idCongViec = request.getParameter("idCongViec");
+	    if (!AuthUtil.authorizeRole(request, response, "CongTy")) return;
+
+	    HttpSession session = request.getSession(false);
+	    TaiKhoan taiKhoan = (TaiKhoan) session.getAttribute("account");
+
+	    String idCV = request.getParameter("idCV");
+	    String idCongViec = request.getParameter("idCongViec");
 	    String trangThai = request.getParameter("trangThai");
 
-	    // Xử lý logic cập nhật trạng thái
-	    boolean updateSuccess = HoSoDAO.updateTrangThai(Integer.parseInt(idCV), Integer.parseInt(idCongViec), trangThai);
-	    
-	    response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-	    // Gửi phản hồi về client
-	    if (updateSuccess) {
-	    	String newToken = (String) request.getSession().getAttribute("csrfToken");
+	    int cvId = Integer.parseInt(idCV);
+	    int congViecId = Integer.parseInt(idCongViec);
 
+	    if (!CongViecDAO.isCongViecBelongsToCompany(congViecId, taiKhoan.getId())) {
+	        response.sendError(HttpServletResponse.SC_FORBIDDEN, "Bạn không có quyền thay đổi trạng thái hồ sơ này.");
+	        return;
+	    }
+
+	    boolean updateSuccess = HoSoDAO.updateTrangThai(cvId, congViecId, trangThai);
+
+	    response.setContentType("application/json");
+	    response.setCharacterEncoding("UTF-8");
+
+	    if (updateSuccess) {
+	        String newToken = (String) request.getSession().getAttribute("csrfToken");
 	        response.getWriter().write("{\"status\":\"success\", \"newToken\":\"" + newToken + "\"}");
 	    } else {
-	    	response.getWriter().write("{\"status\":\"fail\"}");
+	        response.getWriter().write("{\"status\":\"fail\"}");
 	    }
 	}
 

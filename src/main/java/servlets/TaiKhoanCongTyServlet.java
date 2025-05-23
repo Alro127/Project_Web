@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import utils.AuthUtil;
 import utils.CSRFTokenManager;
 
 import java.io.BufferedReader;
@@ -49,22 +50,27 @@ public class TaiKhoanCongTyServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		TaiKhoan tk = TaiKhoanDAO.getTaiKhoanById(Integer.parseInt((String)request.getSession(true).getAttribute("id")));
-		CongTy congTy = new CongTy();
+		if (!AuthUtil.authorizeRole(request, response, "CongTy")) return;
+		
+		TaiKhoan taiKhoan = (TaiKhoan) request.getSession(false).getAttribute("account");
+
 	    try {
-	        congTy = CongTyDAO.GetCongTyById(Integer.parseInt((String)request.getSession(true).getAttribute("id")));
+	        CongTy congTy = CongTyDAO.GetCongTyById(taiKhoan.getId());
+	        List<String> images = CongTyDAO.getHinhAnhHoatDong(taiKhoan.getId());
+
+	        request.setAttribute("tk", taiKhoan);
+	        request.setAttribute("congTy", congTy);
+	        request.setAttribute("images", images);
+
+	        request.getRequestDispatcher("/WEB-INF/views/TaiKhoanCongTy.jsp").forward(request, response);
 	    } catch (Exception e) {
 	        e.printStackTrace();
+	        response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 	    }
-	    List<String> images = CongTyDAO.getHinhAnhHoatDong(Integer.parseInt((String)request.getSession(true).getAttribute("id")));
-	    request.setAttribute("congTy", congTy);
-	    request.setAttribute("images", images);
-	    
-	    request.setAttribute("tk", tk);
-	    request.getRequestDispatcher("/WEB-INF/views/TaiKhoanCongTy.jsp").forward(request, response);
-	}
+   }
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -72,8 +78,13 @@ public class TaiKhoanCongTyServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//doGet(request, response);
-		HttpSession session = request.getSession(false);
-		int id = Integer.parseInt((String)session.getAttribute("id"));
+		if (!AuthUtil.authorizeRole(request, response, "CongTy")) return;
+		
+		HttpSession session = request.getSession(false); 
+		
+		TaiKhoan taiKhoan = (TaiKhoan) session.getAttribute("account");
+
+		int id = taiKhoan.getId();
 		BufferedReader reader = request.getReader();
         StringBuilder jsonString = new StringBuilder();
         String line;
