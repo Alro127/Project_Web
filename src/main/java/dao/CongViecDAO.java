@@ -292,5 +292,22 @@ public class CongViecDAO {
 	        return false;
 	    }
 	}
+	
+	public static boolean isCongViecBelongsToCompany(int idCongViec, int idCongTy) {
+	    String sql = "SELECT 1 FROM CongViec WHERE IdCongViec = ? AND IdCT = ?";
+	    try (
+	        Connection conn = DBConnection.getConnection();
+	        PreparedStatement stmt = conn.prepareStatement(sql)
+	    ) {
+	        stmt.setInt(1, idCongViec);
+	        stmt.setInt(2, idCongTy);
+	        ResultSet rs = stmt.executeQuery();
+	        return rs.next();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return false;
+	    }
+	}
+
 
 }

@@ -120,7 +120,7 @@ public class TaiKhoanDAO {
 	        Connection conn = DBConnection.getConnection();
 
 	        // Sử dụng columnName trong câu SQL
-	        String sqlcmd = "SELECT username, password  FROM TaiKhoan WHERE id = ?";
+	        String sqlcmd = "SELECT username, password, role FROM TaiKhoan WHERE id = ?";
 	        
 	        PreparedStatement preparedStatement = conn.prepareStatement(sqlcmd);
 	        preparedStatement.setInt(1, id);
@@ -130,6 +130,7 @@ public class TaiKhoanDAO {
 	            tk.setId(id);
 	            tk.setUsername(rs.getString("username"));
 	            tk.setPassword(rs.getString("password"));
+	            tk.setRole(rs.getString("role"));
 	        }
 	    } catch (Exception e) {
 	        e.printStackTrace(); // In lỗi ra console để debug

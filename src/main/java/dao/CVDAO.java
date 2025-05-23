@@ -11,6 +11,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mysql.cj.LicenseConfiguration;
+
 public class CVDAO {
     private static Connection connection;
 
@@ -204,6 +206,20 @@ public class CVDAO {
         }
         
         return isExisted;
+    }
+    
+    public static boolean isCVBelongsToUser(int idCV, int idUV) {
+        String sql = "SELECT 1 FROM CV WHERE IdCV = ? AND IdUV = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, idCV);
+            stmt.setInt(2, idUV);
+            ResultSet rs = stmt.executeQuery();
+
+            return rs.next(); 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
 

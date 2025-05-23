@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import services.Message;
+import utils.AuthUtil;
 import utils.CSRFTokenManager;
 
 import java.io.IOException;
@@ -20,6 +21,7 @@ import org.slf4j.LoggerFactory;
 import com.mysql.cj.Session;
 
 import beans.CongViec;
+import beans.TaiKhoan;
 import dao.CongViecDAO;
 import filters.HTMLSanitizer;
 
@@ -43,20 +45,10 @@ public class DangCongViecServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		HttpSession session = request.getSession();
 		
-		if (session.getAttribute("id") == null) {
-			request.getRequestDispatcher("Login.jsp").forward(request, response);
-			return;
-		}
-			
-		
-		if (session.getAttribute("role").equals("CongTy")) {
-			request.getRequestDispatcher("/WEB-INF/views/DangCongViec.jsp").forward(request, response);	
-			return;
-		}
-		
-		request.getRequestDispatcher("CongViecServlet").forward(request, response);
+		if (!AuthUtil.authorizeRole(request, response, "CongTy")) return;
+				
+		request.getRequestDispatcher("/WEB-INF/views/DangCongViec.jsp").forward(request, response);	
 		
 		}
 		
@@ -67,19 +59,14 @@ public class DangCongViecServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		HttpSession session = request.getSession(false);  
-		if (session == null) {
-			response.sendRedirect("Login.jsp"); 
-			return;
-		}
-
-		// Kiểm tra xem session có chứa id người dùng không
-		String idCTStr = (String) session.getAttribute("id");
-		if (idCTStr == null) {
-			response.sendRedirect("Login.jsp"); 
-			return;
-		}
-		int idCT= Integer.parseInt(idCTStr);
+		
+		if (!AuthUtil.authorizeRole(request, response, "CongTy")) return;
+		
+		HttpSession session = request.getSession(false);
+		
+		TaiKhoan taiKhoan = (TaiKhoan) session.getAttribute("account");
+		
+		int idCT= taiKhoan.getId();
 		CongViec congViec = new CongViec();
 
 		// Kiểm tra các tham số request để đảm bảo không rỗng
@@ -127,20 +114,24 @@ public class DangCongViecServlet extends HttpServlet {
 				// Thêm công việc mới vào cơ sở dữ liệu
 				if (CongViecDAO.AddCongViecMoi(congViec)) {
 					LOGGER.info("Add new job with id = {} by CongTy with id = {}", congViec.getIdCongViec(), congViec.getIdCT());
-	                Message.alertAndRedirect(response, "Đăng công việc thành công!", "QuanLyTinDangServlet");
-	                //CSRFTokenManager.generateToken(request);
+					session.setAttribute("flashMessage", "Đăng công việc thành công!");
+					response.sendRedirect(request.getContextPath() + "/QuanLyTinDangServlet");
 	            } else {
-	            	LOGGER.warn("Error occured when adding new job with id = {} by CongTy with id = {}", congViec.getIdCongViec(), congViec.getIdCT());
-	            	Message.alertAndRedirect(response, "Có lỗi xảy ra, vui lòng thử lại.", "DangCongViecServlet");
+					LOGGER.warn("Error occured when adding new job with id = {} by CongTy with id = {}", congViec.getIdCongViec(), congViec.getIdCT());
+	            	
+	            	session.setAttribute("flashMessage", "Có lỗi xảy ra vui lòng thử lại");
+	            	response.sendRedirect(request.getContextPath() + "/DangCongViecServlet");
 	            }
 	        } else {
-	        	LOGGER.warn("Invalid data type for CongViec with id = {}", congViec.getIdCongViec());
-	        	Message.alertAndRedirect(response, "Dữ liệu không hợp lệ. Vui lòng kiểm tra lại.", "DangCongViecServlet");
+				LOGGER.warn("Invalid data type for CongViec with id = {}", congViec.getIdCongViec());
+	        	session.setAttribute("flashMessage", "Dữ liệu không hợp lệ");
+	        	response.sendRedirect(request.getContextPath() + "/DangCongViecServlet");
 	        }
 		} catch (Exception e) {
-	        e.printStackTrace();
-	        Message.alertAndRedirect(response, "Đã xảy ra lỗi: " + e.getMessage(), "/WEB-INF/views/DangCongViec.jsp");
-	    }
+			session.setAttribute("flashMessage", "Đã xảy ra lỗi!");
+			response.sendRedirect(request.getContextPath() + "/DangCongViecServlet");
+			System.out.print(e.getMessage());
+	       }
 	}
 	
 }

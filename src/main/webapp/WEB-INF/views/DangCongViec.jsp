@@ -4,6 +4,7 @@
 <%
     String nonce = (String) request.getAttribute("cspNonce");
 %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,6 +32,11 @@
 		alert("${message}");
 		</c:if>
 	</script>
+	
+	<c:if test="${not empty sessionScope.flashMessage}">
+		<script>alert('${sessionScope.flashMessage}');</script>
+		<c:remove var="flashMessage" scope="session" />
+	</c:if>
 	<jsp:include page="fragments/topNavAcc.jsp"></jsp:include>
 
 	<div class="d-flex mt-5">

@@ -20,6 +20,7 @@ public class ChangePasswordServlet extends HttpServlet {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ChangePasswordServlet.class);
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Lấy các tham số từ form
+    	
         String oldPassword = request.getParameter("oldPassword");
         String newPassword = request.getParameter("newPassword");
         String username = request.getParameter("username"); // Giả sử bạn truyền username từ frontend.
