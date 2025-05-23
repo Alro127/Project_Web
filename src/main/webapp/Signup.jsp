@@ -167,13 +167,13 @@ select:focus {
 				<input type="password" id="confirm-password" name="confirm-password" placeholder="Nhập lại mật khẩu" required />
 			</div>
 
-			<div class="form-group">
+<!-- 			<div class="form-group">
 				<label for="role">Role:</label>
 				<select id="role" name="role">
 					<option value="UngVien">Ứng viên</option>
 					<option value="CongTy">Công ty</option>
 				</select>
-			</div>
+			</div> -->
 
 			<div class="form-group">
 				<button type="submit" name="signup">Đăng Ký</button>
