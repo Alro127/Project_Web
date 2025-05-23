@@ -1,0 +1,19 @@
+name: Notify Slack on PR
+
+on:
+  pull_request:
+    types: [opened]
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send message to Slack
+        uses: slackapi/slack-github-action@v1.23.0
+        with:
+          payload: |
+            {
+              "text": "🚀 New Pull Request: <${{ github.event.pull_request.html_url }}|${{ github.event.pull_request.title }}> by *${{ github.event.pull_request.user.login }}*"
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_NOTIFY }}
