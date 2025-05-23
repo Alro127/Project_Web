@@ -9,12 +9,17 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+
+
 /**
  * Servlet implementation class LogoutServlet
  */
 public class LogoutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	private static final Logger logger = LoggerFactory.getLogger(LoginServlet.class);
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -31,9 +36,10 @@ public class LogoutServlet extends HttpServlet {
 		HttpSession session = request.getSession(false); // `false` để không tạo session mới nếu chưa có
 
         if (session != null) {
+        	String id = (String) session.getAttribute("id"); // Lấy id từ session trước khi xóa
+            logger.info("User id is logout: " + id);         // Ghi log đúng cú pháp
             session.invalidate(); // Xóa session hiện tại
         }
-
         // Chuyển hướng về trang login
         request.getRequestDispatcher("/CongViecServlet").forward(request, response);
 	}

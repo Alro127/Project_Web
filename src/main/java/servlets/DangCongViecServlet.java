@@ -14,6 +14,8 @@ import java.io.PrintWriter;
 import java.sql.Timestamp;
 
 import org.eclipse.tags.shaded.org.apache.xpath.operations.And;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.mysql.cj.Session;
 
@@ -27,7 +29,7 @@ import filters.HTMLSanitizer;
 /* @WebServlet("/Project_Web/DangCongViecServlet") */
 public class DangCongViecServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	private static final Logger LOGGER = LoggerFactory.getLogger(DangCongViecServlet.class);
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -124,12 +126,15 @@ public class DangCongViecServlet extends HttpServlet {
 
 				// Thêm công việc mới vào cơ sở dữ liệu
 				if (CongViecDAO.AddCongViecMoi(congViec)) {
+					LOGGER.info("Add new job with id = {} by CongTy with id = {}", congViec.getIdCongViec(), congViec.getIdCT());
 	                Message.alertAndRedirect(response, "Đăng công việc thành công!", "QuanLyTinDangServlet");
 	                //CSRFTokenManager.generateToken(request);
 	            } else {
+	            	LOGGER.warn("Error occured when adding new job with id = {} by CongTy with id = {}", congViec.getIdCongViec(), congViec.getIdCT());
 	            	Message.alertAndRedirect(response, "Có lỗi xảy ra, vui lòng thử lại.", "DangCongViecServlet");
 	            }
 	        } else {
+	        	LOGGER.warn("Invalid data type for CongViec with id = {}", congViec.getIdCongViec());
 	        	Message.alertAndRedirect(response, "Dữ liệu không hợp lệ. Vui lòng kiểm tra lại.", "DangCongViecServlet");
 	        }
 		} catch (Exception e) {

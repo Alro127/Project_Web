@@ -5,13 +5,18 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import utils.LogSanitizer;
 import utils.PasswordUtil;
 
 import java.io.IOException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.common.graph.SuccessorsFunction;
 
 import beans.TaiKhoan;
+
 import dao.CongTyDAO;
 import dao.TaiKhoanDAO;
 import dao.UngVienDAO;
@@ -21,6 +26,7 @@ import dao.UngVienDAO;
  */
 public class SignupServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final Logger LOGGER = LoggerFactory.getLogger(SignupServlet.class);
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -53,9 +59,15 @@ public class SignupServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		String role = request.getParameter("role");
 		
+		  // Sanitize dữ liệu đầu vào để tránh log injection
+        String safeUsername = LogSanitizer.sanitizeForLog(username);
+        String safeEmail = LogSanitizer.sanitizeForLog(email);
+        String safeRole = LogSanitizer.sanitizeForLog(role);
+        LOGGER.info("Attempting signup for user: {}, email: {}, role: {}", safeUsername, safeEmail, safeRole);
 		String destination = "Signup.jsp?error=1";
 		
 		if (!TaiKhoan.isValidUserNamePassword(username, password, confirmPassword)) {
+			 LOGGER.warn("Invalid signup input for user: {}", safeUsername);
             // Trả về lỗi nếu thiếu username hoặc password
             request.setAttribute("message", "Tên đăng nhập và mật khẩu không hợp lệ");
             request.getRequestDispatcher(destination).forward(request, response);
@@ -67,6 +79,7 @@ public class SignupServlet extends HttpServlet {
 		String hashedPassword = PasswordUtil.encryptPassword(password);
 		if (TaiKhoanDAO.isExistedAccount(username, hashedPassword)) {
 			// Nếu đăng ký thất bại, hiển thị thông báo lỗi
+			LOGGER.warn("Signup failed: username already exists - {}", safeUsername);
             request.setAttribute("message", "Tên đăng nhập đã tồn tại hoặc có lỗi xảy ra.");
             
         } else {
@@ -84,9 +97,11 @@ public class SignupServlet extends HttpServlet {
             	else {
     				CongTyDAO.addCongTyAfterSignUP(id, email);
     			}
+            	LOGGER.info("Signup successful for user: {}", safeUsername);
         	} 
         	else 
         	{
+        		LOGGER.error("Signup failed due to DB error for user: {}", safeUsername);
         		request.setAttribute("message", "Có lỗi, vui lòng thử lại");
 			}
       	

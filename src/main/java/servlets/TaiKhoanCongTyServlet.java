@@ -23,6 +23,8 @@ import java.util.Set;
 import org.eclipse.core.runtime.Platform;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import beans.CongTy;
 import beans.CongViec;
@@ -37,7 +39,7 @@ import filters.HTMLSanitizer;
  */
 public class TaiKhoanCongTyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	private static final Logger logger = LoggerFactory.getLogger(TaiKhoanCongTyServlet.class);
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -264,6 +266,18 @@ public class TaiKhoanCongTyServlet extends HttpServlet {
 				ct.setLogo(null);
 			}
             CongTyDAO.updateThongtinCongTy(ct);
+            logger.info("Company id {} updated profile: TenCongTy={}, SDT={}, TinhThanh={}, DiaChi={}, MaSoThue={}, LinhVuc={}, QuyMoNhanSu={}"
+            		+ ", URL = {}", 
+            	    ct.getIdCT(), 
+            	    ct.getTenCongTy(), 
+            	    ct.getSdt(), 
+            	    ct.getTinhThanh(), 
+            	    ct.getDiaChi(), 
+            	    ct.getMaSoThue(), 
+            	    ct.getLinhVuc(), 
+            	    ct.getQuyMoNhanSu(),
+            	    ct.getUrl()
+            	);
             session.setAttribute("name", ct.getTenCongTy());
             
             if (isUpdateBackGround) {

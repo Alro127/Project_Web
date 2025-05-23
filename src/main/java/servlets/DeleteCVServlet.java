@@ -11,6 +11,9 @@ import utils.CSRFTokenManager;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import beans.CV;
 import dao.CVDAO;
 
@@ -19,7 +22,7 @@ import dao.CVDAO;
  */
 public class DeleteCVServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	private static final Logger LOGGER = LoggerFactory.getLogger(DeleteCVServlet.class);
     public DeleteCVServlet() {
         super();
         // TODO Auto-generated constructor stub
@@ -36,10 +39,12 @@ public class DeleteCVServlet extends HttpServlet {
     	try {
     	    boolean isDeleted = cvdao.deleteCVbyId(IdCV);
     	    if (isDeleted) {
+    	    	LOGGER.info("CV with id = {} is deleted", IdCV);
     	    	//CSRFTokenManager.generateToken(request);
     	        // Xóa thành công, chuyển hướng đến trang danh sách CV
     	        response.sendRedirect("QuanLyCVServlet"); // Hoặc trang phù hợp khác
     	    } else {
+    	    	LOGGER.warn("Error occured during deleting CV with id = {}", IdCV);
     	        // Nếu không có CV nào bị xóa, hiển thị thông báo lỗi
     	        response.getWriter().println("No CV found with ID: " + IdCV);
     	    }

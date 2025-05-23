@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.json.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -28,7 +30,7 @@ import filters.HTMLSanitizer;
 public class SaveCVServlet extends HttpServlet {
 
 	private final ObjectMapper objectMapper = new ObjectMapper();
-	
+	private static final Logger LOGGER = LoggerFactory.getLogger(SaveCVServlet.class);
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    // Thiết lập kiểu trả về là JSON
 	    response.setContentType("application/json");
@@ -180,10 +182,12 @@ public class SaveCVServlet extends HttpServlet {
 	        // Tiến hành lưu các đối tượng này vào cơ sở dữ liệu hoặc xử lý theo yêu cầu
 	        if (mode.equals("create")) {
 	        	CVDAO.addCV(cv, educationList, experienceList, certificateList, skillList);
+	        	LOGGER.info("User id = {} has created new cv with idCV = {}", idUVStr, IdCV);
 	        }
 	        else if (mode.equals("edit"))
 	        {
 	        	CVDAO.updateCV(cv, educationList, experienceList, certificateList, skillList);
+	        	LOGGER.info("User id = {} has edited cv with id = {}", idUVStr, IdCV);
 	        }
 	        //CSRFTokenManager.generateToken(request);
 	        // Trả về phản hồi thành công

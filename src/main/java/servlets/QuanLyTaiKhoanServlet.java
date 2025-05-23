@@ -20,6 +20,8 @@ import java.text.SimpleDateFormat;
 import java.util.Base64;
 
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import beans.CV;
 import beans.TaiKhoan;
@@ -31,7 +33,7 @@ import filters.HTMLSanitizer;
 
 public class QuanLyTaiKhoanServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	private static final Logger logger = LoggerFactory.getLogger(QuanLyTaiKhoanServlet.class);
     public QuanLyTaiKhoanServlet() {
         super();
         // TODO Auto-generated constructor stub
@@ -177,6 +179,17 @@ public class QuanLyTaiKhoanServlet extends HttpServlet {
 			}
 	        try {
 	            UngVienDAO.updateUngVien(userAccount);
+	            logger.info("User id {} updated profile: fullname={}, gender={}, dob={}, phone={}, location={}, address={}, avatar={}", 
+	            	    userAccount.getIdUV(), 
+	            	    userAccount.getFullName(), 
+	            	    userAccount.getGender(), 
+	            	    userAccount.getDob(), 
+	            	    userAccount.getPhone(), 
+	            	    userAccount.getLocation(), 
+	            	    userAccount.getAddress(), 
+	            	    userAccount.getAvatar()
+	            	);
+
 	            // Nếu cập nhật thành công, trả về phản hồi JSON
 	            //CSRFTokenManager.generateToken(request);
 	            JSONObject successResponse = new JSONObject();

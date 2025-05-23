@@ -7,11 +7,15 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import utils.CSRFTokenManager;
+import utils.LogSanitizer;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.mysql.cj.Session;
 
@@ -27,7 +31,7 @@ import beans.CongTy;
  */
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+    private static final Logger logger = LoggerFactory.getLogger(LoginServlet.class);
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -47,6 +51,10 @@ public class LoginServlet extends HttpServlet {
 		TaiKhoan tk = new TaiKhoan();
 		tk.setUsername(request.getParameter("username"));
 		tk.setPassword(request.getParameter("password"));
+		
+		String safeUserName = LogSanitizer.sanitizeForLog(tk.getUsername());
+		logger.info("Attempting login for user: {}", safeUserName);
+		
 		boolean isAuthenticated = TaiKhoanDAO.AuthenticationAccount(tk);
 		if (isAuthenticated) {
 			int id = TaiKhoanDAO.getID("username", tk.getUsername());
@@ -64,22 +72,28 @@ public class LoginServlet extends HttpServlet {
 			    session.setAttribute("email", information.get(6));
 			    String role = (String) session.getAttribute("role");
 			    if (role.equals("UngVien")) {
+			    	logger.info("User {} logged in as UngVien", safeUserName);
 			    	//CSRFTokenManager.generateToken(request);
 			    	destination = "CongViecServlet";
 			    	UngVien uv = UngVienDAO.getUngVienById(id);
 			    	session.setAttribute("name", uv.getFullName());
 				}
 			    else if (role.equals("CongTy")){
+			    	logger.info("User {} logged in as CongTy", safeUserName);
 			    	//CSRFTokenManager.generateToken(request);
 					destination = "TaiKhoanCongTyServlet";
 					CongTy ct = CongTyDAO.GetCongTyById(id);
 					session.setAttribute("name", ct.getTenCongTy());
 				}
 			    else {
+			    	 logger.warn("Unknown role for user {}: {}", safeUserName, role);
 			    	session = request.getSession(true);
 					destination = "Login.jsp";
 				}
 			}
+		}
+		else {
+			 logger.warn("Authentication failed for user: {}", safeUserName);
 		}
 		response.sendRedirect(destination);
 	}

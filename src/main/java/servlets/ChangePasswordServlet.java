@@ -10,10 +10,14 @@ import utils.CSRFTokenManager;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import dao.TaiKhoanDAO;
 import filters.HTMLSanitizer;
 
 public class ChangePasswordServlet extends HttpServlet {
+	private static final Logger LOGGER = LoggerFactory.getLogger(ChangePasswordServlet.class);
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Lấy các tham số từ form
         String oldPassword = request.getParameter("oldPassword");
@@ -35,6 +39,7 @@ public class ChangePasswordServlet extends HttpServlet {
         if (isUpdated) {
         	//CSRFTokenManager.generateToken(request);
         	String newToken = (String) request.getSession().getAttribute("csrfToken");
+        	LOGGER.info("Username = {} has changed password", username);
         	response.getWriter().write("{\"status\":\"success\", \"message\":\"Mật khẩu đã được cập nhật\", \"newToken\":\"" + newToken + "\"}");
         } else {
         	response.getWriter().write("{\"status\":\"error\", \"message\":\"Có lỗi xảy ra khi thực hiện thao tác!\"}");
