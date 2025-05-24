@@ -43,7 +43,7 @@ thead th {
 	/* Đường viền dưới dày hơn cho tiêu đề */
 }
 </style>
-
+<meta name="csrf-token" content="${csrfToken}">
 </head>
 <body class="bg-light-grey">
 

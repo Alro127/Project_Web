@@ -35,6 +35,9 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
 	integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
 	crossorigin="anonymous"></script>
+	
+<meta name="csrf-token" content="${csrfToken}">
+
 </head>
 <body class="bg-light-grey">
 
@@ -82,8 +85,6 @@
 							<div class="card-header">Thay đổi mật khẩu</div>
 							<div class="card-body">
 								<form id="changePasswordFormId">
-									<input type="hidden" name="csrfToken"
-										value="<c:out value='${csrfToken}'/>">
 									<div class="mb-3">
 										<label for="oldPassword" class="form-label">Mật khẩu
 											cũ</label> <input type="password" id="oldPassword" name="oldPassword"
