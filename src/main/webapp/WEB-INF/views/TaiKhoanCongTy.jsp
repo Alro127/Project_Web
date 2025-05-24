@@ -128,7 +128,7 @@
 
 										<!-- Hidden file input -->
 										<input type="file" id="avatarUpload" class="d-none"
-											accept="image/*" onchange="previewAvatar(event)">
+											accept="image/*">
 
 										<!-- Button container -->
 										<div class="position-absolute d-flex align-items-center avatar-button-position">
@@ -301,6 +301,15 @@
 		const bg = document.getElementById("backGroundReview");
 		const imgUrl = '<c:out value="${pageContext.request.contextPath}/${congTy.background}" />';
 		bg.style.backgroundImage = `url('${imgUrl}')`;
+	});
+	</script>
+	
+	<script nonce="<%= nonce %>">
+	document.addEventListener("DOMContentLoaded", function () {
+	    const avatarInput = document.getElementById("avatarUpload");
+	    if (avatarInput) {
+	        avatarInput.addEventListener("change", previewAvatar);
+	    }
 	});
 	</script>
 	

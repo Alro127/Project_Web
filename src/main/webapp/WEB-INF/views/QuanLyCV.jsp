@@ -4,6 +4,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ page import="java.util.List"%>
 <%@ page import="beans.CV"%>
+<%
+    String nonce = (String) request.getAttribute("cspNonce");
+%>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -35,7 +38,7 @@
 	integrity="sha384-vtXRMe3mGCbOeY7l30aIg8H9p3GdeSe4IFlP6G8JMa7o7lXvnz3GFKzPxzJdPfGK"
 	crossorigin="anonymous"></script>
 <link href="assets/css/style.css" rel="stylesheet">
-<style>
+<style nonce="<%= nonce %>">
 .card {
 	margin-bottom: 20px;
 }
@@ -77,7 +80,8 @@
 							<p class="card-text">${cv.position}</p>
 							<button type="button" class="btn btn-primary btn-sm btn-eye"
 								data-bs-toggle="modal" data-bs-target="#cvModal"
-								onclick="loadCVContent(${cv.idCV})">Xem CV</button>
+								data-id="${cv.idCV}">Xem CV</button>
+
 							<a href="LoadCVServlet?id=${cv.idCV}&mode=edit"
 								class="btn btn-warning btn-sm btn-manage"> <i
 								class="bi bi-pencil"></i> Chỉnh sửa
@@ -99,5 +103,16 @@
 	<script src="js/CV.js"></script>
 
 	<jsp:include page="modals/ViewCVModal.jsp"></jsp:include>
+	<script nonce="<%= nonce %>">
+	document.addEventListener("DOMContentLoaded", function () {
+		const buttons = document.querySelectorAll('.btn-eye');
+		buttons.forEach(function (btn) {
+			btn.addEventListener('click', function () {
+				const id = btn.getAttribute('data-id');
+				loadCVContent(id);
+			});
+		});
+	});
+</script>
 </body>
 </html>

@@ -141,7 +141,7 @@
 
 									<!-- Hidden file input -->
 									<input type="file" id="avatarUpload" class="d-none"
-										accept="image/*" onchange="previewAvatar(event)">
+										accept="image/*" >
 
 									<!-- Button container -->
 									<div class="position-absolute d-flex align-items-center avatar-button-position">
@@ -237,6 +237,14 @@
 	<jsp:include page="modals/AddImageModals.jsp"></jsp:include>
 	<script src="js/QuanLyUngVien.js" nonce="<%= nonce %>"></script>
 	<script src="js/QuanLyMatKhau.js" nonce="<%= nonce %>"></script>
+	<script nonce="<%= nonce %>">
+		document.addEventListener("DOMContentLoaded", function () {
+		    const avatarInput = document.getElementById("avatarUpload");
+		    if (avatarInput) {
+		        avatarInput.addEventListener("change", previewAvatar);
+		    }
+		});
+	</script>
 
 </body>
 </html>
