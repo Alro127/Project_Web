@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+    String nonce = (String) request.getAttribute("cspNonce");
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,10 +19,10 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
 	integrity="sha384-Bk5cbLkZQ5raZ0+H2/+VbfYx3WpvxvQK4zqXZr7sYODuaX7bKXoSOnipQxkaS8sv"
 	crossorigin="anonymous">
-
+<link href="assets/css/style.css" rel="stylesheet">
 </head>
 
-<style>
+<style nonce="<%= nonce %>">
 /* Định dạng nút tròn */
 .circle-rating {
 	display: flex;
@@ -218,15 +221,15 @@
 											<textarea name="educationDescription[]" class="form-control"
 												rows="2" placeholder="Nhập mô tả..."></textarea>
 										</div>
-										<button type="button" class="btn btn-outline-danger btn-sm"
-											onclick="removeEducationItem(this)">
+										<button type="button" class="btn btn-outline-danger btn-sm btn-remove-edu"
+											>
 											<i class="bi bi-x-circle"></i> Xóa
 										</button>
 									</div>
 								</div>
 								<!-- Nút thêm mới -->
 								<button type="button" class="btn btn-outline-success btn-sm"
-									onclick="addEducationItem()">
+									id="btnAddEducation">
 									<i class="bi bi-plus-circle"></i> Thêm mới
 								</button>
 							</div>
@@ -275,8 +278,8 @@
 										<textarea name="experienceDescription[]" class="form-control"
 											rows="2" placeholder="Nhập mô tả..."></textarea>
 									</div>
-									<button type="button" class="btn btn-outline-danger btn-sm"
-										onclick="removeExperienceItem(this)">
+									<button type="button" class="btn btn-outline-danger btn-sm btn-remove-exp"
+										>
 										<i class="bi bi-x-circle"></i> Xóa
 									</button>
 								</div>
@@ -284,7 +287,7 @@
 
 							<!-- Nút thêm mới -->
 							<button type="button" class="btn btn-outline-success btn-sm"
-								onclick="addExperienceItem()">
+								id="btnAddExperience">
 								<i class="bi bi-plus-circle"></i> Thêm kinh nghiệm
 							</button>
 
@@ -297,15 +300,15 @@
 									<div class="input-group mb-2">
 										<input type="text" name="certificates[]" class="form-control"
 											placeholder="Nhập tên chứng chỉ">
-										<button type="button" class="btn btn-outline-danger btn-sm"
-											onclick="removeCertificateRow(this)">
+										<button type="button" class="btn btn-outline-danger btn-sm btn-remove-cert"
+											>
 											<i class="bi bi-x-circle"></i>
 										</button>
 									</div>
 								</div>
 								<!-- Nút thêm chứng chỉ -->
 								<button type="button" class="btn btn-outline-success btn-sm"
-									onclick="addCertificateRow()">
+									id="btnAddCertificate">
 									<i class="bi bi-plus-circle"></i> Thêm chứng chỉ
 								</button>
 							</div>
@@ -319,26 +322,26 @@
 										<input type="text" name="skills[]" class="form-control me-3"
 											placeholder="Tên kỹ năng">
 										<div class="circle-rating d-flex">
-											<span data-value="1" onclick="setCircleRating(this)"
+											<span data-value="1"
 												class="circle"></span> <span data-value="2"
-												onclick="setCircleRating(this)" class="circle"></span> <span
-												data-value="3" onclick="setCircleRating(this)"
+												" class="circle"></span> <span
+												data-value="3" 
 												class="circle"></span> <span data-value="4"
-												onclick="setCircleRating(this)" class="circle"></span> <span
-												data-value="5" onclick="setCircleRating(this)"
+												" class="circle"></span> <span
+												data-value="5" 
 												class="circle"></span>
 										</div>
 										<input type="hidden" name="skillLevels[]" value="0">
 										<button type="button"
-											class="btn btn-outline-danger btn-sm ms-3"
-											onclick="removeSkillRow(this)">
+											class="btn btn-outline-danger btn-sm ms-3 btn-remove-skill"
+											>
 											<i class="bi bi-x-circle"></i>
 										</button>
 									</div>
 								</div>
 								<!-- Nút thêm kỹ năng -->
 								<button type="button" class="btn btn-outline-success btn-sm"
-									onclick="addSkillRow()">
+									id="btnAddSkill">
 									<i class="bi bi-plus-circle"></i> Thêm kỹ năng
 								</button>
 							</div>
@@ -348,9 +351,9 @@
 						<textarea type="hidden" id="mode" class = "hidden">create</textarea>
 						<div class="text-center">
 							<button type="button" class="btn btn-success"
-								onClick="saveData()">Lưu CV</button>
+								id="btnSaveCV">Lưu CV</button>
 							<button type="button" class="btn"
-								onclick="submitAndGoToQuanLyCV()">Quay Lại</button>
+								id="btnBack">Quay Lại</button>
 						</div>
 						<input type="hidden" name="csrfToken"
 							value="<c:out value='${csrfToken}'/>">
@@ -363,7 +366,7 @@
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="${pageContext.request.contextPath}/js/ThongTinCV.js"></script>
-	<script>
+	<script nonce="<%= nonce %>">
 		function submitAndGoToQuanLyCV() {
 			// Gửi form đến SaveCVServlet trước
 			document.getElementById("cvForm").submit();
@@ -371,6 +374,41 @@
 			// Sau khi gửi xong, điều hướng sang QuanLyCVServlet
 			window.location.href = "QuanLyCVServlet";
 		}
+	</script>
+	<script nonce="<%= nonce %>">
+	document.addEventListener("DOMContentLoaded", function () {
+		document.getElementById("btnAddEducation")?.addEventListener("click", addEducationItem);
+		document.getElementById("btnAddExperience")?.addEventListener("click", addExperienceItem);
+		document.getElementById("btnAddCertificate")?.addEventListener("click", addCertificateRow);
+		document.getElementById("btnAddSkill")?.addEventListener("click", addSkillRow);
+		document.getElementById("btnSaveCV")?.addEventListener("click", saveData);
+		document.getElementById("btnBack")?.addEventListener("click", submitAndGoToQuanLyCV);
+
+		// Sự kiện động cần gán sau khi thêm phần tử
+		document.addEventListener("click", function (e) {
+			if (e.target.matches(".btn-remove-edu")) removeEducationItem(e.target);
+			if (e.target.matches(".btn-remove-exp")) removeExperienceItem(e.target);
+			if (e.target.matches(".btn-remove-cert")) removeCertificateRow(e.target);
+			if (e.target.matches(".btn-remove-skill")) removeSkillRow(e.target);
+			if (e.target.matches(".circle")) setCircleRating(e.target);
+		});
+	});
+	document.addEventListener("DOMContentLoaded", function () {
+		const checkboxes = document.querySelectorAll(".education-current-checkbox");
+		checkboxes.forEach(function (checkbox) {
+			checkbox.addEventListener("change", function () {
+				toggleEndDate(this);
+			});
+		});
+	});
+	document.addEventListener("DOMContentLoaded", function () {
+		const checkboxes = document.querySelectorAll(".experience-current-checkbox");
+		checkboxes.forEach(function (checkbox) {
+			checkbox.addEventListener("change", function () {
+				toggleExperienceEndDate(this);
+			});
+		});
+	});
 	</script>
 </body>
 </html>

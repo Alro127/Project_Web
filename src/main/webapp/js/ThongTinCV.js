@@ -305,7 +305,6 @@ function addEducationItem() {
 	        </button>
         </div>
     `;
-
 	container.appendChild(newItem);
 }
 
@@ -389,4 +388,6 @@ function removeExperienceItem(button) {
 	const item = button.closest('.experience-item');
 	item.remove();
 }
+
+
 

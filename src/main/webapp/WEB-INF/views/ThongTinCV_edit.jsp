@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+    String nonce = (String) request.getAttribute("cspNonce");
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -206,15 +209,15 @@
 												<textarea name="educationDescription[]" class="form-control"
 													rows="2" placeholder="Nhập mô tả...">${education.description}</textarea>
 											</div>
-											<button type="button" class="btn btn-outline-danger btn-sm"
-												onclick="removeEducationItem(this)">
+											<button type="button" class="btn btn-outline-danger btn-sm btn-remove-edu"
+												>
 												<i class="bi bi-x-circle"></i> Xóa
 											</button>
 										</div>
 									</c:forEach>
 									<!-- Nút thêm mới -->
 									<button type="button" class="btn btn-outline-success btn-sm"
-										onclick="addEducationItem()">
+										id="btnAddEducation">
 										<i class="bi bi-plus-circle"></i> Thêm mới
 									</button>
 								</div>
@@ -259,9 +262,9 @@
 											<label class="form-label">Mô tả kinh nghiệm làm việc</label>
 											<textarea name="experienceDescription[]" class="form-control"
 												rows="2" placeholder="Nhập mô tả...">${experience.description}</textarea>
-										</div>
-										<button type="button" class="btn btn-outline-danger btn-sm"
-											onclick="removeExperienceItem(this)">
+										</div> 
+										<button type="button" class="btn btn-outline-danger btn-sm btn-remove-exp"
+											>
 											<i class="bi bi-x-circle"></i> Xóa
 										</button>
 									</div>
@@ -271,7 +274,7 @@
 
 							<!-- Nút thêm mới -->
 							<button type="button" class="btn btn-outline-success btn-sm"
-								onclick="addExperienceItem()">
+								id="btnAddExperience">
 								<i class="bi bi-plus-circle"></i> Thêm kinh nghiệm
 							</button>
 
@@ -285,8 +288,8 @@
 										<div class="input-group mb-2">
 											<input type="text" name="certificates[]" class="form-control"
 												placeholder="Nhập tên chứng chỉ" value="${certificate.name}">
-											<button type="button" class="btn btn-outline-danger btn-sm"
-												onclick="removeCertificateRow(this)">
+											<button type="button" class="btn btn-outline-danger btn-sm btn-remove-cert"
+												>
 												<i class="bi bi-x-circle"></i>
 											</button>
 										</div>
@@ -294,7 +297,7 @@
 								</div>
 								<!-- Nút thêm chứng chỉ -->
 								<button type="button" class="btn btn-outline-success btn-sm"
-									onclick="addCertificateRow()">
+									id="btnAddCertificate">
 									<i class="bi bi-plus-circle"></i> Thêm chứng chỉ
 								</button>
 							</div>
@@ -311,15 +314,15 @@
 													value="${skill.name}" placeholder="Tên kỹ năng">
 												<div class="circle-rating d-flex">
 													<c:forEach begin="1" end="5" var="j">
-														<span data-value="${j}" onclick="setCircleRating(this)"
+														<span data-value="${j}" 
 															class="circle ${j <= skill.level ? 'active' : ''}"></span>
 													</c:forEach>
 												</div>
 												<input type="hidden" name="skillLevels[]"
 													value="${skill.level}">
 												<button type="button"
-													class="btn btn-outline-danger btn-sm ms-3"
-													onclick="removeSkillRow(this)">
+													class="btn btn-outline-danger btn-sm ms-3 btn-remove-skill"
+													>
 													<i class="bi bi-x-circle"></i>
 												</button>
 											</div>
@@ -328,7 +331,7 @@
 								</div>
 								<!-- Nút thêm kỹ năng -->
 								<button type="button" class="btn btn-outline-success btn-sm"
-									onclick="addSkillRow()">
+									id="btnAddSkill">
 									<i class="bi bi-plus-circle"></i> Thêm kỹ năng
 								</button>
 							</div>
@@ -340,10 +343,10 @@
 					<div class="text-center">
 						<textarea type="hidden" id="mode" class = "hidden">edit</textarea>
 						<textarea type="hidden" id="IdCV" class = "hidden">${cv.idCV}</textarea>
-						<button type="button" class="btn btn-success" onclick="saveData()">Lưu
+						<button type="button" class="btn btn-success" id="btnSaveCV">Lưu
 							CV</button>
 						<button type="button" class="btn"
-							onclick="submitAndGoToQuanLyCV()">Quay Lại</button>
+							id="btnBack">Quay Lại</button>
 					</div>
 					<input type="hidden" name="csrfToken" value="<c:out value='${csrfToken}'/>">
 				</form>
@@ -355,7 +358,7 @@
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="${pageContext.request.contextPath}/js/ThongTinCV.js"></script>
-	<script>
+	<script nonce="<%= nonce %>">
 		function submitAndGoToQuanLyCV() {
 			// Gửi form đến SaveCVServlet trước
 			document.getElementById("cvForm").submit();
@@ -363,6 +366,27 @@
 			// Sau khi gửi xong, điều hướng sang QuanLyCVServlet
 			window.location.href = "QuanLyCVServlet";
 		}
+	</script>
+	
+	<script nonce="<%= nonce %>">
+	document.addEventListener("DOMContentLoaded", function () {
+		document.getElementById("btnAddEducation")?.addEventListener("click", addEducationItem);
+		document.getElementById("btnAddExperience")?.addEventListener("click", addExperienceItem);
+		document.getElementById("btnAddCertificate")?.addEventListener("click", addCertificateRow);
+		document.getElementById("btnAddSkill")?.addEventListener("click", addSkillRow);
+		document.getElementById("btnSaveCV")?.addEventListener("click", saveData);
+		document.getElementById("btnBack")?.addEventListener("click", submitAndGoToQuanLyCV);
+
+		// Sự kiện động cần gán sau khi thêm phần tử
+		document.addEventListener("click", function (e) {
+			if (e.target.matches(".btn-remove-edu")) removeEducationItem(e.target);
+			if (e.target.matches(".btn-remove-exp")) removeExperienceItem(e.target);
+			if (e.target.matches(".btn-remove-cert")) removeCertificateRow(e.target);
+			if (e.target.matches(".btn-remove-skill")) removeSkillRow(e.target);
+			if (e.target.matches(".circle")) setCircleRating(e.target);
+		});
+	});
+
 	</script>
 </body>
 </html>

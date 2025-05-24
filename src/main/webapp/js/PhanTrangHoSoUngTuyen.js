@@ -50,9 +50,11 @@ function loadHoSos(page) {
                         <td class="text-muted">${hoSo.congViec.ten}</td>
                         <td class="text-muted">${thoiGianGui}</td>
 						<td>
-						    <select class="form-select" 
-						            onchange="updateStatus(this, ${hoSo.idCV}, ${hoSo.idCongViec})" 
-						            data-original-value="${hoSo.trangThai}">
+
+							<select class="form-select status-dropdown" 
+							        data-idcv="${hoSo.idCV}" 
+							        data-idcongviec="${hoSo.idCongViec}" 
+							        data-original-value="${hoSo.trangThai}">
 						        <option value="Chờ" ${hoSo.trangThai == 'Chờ' ? 'selected' : ''} >Chờ</option>
 						        <option value="Phỏng vấn" ${hoSo.trangThai == 'Phỏng vấn' ? 'selected' : ''} >Phỏng vấn</option>
 						        <option value="Chấp nhận" ${hoSo.trangThai == 'Chấp nhận' ? 'selected' : ''} >Chấp nhận</option>
@@ -61,10 +63,10 @@ function loadHoSos(page) {
 						</td>
                         <td>
 							<button type="button" 
-								class="btn btn-primary" 
+								class="btn btn-primary btn-view-cv" data-idcv="${hoSo.idCV}"
 								data-bs-toggle="modal" 
 								data-bs-target="#cvModal" 
-								onclick="loadCVContent(${hoSo.idCV})">
+								>
 							  Xem CV
 							</button>
                         </td>
@@ -81,7 +83,7 @@ function loadHoSos(page) {
             let totalPages = response.totalPages; 
             let paginationHtml = '';
             for (let i = 1; i <= totalPages; i++) {
-                paginationHtml += `<a href="javascript:void(0);" onclick="loadHoSos(${i})" class="btn btn-primary ${i == response.currentPage ? 'active' : ''}">${i}</a>`;
+                paginationHtml += `<a href="javascript:void(0);" class="btn btn-primary page-link ${i == response.currentPage ? 'active' : ''}">${i}</a>`;
             }
 
             // Cập nhật phân trang vào giao diện
@@ -140,6 +142,29 @@ $(document).ready(function() {
     $('#search-input').keyup(function() {
         loadHoSos(1);  // Tải lại dữ liệu khi có thay đổi
     });
+	
+	// Gán sự kiện khi bấm xem CV
+	  $(document).on("click", ".btn-view-cv", function () {
+	      const idCV = $(this).data("idcv");
+	      if (idCV) {
+	          loadCVContent(idCV);
+	      }
+	  });
+
+	  // Gán sự kiện thay đổi trạng thái dropdown
+	  $(document).on("change", ".status-dropdown", function () {
+	      const idCV = $(this).data("idcv");
+	      const idCongViec = $(this).data("idcongviec");
+	      updateStatus(this, idCV, idCongViec);
+	  });
+
+	  // Gán sự kiện phân trang
+	  $(document).on("click", ".page-link", function (e) {
+	      e.preventDefault();
+	      const page = $(this).data("page");
+	      if (page) loadHoSos(page);
+	  });
+
 
     loadHoSos(1);  // Tải dữ liệu cho trang đầu tiên
 });
