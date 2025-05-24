@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import utils.AuthUtil;
 import utils.CSRFTokenManager;
 
 import java.io.BufferedReader;
@@ -23,6 +24,8 @@ import java.util.Set;
 import org.eclipse.core.runtime.Platform;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import beans.CongTy;
 import beans.CongViec;
@@ -30,13 +33,14 @@ import beans.TaiKhoan;
 import dao.CongTyDAO;
 import dao.CongViecDAO;
 import dao.TaiKhoanDAO;
+import filters.HTMLSanitizer;
 
 /**
  * Servlet implementation class TaiKhoanCongTy
  */
 public class TaiKhoanCongTyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	private static final Logger logger = LoggerFactory.getLogger(TaiKhoanCongTyServlet.class);
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -48,22 +52,27 @@ public class TaiKhoanCongTyServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		TaiKhoan tk = TaiKhoanDAO.getTaiKhoanById(Integer.parseInt((String)request.getSession(true).getAttribute("id")));
-		CongTy congTy = new CongTy();
+		if (!AuthUtil.authorizeRole(request, response, "CongTy")) return;
+		
+		TaiKhoan taiKhoan = (TaiKhoan) request.getSession(false).getAttribute("account");
+
 	    try {
-	        congTy = CongTyDAO.GetCongTyById(Integer.parseInt((String)request.getSession(true).getAttribute("id")));
+	        CongTy congTy = CongTyDAO.GetCongTyById(taiKhoan.getId());
+	        List<String> images = CongTyDAO.getHinhAnhHoatDong(taiKhoan.getId());
+
+	        request.setAttribute("tk", taiKhoan);
+	        request.setAttribute("congTy", congTy);
+	        request.setAttribute("images", images);
+
+	        request.getRequestDispatcher("/WEB-INF/views/TaiKhoanCongTy.jsp").forward(request, response);
 	    } catch (Exception e) {
 	        e.printStackTrace();
+	        response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 	    }
-	    List<String> images = CongTyDAO.getHinhAnhHoatDong(Integer.parseInt((String)request.getSession(true).getAttribute("id")));
-	    request.setAttribute("congTy", congTy);
-	    request.setAttribute("images", images);
-	    
-	    request.setAttribute("tk", tk);
-	    request.getRequestDispatcher("/WEB-INF/views/TaiKhoanCongTy.jsp").forward(request, response);
-	}
+   }
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -71,8 +80,13 @@ public class TaiKhoanCongTyServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//doGet(request, response);
-		HttpSession session = request.getSession(false);
-		int id = Integer.parseInt((String)session.getAttribute("id"));
+		if (!AuthUtil.authorizeRole(request, response, "CongTy")) return;
+		
+		HttpSession session = request.getSession(false); 
+		
+		TaiKhoan taiKhoan = (TaiKhoan) session.getAttribute("account");
+
+		int id = taiKhoan.getId();
 		BufferedReader reader = request.getReader();
         StringBuilder jsonString = new StringBuilder();
         String line;
@@ -84,14 +98,24 @@ public class TaiKhoanCongTyServlet extends HttpServlet {
             JSONObject json = new JSONObject(jsonString.toString());
             // Lấy các trường thông tin từ JSON
             String tenCongTy = json.getString("tenCongTy");
+            tenCongTy = HTMLSanitizer.sanitizeInput(tenCongTy);
             String sdt = json.getString("sdt");
+            sdt = HTMLSanitizer.sanitizeInput(sdt);
             String tinhThanh = json.getString("tinhThanh");
+            tinhThanh = HTMLSanitizer.sanitizeInput(tinhThanh);
             String diaChi = json.getString("diaChi");
+            diaChi = HTMLSanitizer.sanitizeInput(diaChi);
             String maSoThue = json.getString("maSoThue");
+            maSoThue = HTMLSanitizer.sanitizeInput(maSoThue);
             String linhVuc = json.getString("linhVuc");
+            linhVuc = HTMLSanitizer.sanitizeInput(linhVuc);
             String quyMoNhanSu = json.getString("quyMoNhanSu");
+            quyMoNhanSu = HTMLSanitizer.sanitizeInput(quyMoNhanSu);
             String url = json.getString("url");
+            url = HTMLSanitizer.sanitizeInput(url);
             String gioiThieu = json.getString("gioiThieu");
+            gioiThieu = HTMLSanitizer.sanitizeInput(gioiThieu);
+            
             
             boolean isUpdateAvatar = true;
             boolean isUpdateActivities = true;
@@ -253,6 +277,18 @@ public class TaiKhoanCongTyServlet extends HttpServlet {
 				ct.setLogo(null);
 			}
             CongTyDAO.updateThongtinCongTy(ct);
+            logger.info("Company id {} updated profile: TenCongTy={}, SDT={}, TinhThanh={}, DiaChi={}, MaSoThue={}, LinhVuc={}, QuyMoNhanSu={}"
+            		+ ", URL = {}", 
+            	    ct.getIdCT(), 
+            	    ct.getTenCongTy(), 
+            	    ct.getSdt(), 
+            	    ct.getTinhThanh(), 
+            	    ct.getDiaChi(), 
+            	    ct.getMaSoThue(), 
+            	    ct.getLinhVuc(), 
+            	    ct.getQuyMoNhanSu(),
+            	    ct.getUrl()
+            	);
             session.setAttribute("name", ct.getTenCongTy());
             
             if (isUpdateBackGround) {

@@ -124,8 +124,16 @@ h2 { margin-bottom: 20px; color: var(--first-color); }
 
 
 		<div class="form-footer">
-			<p>Chưa có tài khoản? <a href="Signup.jsp">Đăng ký tài khoản</a></p>
+		    <c:choose>
+		        <c:when test="${param.role == 'UngVien'}">
+		            <p>Chưa có tài khoản? <a href="${pageContext.request.contextPath}/signup/ungvien">Đăng ký tài khoản</a></p>
+		        </c:when>
+		        <c:when test="${param.role == 'CongTy'}">
+		            <p>Chưa có tài khoản? <a href="${pageContext.request.contextPath}/signup/congty">Đăng ký tài khoản</a></p>
+		        </c:when>
+		    </c:choose>
 		</div>
+
 	</div>
 
 	<!-- JavaScript xử lý -->

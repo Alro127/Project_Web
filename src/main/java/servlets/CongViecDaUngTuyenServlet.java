@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import utils.AuthUtil;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import java.util.Map;
 import com.google.gson.Gson;
 
 import beans.HoSo;
+import beans.TaiKhoan;
 import dao.CongViecDAO;
 import dao.HoSoDAO;
 
@@ -38,19 +40,12 @@ public class CongViecDaUngTuyenServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		HttpSession session = request.getSession(false);  
-		if (session == null) {
-			response.sendRedirect("Login.jsp"); 
-			return;
-		}
-
-		// Kiểm tra xem session có chứa id người dùng không
-		String idUVStr = (String) session.getAttribute("id");
-		if (idUVStr == null) {
-			response.sendRedirect("Login.jsp"); 
-			return;
-		}
-		int idUV= Integer.parseInt(idUVStr);
+		if (!AuthUtil.authorizeRole(request, response, "UngVien")) return;
+		
+		HttpSession session = request.getSession(false);
+		
+		TaiKhoan taiKhoan = (TaiKhoan) session.getAttribute("account");
+		int idUV= taiKhoan.getId();
 		
 		List<HoSo> hoSos = new ArrayList<>();
 		

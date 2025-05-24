@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import utils.AuthUtil;
 import utils.CSRFTokenManager;
 
 import java.io.BufferedReader;
@@ -18,6 +19,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import beans.CongTy;
+import beans.TaiKhoan;
 import dao.CongTyDAO;
 
 /**
@@ -46,8 +48,14 @@ public class XoaHinhAnhHoatDongServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		if (!AuthUtil.authorizeRole(request, response, "CongTy")) return;
+		
 	    HttpSession session = request.getSession(false);
-	    int id = Integer.parseInt((String)session.getAttribute("id"));
+	    
+	    TaiKhoan taiKhoan = (TaiKhoan) session.getAttribute("account");
+	    
+	    int id = taiKhoan.getId();
 	    BufferedReader reader = request.getReader();
 	    StringBuilder jsonString = new StringBuilder();
 	    String line;

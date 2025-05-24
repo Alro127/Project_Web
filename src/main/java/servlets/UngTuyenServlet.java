@@ -5,10 +5,14 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import utils.AuthUtil;
 import utils.CSRFTokenManager;
 
 import java.io.IOException;
 
+import beans.TaiKhoan;
+import dao.CVDAO;
 import dao.CongViecDAO;
 import dao.HoSoDAO;
 
@@ -29,14 +33,17 @@ public class UngTuyenServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		try {
-            // Lấy tham số từ URL
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if (!AuthUtil.authorizeRole(request, response, "UngVien")) return;
+        
+        HttpSession session = request.getSession(false);
+        
+        TaiKhoan taiKhoan = (TaiKhoan) session.getAttribute("account");
+
+        try {
             String idCVStr = request.getParameter("idCV");
             String idCongViecStr = request.getParameter("idCongViec");
 
-            // Kiểm tra tham số
             if (idCVStr == null || idCongViecStr == null) {
                 response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Thiếu tham số idCV hoặc idCongViec.");
                 return;
@@ -44,26 +51,23 @@ public class UngTuyenServlet extends HttpServlet {
 
             int idCV = Integer.parseInt(idCVStr);
             int idCongViec = Integer.parseInt(idCongViecStr);
-            
-            // Gọi DAO để xử lý logic ứng tuyển
 
+            if (!CVDAO.isCVBelongsToUser(idCV, taiKhoan.getId())) {
+                response.sendError(HttpServletResponse.SC_FORBIDDEN, "Bạn không có quyền gửi hồ sơ này.");
+                return;
+            }
+
+            // Gọi DAO xử lý
             boolean isSuccessful = HoSoDAO.AddHoSo(idCV, idCongViec);
 
+            response.setContentType("text/html;charset=UTF-8");
             if (isSuccessful) {
-                // Hiển thị thông báo thành công và quay lại trang trước đó
-            	CongViecDAO.updateLuotNop(idCongViec);
-            	//CSRFTokenManager.generateToken(request);
-            	response.setContentType("text/html;charset=UTF-8");
+                CongViecDAO.updateLuotNop(idCongViec);
                 response.getWriter().write("<script>alert('Ứng tuyển thành công!'); window.location.href=document.referrer;</script>");
-                
             } else {
-                // Hiển thị thông báo thất bại và quay lại trang trước đó
-                response.setContentType("text/html;charset=UTF-8");
                 response.getWriter().write("<script>alert('Bạn đã gửi hồ sơ này rồi!'); window.location.href=document.referrer;</script>");
             }
 
-
-            //request.getRequestDispatcher("CongViecServlet").forward(request, response);
         } catch (NumberFormatException e) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "idCV hoặc idCongViec không hợp lệ.");
         } catch (Exception e) {
@@ -71,6 +75,7 @@ public class UngTuyenServlet extends HttpServlet {
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Lỗi hệ thống.");
         }
     }
+
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

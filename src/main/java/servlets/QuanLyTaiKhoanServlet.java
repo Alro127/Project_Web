@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import utils.AuthUtil;
 import utils.CSRFTokenManager;
 
 import java.io.BufferedReader;
@@ -18,40 +19,61 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Base64;
+import java.util.List;
 
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.mysql.cj.Session;
 
 import beans.CV;
+import beans.CongTy;
 import beans.TaiKhoan;
 import beans.UngVien;
 import dao.CVDAO;
+import dao.CongTyDAO;
 import dao.TaiKhoanDAO;
 import dao.UngVienDAO;
+import filters.HTMLSanitizer;
 
 public class QuanLyTaiKhoanServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	private static final Logger logger = LoggerFactory.getLogger(QuanLyTaiKhoanServlet.class);
     public QuanLyTaiKhoanServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Gọi phương thức từ CVDAO để lấy danh sách CV
-		HttpSession session = request.getSession();
-		String idTaiKhoan= (String) session.getAttribute("id");
-		int id = Integer.parseInt(idTaiKhoan);
-		TaiKhoan taiKhoan = TaiKhoanDAO.getTaiKhoanById(id);
-		UngVien uv = UngVienDAO.getUngVienById(taiKhoan.getId());
-		request.setAttribute("taiKhoan", taiKhoan); // Đưa vào request để hiển thị trong JSP
-		request.setAttribute("uv", uv);
-		request.getRequestDispatcher("/WEB-INF/views/QuanLyTaiKhoan.jsp").forward(request, response);
-	}
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	if (!AuthUtil.authorizeRole(request, response, "UngVien")) return;
+
+        TaiKhoan taiKhoan = (TaiKhoan) request.getSession(false).getAttribute("account");
+        
+        try {
+	        UngVien uv = UngVienDAO.getUngVienById(taiKhoan.getId());
+
+	        request.setAttribute("taiKhoan", taiKhoan);
+	        request.setAttribute("uv", uv);
+	        
+	        request.getRequestDispatcher("/WEB-INF/views/QuanLyTaiKhoan.jsp").forward(request, response);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+	    }
+        
+    }
+
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    // Lấy thông tin từ form
-	    HttpSession session = request.getSession(false);
-	    int id = Integer.parseInt((String) session.getAttribute("id"));
+		if (!AuthUtil.authorizeRole(request, response, "UngVien")) return;
+		
+		HttpSession session = request.getSession(false);
+
+        TaiKhoan taiKhoan = (TaiKhoan) session.getAttribute("account");
+	    int id = taiKhoan.getId();
+	    
 	    BufferedReader reader = request.getReader();
 	    StringBuilder jsonString = new StringBuilder();
 	    String line;
@@ -63,13 +85,20 @@ public class QuanLyTaiKhoanServlet extends HttpServlet {
 	        JSONObject json = new JSONObject(jsonString.toString());
 	        // Lấy dữ liệu từ JSON
 	        String fullname = json.getString("fullname");
+	        fullname = HTMLSanitizer.sanitizeInput(fullname);
 	        String gender = json.getString("gender");
+	        gender = HTMLSanitizer.sanitizeInput(gender);
 	        String dobString = json.getString("dob");
+	        dobString = HTMLSanitizer.sanitizeInput(dobString);
 	        String phone = json.getString("phone");
+	        phone = HTMLSanitizer.sanitizeInput(phone);
 	        String location = json.getString("location");
+	        location = HTMLSanitizer.sanitizeInput(location);
 	        String address = json.getString("address");
+	        address = HTMLSanitizer.sanitizeInput(address);
 	        String introduction = json.getString("introduction");
-
+	        introduction = HTMLSanitizer.sanitizeInput(introduction);
+	        
 	        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	        Date dob = null;
 
@@ -169,6 +198,17 @@ public class QuanLyTaiKhoanServlet extends HttpServlet {
 			}
 	        try {
 	            UngVienDAO.updateUngVien(userAccount);
+	            logger.info("User id {} updated profile: fullname={}, gender={}, dob={}, phone={}, location={}, address={}, avatar={}", 
+	            	    userAccount.getIdUV(), 
+	            	    userAccount.getFullName(), 
+	            	    userAccount.getGender(), 
+	            	    userAccount.getDob(), 
+	            	    userAccount.getPhone(), 
+	            	    userAccount.getLocation(), 
+	            	    userAccount.getAddress(), 
+	            	    userAccount.getAvatar()
+	            	);
+
 	            // Nếu cập nhật thành công, trả về phản hồi JSON
 	            //CSRFTokenManager.generateToken(request);
 	            JSONObject successResponse = new JSONObject();

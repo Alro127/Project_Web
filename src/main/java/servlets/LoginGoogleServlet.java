@@ -8,6 +8,9 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.api.client.auth.oauth2.Credential;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
@@ -25,6 +28,7 @@ import dao.UngVienDAO;
 public class LoginGoogleServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private static final JacksonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
+    private static final Logger logger = LoggerFactory.getLogger(LoginGoogleServlet.class);
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -53,21 +57,24 @@ public class LoginGoogleServlet extends HttpServlet {
 		        com.google.api.services.oauth2.model.Userinfo userinfo = oauth2.userinfo().get().execute();
 		        String id_google = userinfo.getId();
 		        String email = userinfo.getEmail();
+		        logger.info("Google user info fetched: ID = {}, Email = {}", id_google, email);
 		        
 		        session.setAttribute("id_google", id_google);
 		        int id;
 		        // Nếu đăng nhập lần đầu thì sẽ thêm vào CSDL
 		        if (!TaiKhoanDAO.isIDExisted(id_google, "id_google"))
 		        {
+		        	logger.info("New user detected, adding to the database");
 		        	TaiKhoanDAO.AddAccountByID(id_google, "id_google");
 		        	TaiKhoanDAO.SetRoleByIDGoogle(id_google, role);
 		        	id = TaiKhoanDAO.getID("id_google", id_google);
 		        	if (role.equals("UngVien")) {
-						UngVienDAO.addUngVienAfterSignUP(id, email);
-					}
-		        	else {
-						CongTyDAO.addCongTyAfterSignUP(id, email);
-					}
+		        	    logger.info("Role is UngVien, adding UngVien to the database");
+		        	    UngVienDAO.addUngVienAfterSignUP(id, email);
+		        	} else {
+		        	    logger.info("Role is CongTy, adding CongTy to the database");
+		        	    CongTyDAO.addCongTyAfterSignUP(id, email);
+		        	}
 		        }
 		        		        
 		        id = TaiKhoanDAO.getID("id_google", id_google);
@@ -78,7 +85,8 @@ public class LoginGoogleServlet extends HttpServlet {
 		        }
 		        
 		        String accessToken = credential.getAccessToken();
-		       
+		        logger.debug("Access Token: {}", accessToken);
+	            logger.debug("Refresh Token: {}", refreshToken);
 		      
 		        System.out.println("Access Token: " + accessToken);
 		        System.out.println("Refresh Token: " + refreshToken);
@@ -112,6 +120,7 @@ public class LoginGoogleServlet extends HttpServlet {
 					}
 				}
 		        // Chuyển hướng người dùng đến trang tiếp theo sau khi đăng nhập thành công
+				logger.info("Redirecting user to destination: {}", destination);
 		        response.sendRedirect(destination);
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.json.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -15,11 +17,13 @@ import beans.ChungChi;
 import beans.HocVan;
 import beans.KinhNghiem;
 import beans.KyNang;
+import beans.TaiKhoan;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import utils.AuthUtil;
 import utils.CSRFTokenManager;
 import conn.SQLServerConnection;
 import dao.CVDAO;
@@ -28,9 +32,16 @@ import filters.HTMLSanitizer;
 public class SaveCVServlet extends HttpServlet {
 
 	private final ObjectMapper objectMapper = new ObjectMapper();
-	
+	private static final Logger LOGGER = LoggerFactory.getLogger(SaveCVServlet.class);
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    // Thiết lập kiểu trả về là JSON
+		
+		if (!AuthUtil.authorizeRole(request, response, "UngVien")) return;
+		
+		HttpSession session = request.getSession(false);
+		
+		TaiKhoan taiKhoan = (TaiKhoan) session.getAttribute("account");
+		
 	    response.setContentType("application/json");
 	    PrintWriter out = response.getWriter();
 	    
@@ -157,22 +168,9 @@ public class SaveCVServlet extends HttpServlet {
 
 	            skillList.add(skillEntity);
 	        }
-	        
-	        HttpSession session = request.getSession(false);  
-			if (session == null) {
-				response.sendRedirect("Login.jsp"); 
-				return;
-			}
 
-			// Kiểm tra xem session có chứa id người dùng không
-			String idUVStr = (String) session.getAttribute("id");
-			if (idUVStr == null) {
-				response.sendRedirect("Login.jsp"); 
-				return;
-			}
-			int idUV = Integer.parseInt(idUVStr);
+			int idUV = taiKhoan.getId();
 			
-			/* CV cv = new CV(idUV, position, careerGoals); */
 			CV cv = new CV(idUV,
 		               HTMLSanitizer.sanitizeInput(position),
 		               HTMLSanitizer.sanitizeInput(careerGoals));
@@ -180,10 +178,12 @@ public class SaveCVServlet extends HttpServlet {
 	        // Tiến hành lưu các đối tượng này vào cơ sở dữ liệu hoặc xử lý theo yêu cầu
 	        if (mode.equals("create")) {
 	        	CVDAO.addCV(cv, educationList, experienceList, certificateList, skillList);
+	        	LOGGER.info("User id = {} has created new cv with idCV = {}", idUV, IdCV);
 	        }
 	        else if (mode.equals("edit"))
 	        {
 	        	CVDAO.updateCV(cv, educationList, experienceList, certificateList, skillList);
+	        	LOGGER.info("User id = {} has edited cv with id = {}", idUV, IdCV);
 	        }
 	        //CSRFTokenManager.generateToken(request);
 	        // Trả về phản hồi thành công
